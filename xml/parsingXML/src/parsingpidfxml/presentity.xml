@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presence>
+    <presentity uri="sip:299@10.0.254.125:5060;method=SUBSCRIBE"/>
+    <atom id="1">
+        <address uri="sip:299@10.0.254.125:5060">
+            <status status="open"/>
+            <msnstatus substatus="online"/>
+        </address>
+    </atom>
+</presence>

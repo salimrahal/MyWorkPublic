@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Text in function
+#: theme-options.php:39
+msgid " Theme Options"
+msgstr ""
+
+#. Text in function
+#: search.php:24
+#: archive.php:26
+#: index.php:26
+#: single.php:26
+#: comments.php:20
+msgid "1 Comment"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:92
+msgid "<p>If you want to customize the styles for all pages, edit <a href=\"theme-editor.php?file=%2Fthemes%2Ftpsunrise%2Fcustom.css&theme=tpSunrise&dir=style\">custom.css</a>.</p>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:47
+msgid "<p>Leave the box unchecked if you want to use the same header on all pages.</p>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:92
+msgid "<p>Leave the box unchecked if you want to use the same styles on all pages.</p>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:92
+msgid "<p>tpSunrise supports alternate styling for the home page. To enable this feature, check the alternate home page styling option. Home page style options can be set in the textarea below.</p>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:47
+msgid "<p>tpSunrise supports one header style for the home page and an alternate header for all other pages. To enable this feature, check the option box to use the alternate header and provide the location of the image you wish to use. The blog title will display on the alternate pages. Be sure to set the text color too.</p>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:83
+msgid "Alt Blog Title Color"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:71
+msgid "Alt Header Location"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:115
+msgid "Alternate CSS for home page"
+msgstr ""
+
+#. Text in echo
+#: sidebar.php:18
+msgid "Archives"
+msgstr ""
+
+#. Text in function
+#: sidebar.php:11
+msgid "Categories"
+msgstr ""
+
+#. Text in function
+#: search.php:24
+#: archive.php:26
+#: index.php:26
+#: single.php:26
+#: comments.php:20
+msgid "Comments"
+msgstr ""
+
+#. Text in function
+#: archive.php:60
+#: index.php:60
+#: single.php:74
+#: page.php:22
+#: template-magazine.php:30
+msgid "Edit"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:118
+msgid "Enter <a target=\"_blank\" href=\"http://codex.wordpress.org/CSS\">CSS</a> that you wish for the home page. For example, if you wish to remove the menu background image and make the title text larger enter:<br />
+						<em><pre>#wrapper2 { background-image: none; }<br />#masthead h1 { font-size: 200%; }</pre></em>"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:86
+msgid "Enter <a target=_blank\" href=\"http://codex.wordpress.org/Developing_a_Colour_Scheme\"> hex color code</a> (including the #) for the text color of the title on alternate pages"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Farm"
+msgstr ""
+
+#. Text in echo
+#: 404.php:14
+msgid "How about searching for what you were looking for?"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Joy"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Left Column Menu"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Left Primary"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:74
+msgid "Location of alternate header image (samples are at <em>/wp-content//themes/tpsunrise/images/tpSunrise_alt_header_sample1.png &amp; tpSunrise_alt_header_sample2.png</em>)"
+msgstr ""
+
+#. Text in function
+#: search.php:24
+#: comments.php:20
+msgid "No Comments"
+msgstr ""
+
+#. Text in function
+#: archive.php:26
+#: index.php:26
+#: single.php:26
+msgid "No Comments yet, please leave one"
+msgstr ""
+
+#. Text in echo
+#: 404.php:12
+msgid "Not Found"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:42
+msgid "Options saved"
+msgstr ""
+
+#. Text in function
+#: archive.php:44
+#: index.php:43
+#: single.php:44
+msgid "Permalink to %s"
+msgstr ""
+
+#. Text in function
+#: search.php:26
+#: archive.php:52
+#: index.php:50
+#: single.php:52
+#: page.php:14
+#: template-magazine.php:22
+msgid "Read more"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:126
+msgid "Save Options"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Sidebar Primary"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Sidebar Secondary"
+msgstr ""
+
+#. Text in echo
+#: search.php:37
+#: archive.php:64
+#: index.php:67
+#: single.php:61
+#: page.php:26
+#: template-magazine.php:34
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "Sunrise"
+msgstr ""
+
+#. Text in function
+#: archive.php:24
+#: index.php:24
+#: single.php:24
+msgid "Tagged With: "
+msgstr ""
+
+#. Text in function
+#: theme-options.php:1
+msgid "Theme Options"
+msgstr ""
+
+#. Text in echo
+#: comments.php:3
+msgid "This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#. Text in echo
+#: archive.php:22
+#: index.php:22
+#: single.php:22
+msgid "Untitled Post"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:59
+msgid "Use Alternate Header"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:103
+msgid "Use Alternate Home Page Styling"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:62
+msgid "Use alternate header on all pages except home page"
+msgstr ""
+
+#. Text in echo
+#: theme-options.php:106
+msgid "Use alternate home page styling"
+msgstr ""
+
+#. Text in echo
+#: 404.php:13
+msgid "Whoops! Whatever you are looking for cannot be found."
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "left sidebar widget area"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "sidebar primary widget area"
+msgstr ""
+
+#. Text in function
+#: functions.php:1
+msgid "sidebar secondary widget area"
+msgstr ""

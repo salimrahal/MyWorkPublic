@@ -1,0 +1,7 @@
+add g729 codec in peers based on mobicents implementation.
+
+Here is a zip file from victor gonzales that added g729 to peers:
+
+2011
+
+http://sourceforge.net/p/peers/feature-requests/18/

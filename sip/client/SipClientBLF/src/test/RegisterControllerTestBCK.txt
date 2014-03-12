@@ -1,0 +1,430 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package test;
+
+import bo.SipClientBO;
+import gov.nist.javax.sip.header.Accept;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Random;
+import java.util.TooManyListenersException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sip.ClientTransaction;
+import javax.sip.DialogTerminatedEvent;
+import javax.sip.IOExceptionEvent;
+import javax.sip.InvalidArgumentException;
+import javax.sip.ListeningPoint;
+import javax.sip.ObjectInUseException;
+import javax.sip.PeerUnavailableException;
+import javax.sip.RequestEvent;
+import javax.sip.ResponseEvent;
+import javax.sip.SipException;
+import javax.sip.SipFactory;
+import javax.sip.SipListener;
+import javax.sip.SipProvider;
+import javax.sip.SipStack;
+import javax.sip.TimeoutEvent;
+import javax.sip.TransactionTerminatedEvent;
+import javax.sip.TransportNotSupportedException;
+import javax.sip.address.Address;
+import javax.sip.address.AddressFactory;
+import javax.sip.header.AcceptHeader;
+import javax.sip.header.CSeqHeader;
+import javax.sip.header.CallIdHeader;
+import javax.sip.header.ContactHeader;
+import javax.sip.header.FromHeader;
+import javax.sip.header.HeaderFactory;
+import javax.sip.header.MaxForwardsHeader;
+import javax.sip.header.ProxyAuthenticateHeader;
+import javax.sip.header.ProxyAuthorizationHeader;
+import javax.sip.header.RouteHeader;
+import javax.sip.header.ToHeader;
+import javax.sip.header.UserAgentHeader;
+import javax.sip.header.ViaHeader;
+import javax.sip.message.MessageFactory;
+import javax.sip.message.Request;
+import javax.sip.message.Response;
+
+/**
+ *
+ * @author salim
+ */
+public class RegisterControllerTest implements SipListener {
+    // Objects used to communicate to the JAIN SIP API.
+
+    SipFactory sipFactory;          // Used to access the SIP API.
+    SipStack sipStack;              // The SIP stack.
+    SipProvider sipProvider;        // Used to send SIP messages.
+    MessageFactory messageFactory;  // Used to create SIP message factory.
+    HeaderFactory headerFactory;    // Used to create SIP headers.
+    AddressFactory addressFactory;  // Used to create SIP URIs.
+    ListeningPoint listeningPoint;  // SIP listening IP address/port.
+    Properties properties;          // Other properties.
+    // Objects keeping local configuration.
+    String iplocal = SipClientBO.UACIp;                     // The local IP address.
+    //String requestURI ;//= "sip:299@173.231.103.38:5060";
+    int portlocal = SipClientBO.UACPort;
+    String ext = SipClientBO.ext;// The local port.
+    String protocol = "udp";        // The local protocol (UDP).
+    int tag = (new Random()).nextInt(); // The local tag.
+    Address contactAddress;         // The contact address.
+    ContactHeader contactHeader;    // The contact header.
+    public boolean retry;
+    public long seq = 0;
+    String sipInstance = "\"<urn:uuid:" + SipClientBO.UUID + ">\"";
+    //Business Object
+    SipClientBO sipClientBO;
+    /**
+     * ******UI Parameters: **********
+     */
+    static String requestURITextField = "sip:" + SipClientBO.ext + "@" + SipClientBO.UASIp + ":" + SipClientBO.UASPort;
+    static String addressFromStr = "sip:" + SipClientBO.ext + "@" + SipClientBO.UASIp + ":" + SipClientBO.UASPort;
+    ClientTransaction transactionGlobal = null;
+
+    public RegisterControllerTest() {
+        try {
+            sipClientBO = new SipClientBO();
+            Open();
+        } catch (PeerUnavailableException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransportNotSupportedException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ObjectInUseException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidArgumentException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TooManyListenersException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void Open() throws PeerUnavailableException, TransportNotSupportedException, ObjectInUseException, InvalidArgumentException, TooManyListenersException, ParseException {
+
+        // A method called when you open your application.
+
+        // Create the SIP factory and set the path name.
+        this.sipFactory = SipFactory.getInstance();
+        this.sipFactory.setPathName("gov.nist");
+        // Create and set the SIP stack properties.
+        this.properties = new Properties();
+        this.properties.setProperty("javax.sip.STACK_NAME", "stack");
+        // Create the SIP stack.ext
+        this.sipStack = this.sipFactory.createSipStack(this.properties);
+        // Create the SIP message factory.
+        this.messageFactory = this.sipFactory.createMessageFactory();
+        // Create the SIP header factory.
+        this.headerFactory = this.sipFactory.createHeaderFactory();
+        // Create the SIP address factory.
+        this.addressFactory = this.sipFactory.createAddressFactory();
+        // Create the SIP listening point and bind it to the local IP address, port and protocol.
+        this.listeningPoint = this.sipStack.createListeningPoint(this.iplocal, this.portlocal, this.protocol);
+        // Create the SIP provider.
+        this.sipProvider = this.sipStack.createSipProvider(this.listeningPoint);
+        // Add our application as a SIP listener.
+        this.sipProvider.addSipListener(this);
+        // Create the contact address used for all SIP messages.
+        this.contactAddress = this.addressFactory.createAddress("sip:" + ext + "@" + this.iplocal + ":" + this.portlocal + ";transport=" + this.protocol);
+        // Create the contact header used for all SIP messages.
+        this.contactHeader = this.headerFactory.createContactHeader(contactAddress);
+
+        //add instance-id to contact header
+        this.contactHeader.setParameter("+sip.instance", sipInstance);
+    }
+
+    public Request registerStateful(String destAdresstextfield, Response response) throws ParseException, InvalidArgumentException, SipException {
+        Request request = generateBasicRequest(destAdresstextfield, Request.REGISTER);
+        System.out.println("registerStateful....Begin\n");
+        //check if there is a response recieved then add to the request Proxy-Authorisation header
+        if (response != null) {
+            retry = true;
+            if (response.getStatusCode() == Response.PROXY_AUTHENTICATION_REQUIRED) {
+                System.out.print(" registerStateful 407");
+                ProxyAuthorizationHeader authorHeader = (ProxyAuthorizationHeader) sipClientBO.makeAuthHeader(headerFactory, response, request, sipClientBO.username, sipClientBO.password);
+                request.addHeader(authorHeader);
+            } else {
+                System.out.print("other status code");
+            }
+        }//end of response!null
+
+        System.out.println("registerStateful: generated request before sending:\n[" + request.toString() + "]");
+// Create a new SIP client transaction.
+        transactionGlobal = this.sipProvider.getNewClientTransaction(request);
+// Send the request statefully, through the client transaction.
+        transactionGlobal.sendRequest();
+        return request;
+    }
+
+    public Request generateBasicRequest(String destAdresstextfield, String method) throws ParseException, InvalidArgumentException {
+        /*3261: CSEQ:
+         * “ When a UAC resubmits a request with its credentials after receiving a
+         401 (Unauthorized) or 407 (Proxy Authentication Required) response,
+         it MUST increment the CSeq header field value as it would normally
+         when sending an updated request.
+         “
+         */
+        seq++;
+        //set le local global variable
+        requestURITextField = destAdresstextfield;
+        // Get the destination address from the text field.
+        Address addressTo = this.addressFactory.createAddress(destAdresstextfield);
+        // Create the request URI for the SIP message.
+        javax.sip.address.URI requestURI = addressTo.getURI();
+
+        // Create the SIP message headers.
+
+        // The "Via" headers.
+        ArrayList viaHeaders = new ArrayList();
+        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, this.portlocal, protocol, null);
+        viaHeaders.add(viaHeader);
+
+        //Adding the branch param
+        int tagBranch = (new Random()).nextInt(); // The local tag.
+        viaHeader.setBranch("z9hG4bK" + tagBranch);
+
+        // The "Max-Forwards" header.
+        MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
+        // The "Call-Id" header.
+        CallIdHeader callIdHeader = this.sipProvider.getNewCallId();
+
+        // The "CSeq" header.
+        CSeqHeader cSeqHeader = this.headerFactory.createCSeqHeader(seq, method);
+
+        // The "From" header.
+        Address addressFrom = this.addressFactory.createAddress(addressFromStr);
+        FromHeader fromHeader = this.headerFactory.createFromHeader(addressFrom, String.valueOf(this.tag));
+
+        // The "To" header.
+        ToHeader toHeader = this.headerFactory.createToHeader(addressTo, null);
+
+
+        // Create the REGISTER request.
+        Request request = this.messageFactory.createRequest(
+                requestURI,
+                method,
+                callIdHeader,
+                cSeqHeader,
+                fromHeader,
+                toHeader,
+                viaHeaders,
+                maxForwardsHeader);
+        // Add the "Contact" header to the request.
+        request.addHeader(contactHeader);
+        // The "UserAgent" headers
+        ArrayList<String> uaHeaders = new ArrayList();
+        uaHeaders.add("Salim-Host");
+        UserAgentHeader uaHeader = this.headerFactory.createUserAgentHeader(uaHeaders);
+        request.addHeader(uaHeader);
+
+        return request;
+
+    }
+
+    /*
+     * Desc: it subscribe an UAC to an event/notification
+     * 
+     */
+    public String subscribe(String destAdresstextfield, Response response) throws ParseException, InvalidArgumentException, SipException {
+        System.out.println("subscribe....Begin\n");
+
+        requestURITextField = destAdresstextfield;
+
+
+        return null;
+    }
+
+    //TODO: In order to get options, whether SUBSCRIBE is available by the proxy
+    public Request sendOPTIONS(String destAdresstextfield, Response response, Request req) throws ParseException, InvalidArgumentException, SipException {
+        System.out.println("sendOPTIONS....Begin\n");
+        String method = Request.OPTIONS;
+        /*3261: CSEQ:
+         * “ When a UAC resubmits a request with its credentials after receiving a
+         401 (Unauthorized) or 407 (Proxy Authentication Required) response,
+         it MUST increment the CSeq header field value as it would normally
+         when sending an updated request.
+         “
+         */
+        seq++;
+        //set le local global variable
+
+        // Get the destination address from the text field.
+        Address addressTo = this.addressFactory.createAddress(destAdresstextfield);
+        // Create the request URI for the SIP message.
+        javax.sip.address.URI requestURI = addressTo.getURI();
+
+        // Create the SIP message headers.
+
+        // The "Via" headers.
+        ArrayList viaHeaders = new ArrayList();
+        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, this.portlocal, protocol, null);
+        viaHeaders.add(viaHeader);
+
+        //Adding the branch param
+        if (req == null) {
+             int tagBranch = (new Random()).nextInt(); // The local tag.
+            viaHeader.setBranch("z9hG4bK" + tagBranch);         
+        } else {
+             //getting the branch from the via requeset param header
+            ViaHeader viaHeadereq = (ViaHeader) req.getHeader(ViaHeader.NAME);
+            String branch = viaHeadereq.getBranch();
+            viaHeader.setBranch(branch);
+           
+        }      
+        // The "Max-Forwards" header.
+        MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
+        // The "Call-Id" header.
+        CallIdHeader callIdHeader = null;
+        if(req == null){  callIdHeader = this.sipProvider.getNewCallId();}
+          else { callIdHeader = (CallIdHeader) req.getHeader(CallIdHeader.NAME);}
+        // The "CSeq" header.
+        CSeqHeader cSeqHeader = this.headerFactory.createCSeqHeader(seq, method);
+
+        // The "From" header.
+        Address addressFrom = this.addressFactory.createAddress(addressFromStr);
+        FromHeader fromHeader = this.headerFactory.createFromHeader(addressFrom, String.valueOf(this.tag));
+
+        // The "To" header.
+        ToHeader toHeader = this.headerFactory.createToHeader(addressTo, null);
+
+        // Build The "UserAgent" headers
+        ArrayList<String> uaHeaders = new ArrayList();
+        uaHeaders.add("Salim-Host");
+        UserAgentHeader uaHeader = this.headerFactory.createUserAgentHeader(uaHeaders);
+
+        //Accept Header: result should be Accept: application/sdp ; text/html ; application","watcherinfo+xml
+        //http://en.wikipedia.org/wiki/Internet_media_type#Type_text
+        AcceptHeader accHd = (Accept) this.headerFactory.createAcceptHeader("application", "sdp");
+
+        // Create the REGISTER request.
+        Request request = this.messageFactory.createRequest(
+                requestURI,
+                method,
+                callIdHeader,
+                cSeqHeader,
+                fromHeader,
+                toHeader,
+                viaHeaders,
+                maxForwardsHeader);
+        // Add the "Contact" header to the request.
+        request.addHeader(contactHeader);
+        //add the UAC name header
+        request.addHeader(uaHeader);
+        //add accept header
+        request.addHeader(accHd);
+
+        System.out.println(": generated request before sending:\n[" + request.toString() + "]");
+
+
+        // Create a new SIP client transaction.
+        ClientTransaction transaction = this.sipProvider.getNewClientTransaction(request);
+// Send the request statefully, through the client transaction.,  ClientTransaction transaction
+        transaction.sendRequest();
+
+        return request;
+    }
+
+    @Override
+    public void processRequest(RequestEvent requestEvent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void processResponse(ResponseEvent responseEvent) {
+        // Get the response.
+        Response response = responseEvent.getResponse();
+        //get the status code
+        int statusCode = response.getStatusCode();
+        //get the seq header to extract the method
+        CSeqHeader cseqHd = (CSeqHeader) response.getHeader(CSeqHeader.NAME);
+        String methodResponse = cseqHd.getMethod();
+        // Display the response message in the text area.
+        System.out.println("\nReceived response: " + response.toString());
+        //Manage the success message
+        if (statusCode == Response.OK) {
+            //Handle the Register success cases
+            if (methodResponse.equalsIgnoreCase(Request.REGISTER)) {
+                int expires = response.getExpires().getExpires();
+                System.out.println("Success Expires=" + expires);
+                //TODO: Send Subscribe SIP message
+
+            } //TODO: handle other Success response methods
+            else {
+                System.out.println("Success, other stuff");
+            }
+        } //Manage the client error response
+        else if (statusCode > Response.BAD_REQUEST && statusCode < Response.GONE && !retry) {
+            try {
+                registerStateful(requestURITextField, response);
+            } catch (ParseException ex) {
+                Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidArgumentException ex) {
+                Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SipException ex) {
+                Logger.getLogger(RegisterControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
+    @Override
+    public void processTimeout(TimeoutEvent timeoutEvent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void processIOException(IOExceptionEvent exceptionEvent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void processTransactionTerminated(TransactionTerminatedEvent transactionTerminatedEvent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void processDialogTerminated(DialogTerminatedEvent dialogTerminatedEvent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static void main(String args[]) throws ParseException, InvalidArgumentException, SipException {
+        RegisterControllerTest testsip = new RegisterControllerTest();
+        //Request req = testsip.registerStateful(requestURITextField, null);
+
+        testsip.sendOPTIONS("sip:298@173.231.103.38:5060", null, null);
+    }
+
+    @Deprecated
+    public String registerStateless(String destAdresstextfield, Response response) throws ParseException, SipException, InvalidArgumentException {
+        Request request = generateBasicRequest(destAdresstextfield, Request.REGISTER);
+        //check if there is a response recieved 
+        //to add to the request some authentication headers
+        if (response != null) {
+            retry = true;
+            if (response.getStatusCode() == Response.PROXY_AUTHENTICATION_REQUIRED) {
+                System.out.print(" registerStateful 407");
+                ProxyAuthorizationHeader authorHeader = (ProxyAuthorizationHeader) sipClientBO.makeAuthHeader(headerFactory, response, request, sipClientBO.username, sipClientBO.password);
+
+                //add the branch passed by the server to the via header
+                ViaHeader viaHeaderresponse = (ViaHeader) response.getHeader(ViaHeader.NAME);
+                String branch = viaHeaderresponse.getBranch();
+                ViaHeader viaHdRqt = (ViaHeader) request.getHeader(ViaHeader.NAME);
+                //System.out.println("viaHeaderresponse branch="+viaHeaderresponse.getBranch());
+                viaHdRqt.setBranch(branch);
+                //add the auth header
+                request.addHeader(authorHeader);
+            } else {
+                System.out.print("other status code");
+            }
+
+        }//end of response!null      
+        System.out.println("registerStateLess: generated request before sending:\n[" + request.toString() + "]");
+        // Send the request statelessly through the SIP provider.
+        this.sipProvider.sendRequest(request);
+        return request.toString();
+    }
+}

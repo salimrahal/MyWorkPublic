@@ -1,0 +1,116 @@
+/*
+ * Main.java
+ *
+ * Created on February 17, 2006, 4:00 PM
+ */
+
+package buddylist;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import buddylist.BuddyCellRenderer.Adapter;
+import java.net.URL;
+import javax.swing.ImageIcon;
+
+
+/**
+ * @author Hans Muller (Hans.Muller@Sun.COM)
+ */
+public class Main {
+    private JFrame mainFrame;
+
+    private static class Buddy {
+	String name;
+	Adapter.Status status;
+	String message;
+	URL buddyIconURL;
+	Buddy(String name, Adapter.Status status, String message, String buddyIcon) {
+	    this.name = name;
+	    this.status = status;
+	    this.message = message;
+	    this.buddyIconURL = (buddyIcon == null) ? null : 
+		Main.class.getResource("/resources/sample-buddy-icons/" + buddyIcon);
+	}
+    }
+
+    private static class BuddyAdapter extends BuddyCellRenderer.Adapter {
+	private Buddy getBuddy() { return (Buddy)getValue(); }
+	public String getName() { return getBuddy().name; }
+	public Status getStatus() { return getBuddy().status; }
+	public String getMessage() { return getBuddy().message; }
+        public ImageIcon getBuddyIcon() { 
+	    URL url = getBuddy().buddyIconURL;
+	    return (url == null) ? null : new ImageIcon(url);
+	}
+    }
+
+    private void initialize(String[] ignore) {
+	try {
+	    String name = UIManager.getSystemLookAndFeelClassName();
+	    UIManager.setLookAndFeel(name);
+	} 
+	catch (Exception e) {
+	    // TBD log a warning
+	}
+
+	Buddy buddyList[] = {
+	    new Buddy("Quark", Adapter.Status.AWAY, "Away From My Nucleus (Never Idle)", null),
+	    new Buddy("Alfalfa", Adapter.Status.AWAY, "Away From My Desk", "alfalfa.jpg"),
+	    new Buddy("Aretha", Adapter.Status.ONLINE, null, "aretha.jpg"),
+	    new Buddy("Johnny", Adapter.Status.ONLINE, "Online (Idle 90 Seconds)", "carson.jpg"),
+	    new Buddy("Winston", Adapter.Status.ONLINE, "Working on Memoirs", "churchill.jpg"),
+	    new Buddy("Darth", Adapter.Status.AWAY, "I Am Your Father", "darth.jpg"),
+	    new Buddy("EraserHead", Adapter.Status.AWAY, "On Vacation", "eraserhead.jpg"),
+	    new Buddy("Felix", Adapter.Status.OFFLINE, null, "felix.jpg"),
+	    new Buddy("Marvin", Adapter.Status.AWAY, "Thinking ...", "marvin.jpg"),
+	    new Buddy("Mona", Adapter.Status.ONLINE, null, "mona.jpg"),
+	    new Buddy("Snark", Adapter.Status.ONLINE, null, null),
+	};
+	JList buddyJList = new JList();
+	BuddyCellRenderer bcr = new BuddyCellRenderer(new BuddyAdapter());
+	buddyJList.setCellRenderer(bcr);
+        buddyJList.setListData(buddyList);
+	
+	/* Set prototypeCellValue to force all cells (rows) to 
+	 * have the same height.  This is important because 
+	 * cells that correspond to an offline buddy only
+	 * contain one line of text and will end up be a 
+	 * little smaller (vertically) than the others.
+	 */
+	buddyJList.setPrototypeCellValue(buddyList[0]);
+
+	Toolkit.getDefaultToolkit().setDynamicLayout(true);
+	mainFrame = new JFrame("BuddyList");
+	Container cp = mainFrame.getContentPane();
+	cp.setLayout(new BorderLayout());
+	cp.add(new JScrollPane(buddyJList), BorderLayout.CENTER);
+    }
+
+    private void show() {
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	mainFrame.pack();
+	mainFrame.setVisible(true);
+    }
+
+    public static void main(final String[] args) {
+	Runnable doCreateAndShowGUI = new Runnable() {
+	    public void run() {
+		try {
+		    Main app = new Main();
+		    app.initialize(args);
+		    app.show();
+		}
+		catch (Exception e) {
+		    // TBD log an error
+		}
+	    }
+        };
+        SwingUtilities.invokeLater(doCreateAndShowGUI);
+    }
+}

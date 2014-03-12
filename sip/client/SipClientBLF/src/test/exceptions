@@ -1,0 +1,59 @@
+================================
+Exception occured: Upon Sending the same branch received from the UAC
+javax.sip.TransactionUnavailableException: Transaction already exists!
+========================================
+
+registerStateful....Begin
+
+registerStateful: generated request before sending:
+[REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 4bf2993e5aab5e064b8d4c0ad7a3aa0b@93.185.239.111
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=-266298881
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.111:5060
+Max-Forwards: 70
+Contact: <sip:299@93.185.239.111:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66">
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK-373936-d7eda6cc1ab4ea0bbc46621d714b9632
+From: <sip:299@173.231.103.38:5060>;tag=-266298881
+To: <sip:299@173.231.103.38:5060>;tag=20302679742720487169
+Call-ID: 4bf2993e5aab5e064b8d4c0ad7a3aa0b@93.185.239.111
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="0c7c7818d0c730178c71d51ce70add45",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+registerStateful....Begin
+
+ registerStateful 407rm=TALKSWITCH-n=0c7c7818d0c730178c71d51ce70add45-o=185a87188c63a2c7f69105023454e0b2-meth=REGISTER-requri=sip:299@173.231.103.38:5060
+ah_r=Proxy-Authorization: Digest realm="TALKSWITCH",username="user299",nonce="0c7c7818d0c730178c71d51ce70add45",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="726c660581f4e696424c56b3ca288740",opaque="185a87188c63a2c7f69105023454e0b2"
+
+registerStateful: generated request before sending:
+[REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 4bf2993e5aab5e064b8d4c0ad7a3aa0b@93.185.239.111
+CSeq: 2 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=-266298881
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK-373936-d7eda6cc1ab4ea0bbc46621d714b9632
+Max-Forwards: 70
+Contact: <sip:299@93.185.239.111:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66">
+Proxy-Authorization: Digest realm="TALKSWITCH",username="user299",nonce="0c7c7818d0c730178c71d51ce70add45",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="726c660581f4e696424c56b3ca288740",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+]
+Dec 10, 2013 11:02:00 AM test.RegisterControllerTest processResponse
+SEVERE: null
+javax.sip.TransactionUnavailableException: Transaction already exists!
+	at gov.nist.javax.sip.SipProviderImpl.getNewClientTransaction(SipProviderImpl.java:326)
+	at test.RegisterControllerTest.registerStateful(RegisterControllerTest.java:238)
+	at test.RegisterControllerTest.processResponse(RegisterControllerTest.java:327)
+	at gov.nist.javax.sip.EventScanner.deliverEvent(EventScanner.java:296)
+	at gov.nist.javax.sip.EventScanner.run(EventScanner.java:519)
+	at java.lang.Thread.run(Thread.java:724)
+

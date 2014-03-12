@@ -1,0 +1,172 @@
+====================Subscribe to 140 result: 200 OK =====================
+SUBSCRIBE sip:140@173.231.103.38:5060 SIP/2.0
+Call-ID: 7c54449148b7bc51c081bfc419f789d1@141.138.188.40
+CSeq: 1 SUBSCRIBE
+From: <sip:299@173.231.103.38:5060>;tag=-1845297366
+To: <sip:140@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.40:5060;branch=z9hG4bK-941178336
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.40:5060;transport=udp>;+sip.instance="<urn:uuid:ecb252c0-64b3-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Event: presence
+Content-Length: 0
+
+
+
+Received response: SIP/2.0 200 OK
+Via: SIP/2.0/UDP 141.138.188.40:5060;branch=z9hG4bK-941178336;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-1845297366
+To: <sip:140@173.231.103.38:5060>;tag=f6db5911c1c6911f
+Call-ID: 7c54449148b7bc51c081bfc419f789d1@141.138.188.40
+CSeq: 1 SUBSCRIBE
+Expires: 3601
+Event: presence
+Contact: <sip:140@173.231.103.38:5060>
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+====================Subscribe to 299 OK after Register=====================
+SUBSCRIBE sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 34db2d52f26563eae5f3beb171f0388d@141.138.188.40
+CSeq: 1 SUBSCRIBE
+From: <sip:299@173.231.103.38:5060>;tag=-933768464
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.40:5060;branch=z9hG4bK817010356
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.40:5060;transport=udp>;+sip.instance="<urn:uuid:ecb252c0-64b3-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Event: presence
+Content-Length: 0
+
+
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 141.138.188.40:5060;branch=z9hG4bK817010356;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-933768464
+To: <sip:299@173.231.103.38:5060>;tag=1900812997794076941
+Call-ID: 34db2d52f26563eae5f3beb171f0388d@141.138.188.40
+CSeq: 1 SUBSCRIBE
+Expires: 3600
+Event: presence
+Contact: <sip:299@173.231.103.38:5060>
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="988ffc60177137bb221e1ca8d98b551a",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+subscribe....Begin
+
+ subscribe 407
+Received response: SIP/2.0 200 OK
+Via: SIP/2.0/UDP 141.138.188.40:5060;branch=z9hG4bK762803811;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-933768464
+To: <sip:299@173.231.103.38:5060>;tag=b0339f3b9531e4c
+Call-ID: c46e933e7925a8936c977e922e0263e4@141.138.188.40
+CSeq: 2 SUBSCRIBE
+Expires: 3600
+Event: presence
+Contact: <sip:299@173.231.103.38:5060>
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+=======================================
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.225.70:5060;branch=z9hG4bK852179323
+From: <sip:299@173.231.103.38:5060>;tag=-1212309502
+To: <sip:140@173.231.103.38:5060>
+Call-ID: 18faebef2d5d1a31f1f09809ea59b898@93.185.225.70
+CSeq: 1 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+================================== Subscribe Failed: 288 Not Acceptebale ======================
+subscribe....Begin
+
+Subscribe: generated request before sending:
+[SUBSCRIBE sip:125@173.231.103.38:5060 SIP/2.0
+Call-ID: b179e390fd44b899eab2205225a04479@141.138.188.136
+CSeq: 1 SUBSCRIBE
+From: <sip:299@173.231.103.38:5060>;tag=-1930500910
+To: <sip:125@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK1393291920
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.136:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Event: presence.winfo
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 488 NOT ACCEPTABLE HERE
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK1393291920;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-1930500910
+To: <sip:125@173.231.103.38:5060>;tag=10778767012025501874
+Call-ID: b179e390fd44b899eab2205225a04479@141.138.188.136
+CSeq: 1 SUBSCRIBE
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+================================== Subscribe OK expires 3601 ======================
+Subscribe: generated request before sending:
+[SUBSCRIBE sip:125@173.231.103.38:5060 SIP/2.0
+Call-ID: 92023d52ee954667357e6f5c714f1644@141.138.188.136
+CSeq: 1 SUBSCRIBE
+From: <sip:299@173.231.103.38:5060>;tag=-1775087407
+To: <sip:125@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-2035281527
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.136:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Event: presence
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-2035281527;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-1775087407
+To: <sip:125@173.231.103.38:5060>;tag=38229870703425608994
+Call-ID: 92023d52ee954667357e6f5c714f1644@141.138.188.136
+CSeq: 1 SUBSCRIBE
+Expires: 3600
+Event: presence
+Contact: <sip:125@173.231.103.38:5060>
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="7499c238ef86c7c9e7cef8b3ecad8f5e",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+subscribe....Begin
+
+ subscribe 407Subscribe: generated request before sending:
+[SUBSCRIBE sip:125@173.231.103.38:5060 SIP/2.0
+Call-ID: b2b71887d4b0b50014ba688d9935de0a@141.138.188.136
+CSeq: 2 SUBSCRIBE
+From: <sip:299@173.231.103.38:5060>;tag=-1775087407
+To: <sip:125@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-64475985
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.136:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Event: presence
+Proxy-Authorization: Digest realm="TALKSWITCH",username="user299",nonce="7499c238ef86c7c9e7cef8b3ecad8f5e",uri="sip:125@173.231.103.38:5060",algorithm=MD5,response="7428dc704a0d34e399b913f5c23ba771",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 200 OK
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-64475985;received=193.138.224.31;rport=5060
+From: <sip:299@173.231.103.38:5060>;tag=-1775087407
+To: <sip:125@173.231.103.38:5060>;tag=cbe1ffe2e9f3f17a
+Call-ID: b2b71887d4b0b50014ba688d9935de0a@141.138.188.136
+CSeq: 2 SUBSCRIBE
+Expires: 3601
+Event: presence
+Contact: <sip:125@173.231.103.38:5060>
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Success, other stuff

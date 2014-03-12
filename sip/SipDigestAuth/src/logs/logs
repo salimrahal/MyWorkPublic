@@ -1,0 +1,57 @@
+run:
+DEBUG - Local address: 192.168.5.118:5060
+
+DEBUG - Request sent:
+REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-707abef092bce9918fac67653cd6e7cf
+Contact: <sip:299@192.168.5.118;transport=udp>
+Content-Length: 0
+
+
+
+
+message recieved=SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-707abef092bce9918fac67653cd6e7cf
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>;tag=19502201593481616651
+Call-ID: c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="bf3dfc09660fc32dc2b6805cf7d18f04",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+6e664783db8b67bc0de24b141dc7c1f6
+dec9c9b9df16d31f0d3858d6d9a04166
+6d86fa024b4fd1e929ee197057376190
+DEBUG - Request sent:
+REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 7c7564236e88c74a582632a0ba21e4ae@192.168.5.118
+CSeq: 2 REGISTER
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-441494a69e473c2315c2c6bb29d94093
+Contact: <sip:299@192.168.5.118;transport=udp>
+Authorization: Digest realm="TALKSWITCH",nonce="bf3dfc09660fc32dc2b6805cf7d18f04",username="299",uri="sip:173.231.103.38",algorithm=MD5,response="6d86fa024b4fd1e929ee197057376190",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+
+
+
+message recieved=SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-441494a69e473c2315c2c6bb29d94093
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>;tag=29350601883045651798
+Call-ID: 7c7564236e88c74a582632a0ba21e4ae@192.168.5.118
+CSeq: 2 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="3672b20e29ddc2449d78648ff7d18878",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+

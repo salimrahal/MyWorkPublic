@@ -1,0 +1,31 @@
+(SIP REGISTER REQUEST)
+Dec 09 02:17:11 id:1:6
+189.251.222.31:60476 -> 10.0.254.125:5060 (824 bytes)
+REGISTER sip:173.231.103.38:5060 SIP/2.0
+From: "112 Marina"<sip:112@173.231.103.38:5060>;tag=95ad1b38-c0a80143-67-25ff4eea
+To: "112 Marina"<sip:112@173.231.103.38:5060>
+Call-ID: 313132000-aabb-6836-01a7ead1826-0-4649
+CSeq: 232 REGISTER
+Via: SIP/2.0/UDP 192.168.1.67:5122;branch=z9hG4bK-8bce2-2221d3e2-11977f36
+Max-Forwards: 70
+Supported: replaces
+User-Agent: Fortinet FON-350i MAC:00-XX-7E-AD-XX-XX V:1.1.15sts_a
+Expires: 3600
+Proxy-Authorization: Digest username="user112",realm="TALKSWITCH",nonce="c9234c029740680477cec890e3985016",uri="sip:173.231.103.38:5060",response="4e9b152cad5cea42625773255ce1a93e",algorithm=MD5,opaque="185a87188c63a2c7f69105023454e0b2"
+Contact: <sip:112@192.168.1.67:5122;transport=UDP>;+sip.instance="<urn:uuid:31313200-AABB-0000-0000-001A7EAD1826>"
+Content-Length: 0
+
+
+(RESPONSE TO REQUEST ABOVE)
+Dec 09 02:17:11 id:1:8
+10.0.254.125:5060 -> 189.251.222.31:60476 (522 bytes)
+SIP/2.0 200 OK
+Via: SIP/2.0/UDP 192.168.1.67:5122;branch=z9hG4bK-8bce2-2221d3e2-11977f36
+From: "112 Marina" <sip:112@173.231.103.38:5060>;tag=95ad1b38-c0a80143-67-25ff4eea
+To: "112 Marina" <sip:112@173.231.103.38:5060>;tag=35902951081320525164
+Call-ID: 313132000-aabb-6836-01a7ead1826-0-4649
+CSeq: 232 REGISTER
+Expires: 26
+Contact: <sip:112@192.168.1.67:5122;transport=UDP>;+sip.instance="<urn:uuid:31313200-AABB-0000-0000-001A7EAD1826>";expires=26
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0

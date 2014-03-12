@@ -1,0 +1,88 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <script src="../jquery-1.10.1.min.js"></script>
+        
+    </head>
+    <body>
+            <!-- initial form returned by Wikipedia
+            <form action="/w/index.php" id="searchform" >			
+      <div id="simpleSearch">
+      <input name="search" placeholder="Search" title="Search Wikipedia [f]" 
+             accesskey="f" id="searchInput">	
+         <button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton">
+          <img 
+              src="//bits.wikimedia.org/static-1.23wmf1/skins/vector/images/search-ltr.png?303-4" 
+              alt="Search" height="13" width="12">
+         </button>
+           <input name="title" value="Special:Search" type="hidden">
+          </div>	
+ </form>
+           
+             <!-- rendred with glype 
+ <div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/glp1.4/browse.php?u=PtkLZ9QVajY8Hv%2BxSvQSsbmXx%2B9%2FdGZZw7hbp7Y9WA%3D%3D&amp;b=13" id="searchform" method="post">
+            <input name="convertGET" value="1" type="hidden">
+		<div id="simpleSearch">
+		<input name="search" placeholder="Search" title="Search Wikipedia [f]" accesskey="f" id="searchInput">					
+                 <button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton">
+             <img src="/glp1.4/browse.php?u=PtkLYNNPbnEgHuS9Q%2FgX9rfLz7JvdHxDxqlK6utkBtxqnCCFcLa1z5n3yg9wxIBk2XFXwor4vEpk0tTI851w5B3XYfS67ohQ23cu6x37&amp;b=13"           
+                                                      
+           alt="Search" height="13" width="12">
+             </button>                                            
+               <input name="title" value="Special:Search" type="hidden">                                   
+		</div>
+	</form>
+</div>
+          -->
+          <div id="idHeader"><h3>header</h3></div>
+           <div id="user_contentId">
+            <!-- proxied form -->
+            <script type="text/javascript">
+            jQuery(document).ready(function($) {alert("doc ready jquery!");
+                $("#searchButton").click(function() {alert("jquery!");
+                    var url = "submitForm.php?action=update"; // the script where you handle the form input.
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#searchform").serialize(), // serializes the form's elements.
+                        success: function(html) {
+                            $("#user_contentId").html(html)
+                        },
+                        fail:  function() {
+                            $("#user_contentId").html("fail")
+                        },
+                        error:  function() {
+                            $("#user_contentId").html("Error!");
+                        }
+                       
+                    });
+
+                    return false; // avoid to execute the actual submit of the form.
+                });
+            });
+           </script>
+            <form action="submitForm.php" id="searchform" method="post" >
+                <input name="u" value="http://en.wikipedia.org/w/index.php" type="hidden">
+                <div id="simpleSearch">
+                    <input name="search" placeholder="Search" title="Search Wikipedia [f]" 
+                           accesskey="f" id="searchInput">	
+                    <button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton">
+                        <img
+                            src="//bits.wikimedia.org/static-1.23wmf1/skins/vector/images/search-ltr.png?303-4" 
+                            alt="Search" height="13" width="12">
+                    </button>
+                    <input name="title" value="Special:Search" type="hidden"> 
+                </div> 	
+            </form> </div>
+          <div><h1>footer</h1></div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+run:
+log4j:WARN No appenders could be found for logger (stack).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+registerStateful....Begin
+
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 141.138.190.20:5060;branch=z9hG4bK1467697388
+From: <sip:299@173.231.103.38:5060>;tag=1155531243
+To: <sip:299@173.231.103.38:5060>;tag=16257309501393702934
+Call-ID: a332d53413faffa10effafd78074689a@141.138.190.20
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="de964cd12e76fb06edc854deeb1e4241",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+    
+registerStateful....Begin
+
+ registerStateful 407
+Received response: SIP/2.0 200 OK
+Via: SIP/2.0/UDP 141.138.190.20:5060;branch=z9hG4bK-1449504391
+From: <sip:299@173.231.103.38:5060>;tag=1155531243
+To: <sip:299@173.231.103.38:5060>;tag=11122841992041114559
+Call-ID: 7f8338a9a9db9c1a20ac979056765999@141.138.190.20
+CSeq: 2 REGISTER
+Expires: 27
+Contact: <sip:299@141.138.190.20:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>";expires=27
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Expires=27
+BUILD STOPPED (total time: 1 minute 23 seconds)

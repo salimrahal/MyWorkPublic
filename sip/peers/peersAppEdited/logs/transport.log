@@ -1,0 +1,50 @@
+2013-12-03 21:51:31,688 SENT to 173.231.103.38/5060 [Thread-0]
+
+REGISTER sip:173.231.103.38 SIP/2.0
+Via: SIP/2.0/UDP 192.168.5.117:5060;rport;branch=z9hG4bKI693mPwk1
+Max-Forwards: 70
+To: <sip:299@173.231.103.38>
+From: <sip:299@173.231.103.38>;tag=HWjU5RPm
+Call-ID: 4FzfkAFF-1386100291257@ss-host.local
+CSeq: 1 REGISTER
+Contact: <sip:299@192.168.5.117:5060;transport=UDP>
+
+
+2013-12-03 21:51:32,060 RECEIVED from 173.231.103.38/5060 [Thread-5]
+
+SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.117:5060;rport=17104;branch=z9hG4bKI693mPwk1;received=109.110.113.130
+From: <sip:299@173.231.103.38>;tag=HWjU5RPm
+To: <sip:299@173.231.103.38>;tag=3889731384002253837
+Call-ID: 4FzfkAFF-1386100291257@ss-host.local
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH", nonce="d6b9856ed933a87414b6cc8de21d7b18", opaque="185a87188c63a2c7f69105023454e0b2", stale=TRUE, algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+2013-12-03 21:51:32,080 SENT to 173.231.103.38/5060 [Thread-5]
+
+REGISTER sip:173.231.103.38 SIP/2.0
+Via: SIP/2.0/UDP 192.168.5.117:5060;rport;branch=z9hG4bK5xDXjT572
+Max-Forwards: 70
+To: <sip:299@173.231.103.38>
+From: <sip:299@173.231.103.38>;tag=HWjU5RPm
+Call-ID: 4FzfkAFF-1386100291257@ss-host.local
+CSeq: 2 REGISTER
+Contact: <sip:299@192.168.5.117:5060;transport=UDP>
+Proxy-Authorization: Digest username="299", realm="TALKSWITCH", nonce="d6b9856ed933a87414b6cc8de21d7b18", uri="sip:173.231.103.38", response="8c800bb029e7cfb57f10af25b37eef26", opaque="185a87188c63a2c7f69105023454e0b2"
+
+
+2013-12-03 21:51:32,381 RECEIVED from 173.231.103.38/5060 [Thread-5]
+
+SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.117:5060;rport=17104;branch=z9hG4bK5xDXjT572;received=109.110.113.130
+From: <sip:299@173.231.103.38>;tag=HWjU5RPm
+To: <sip:299@173.231.103.38>;tag=961827963174041944
+Call-ID: 4FzfkAFF-1386100291257@ss-host.local
+CSeq: 2 REGISTER
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+

@@ -1,0 +1,2384 @@
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= sip.linphone.org:5060/TCP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/TCP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="192.168.5.118:5060" 
+to="173.231.103.38:5060" 
+time="1386315266269"
+isSender="true" 
+transactionId="z9hg4bk-353937-3597d663573e8c68ded97db96c3e8012" 
+callId="ee3d3c043a3af42a425c65874d9281bc@192.168.5.118" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: ee3d3c043a3af42a425c65874d9281bc@192.168.5.118
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-96624284
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-353937-3597d663573e8c68ded97db96c3e8012
+Contact: <sip:299@192.168.5.118;transport=tcp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="192.168.5.118:5060" 
+time="1386315266491"
+isSender="false" 
+transactionId="z9hg4bk-353937-3597d663573e8c68ded97db96c3e8012" 
+callId="ee3d3c043a3af42a425c65874d9281bc@192.168.5.118" 
+firstLine="SIP/2.0 407 PROXY AUTHORIZATION REQUIRED" 
+>
+<![CDATA[SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-353937-3597d663573e8c68ded97db96c3e8012
+From: <sip:299@173.231.103.38>;tag=-96624284
+To: <sip:299@173.231.103.38>;tag=12687652163732999494
+Call-ID: ee3d3c043a3af42a425c65874d9281bc@192.168.5.118
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="1259214bd56f56b7af0f4ee2f7cdfe40",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="192.168.5.118:5060" 
+to="173.231.103.38:5060" 
+time="1386315266566"
+isSender="true" 
+transactionId="z9hg4bk-353937-46543e70a84efd3657c0d4488d409ff1" 
+callId="daf16836490c27ee36e7006ca4c82aeb@192.168.5.118" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: daf16836490c27ee36e7006ca4c82aeb@192.168.5.118
+CSeq: 2 REGISTER
+From: <sip:299@173.231.103.38>;tag=-96624284
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-353937-46543e70a84efd3657c0d4488d409ff1
+Contact: <sip:299@192.168.5.118;transport=tcp>
+Authorization: Digest realm="TALKSWITCH",nonce="1259214bd56f56b7af0f4ee2f7cdfe40",username="299",uri="sip:173.231.103.38",algorithm=MD5,response="e6c5187aac348590bd73891e5bda4330",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="192.168.5.118:5060" 
+time="1386315266754"
+isSender="false" 
+transactionId="z9hg4bk-353937-46543e70a84efd3657c0d4488d409ff1" 
+callId="daf16836490c27ee36e7006ca4c82aeb@192.168.5.118" 
+firstLine="SIP/2.0 407 PROXY AUTHORIZATION REQUIRED" 
+>
+<![CDATA[SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-353937-46543e70a84efd3657c0d4488d409ff1
+From: <sip:299@173.231.103.38>;tag=-96624284
+To: <sip:299@173.231.103.38>;tag=32679844703082323115
+Call-ID: daf16836490c27ee36e7006ca4c82aeb@192.168.5.118
+CSeq: 2 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="2ae163208fa33a23b5faecdbf7cdff73",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="192.168.5.118:5060" 
+to="173.231.103.38:5060" 
+time="1386315610127"
+isSender="true" 
+transactionId="z9hg4bk-393530-707abef092bce9918fac67653cd6e7cf" 
+callId="c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-707abef092bce9918fac67653cd6e7cf
+Contact: <sip:299@192.168.5.118;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="192.168.5.118:5060" 
+time="1386315610336"
+isSender="false" 
+transactionId="z9hg4bk-393530-707abef092bce9918fac67653cd6e7cf" 
+callId="c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118" 
+firstLine="SIP/2.0 407 PROXY AUTHORIZATION REQUIRED" 
+>
+<![CDATA[SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-707abef092bce9918fac67653cd6e7cf
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>;tag=19502201593481616651
+Call-ID: c315fdb31a9ab0b9904c600c89b5d8d2@192.168.5.118
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="bf3dfc09660fc32dc2b6805cf7d18f04",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="192.168.5.118:5060" 
+to="173.231.103.38:5060" 
+time="1386315610347"
+isSender="true" 
+transactionId="z9hg4bk-393530-441494a69e473c2315c2c6bb29d94093" 
+callId="7c7564236e88c74a582632a0ba21e4ae@192.168.5.118" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 7c7564236e88c74a582632a0ba21e4ae@192.168.5.118
+CSeq: 2 REGISTER
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-441494a69e473c2315c2c6bb29d94093
+Contact: <sip:299@192.168.5.118;transport=udp>
+Authorization: Digest realm="TALKSWITCH",nonce="bf3dfc09660fc32dc2b6805cf7d18f04",username="299",uri="sip:173.231.103.38",algorithm=MD5,response="6d86fa024b4fd1e929ee197057376190",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="192.168.5.118:5060" 
+time="1386315610548"
+isSender="false" 
+transactionId="z9hg4bk-393530-441494a69e473c2315c2c6bb29d94093" 
+callId="7c7564236e88c74a582632a0ba21e4ae@192.168.5.118" 
+firstLine="SIP/2.0 407 PROXY AUTHORIZATION REQUIRED" 
+>
+<![CDATA[SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 192.168.5.118:5060;branch=z9hG4bK-393530-441494a69e473c2315c2c6bb29d94093
+From: <sip:299@173.231.103.38>;tag=960084439
+To: <sip:299@173.231.103.38>;tag=29350601883045651798
+Call-ID: 7c7564236e88c74a582632a0ba21e4ae@192.168.5.118
+CSeq: 2 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="3672b20e29ddc2449d78648ff7d18878",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318007890"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318008391"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318009391"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318011392"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318015393"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318019395"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318023397"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318027397"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318031399"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318035400"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318039401"
+isSender="true" 
+transactionId="z9hg4bk-323135-ca984a82125b35351aeeaeb329090180" 
+callId="6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6df64ad273cea69a6d0f1fe318aaa08e@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1438245608
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-323135-ca984a82125b35351aeeaeb329090180
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318051146"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318051648"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318052648"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318054649"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318058651"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318062652"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318066653"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318070654"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318074655"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318078657"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318082659"
+isSender="true" 
+transactionId="z9hg4bk-313837-5db78186b969a81d40af2e8e5dd18897" 
+callId="b015584a8c48ffb34a81290028165985@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: b015584a8c48ffb34a81290028165985@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=289580175
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313837-5db78186b969a81d40af2e8e5dd18897
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318426786"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318427288"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318428288"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318430288"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318434289"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318438290"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318442292"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318446293"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318450294"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318454295"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386318458296"
+isSender="true" 
+transactionId="z9hg4bk-313731-46c3fb13b6f6f574360ac86ab1e2b731" 
+callId="a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: a1aa1abee2b247cd0c3a30f666d2fea8@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=255713780
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-313731-46c3fb13b6f6f574360ac86ab1e2b731
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319590394"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319590896"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319591896"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319593896"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319597897"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319601899"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319605900"
+isSender="true" 
+transactionId="z9hg4bk-383334-ba0db851b84442abde52ff9ff32c0b7b" 
+callId="6b125ecac5488105ed9542be7a022ab0@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 6b125ecac5488105ed9542be7a022ab0@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-1582679787
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-383334-ba0db851b84442abde52ff9ff32c0b7b
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319978852"
+isSender="true" 
+transactionId="z9hg4bk-393635-15db7c23978478b058fd2d1314f13de0" 
+callId="046e2095c4538d946bf0e72861e3e17c@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 046e2095c4538d946bf0e72861e3e17c@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2092255143
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393635-15db7c23978478b058fd2d1314f13de0
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319979354"
+isSender="true" 
+transactionId="z9hg4bk-393635-15db7c23978478b058fd2d1314f13de0" 
+callId="046e2095c4538d946bf0e72861e3e17c@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 046e2095c4538d946bf0e72861e3e17c@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2092255143
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393635-15db7c23978478b058fd2d1314f13de0
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319980354"
+isSender="true" 
+transactionId="z9hg4bk-393635-15db7c23978478b058fd2d1314f13de0" 
+callId="046e2095c4538d946bf0e72861e3e17c@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 046e2095c4538d946bf0e72861e3e17c@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2092255143
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393635-15db7c23978478b058fd2d1314f13de0
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386319982354"
+isSender="true" 
+transactionId="z9hg4bk-393635-15db7c23978478b058fd2d1314f13de0" 
+callId="046e2095c4538d946bf0e72861e3e17c@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 046e2095c4538d946bf0e72861e3e17c@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2092255143
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393635-15db7c23978478b058fd2d1314f13de0
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320036221"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320036723"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320037723"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320039724"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320043726"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386320047726"
+isSender="true" 
+transactionId="z9hg4bk-393034-2f5e2583aa72e8a91d48ced95878eb20" 
+callId="c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210" 
+firstLine="OPTION sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[OPTION sip:173.231.103.38 SIP/2.0
+Call-ID: c5e75c1d151120250b82b5a1ac5e38f6@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:299@173.231.103.38>;tag=-546810561
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393034-2f5e2583aa72e8a91d48ced95878eb20
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= sip2sip.info:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320402001"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320402503"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320403503"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320405503"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320409504"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320413506"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320417506"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320421507"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320425508"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320429510"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320433511"
+isSender="true" 
+transactionId="z9hg4bk-353336-9ddad251e771fa3a295d085442ed67f7" 
+callId="f8699b1536f670c477319d1f4c8d216f@93.185.238.210" 
+firstLine="OPTION sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[OPTION sip:sip2sip.info SIP/2.0
+Call-ID: f8699b1536f670c477319d1f4c8d216f@93.185.238.210
+CSeq: 1 OPTION
+From: <sip:salimrahal@sip2sip.info>;tag=-328511369
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353336-9ddad251e771fa3a295d085442ed67f7
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= sip2sip.info:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320453593"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320454095"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320455095"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320457095"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320461096"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320465096"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320469096"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320473097"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320477099"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320481100"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="81.23.228.140:5060" 
+time="1386320485102"
+isSender="true" 
+transactionId="z9hg4bk-333137-251700bfd6e25d3c0be1179dff86d122" 
+callId="89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210" 
+firstLine="REGISTER sip:sip2sip.info SIP/2.0" 
+>
+<![CDATA[REGISTER sip:sip2sip.info SIP/2.0
+Call-ID: 89e8f7cf6c8d98fdd7593929371b41b1@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:salimrahal@sip2sip.info>;tag=1198152546
+To: <sip:salimrahal@sip2sip.info>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-333137-251700bfd6e25d3c0be1179dff86d122
+Contact: <sip:salimrahal@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321821825"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321822327"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321823327"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321825328"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321829328"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321833330"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386321837331"
+isSender="true" 
+transactionId="z9hg4bk-353130-ee0cab158f13db1839f669c3c1e1da70" 
+callId="d486be9d2c58b376865a28b706b809fb@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: d486be9d2c58b376865a28b706b809fb@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=1510883170
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-353130-ee0cab158f13db1839f669c3c1e1da70
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386323048140"
+isSender="true" 
+transactionId="z9hg4bk-343230-a2dd5ee0c44bfdd9d74399e392f5a881" 
+callId="86f5e6126472564ef5d5c7419ce3564b@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 86f5e6126472564ef5d5c7419ce3564b@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2002257905
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-343230-a2dd5ee0c44bfdd9d74399e392f5a881
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386323048641"
+isSender="true" 
+transactionId="z9hg4bk-343230-a2dd5ee0c44bfdd9d74399e392f5a881" 
+callId="86f5e6126472564ef5d5c7419ce3564b@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 86f5e6126472564ef5d5c7419ce3564b@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2002257905
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-343230-a2dd5ee0c44bfdd9d74399e392f5a881
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386323049641"
+isSender="true" 
+transactionId="z9hg4bk-343230-a2dd5ee0c44bfdd9d74399e392f5a881" 
+callId="86f5e6126472564ef5d5c7419ce3564b@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 86f5e6126472564ef5d5c7419ce3564b@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2002257905
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-343230-a2dd5ee0c44bfdd9d74399e392f5a881
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386323051641"
+isSender="true" 
+transactionId="z9hg4bk-343230-a2dd5ee0c44bfdd9d74399e392f5a881" 
+callId="86f5e6126472564ef5d5c7419ce3564b@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 86f5e6126472564ef5d5c7419ce3564b@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=-2002257905
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-343230-a2dd5ee0c44bfdd9d74399e392f5a881
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= stack
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= 173.231.103.38:5060/UDP
+-->
+<description
+ logDescription="stack"
+ name="stack"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324208675"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324209178"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324210178"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324212179"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324216180"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324220181"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324224182"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.210:5060" 
+to="173.231.103.38:5060" 
+time="1386324228182"
+isSender="true" 
+transactionId="z9hg4bk-393732-760dcd7c83e4ba24db98d27822aae312" 
+callId="861a90ba9d1561c21f8f0d63d16156de@93.185.238.210" 
+firstLine="REGISTER sip:173.231.103.38 SIP/2.0" 
+>
+<![CDATA[REGISTER sip:173.231.103.38 SIP/2.0
+Call-ID: 861a90ba9d1561c21f8f0d63d16156de@93.185.238.210
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38>;tag=182292395
+To: <sip:299@173.231.103.38>
+Max-Forwards: 70
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=z9hG4bK-393732-760dcd7c83e4ba24db98d27822aae312
+Contact: <sip:299@93.185.238.210;transport=udp>
+Content-Length: 0
+
+]]>
+</message>
+

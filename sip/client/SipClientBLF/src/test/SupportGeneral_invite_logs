@@ -1,0 +1,28 @@
+
+Process Request...........
+INVITE sip:298@10.0.254.125 SIP/2.0
+Via: SIP/2.0/UDP 10.0.254.125:5060;branch=z9hG4bK6a987c6e;received=173.231.103.38
+From: "Support - General" <sip:5148775000@10.0.254.125>;tag=32202600891469723673
+To: "VAS DEV #3" <sip:298@10.0.254.125>
+Call-ID: 2600293192
+CSeq: 1 INVITE
+Max-Forwards: 70
+Contact: <sip:5148775000@10.0.254.125:5060>
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+transaction == null get new one for the request...
+
+
+Process Request...........
+CANCEL sip:298@10.0.254.125 SIP/2.0
+Via: SIP/2.0/UDP 10.0.254.125:5060;branch=z9hG4bK6a987c6e;received=173.231.103.38
+From: "Support - General" <sip:5148775000@10.0.254.125>;tag=32202600891469723673
+To: "VAS DEV #3" <sip:298@10.0.254.125>
+Call-ID: 2600293192
+CSeq: 1 CANCEL
+Max-Forwards: 70
+Contact: <sip:5148775000@10.0.254.125:5060>
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0

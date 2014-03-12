@@ -1,0 +1,40 @@
+2013-12-02 18:08:07,231 INFO  [Thread-0] starting user agent [myAddress: 10.130.0.242, sipPort: 5060, userpart: 299, domain: 173.231.103.38]
+2013-12-02 18:08:07,244 INFO  [Thread-0] added datagram socket 10.130.0.242:5060/UDP
+2013-12-02 18:08:07,244 INFO  [Thread-0] added 10.130.0.242:5060/UDP: net.sourceforge.peers.sip.transport.UdpMessageReceiver@6689a8 to message receivers
+2013-12-02 18:08:07,533 DEBUG [Thread-0] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateInit -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:08,034 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:09,034 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:11,035 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:15,035 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:19,036 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:23,037 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:23,324 DEBUG [AWT-EventQueue-0] gui actionPerformed() Account
+2013-12-02 18:08:26,202 DEBUG [AWT-EventQueue-0] config file saved
+2013-12-02 18:08:26,203 INFO  [Thread-7] added datagram socket 10.130.0.242:5060/UDP
+2013-12-02 18:08:26,204 DEBUG [Thread-7] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateInit -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:26,705 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:27,037 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:27,037 ERROR [Transaction timer] input/output error
+java.net.SocketException: Socket is closed
+	at java.net.DatagramSocket.send(DatagramSocket.java:641)
+	at net.sourceforge.peers.sip.transport.UdpMessageSender.sendBytes(UdpMessageSender.java:63)
+	at net.sourceforge.peers.sip.transport.UdpMessageSender.sendMessage(UdpMessageSender.java:52)
+	at net.sourceforge.peers.sip.transaction.NonInviteClientTransaction.sendRetrans(NonInviteClientTransaction.java:138)
+	at net.sourceforge.peers.sip.transaction.NonInviteClientTransactionStateTrying.timerEFires(NonInviteClientTransactionStateTrying.java:41)
+	at net.sourceforge.peers.sip.transaction.NonInviteClientTransaction$TimerE.run(NonInviteClientTransaction.java:178)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2013-12-02 18:08:27,038 DEBUG [Transaction timer] SM z9hG4bKw7WxFdtB3|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTerminated] setState
+2013-12-02 18:08:27,039 DEBUG [Transaction timer] image url: file:/home/salim/MyWork/MyWork/sip/peers/peers-0.4.3/build/classes/net/sourceforge/peers/gui/red.png
+2013-12-02 18:08:27,043 DEBUG [Transaction timer] image url: file:/home/salim/MyWork/MyWork/sip/peers/peers-0.4.3/build/classes/net/sourceforge/peers/gui/red.png
+2013-12-02 18:08:27,705 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:29,706 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:33,706 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:37,707 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:41,707 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:45,708 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:49,708 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:53,709 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:57,709 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2013-12-02 18:08:58,204 DEBUG [Transaction timer] SM z9hG4bK5dMM8tUqF|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTerminated] setState
+2013-12-02 18:09:22,059 DEBUG [AWT-EventQueue-0] gui actionPerformed() Account

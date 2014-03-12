@@ -1,0 +1,206 @@
+=====================EXT 124@173.231.103.38===============
+Dec 06 23:59:29 id:1:151746
+24.37.118.66:5061 -> 10.0.254.125:5060 (546 bytes)
+REGISTER sip:173.231.103.38 SIP/2.0
+Via: SIP/2.0/UDP 24.37.118.66:5061;branch=z9hG4bK54836835
+From: <sip:124@173.231.103.38>;tag=000ab7b13c1faff257a5c3b5-10a317d3
+To: <sip:124@173.231.103.38>
+Call-ID: 000ab7b1-3c1f002e-7d60ef61-24271108@24.37.118.66
+Max-Forwards: 70
+Date: Sat, 07 Dec 2013 04:59:34 GMT
+CSeq: 122589 REGISTER
+User-Agent: Cisco-CP7940G/8.0
+Contact: <sip:124@24.37.118.66:5061;transport=udp>;+sip.instance="<urn:uuid:00000000-0000-0000-0000-000ab7b13c1f>";+u.sip!model.ccm.cisco.com="8"
+Content-Length: 0
+Expires: 360
+
+Dec 06 23:59:39 id:1:151774
+189.251.218.251:56386 -> 10.0.254.125:5060 (20 bytes)
+Dec 06 23:59:40 id:1:151776
+24.37.118.66:5061 -> 10.0.254.125:5060 (546 bytes)
+REGISTER sip:173.231.103.38 SIP/2.0
+Via: SIP/2.0/UDP 24.37.118.66:5061;branch=z9hG4bK71655a30
+From: <sip:124@173.231.103.38>;tag=000ab7b13c1faff31474b33c-6cf9cfa9
+To: <sip:124@173.231.103.38>
+Call-ID: 000ab7b1-3c1f002d-08f42873-7b886515@24.37.118.66
+Max-Forwards: 70
+Date: Sat, 07 Dec 2013 04:59:44 GMT
+CSeq: 122281 REGISTER
+User-Agent: Cisco-CP7940G/8.0
+Contact: <sip:124@24.37.118.66:5061;transport=udp>;+sip.instance="<urn:uuid:00000000-0000-0000-0000-000ab7b13c1f>";+u.sip!model.ccm.cisco.com="8"
+Content-Length: 0
+Expires: 360
+======================================
+=================ext 150====================
+Dec 06 23:59:35 id:1:151758
+174.95.12.123:5060 -> 10.0.254.125:5060 (849 bytes)
+REGISTER sip:173.231.103.38:5060 SIP/2.0
+Via: SIP/2.0/UDP 192.168.2.33:5060;branch=z9hG4bK422020110;rport
+Route: <sip:173.231.103.38:5060;lr>
+From: "Ming" <sip:150@173.231.103.38:5060>;tag=311346019
+To: <sip:150@173.231.103.38:5060>
+Call-ID: 1873177074-5060-1@BJC.BGI.C.DD
+CSeq: 335226 REGISTER
+Contact: <sip:150@192.168.2.33:5060>;reg-id=1;+sip.instance="<urn:uuid:00000000-0000-1000-8000-000B824012A7>"
+Proxy-Authorization: Digest username="user150", realm="TALKSWITCH", nonce="a8ce48aef3bd2d8c1de71f02fa3b5a09", uri="sip:173.231.103.38:5060", response="148f02c5921117ec56ed6af8ee37592b", algorithm=MD5, opaque="185a87188c63a2c7f69105023454e0b2"
+Max-Forwards: 70
+User-Agent: Grandstream DP715 1.0.0.5
+Supported: path
+Expires: 3600
+Allow: INVITE, ACK, OPTIONS, CANCEL, BYE, SUBSCRIBE, NOTIFY, INFO, REFER, UPDATE
+Content-Length: 0
+==================================
+
+
+=============ext 125===================
+Dec 06 23:59:53 id:1:151810
+70.82.186.21:5060 -> 10.0.254.125:5060 (859 bytes)
+REGISTER sip:173.231.103.38:5060 SIP/2.0
+Via: SIP/2.0/UDP 70.82.186.21:5060;branch=z9hG4bK302949193;rport
+Route: <sip:173.231.103.38:5060;lr>
+From: "Alex Bedard" <sip:125@173.231.103.38:5060>;tag=1403399265
+To: <sip:125@173.231.103.38:5060>
+Call-ID: 1206110139-5060-2@BJC.BGI.BA.BAJ
+CSeq: 54414 REGISTER
+Contact: <sip:125@70.82.186.21:5060>;reg-id=1;+sip.instance="<urn:uuid:00000000-0000-1000-8000-000B823F840E>"
+Proxy-Authorization: Digest username="user125", realm="TALKSWITCH", nonce="0045d9c4071e63c1ba4c4d87fa3924b3", uri="sip:173.231.103.38:5060", response="cea77669ad6938c5c5118033a3ff878e", algorithm=MD5, opaque="185a87188c63a2c7f69105023454e0b2"
+Max-Forwards: 70
+User-Agent: Grandstream DP715 1.0.0.23
+Supported: path
+Expires: 3600
+Allow: INVITE, ACK, OPTIONS, CANCEL, BYE, SUBSCRIBE, NOTIFY, INFO, REFER, UPDATE
+Content-Length: 0
+
+
+Dec 07 00:00:08 id:1:151862
+70.82.186.21:5060 -> 10.0.254.125:5060 (859 bytes)
+REGISTER sip:173.231.103.38:5060 SIP/2.0
+Via: SIP/2.0/UDP 70.82.186.21:5060;branch=z9hG4bK143702494;rport
+Route: <sip:173.231.103.38:5060;lr>
+From: "Alex Bedard" <sip:125@173.231.103.38:5060>;tag=1403399265
+To: <sip:125@173.231.103.38:5060>
+Call-ID: 1206110139-5060-2@BJC.BGI.BA.BAJ
+CSeq: 54415 REGISTER 
+Contact: <sip:125@70.82.186.21:5060>;reg-id=1;+sip.instance="<urn:uuid:00000000-0000-1000-8000-000B823F840E>"
+Proxy-Authorization: Digest username="user125", realm="TALKSWITCH", nonce="0045d9c4071e63c1ba4c4d87fa3924b3", uri="sip:173.231.103.38:5060", response="cea77669ad6938c5c5118033a3ff878e", algorithm=MD5, opaque="185a87188c63a2c7f69105023454e0b2"
+Max-Forwards: 70
+User-Agent: Grandstream DP715 1.0.0.23
+Supported: path
+Expires: 3600
+Allow: INVITE, ACK, OPTIONS, CANCEL, BYE, SUBSCRIBE, NOTIFY, INFO, REFER, UPDATE
+Content-Length: 0
+
+Dec 07 00:00:43 id:1:151964
+70.82.186.21:5060 -> 10.0.254.125:5060 (860 bytes)
+REGISTER sip:173.231.103.38:5060 SIP/2.0
+Via: SIP/2.0/UDP 70.82.186.21:5060;branch=z9hG4bK2047684976;rport
+Route: <sip:173.231.103.38:5060;lr>
+From: "Alex Bedard" <sip:125@173.231.103.38:5060>;tag=1403399265
+To: <sip:125@173.231.103.38:5060>
+Call-ID: 1206110139-5060-2@BJC.BGI.BA.BAJ
+CSeq: 54417 REGISTER
+Contact: <sip:125@70.82.186.21:5060>;reg-id=1;+sip.instance="<urn:uuid:00000000-0000-1000-8000-000B823F840E>"
+Proxy-Authorization: Digest username="user125", realm="TALKSWITCH", nonce="0045d9c4071e63c1ba4c4d87fa3924b3", uri="sip:173.231.103.38:5060", response="cea77669ad6938c5c5118033a3ff878e", algorithm=MD5, opaque="185a87188c63a2c7f69105023454e0b2"
+Max-Forwards: 70
+User-Agent: Grandstream DP715 1.0.0.23
+Supported: path
+Expires: 3600
+Allow: INVITE, ACK, OPTIONS, CANCEL, BYE, SUBSCRIBE, NOTIFY, INFO, REFER, UPDATE
+Content-Length: 0
+===============================================
+
+==============ext 299==================================
+Dec 07 08:07:52 id:1:244618
+70.82.186.21:5060 -> 10.0.254.125:5060 (20 bytes)
+Dec 07 08:07:53 id:1:244620
+174.95.12.123:5060 -> 10.0.254.125:5060 (20 bytes)
+Dec 07 08:07:58 id:1:244622
+10.0.254.125:5060 -> 193.138.224.31:5060 (335 bytes)
+SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-343538-cb4400ac87a784bba693d5f98edb1cbf
+From: "299" <sip:299@93.185.239.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 641e024e8c6b1202bebe789b2ca1d3d8@93.185.239.237
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+Dec 07 09:55:25 id:1:265086
+193.138.224.31:5060 -> 10.0.254.125:5060 (373 bytes)
+REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 155ccff25433f892802ebe330cd7fe56@93.185.239.237
+CSeq: 1 REGISTER
+From: <sip:93.185.239.237:5060>;tag=-897477753
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-353430-b271a95f720ccf0f8201ceac48d973d9
+Max-Forwards: 70
+Contact: <sip:93.185.239.237:5060>
+Content-Length: 0
+
+Dec 07 10:05:05 id:1:266930
+193.138.224.31:5060 -> 10.0.254.125:5060 (605 bytes)
+REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 591c81048158169729ff01e44f0509c3@93.185.239.237
+CSeq: 1 REGISTER
+From: <sip:93.185.239.237:5060>;tag=-582483828
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-323837-38696ef039530407a5192f7c5ece3cfb
+Max-Forwards: 70
+Contact: <sip:93.185.239.237:5060>
+Authorization: Digest realm="TALKSWITCH",nonce="aa23c1ee6730bda710e88750f8753305",username="299",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="b8c428b27bfd242d7408aeae0396da7d",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+Dec 07 10:31:39 id:1:272078
+193.138.224.31:5060 -> 10.0.254.125:5060 (601 bytes)
+REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: b0bfff6260be205708b01440c660c63b@93.185.239.237
+CSeq: 2 REGISTER
+From: <sip:93.185.239.237:5060>;tag=-144434284
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-353035-b753103f2af153b08dcead63092fdbfa
+Max-Forwards: 70
+Contact: <sip:93.185.239.237:5060>
+Proxy-Authorization: Digest realm="TALKSWITCH",nonce="e6cd1a19787690d4d8aca0ebf849a05f",username="user299",uri="sip:299@173.231.103.38:5060",response="236c53aec21e64875e96c526be9e9ec0",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+Dec 07 10:36:41 id:1:273076
+70.82.186.21:5060 -> 10.0.254.125:5060 (20 bytes)
+Dec 07 10:36:43 id:1:273078
+70.29.232.22:5158 -> 10.0.254.125:5060 (20 bytes)
+Dec 07 10:36:43 id:1:273080
+193.138.224.31:5060 -> 10.0.254.125:5060 (372 bytes)
+REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: ce5e8cfd44213d9fafa85cd7ac1e7ac4@93.185.239.237
+CSeq: 1 REGISTER
+From: <sip:93.185.239.237:5060>;tag=563010377
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-333336-c90fcc44696d9d8b79da07fe571b6f13
+Max-Forwards: 70
+Contact: <sip:93.185.239.237:5060>
+Content-Length: 0
+
+Dec 07 10:36:43 id:1:273082
+10.0.254.125:5060 -> 193.138.224.31:5060 (530 bytes)
+SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-333336-c90fcc44696d9d8b79da07fe571b6f13
+From: <sip:93.185.239.237:5060>;tag=563010377
+To: <sip:299@173.231.103.38:5060>;tag=22269298621419087045
+Call-ID: ce5e8cfd44213d9fafa85cd7ac1e7ac4@93.185.239.237
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH", nonce="2254aa6b925b6d9933450c04f84dfe02", opaque="185a87188c63a2c7f69105023454e0b2", stale=TRUE, algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+Dec 07 10:36:43 id:1:273084
+193.138.224.31:5060 -> 10.0.254.125:5060 (614 bytes)
+REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 7f431bceb2879a2f05837f2bdd1a2630@93.185.239.237
+CSeq: 2 REGISTER
+From: <sip:93.185.239.237:5060>;tag=563010377
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-333336-55b65086e668ab05d6644a5adc48b0e9
+Max-Forwards: 70
+Contact: <sip:93.185.239.237:5060>
+Proxy-Authorization: Digest realm="TALKSWITCH",nonce="2254aa6b925b6d9933450c04f84dfe02",username="user299",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="00765806e169beab7a37da9b758a0a07",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+=================================================

@@ -1,0 +1,198 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #FFFFFF;
+}
+
+p {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+a.white:link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #FFFFEE;
+    text-decoration: none;
+}
+a.white:visited {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #FFFFEE;
+    text-decoration: none;
+}
+a.white:hover {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+a.blue:link {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: #000099;
+    text-decoration: none;
+}
+a.blue:visited {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: #000099;
+    text-decoration: none;
+}
+a.blue:hover {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    text-decoration: underline;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #6699CC;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #000066;
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+    color: #666666;
+}
+ul {
+    list-style-type: square;
+}
+li {
+    padding-left: 0px;
+    margin-left: -10px;
+    margin-bottom: 4px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    margin: 0 4 0 4;
+    list-style-type: none;
+}
+
+form {
+    margin-top: 1px;
+    padding-top: 1px;
+    margin-bottom: 0px;
+}
+
+form input {
+    width: auto;
+    margin: 0 0 0 15px;
+    background-color: #fff;
+    font: normal 85%/100% Verdana, Arial, Helvetica, sans-serif;
+    border: 1px solid #999;
+}
+
+form input.checkbox {
+    padding: 0 0 0 0;
+    font: bold 85%/200% Verdana, Arial, Helvetica, sans-serif;
+    border: 0;
+}
+
+form textarea {
+    width: auto;
+    margin: 0 0 0 15px;
+    background-color: #fff;
+    font: normal 85%/100% Verdana, Arial, Helvetica, sans-serif;
+    border: 1px solid #999;
+}
+form label {
+    width: auto;
+    margin: 0;
+    padding: 0px 0px 0px 5px;
+    font: bold 90%/200% Verdana, Arial, Helvetica, sans-serif;
+    color:#000;
+    border: 0;
+}
+form input.button {
+    margin-right: 0px;
+    background-color: #ffffee;
+    font: bold 8pt Verdana, Arial, Helvetica, sans-serif;
+    color: #333355;
+}
+
+.head {
+    background-color: #333366;
+    display: block;
+    width: 100%;
+    height: 70px;
+}
+
+.title {
+    display: block;
+    float: left;
+}
+
+.nav {
+    background-color: #E0BF85;
+    padding: 0 1% 1% 0;
+    text-align: right;
+}
+
+.guide {
+    background-color: #E0BF85;
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+}
+
+.top_filler {
+    height: 95%;
+}
+
+.wrapper {
+    padding: 0 1% 0 1%;
+}
+
+footer {
+    background: #333366;
+    clear: both;
+    text-align: right;
+    padding-right: 1%;
+    vertical-align: bottom;
+    height: 280px;
+}
+
+.adsense {
+    border: 1px solid red;
+    display: block;
+    float: left;
+    height: 250px;
+    margin: 1%;
+    width: 250px;
+}
+
+/*SR 
+User can define the css rule for the user_content Class as follow:
+*/
+.user_content h1 {  
+    font-size: 12pt;
+    color: red;
+}
+.user_content h2 {  
+    font-size: 12pt;
+    color: blue;
+}
+.user_content {
+    background-color: #FFFFEE;
+}
+.user_content a:link {color:#FF0000;}    /* unvisited link */
+.user_content a:visited {color:#00FF00;} /* visited link */
+.user_content a:hover {color: #0000FF;}   /* mouse over link */
+.user_content a:active {color:#0000FF;}  /* selected link */

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!-- Example
+ * <properties>
+<comment>example pairs</comment>
+<entry key="SIP-SERVER">173.231.103.38</entry>
+<entry key="SIP-SERVER-PORT">5060</entry>
+<entry key="Local-IP"></entry>
+<entry key="SIP-LOCAL-PORT">5060</entry>
+<entry key="SIP-ID">299</entry>
+<entry key="SIP-Realm/Domain">TALKSWITCH</entry>
+<entry key="SIP-Auth-ID">user299</entry>
+<entry key="SIP-PASSWORD">Winter2013</entry>
+</properties>
+-->
+<properties>
+<comment>add comments</comment>
+<!--Server config -->
+<entry key="SIP-SERVER">173.231.103.38</entry>
+<entry key="SIP-SERVER-PORT">5060</entry>
+
+<!--Client or Local config -->
+<entry key="Local-IP">46.249.204.123</entry>
+<entry key="SIP-LOCAL-PORT">5060</entry>
+<entry key="SIP-ID">298</entry>
+<entry key="SIP-Realm/Domain">TALKSWITCH</entry>
+<entry key="SIP-Auth-ID">user298</entry>
+<entry key="SIP-PASSWORD">Winter2013</entry>
+
+<!-- ext 298 -->
+<entry key="SIP-LOCAL-MACHINE-UUID">53239363-3df9-4f86-8b57-5dd509207441</entry>
+<!-- ext 299 <entry key="SIP-LOCAL-MACHINE-UUID">ecb252c0-64b3-11e3-949a-0800200c9a66</entry> -->
+<!-- Insert the extension to monitor with comma seperated-->
+<entry key="SIP-IDs-TO-MONITOR">120,123,124</entry>
+
+<!-- Common Config -->
+<entry key="TRANSPORT-PROTOCOL">udp</entry>
+</properties>

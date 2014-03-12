@@ -1,0 +1,60 @@
+run:
+log4j:WARN No appenders could be found for logger (stack).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+registerStateful....Begin
+
+registerStateful: generated request before sending:
+[REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 68b2bf065c51312bb74649a4e22ee266@93.185.239.111
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=-1898035066
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK-10240698
+Max-Forwards: 70
+Contact: <sip:299@93.185.239.111:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK-10240698
+From: <sip:299@173.231.103.38:5060>;tag=-1898035066
+To: <sip:299@173.231.103.38:5060>;tag=29655948312809828131
+Call-ID: 68b2bf065c51312bb74649a4e22ee266@93.185.239.111
+CSeq: 1 REGISTER
+Proxy-Authenticate: Digest realm="TALKSWITCH",nonce="68d68a8afbf577447de41112e4f28647",opaque="185a87188c63a2c7f69105023454e0b2",stale=TRUE,algorithm=MD5
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+registerStateful....Begin
+
+ registerStateful 407rm=TALKSWITCH-n=68d68a8afbf577447de41112e4f28647-o=185a87188c63a2c7f69105023454e0b2-meth=REGISTER-requri=sip:299@173.231.103.38:5060
+ah_r=Proxy-Authorization: Digest realm="TALKSWITCH",username="user299",nonce="68d68a8afbf577447de41112e4f28647",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="bad94c35b1707d75f823df9dccd5f348",opaque="185a87188c63a2c7f69105023454e0b2"
+
+registerStateful: generated request before sending:
+[REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: 68b2bf065c51312bb74649a4e22ee266@93.185.239.111
+CSeq: 2 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=-1898035066
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK1727303389
+Max-Forwards: 70
+Contact: <sip:299@93.185.239.111:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+Proxy-Authorization: Digest realm="TALKSWITCH",username="user299",nonce="68d68a8afbf577447de41112e4f28647",uri="sip:299@173.231.103.38:5060",algorithm=MD5,response="bad94c35b1707d75f823df9dccd5f348",opaque="185a87188c63a2c7f69105023454e0b2"
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 407 PROXY AUTHORIZATION REQUIRED
+Via: SIP/2.0/UDP 93.185.239.111:5060;branch=z9hG4bK1727303389
+From: <sip:299@173.231.103.38:5060>;tag=-1898035066
+To: <sip:299@173.231.103.38:5060>;tag=5980150571911250030
+Call-ID: 68b2bf065c51312bb74649a4e22ee266@93.185.239.111
+CSeq: 2 REGISTER
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+

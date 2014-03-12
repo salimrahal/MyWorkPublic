@@ -1,0 +1,10 @@
+2013-12-03 21:51:31,081 INFO  [Thread-0] starting user agent [myAddress: 192.168.5.117, sipPort: 5060, userpart: 299, domain: 173.231.103.38]
+2013-12-03 21:51:31,245 INFO  [Thread-0] added datagram socket 192.168.5.117:5060/UDP
+2013-12-03 21:51:31,246 INFO  [Thread-0] added 192.168.5.117:5060/UDP: net.sourceforge.peers.sip.transport.UdpMessageReceiver@16730bb to message receivers
+2013-12-03 21:51:31,687 DEBUG [Thread-0] SM z9hG4bKI693mPwk1|REGISTER [NonInviteClientTransactionStateInit -> NonInviteClientTransactionStateTrying] setState
+2013-12-03 21:51:32,060 DEBUG [Thread-5] ClientTransaction = net.sourceforge.peers.sip.transaction.NonInviteClientTransaction@6e5c0f
+2013-12-03 21:51:32,061 DEBUG [Thread-5] SM z9hG4bKI693mPwk1|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateCompleted] setState
+2013-12-03 21:51:32,080 DEBUG [Thread-5] SM z9hG4bK5xDXjT572|REGISTER [NonInviteClientTransactionStateInit -> NonInviteClientTransactionStateTrying] setState
+2013-12-03 21:51:32,382 DEBUG [Thread-5] ClientTransaction = net.sourceforge.peers.sip.transaction.NonInviteClientTransaction@7d758a
+2013-12-03 21:51:32,382 DEBUG [Thread-5] SM z9hG4bK5xDXjT572|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateCompleted] setState
+2013-12-03 21:51:32,382 DEBUG [Thread-5] image url: file:/home/salim/MyWork/sip/peers/SipBlf/build/classes/net/sourceforge/peers/gui/red.png

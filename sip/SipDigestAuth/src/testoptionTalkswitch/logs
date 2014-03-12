@@ -1,0 +1,26 @@
+run:
+message send...
+OPTIONS sip:salimrahal@sip2sip.info;transport=udp SIP/2.0
+Call-ID: a6aa61a71688fc5a23402ebdf001701b@93.185.238.210
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.238.210:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>
+Via: SIP/2.0/UDP 93.185.238.210:5060;branch=branch1
+Max-Forwards: 70
+Contact: "salimrahal" <sip:salimrahal@93.185.238.210:5060>
+Content-Length: 0
+
+
+Response received : Status Code = 482 CSeq: 1 OPTIONS
+
+Response received : SIP/2.0 482 Loop detected
+Call-ID: a6aa61a71688fc5a23402ebdf001701b@93.185.238.210
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.238.210:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>;tag=ac7e0189ab09b4fde10c77c8597b662a.54fb
+Via: SIP/2.0/UDP 93.185.238.210:5060;received=193.138.224.31;rport=5060;branch=z9hG4bK-373630-37932617184ad5f14b3ffdccd4b5861a
+Server: SIP Thor on OpenSIPS XS 1.9.0
+Content-Length: 0
+
+
+BUILD STOPPED (total time: 9 minutes 58 seconds)

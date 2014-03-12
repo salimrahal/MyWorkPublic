@@ -1,0 +1,27 @@
+sendOPTIONS....Begin
+
+: generated request before sending:
+[OPTIONS sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: f9499b589231c9972cb903e54199ac5a@141.138.188.136
+CSeq: 1 OPTIONS
+From: <sip:299@173.231.103.38:5060>;tag=-1996978697
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-169099970
+Max-Forwards: 70
+Contact: <sip:299@141.138.188.136:5060;transport=udp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Content-Length: 0
+
+]
+
+Received response: SIP/2.0 200 OK
+Via: SIP/2.0/UDP 141.138.188.136:5060;branch=z9hG4bK-169099970
+From: <sip:299@173.231.103.38:5060>;tag=-1996978697
+To: <sip:299@173.231.103.38:5060>
+Call-ID: f9499b589231c9972cb903e54199ac5a@141.138.188.136
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Success, other stuff

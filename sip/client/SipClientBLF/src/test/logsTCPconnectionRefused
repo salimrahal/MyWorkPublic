@@ -1,0 +1,40 @@
+run:
+log4j:WARN No appenders could be found for logger (stack).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+registerStateful....Begin
+
+Exception in thread "main" javax.sip.SipException: class java.net.ConnectException Connection refused null Problem connecting /173.231.103.38 5060 /141.138.190.20 for message REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: f9198437dbe87985bd10420ade18524f@141.138.190.20
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=991538490
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/TCP 141.138.190.20:5060;branch=z9hG4bK-223864638
+Max-Forwards: 70
+Contact: <sip:299@141.138.190.20:5060;transport=tcp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Content-Length: 0
+
+
+	at gov.nist.javax.sip.stack.SIPClientTransaction.sendRequest(SIPClientTransaction.java:1066)
+	at test.RegisterControllerTest.registerStateful(RegisterControllerTest.java:215)
+	at test.RegisterControllerTest.main(RegisterControllerTest.java:365)
+Caused by: java.net.SocketException: class java.net.ConnectException Connection refused null Problem connecting /173.231.103.38 5060 /141.138.190.20 for message REGISTER sip:299@173.231.103.38:5060 SIP/2.0
+Call-ID: f9198437dbe87985bd10420ade18524f@141.138.190.20
+CSeq: 1 REGISTER
+From: <sip:299@173.231.103.38:5060>;tag=991538490
+To: <sip:299@173.231.103.38:5060>
+Via: SIP/2.0/TCP 141.138.190.20:5060;branch=z9hG4bK-223864638
+Max-Forwards: 70
+Contact: <sip:299@141.138.190.20:5060;transport=tcp>;+sip.instance="<urn:uuid:b671df70-60b5-11e3-949a-0800200c9a66>"
+User-Agent: Salim-Host
+Content-Length: 0
+
+
+	at gov.nist.javax.sip.stack.IOHandler.sendBytes(IOHandler.java:314)
+	at gov.nist.javax.sip.stack.TCPMessageChannel.sendMessage(TCPMessageChannel.java:348)
+	at gov.nist.javax.sip.stack.MessageChannel.sendMessage(MessageChannel.java:281)
+	at gov.nist.javax.sip.stack.SIPTransaction.sendMessage(SIPTransaction.java:917)
+	at gov.nist.javax.sip.stack.SIPClientTransaction.sendMessage(SIPClientTransaction.java:490)
+	at gov.nist.javax.sip.stack.SIPClientTransaction.sendRequest(SIPClientTransaction.java:1058)
+	... 2 more

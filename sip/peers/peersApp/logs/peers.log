@@ -1,0 +1,6 @@
+2014-02-02 23:44:33,986 INFO  [Thread-0] starting user agent [myAddress: 192.168.5.100, sipPort: 5060, userpart: 299, domain: 173.231.103.39]
+2014-02-02 23:44:34,099 INFO  [Thread-0] added datagram socket 192.168.5.100:5060/UDP
+2014-02-02 23:44:34,100 INFO  [Thread-0] added 192.168.5.100:5060/UDP: net.sourceforge.peers.sip.transport.UdpMessageReceiver@1b050fd to message receivers
+2014-02-02 23:44:34,755 DEBUG [Thread-0] SM z9hG4bKbrMUZyfWd|REGISTER [NonInviteClientTransactionStateInit -> NonInviteClientTransactionStateTrying] setState
+2014-02-02 23:44:35,256 DEBUG [Transaction timer] SM z9hG4bKbrMUZyfWd|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState
+2014-02-02 23:44:36,257 DEBUG [Transaction timer] SM z9hG4bKbrMUZyfWd|REGISTER [NonInviteClientTransactionStateTrying -> NonInviteClientTransactionStateTrying] setState

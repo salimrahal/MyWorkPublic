@@ -1,0 +1,678 @@
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.239.237:5060" 
+to="173.231.103.38:5060" 
+time="1386419566150"
+isSender="true" 
+transactionId="z9hg4bk-333336-ee67e73f4ff8ea95dbba212a25e0e709" 
+callId="4cc0450cd63249cf838f21e8c7d3a1fb@93.185.239.237" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 4cc0450cd63249cf838f21e8c7d3a1fb@93.185.239.237
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.239.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-333336-ee67e73f4ff8ea95dbba212a25e0e709
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.239.237:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.239.237:5060" 
+time="1386419566416"
+isSender="false" 
+transactionId="z9hg4bk-333336-ee67e73f4ff8ea95dbba212a25e0e709" 
+callId="4cc0450cd63249cf838f21e8c7d3a1fb@93.185.239.237" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-333336-ee67e73f4ff8ea95dbba212a25e0e709
+From: "299" <sip:299@93.185.239.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 4cc0450cd63249cf838f21e8c7d3a1fb@93.185.239.237
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.239.237:5060" 
+to="173.231.103.38:5060" 
+time="1386421685086"
+isSender="true" 
+transactionId="z9hg4bk-343538-cb4400ac87a784bba693d5f98edb1cbf" 
+callId="641e024e8c6b1202bebe789b2ca1d3d8@93.185.239.237" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 641e024e8c6b1202bebe789b2ca1d3d8@93.185.239.237
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.239.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-343538-cb4400ac87a784bba693d5f98edb1cbf
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.239.237:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.239.237:5060" 
+time="1386421685397"
+isSender="false" 
+transactionId="z9hg4bk-343538-cb4400ac87a784bba693d5f98edb1cbf" 
+callId="641e024e8c6b1202bebe789b2ca1d3d8@93.185.239.237" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-343538-cb4400ac87a784bba693d5f98edb1cbf
+From: "299" <sip:299@93.185.239.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 641e024e8c6b1202bebe789b2ca1d3d8@93.185.239.237
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= proxy.sipthor.net:5060/UDP
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.239.237:5060" 
+to="85.17.186.7:5060" 
+time="1386421771209"
+isSender="true" 
+transactionId="z9hg4bk-373336-7e6c8f68ca9969681c9dab78db3fd3b0" 
+callId="6ccdc48e2db00f1954b0de71c89a5c52@93.185.239.237" 
+firstLine="OPTIONS sip:salimrahal@sip2sip.info;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:salimrahal@sip2sip.info;transport=udp SIP/2.0
+Call-ID: 6ccdc48e2db00f1954b0de71c89a5c52@93.185.239.237
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.239.237:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>
+Via: SIP/2.0/UDP 93.185.239.237:5060;branch=z9hG4bK-373336-7e6c8f68ca9969681c9dab78db3fd3b0
+Max-Forwards: 70
+Contact: "salimrahal" <sip:salimrahal@93.185.239.237:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="85.17.186.7:5060" 
+to="93.185.239.237:5060" 
+time="1386421771416"
+isSender="false" 
+transactionId="z9hg4bk-373336-7e6c8f68ca9969681c9dab78db3fd3b0" 
+callId="6ccdc48e2db00f1954b0de71c89a5c52@93.185.239.237" 
+firstLine="SIP/2.0 482 Loop detected" 
+>
+<![CDATA[SIP/2.0 482 Loop detected
+Call-ID: 6ccdc48e2db00f1954b0de71c89a5c52@93.185.239.237
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.239.237:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>;tag=ac7e0189ab09b4fde10c77c8597b662a.5a19
+Via: SIP/2.0/UDP 93.185.239.237:5060;received=193.138.224.31;rport=5060;branch=z9hG4bK-373336-7e6c8f68ca9969681c9dab78db3fd3b0
+Server: SIP Thor on OpenSIPS XS 1.9.0
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.158:5060" 
+to="173.231.103.38:5060" 
+time="1386497864045"
+isSender="true" 
+transactionId="z9hg4bk-393832-d3ee27c2cd3abc0eae791b98cf8381fd" 
+callId="71c9c7970919762b4c7a0879edfb751f@93.185.238.158" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 71c9c7970919762b4c7a0879edfb751f@93.185.238.158
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393832-d3ee27c2cd3abc0eae791b98cf8381fd
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.238.158:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.158:5060" 
+to="173.231.103.38:5060" 
+time="1386497864546"
+isSender="true" 
+transactionId="z9hg4bk-393832-d3ee27c2cd3abc0eae791b98cf8381fd" 
+callId="71c9c7970919762b4c7a0879edfb751f@93.185.238.158" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 71c9c7970919762b4c7a0879edfb751f@93.185.238.158
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393832-d3ee27c2cd3abc0eae791b98cf8381fd
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.238.158:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.238.158:5060" 
+time="1386497864987"
+isSender="false" 
+transactionId="z9hg4bk-393832-d3ee27c2cd3abc0eae791b98cf8381fd" 
+callId="71c9c7970919762b4c7a0879edfb751f@93.185.238.158" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393832-d3ee27c2cd3abc0eae791b98cf8381fd
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 71c9c7970919762b4c7a0879edfb751f@93.185.238.158
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.238.158:5060" 
+time="1386497865202"
+isSender="false" 
+transactionId="z9hg4bk-393832-d3ee27c2cd3abc0eae791b98cf8381fd" 
+callId="71c9c7970919762b4c7a0879edfb751f@93.185.238.158" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393832-d3ee27c2cd3abc0eae791b98cf8381fd
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 71c9c7970919762b4c7a0879edfb751f@93.185.238.158
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.238.158:5060" 
+to="173.231.103.38:5060" 
+time="1386498668471"
+isSender="true" 
+transactionId="z9hg4bk-393136-71cedc073b1e964dcfdf2f9ef290f078" 
+callId="87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393136-71cedc073b1e964dcfdf2f9ef290f078
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.238.158:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="93.185.238.158:5060" 
+to="173.231.103.38:5060" 
+time="1386498668973"
+isSender="true" 
+transactionId="z9hg4bk-393136-71cedc073b1e964dcfdf2f9ef290f078" 
+callId="87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: 87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393136-71cedc073b1e964dcfdf2f9ef290f078
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.238.158:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.238.158:5060" 
+time="1386498669275"
+isSender="false" 
+transactionId="z9hg4bk-393136-71cedc073b1e964dcfdf2f9ef290f078" 
+callId="87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.238.158:5060;branch=z9hG4bK-393136-71cedc073b1e964dcfdf2f9ef290f078
+From: "299" <sip:299@93.185.238.158:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: 87998cd955c00fc93d2ef5e8a14b4f11@93.185.238.158
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= proxy.sipthor.net:5060/UDP
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= proxy.sipthor.net:5060/UDP
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.237.237:5060" 
+to="81.23.228.129:5060" 
+time="1386580332031"
+isSender="true" 
+transactionId="z9hg4bk-363438-d78f20eb8dcbeff888f8d13ff081ffb8" 
+callId="8a61abc8cee1c2fbdac21914b65ad8c3@93.185.237.237" 
+firstLine="OPTIONS sip:salimrahal@sip2sip.info;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:salimrahal@sip2sip.info;transport=udp SIP/2.0
+Call-ID: 8a61abc8cee1c2fbdac21914b65ad8c3@93.185.237.237
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.237.237:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>
+Via: SIP/2.0/UDP 93.185.237.237:5060;branch=z9hG4bK-363438-d78f20eb8dcbeff888f8d13ff081ffb8
+Max-Forwards: 70
+Contact: "salimrahal" <sip:salimrahal@93.185.237.237:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="81.23.228.129:5060" 
+to="93.185.237.237:5060" 
+time="1386580332230"
+isSender="false" 
+transactionId="z9hg4bk-363438-d78f20eb8dcbeff888f8d13ff081ffb8" 
+callId="8a61abc8cee1c2fbdac21914b65ad8c3@93.185.237.237" 
+firstLine="SIP/2.0 482 Loop detected" 
+>
+<![CDATA[SIP/2.0 482 Loop detected
+Call-ID: 8a61abc8cee1c2fbdac21914b65ad8c3@93.185.237.237
+CSeq: 1 OPTIONS
+From: "salimrahal" <sip:salimrahal@93.185.237.237:5060>;tag=textclientv1.0
+To: "salimrahal" <sip:salimrahal@sip2sip.info>;tag=f2f36c970cbb772c79daadc5c9d6e415.3fe8
+Via: SIP/2.0/UDP 93.185.237.237:5060;received=193.138.224.31;rport=5060;branch=z9hG4bK-363438-d78f20eb8dcbeff888f8d13ff081ffb8
+Server: SIP Thor on OpenSIPS XS 1.9.0
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= null
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="93.185.237.237:5060" 
+to="173.231.103.38:5060" 
+time="1386580417087"
+isSender="true" 
+transactionId="z9hg4bk-373734-b92f9483497518820aa72a1250deb5dc" 
+callId="f3b859bc5eac5a38c7f166060eb3d4f2@93.185.237.237" 
+firstLine="OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:299@173.231.103.38;transport=udp SIP/2.0
+Call-ID: f3b859bc5eac5a38c7f166060eb3d4f2@93.185.237.237
+CSeq: 1 OPTIONS
+From: "299" <sip:299@93.185.237.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Via: SIP/2.0/UDP 93.185.237.237:5060;branch=z9hG4bK-373734-b92f9483497518820aa72a1250deb5dc
+Max-Forwards: 70
+Contact: "299" <sip:299@93.185.237.237:5060>
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.231.103.38:5060" 
+to="93.185.237.237:5060" 
+time="1386580417323"
+isSender="false" 
+transactionId="z9hg4bk-373734-b92f9483497518820aa72a1250deb5dc" 
+callId="f3b859bc5eac5a38c7f166060eb3d4f2@93.185.237.237" 
+firstLine="SIP/2.0 200 OK" 
+>
+<![CDATA[SIP/2.0 200 OK
+Via: SIP/2.0/UDP 93.185.237.237:5060;branch=z9hG4bK-373734-b92f9483497518820aa72a1250deb5dc
+From: "299" <sip:299@93.185.237.237:5060>;tag=textclientv1.0
+To: "299" <sip:299@173.231.103.38>
+Call-ID: f3b859bc5eac5a38c7f166060eb3d4f2@93.185.237.237
+CSeq: 1 OPTIONS
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+]]>
+</message>
+
+<!-- Use the  Trace Viewer in src/tools/tracesviewer to view this  trace  
+Here are the stack configuration properties 
+javax.sip.IP_ADDRESS= null
+javax.sip.STACK_NAME= TextClient
+javax.sip.ROUTER_PATH= null
+javax.sip.OUTBOUND_PROXY= proxy.sipthor.net:5060/UDP
+-->
+<description
+ logDescription="TextClient"
+ name="TextClient"
+ auxInfo="null"/>
+ 
+<message
+from="216.235.144.51:5061" 
+to="93.185.237.237:5060" 
+time="1386592771946"
+isSender="false" 
+transactionId="z9hg4bk-3885697672" 
+callId="1131132400879084737796899" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 127.0.0.1:5061;branch=z9hG4bK-3885697672;rport=5061;received=216.235.144.51
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340131343035393439373936
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@127.0.0.1:5061>
+CSeq: 1 OPTIONS
+Call-ID: 1131132400879084737796899
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="188.138.108.155:5370" 
+to="93.185.237.237:5060" 
+time="1386600295055"
+isSender="false" 
+transactionId="z9hg4bk-109611296" 
+callId="1000394920960545775608858" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 188.138.104.205:5370;branch=z9hG4bK-109611296;rport=5370;received=188.138.108.155
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340131313930303034383733
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@188.138.104.205:5370>
+CSeq: 1 OPTIONS
+Call-ID: 1000394920960545775608858
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="173.239.61.144:5083" 
+to="93.185.237.237:5060" 
+time="1386603082469"
+isSender="false" 
+transactionId="z9hg4bk-1742885118" 
+callId="60091869348751683797841" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 173.239.61.144:5083;branch=z9hG4bK-1742885118;rport=5083;received=173.239.61.144
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340131303934393138353632
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@173.239.61.144:5083>
+CSeq: 1 OPTIONS
+Call-ID: 60091869348751683797841
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="85.25.109.203:5362" 
+to="93.185.237.237:5060" 
+time="1386610448548"
+isSender="false" 
+transactionId="z9hg4bk-2445885425" 
+callId="587974615573736928301493" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 85.25.109.203:5362;branch=z9hG4bK-2445885425;rport=5362;received=85.25.109.203
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340133333830333132393533
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@85.25.109.203:5362>
+CSeq: 1 OPTIONS
+Call-ID: 587974615573736928301493
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="208.43.235.53:5126" 
+to="93.185.237.237:5060" 
+time="1386618990647"
+isSender="false" 
+transactionId="z9hg4bk-1105335547" 
+callId="679043065155165071865217" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 208.43.235.53:5126;branch=z9hG4bK-1105335547;rport=5126;received=208.43.235.53
+From: "sipvicious" <sip:100@1.1.1.1>;tag=35646239656465643133633401323639333038343533
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@208.43.235.53:5126>
+CSeq: 1 OPTIONS
+Call-ID: 679043065155165071865217
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="185.8.107.252:5076" 
+to="93.185.237.237:5060" 
+time="1386622422308"
+isSender="false" 
+transactionId="z9hg4bk-3537721916" 
+callId="121736295131747938972403" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 127.0.0.1:5076;branch=z9hG4bK-3537721916;rport=5076;received=185.8.107.252
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340133303530393634313432
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@127.0.0.1:5076>
+CSeq: 1 OPTIONS
+Call-ID: 121736295131747938972403
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="85.25.154.164:5109" 
+to="93.185.237.237:5060" 
+time="1386622987941"
+isSender="false" 
+transactionId="z9hg4bk-2168099247" 
+callId="807495177516851573058950" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 85.25.154.164:5109;branch=z9hG4bK-2168099247;rport=5109;received=85.25.154.164
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340131363337373233363935
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@85.25.154.164:5109>
+CSeq: 1 OPTIONS
+Call-ID: 807495177516851573058950
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+
+<message
+from="199.19.109.56:5063" 
+to="93.185.237.237:5060" 
+time="1386624023060"
+isSender="false" 
+transactionId="z9hg4bk-4067935993" 
+callId="543999085471709271752811" 
+firstLine="OPTIONS sip:100@93.185.237.237 SIP/2.0" 
+>
+<![CDATA[OPTIONS sip:100@93.185.237.237 SIP/2.0
+Via: SIP/2.0/UDP 127.0.0.1:5063;branch=z9hG4bK-4067935993;rport=5063;received=199.19.109.56
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965646564313363340132373138303230383436
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@127.0.0.1:5063>
+CSeq: 1 OPTIONS
+Call-ID: 543999085471709271752811
+Max-Forwards: 70
+Content-Length: 0
+
+]]>
+</message>
+

@@ -1,0 +1,36 @@
+2014-02-02 23:44:34,756 SENT to 173.231.103.39/5060 [Thread-0]
+
+REGISTER sip:173.231.103.39 SIP/2.0
+Via: SIP/2.0/UDP 192.168.5.100:5060;rport;branch=z9hG4bKbrMUZyfWd
+Max-Forwards: 70
+To: <sip:299@173.231.103.39>
+From: <sip:299@173.231.103.39>;tag=2FbIms5K
+Call-ID: ZfVL58WK-1391377474117@ss-host.local
+CSeq: 1 REGISTER
+Contact: <sip:299@192.168.5.100:5060;transport=UDP>
+
+
+2014-02-02 23:44:35,257 SENT to 173.231.103.39/5060 [Transaction timer]
+
+REGISTER sip:173.231.103.39 SIP/2.0
+Via: SIP/2.0/UDP 192.168.5.100:5060;rport;branch=z9hG4bKbrMUZyfWd
+Max-Forwards: 70
+To: <sip:299@173.231.103.39>
+From: <sip:299@173.231.103.39>;tag=2FbIms5K
+Call-ID: ZfVL58WK-1391377474117@ss-host.local
+CSeq: 1 REGISTER
+Contact: <sip:299@192.168.5.100:5060;transport=UDP>
+
+
+2014-02-02 23:44:36,257 SENT to 173.231.103.39/5060 [Transaction timer]
+
+REGISTER sip:173.231.103.39 SIP/2.0
+Via: SIP/2.0/UDP 192.168.5.100:5060;rport;branch=z9hG4bKbrMUZyfWd
+Max-Forwards: 70
+To: <sip:299@173.231.103.39>
+From: <sip:299@173.231.103.39>;tag=2FbIms5K
+Call-ID: ZfVL58WK-1391377474117@ss-host.local
+CSeq: 1 REGISTER
+Contact: <sip:299@192.168.5.100:5060;transport=UDP>
+
+

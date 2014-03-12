@@ -1,0 +1,180 @@
+
+
+
+run:
+log4j:WARN No appenders could be found for logger (stack).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Run by main, x is 1
+subscribe....Begin
+
+Thu Dec 12 22:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK1334553235
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: 50ce529c273f2b83cfed8fc457053a26@93.185.236.179
+CSeq: 1 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 2
+subscribe....Begin
+
+Thu Dec 12 23:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK-1552276688
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: c2bd86a153d31d295634681b20a15205@93.185.236.179
+CSeq: 2 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 3
+subscribe....Begin
+
+Fri Dec 13 00:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK-1525636932
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: b1315adbfc244625cb11cd7c71498517@93.185.236.179
+CSeq: 3 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 4
+subscribe....Begin
+
+Fri Dec 13 01:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK1472451894
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: 3fb8f4bea19e081d5acc516d59f7e975@93.185.236.179
+CSeq: 4 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Process Request...........
+
+Received response: OPTIONS sip:100@93.185.236.179 SIP/2.0
+Via: SIP/2.0/UDP 67.215.65.132:5061;branch=z9hG4bK-3791376839;rport=5061;received=24.97.224.44
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965636233313363340133373934363733303139
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@67.215.65.132:5061>
+CSeq: 1 OPTIONS
+Call-ID: 787041428787857890927891
+Max-Forwards: 70
+Content-Length: 0
+
+
+Process Request...........
+
+Received response: OPTIONS sip:100@93.185.236.179 SIP/2.0
+Via: SIP/2.0/UDP 127.0.0.1:5138;branch=z9hG4bK-2292369014;rport=5138;received=188.138.41.214
+From: "sipvicious" <sip:100@1.1.1.1>;tag=35646239656362333133633401353935323835343533
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@127.0.0.1:5138>
+CSeq: 1 OPTIONS
+Call-ID: 286150472931686491199920
+Max-Forwards: 70
+Content-Length: 0
+
+
+Run by main, x is 5
+subscribe....Begin
+
+Fri Dec 13 02:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK109021874
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: 2da12833daad0a360c389dd7f6437a71@93.185.236.179
+CSeq: 5 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 6
+subscribe....Begin
+
+Fri Dec 13 03:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK1063500420
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: ee39e2c28bf9cb728e8de1e43bad8297@93.185.236.179
+CSeq: 6 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 7
+subscribe....Begin
+
+Fri Dec 13 04:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK-954662899
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: b95f50c151c0ca54825810e92c766832@93.185.236.179
+CSeq: 7 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Run by main, x is 8
+subscribe....Begin
+
+Fri Dec 13 05:51:48 EET 2013
+
+Received response: SIP/2.0 500 SERVER INTERNAL ERROR
+Via: SIP/2.0/UDP 93.185.236.179:5060;branch=z9hG4bK474746596
+From: <sip:299@173.231.103.38:5060>;tag=-206365225
+To: <sip:140@173.231.103.38:5060>
+Call-ID: c43d0d4a7ea57e5210f75c70f13d564d@93.185.236.179
+CSeq: 8 SUBSCRIBE
+Event: presence
+User-Agent: FortiVoice/7.31b00
+Content-Length: 0
+
+
+Process Request...........
+
+Received response: OPTIONS sip:100@93.185.236.179 SIP/2.0
+Via: SIP/2.0/UDP 62.75.212.215:5078;branch=z9hG4bK-1776647465;rport=5078;received=188.138.41.212
+From: "sipvicious" <sip:100@1.1.1.1>;tag=3564623965636233313363340131313235353434373334
+Accept: application/sdp
+User-Agent: friendly-scanner
+To: "sipvicious" <sip:100@1.1.1.1>
+Contact: <sip:100@62.75.212.215:5078>
+CSeq: 1 OPTIONS
+Call-ID: 695404041186714695344031
+Max-Forwards: 70
+Content-Length: 0
+
+
