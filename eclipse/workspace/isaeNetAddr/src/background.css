@@ -1,0 +1,479 @@
+/* 
+Document   : background
+Created on : Feb 18, 2009, 4:05:24 AM
+Author     : Pascal
+edited by  : Salim 18-2-09
+Description:
+Purpose of the stylesheet follows.
+*/
+
+/* 
+TODO customize this sample style
+Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+
+#index-banner {
+    width:757px;
+    height:79px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#index-wrapper {
+    background-image:url(http://si.isae.edu.lb/images/ciel.gif);
+    background-repeat:repeat;
+    width: 757px;
+    margin:0px auto;
+    border: 5px solid #aab;
+}
+
+#wrap {
+    margin:0;
+    width:757px;
+}
+
+.nextblock {
+    clear:both;
+}
+
+#index-content {
+    background: url(http://si.isae.edu.lb/images/ciel.gif) repeat;
+    top:0;
+    margin: 0 auto;
+    padding: 0;
+    width:1050px;
+    border: 3px solid #a9a;
+}
+
+#content {
+
+}
+#index-pub {
+    background: url(http://si.isae.edu.lb/images/ciel.gif) repeat;
+    top:0;
+    margin: auto;
+    padding: 10px;
+    width: 510px;
+    border: 10px solid #99a;
+}
+
+#index-sidebar {
+    background:transparent;
+    top:0;
+    margin: 0;
+    padding: 0;
+    width: 119px;
+    height:100%;
+    border: 1px solid #99b;
+}
+
+#index-footer {
+    background:transparent;
+    margin: 45px 20% 0 20%;
+    padding: 10px;
+    border: 2px solid #999;
+    text-align: center;
+}
+
+body{
+
+}
+
+
+.titre       { font-family: Utopia;
+    font-weight: bold;
+    color: #66BBCC ;
+    font-size : 80%;
+
+}
+
+.ident       { list-style-position: outside;
+    list-style-type: disc;
+    color: #000000;
+    font-size : small;
+    font-family : "Comic Sans MS";
+}
+
+.code        {font-family: Courier; border-style: solid;
+}
+
+#index-sidebar .imgfloat {
+    background:url(http://www.zdnet.fr/zdnet/x/i/m/rss_icon.gif) no-repeat;
+    background-position:0;
+    padding-left:41px;
+    width:75px;
+}
+
+#index-sidebar .noimgfloat{
+    padding-left:41px;
+    width:75px;
+}
+
+#index-sidebar TD:hover {
+    background-color: #dde;
+    color: #333366;
+    border: 2px solid #d0d0f8;
+}
+
+#index-sidebar TD {
+    border-bottom: 1px solid #d0d0f8;
+    font-size : 80%;
+}
+
+.chanel {
+
+    height:100%;
+    padding-top: 1em;
+    font-family : "Comic Sans MS";
+    font-size: 80%;
+}
+
+.chanel .title {
+    border: 1px solid #d0d0f8;
+    background-image:url(http://si.isae.edu.lb/images/ciel.gif);
+    background-repeat:repeat;
+
+    margin-top:-1em;
+}
+
+.tablechanel {
+    border:0;
+    border-top: 5px solid #d0d0f8;
+    width:100%;
+    height:100%;
+    border-left: 5px solid #99c;
+}
+.chanel .body {
+    border: 1px solid #d0d0f8;
+}
+
+.intro {
+    background-color: transparent;
+    color: inherit;
+    text-align: justify;
+    font-size: 80%;
+    border: 1px solid #d0d0f8;
+
+    padding: 0px;
+    margin-bottom: 1px;
+}
+/* url(http://images.cofares.info/feed2js_badge.gif)  */
+.rss-box {
+    background:url(http://si.isae.edu.lb/images/feed2js_badge.gif) no-repeat;
+    margin: 2px;
+    padding: 1px 4px;
+    background-color: #ededed;
+    border: 1px dashed #7485CA;
+}
+
+.rss-title, rss-title a {
+    font-family: "American Typewriter", "Trebuchet MS", Trebuchet, Lucida, sans-serif;
+    font-size: 18px;
+    font-weight:bold;
+    margin: 14px 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+.rss-items {
+
+}
+
+.rss-item  {
+    font-family : "Comic Sans MS";
+    font-size: small;
+    font-style: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-variant: normal;
+    margin: 0px;
+    list-style:none outside none;
+}
+
+.rss-item a:link, .rss-item a:visited, .rss-item a:active {
+    text-decoration : none;
+    border-bottom: 1px solid #ededed;
+    color: #88b;
+
+}
+
+.rss-item a:hover {
+    text-decoration : none;
+    color: #e0861e;
+    border-bottom: 1px dotted #e0861e;
+}
+
+.rss-date {
+    font-size: 11px;
+    font-weight : normal;
+    color: #F60;
+}
+div.title, H2.section {
+    background-image:url(http://si.isae.edu.lb/images/mer.gif);
+    background-repeat:repeat;
+    color: maroon;
+    font-family: Verdana, Impact, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 100%;
+    border: 1px solid #99c;
+    border-bottom: 1px solid #ccd;
+    padding: 0;
+    text-align: center;
+}
+A:hover {
+    background-color: #f0f0ff;
+    color: #333366;
+    border: 2px solid #d0d0f8;
+}
+
+ul#onglets{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+ul#onglets li{
+    font:bold 16px Arial, Verdana, Geneva, Arial, Helvetica, sans-serif;
+    color:#336699;
+    margin:0;
+    padding-left:1px;
+    padding-right:0px;
+    float:left;
+}
+
+div#header{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+}
+/* </ENTETE> */
+/* <ONGLET> */
+ul#sousrubrique{
+    position:absolute;
+    top:126px;
+    left:0px;
+    margin:0;
+    width:100%;
+    padding:0;
+    height:16px;
+}
+ul#sousrubrique li{
+    display:inline;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+ul#onglets li a {
+    text-align:center;
+    display:block;
+}
+
+.imcm ul,.imcm li,.imcm div,.imcm span,.imcm a{
+    text-align:left;
+    vertical-align:top;
+    padding:0px;
+    margin:0;
+    list-style:none outside none;
+    border-style:none;
+    background-image:none;
+    clear:none;
+    float:none;
+    display:block;
+    position:static;
+    overflow:visible;
+    line-height:normal;
+}
+.imcm li a img {
+    display:inline;
+    border-width:0px;
+}
+.imcm span{
+    display:inline;
+}
+.imcm .imclear,.imclear {
+    clear:both;
+    height:0px;
+    visibility:hidden;
+    line-height:0px;
+    font-size:1px;
+}
+
+.imcm .imsc{
+    position:relative;
+}
+
+.imcm .imsubc{
+    position:absolute;
+    visibility:hidden;
+}
+
+.imcm li{
+    list-style:none;
+    font-size:1px;
+    float:left;
+}
+
+/**
+* Barre de menu simple
+*/
+.imcm ul ul li{
+    z-index:9999;
+
+    width:100%;float:none !important;}
+
+.imcm a{display:block;position:relative;}
+
+.imcm ul .imsc,.imcm ul .imsubc {z-index:10;}
+
+.imcm ul ul .imsc,.imcm ul ul .imsubc{z-index:20;}
+
+.imcm ul ul ul .imsc,.imcm ul ul .imsubc{z-index:30;}
+
+.imde ul li:hover .imsubc{visibility:visible;}
+
+.imde ul ul li:hover  .imsubc{visibility:visible;}
+
+.imde ul ul ul li:hover  .imsubc{visibility:visible;}
+
+.imde li:hover ul  .imsubc{visibility:hidden;}
+
+.imde li:hover ul ul .imsubc{visibility:hidden;}
+
+.imde li:hover ul ul ul  .imsubc{visibility:hidden;}
+
+.imcm .imea{display:block;position:relative;left:0px;font-size:1px;line-height:0px;height:0px;float:right;}
+
+.imcm .imea span{display:block;position:relative;font-size:1px;line-height:0px;}
+
+.dvs,.dvm{border-width:0px}
+
+/** lguj-11 **/
+td.titleSimple {
+    color: black;
+    font-family: Verdana, Impact, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 100%;
+    border: 1px solid #99c;
+    border-bottom: 1px solid #ccd;
+    padding: 0;
+    text-align: center;
+}
+td#horaire
+{
+    font: normal 0.7em Verdana, sans-serif;
+    border: 1px solid #222;
+    padding: 0;
+    margin: 0;
+}
+
+td#horaireBrdTopRight
+{
+    font: normal 0.7em Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    border-style:solid;
+    border-right-width:7px;
+    border-top-width:7px;
+}
+
+td#horaireBrdRight
+{
+    font: normal 0.7em Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    border-style:solid;
+    border-right-width:7px;
+}
+
+td#horaireBrdTop
+{
+    font: normal 0.7em Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    border-style:solid;
+    border-top-width:7px;
+}
+td#horaireBrdLeft
+{
+    font: normal 0.7em Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    border-style:solid;
+    border-left-width:7px;
+}
+td#horaireBrdTopLeft
+{
+    font: normal 0.7em Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    border-style:solid;
+    border-left-width:7px;
+    border-top-width:7px;
+}
+/*******End:lguj-11 ************/
+
+#navlist
+{
+    color: white;
+    background-image:url(http://si.isae.edu.lb/images/mer.gif); background-repeat:repeat;
+    border-bottom: 1px solid #17a;
+    border-right: 1px solid #17a;
+    padding: 0 1px;
+    margin: 0;
+    width: 117px;
+    font: normal 0.8em Verdana, sans-serif;
+}
+
+#navlist li
+{
+    list-style: none;
+    margin: 0;
+}
+
+#navlist a
+{
+    display: block;
+    text-decoration: none;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    color: white;
+    background: #39c;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5bd #035 #068 #6cf;
+    border-right: 5px solid #fc0;
+    padding:  1px 1px 1px 2px;
+    width:115px;
+}
+#navlist a
+{
+    width:115px;
+}
+#navcontainer>#navlist a
+{
+    width: 115px;
+    /* only necessary if you use the hacks above for the Internet Explorer */
+}
+
+#navlist a#current { border-color: #5bd #f35 #068 #6cf; }
+
+
+#navlist a:hover, #navlist a#current:hover
+{
+    background: #28b;
+    border-color: #069 #6cf #5bd #fc0;
+    padding:  2px 5px 2px 6px;
+    margin-right: 2px;
+    margin-left: -2px;
+}
+
+#navlist a:active, #navlist a#current:active
+{
+    background-image:url(http://si.isae.edu.lb/images/mer.gif); background-repeat:repeat;
+    border-color: #069 #6cf #5bd white;
+    padding:  2px 20px 2px 30px;
+}

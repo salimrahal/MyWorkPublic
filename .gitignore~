@@ -1,3 +1,5 @@
+/eclipse
+
 /tagLibSamples/nbproject/private/
 /tagLibSamples/build/
 /tagLibSamplesV2/nbproject/private/
@@ -15,14 +17,11 @@
 /wordpress/nbproject/private/
 /safiratech.com/nbproject/private/
 /contactList/nbproject/private/
->>>>>> 64a8cee523a7401572c4095f703dfd740aaa8175
 /isaeNetAddr/nbproject/private/
 /PhpWeb/nbproject/private/
-<<<<<<< HEAD
 /facebookLike/nbproject/private/
 /facebookLike/build/
 /tracking/nbproject/private/
-=======
 /mavenProjects/MavenPlatformWordApp/branding/target/
 /mavenProjects/MavenPlatformWordApp/MavenWordEngine/target/
 /mavenProjects/MavenPlatformWordApp/application/target/
@@ -35,21 +34,14 @@
 /junit/JUnit4-Sample/nbproject/private/
 /twilioSMS/nbproject/private/
 /whmcs/nbproject/private/
-<<<<<<< HEAD
->>>>>>> e3ee737a46856756f32d4b34b04e573c6373ced2
 /datePicker/nbproject/private/
 /datePicker/build/
-=======
 /sampleapp/nbproject/private/
 /smartyapp/nbproject/private/
 /whmcsV1/nbproject/private/
-<<<<<<< HEAD
 /hibernate/DVDStore/nbproject/private/
 /hibernate/DVDStore/dist/
 /hibernate/DVDStore/build/
-=======
->>>>>>> ba754d8a1c6a4cc491cedbaad9eedefa15537be4
->>>>>>> ef4a821a10d11ca4348529682df4a4d5986add2d
 /hibernate/simpleJavaApp/nbproject/private/
 /simpleJavaApp/nbproject/private/
 /simpleJavaApp/build/
@@ -147,15 +139,17 @@
 /java-applications/XMLManipulation/nbproject/private/
 /java-applications/XMLManipulation/build/
 /java-applications/XMLManipulation/dist/
-<<<<<<< HEAD
 /JspExamples/build/
 /JSP/HostName/nbproject/private/
 /JSP/HostName/build/
 /JSP/HostName/dist/
-=======
 /safirasoft.com/nbproject/private/
 /sip/client/SipClientBLF/nbproject/private/
 /sip/client/SipClientBLF/build/
 /sip/codecs/g729/nbproject/private/
->>>>>>> master
-/sip/codecs/g729/build/
+/sip/client/SipClientBLF/src/test/MainTest.java
+/HTML5/HTML5Application/nbproject/private/
+/googlemaps/nbproject/private/
+/APIs/googlemaps/nbproject/private/
+/google/googlemaps/nbproject/private/
+/googleAPI/googlemaps/nbproject/private/

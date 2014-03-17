@@ -20,7 +20,7 @@
 <entry key="SIP-SERVER-PORT">5060</entry>
 
 <!--Client or Local config -->
-<entry key="Local-IP">46.249.204.123</entry>
+<entry key="Local-IP">93.185.234.188</entry>
 <entry key="SIP-LOCAL-PORT">5060</entry>
 <entry key="SIP-ID">298</entry>
 <entry key="SIP-Realm/Domain">TALKSWITCH</entry>

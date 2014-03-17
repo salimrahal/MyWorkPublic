@@ -1,0 +1,26 @@
+package network.urls;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+public class UrlReader {
+
+	/**This program read then print out the HTML content of the URL: http://www.oracle.com/
+	 * @param args
+	 */
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
+		URL oracle = new URL("http://www.oracle.com/");
+		// operation like InputStreamrteader, will implicity obtain connection if necessary.
+		//The connection is opened implicitly by calling getInputStream.
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				oracle.openStream()));
+
+		String inputLine;
+		while ((inputLine = in.readLine()) != null)
+			System.out.println(inputLine);
+		in.close();
+	}
+
+}

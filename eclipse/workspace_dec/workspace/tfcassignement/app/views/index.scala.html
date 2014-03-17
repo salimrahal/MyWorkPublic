@@ -1,0 +1,13 @@
+@(tasks: List[Task], taskForm: Form[Task])
+
+@import helper._
+
+@main("Todo list") {
+ 
+    <h2></h2>
+     @form(routes.Application.show()) {
+        <input type="submit" value="Welcome">
+        
+    }
+    
+}

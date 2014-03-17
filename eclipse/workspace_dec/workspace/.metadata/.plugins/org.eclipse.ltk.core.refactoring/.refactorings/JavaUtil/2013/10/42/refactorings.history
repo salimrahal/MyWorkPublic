@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;hashmap.CloneHashMap.java&apos; to &apos;CloneHashTable.java&apos;&#x0A;- Original project: &apos;JavaUtil&apos;&#x0A;- Original element: &apos;hashmap.CloneHashMap.java&apos;&#x0A;- Renamed element: &apos;hashmap.CloneHashTable.java&apos;" description="Rename compilation unit &apos;CloneHashMap.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;hashmap{CloneHashMap.java" name="CloneHashTable.java" references="false" stamp="1382002353381" version="1.0"/>
+</session>

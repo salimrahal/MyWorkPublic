@@ -1,0 +1,13 @@
+package multiThreading;
+
+import java.lang.management.ManagementFactory;
+
+public class MyRunnable implements Runnable
+{
+
+	@Override
+	public void run() {
+		 System.out.println("run()::Hello from a thread!");	     
+		 System.out.println(ManagementFactory.getRuntimeMXBean().getName());	
+	} 
+}

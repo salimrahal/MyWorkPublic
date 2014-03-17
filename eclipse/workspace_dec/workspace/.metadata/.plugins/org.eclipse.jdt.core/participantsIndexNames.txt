@@ -1,0 +1,7 @@
+INDEX VERSION 1.126
+D:\Salim_data\backup_F\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1220754765.index
+\cStationStruts
+D:\Salim_data\backup_F\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2898956694.index
+\WebApplication1
+D:\Salim_data\backup_F\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3644620939.index
+\WebApplication1

@@ -1,0 +1,34 @@
+package multiThreading;
+
+/**
+ * You can pass a single Runnable instance to multiple Thread objects, so that
+ * the same Runnable becomes the target of multiple threads, as follows:
+ * 
+ * @author salim
+ * Thread state: new, runnable, blocked, terminated
+ * 
+ */
+public class TestThreads {
+	public static void main(String[] args) {
+		NameRunnable r = new NameRunnable();
+		Thread foo = new Thread(r);
+		Thread bar = new Thread(r);
+		Thread bat = new Thread(r);
+		System.out.println("jane thread Stat:" + bat.getState().toString());
+		foo.setName("salim");
+		bar.setName("daisy");
+		bat.setName("jane");
+
+		bar.start();
+		foo.start();
+		bat.start();
+		
+		while (true) {
+			System.out.println("jane thread Stat:" + bat.getState().toString());
+			if (!bat.isAlive()) {
+				System.out.println("Break--jane thread Stat:" + bat.getState().toString());
+				break;
+			}
+		}
+	}
+}

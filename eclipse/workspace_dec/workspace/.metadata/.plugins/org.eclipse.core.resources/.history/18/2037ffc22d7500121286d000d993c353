@@ -1,0 +1,19 @@
+package fileIO.serializable;
+
+import java.io.Serializable;
+
+public class Dog implements Serializable{
+	//use transient Collar to avoid serializing the Collar (by using implement Seriablizable)
+    private transient Collar theCollar;// we can't serialize this
+	private int dogSize;
+
+	public Dog(Collar collar, int size) {
+		theCollar = collar;
+		dogSize = size;
+	}
+
+	public Collar getCollar() {
+		return theCollar;
+	}
+
+}

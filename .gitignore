@@ -1,3 +1,5 @@
+/eclipse/
+
 /tagLibSamples/nbproject/private/
 /tagLibSamples/build/
 /tagLibSamplesV2/nbproject/private/
@@ -146,3 +148,8 @@
 /sip/client/SipClientBLF/build/
 /sip/codecs/g729/nbproject/private/
 /sip/client/SipClientBLF/src/test/MainTest.java
+/HTML5/HTML5Application/nbproject/private/
+/googlemaps/nbproject/private/
+/APIs/googlemaps/nbproject/private/
+/google/googlemaps/nbproject/private/
+/googleAPI/googlemaps/nbproject/private/
