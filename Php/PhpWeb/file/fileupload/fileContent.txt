@@ -1,0 +1,7 @@
+beginning of the file
+content
+content
+....
+
+...
+end
