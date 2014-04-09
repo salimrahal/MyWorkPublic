@@ -10,16 +10,32 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Facelets Template</title>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = "http://jsonip.appspot.com/?callback=DisplayIP";
+                document.getElementsByTagName("head")[0].appendChild(script);
+            };
+            function DisplayIP(response) {
+                document.getElementById("ipaddress").innerHTML = "Your IP Address is " + response.ip;
+            }
+        </script>
     </h:head>
 
     <h:body>
 
 
         <div id="top" class="top">
-            <ui:insert name="top">Date/Time : March24, 2014 15:17:20 EST
-Ip address Detected : 204.61.98.13
-Customer Name : [ ] please enter the name of your company
-</ui:insert>
+            <ui:insert name="top">
+                <p> Date/Time : March24, 2014 15:17:20 EST</p>
+               
+                Ip address Detected :  <p id="ipaddress"></p>
+                <p>Customer Name : [ ] please enter the name of your company</p>
+               
+              
+            </ui:insert>
         </div>
         <div>
             <div id="left">
@@ -28,7 +44,7 @@ Customer Name : [ ] please enter the name of your company
                         <p:commandButton  action="algdetector" value="Run ALG Test Detector"></p:commandButton>
                         <p:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></p:commandButton> 
                         <p:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></p:commandButton> 
-                    
+
                     </h:form></ui:insert>
             </div>
             <div id="content" class="left_content">
