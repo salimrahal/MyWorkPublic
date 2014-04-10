@@ -22084,3 +22084,39 @@ User-Agent: FortiVoice/7.31b00
 Content-Length: 0
 
 
+============Logs: Thu Apr 10 23:24:32 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: ce3452e369ba4a875e60d8cda2a9c220@141.138.188.58
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=99081839
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.188.58:5060;branch=z9hG4bK1664261734
+Max-Forwards: 70
+Contact: <sip:298@141.138.188.58:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+Process Response...........
+SIP/2.0 200 OK
+To: <sip:298@209.208.79.151:5060>;tag=1958472705
+Via: SIP/2.0/UDP 141.138.188.58:5060;branch=z9hG4bK1664261734;received=193.138.226.203
+CSeq: 1 REGISTER
+Call-ID: ce3452e369ba4a875e60d8cda2a9c220@141.138.188.58
+From: <sip:298@209.208.79.151:5060>;tag=99081839
+Contact: <sip:209.208.79.151:5060>
+Content-Length: 0
+
+
+"Success, implement REGISTER Business code: need to refresh the REGISTER"
+SIP/2.0 200 OK
+To: <sip:298@209.208.79.151:5060>;tag=1958472705
+Via: SIP/2.0/UDP 141.138.188.58:5060;branch=z9hG4bK1664261734;received=193.138.226.203
+CSeq: 1 REGISTER
+Call-ID: ce3452e369ba4a875e60d8cda2a9c220@141.138.188.58
+From: <sip:298@209.208.79.151:5060>;tag=99081839
+Contact: <sip:209.208.79.151:5060>
+Content-Length: 0
+
+

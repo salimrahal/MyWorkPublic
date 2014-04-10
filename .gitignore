@@ -163,3 +163,7 @@
 /java-applications/Applets/applet_HelloWorld/build/
 /java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/dist/
 /sip/siptools/SipLib/nbproject/private/
+/sip/SIPTOOLS/SipLib/build/
+/sip/SIPTOOLS/SipServerLib/nbproject/private/
+/sip/SIPTOOLS/SipServerLib/dist/
+/sip/SIPTOOLS/SipServerLib/build/
