@@ -9,16 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tracking Memoires/Stage login</title>
+        <title>SIP</title>
            <link href="<%=request.getContextPath()%>/resources/css/default.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath()%>/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
    
     </head>
     <body onload="document.forms[0].j_username.focus()">
         <div id="index-content">
-            <H2 ALIGN="center">Bienvenue au Système d'Information de l'ISAE</H2>
-            <H3 ALIGN="center" style="color: red">Accès: Chef de département, Scolarité</H3>
-            <H3 ALIGN="center">Tracking Mémoires et Stages</H3>
+            <H2 ALIGN="center">Welcome Admin access</H2>
+           
            <form action="j_security_check" method=post>
                 <table align="center">
                     <tr>

@@ -13,7 +13,7 @@ import javax.faces.bean.SessionScoped;
  *
  * @author salim
  */
-@ManagedBean(name = "ficheDescControl")
+@ManagedBean(name = "sipserverController")
 @SessionScoped
 public class sipserverController {
     

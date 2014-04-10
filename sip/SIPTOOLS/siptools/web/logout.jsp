@@ -21,7 +21,7 @@
             <center>
                 Vous êtes déconnecté avec succès.
                 <!--<a href="login.jsp">login</a>-->
-                <a href="<%=request.getContextPath()%>">login</a>
+                <a href="<%=request.getContextPath()%>">Home page</a>
             </center>
         </div>
     </body>

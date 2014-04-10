@@ -19,7 +19,7 @@
                 document.getElementsByTagName("head")[0].appendChild(script);
             };
             function DisplayIP(response) {
-                document.getElementById("ipaddress").innerHTML = "Your IP Address is " + response.ip;
+                document.getElementById("ipaddress").innerHTML = response.ip;
             }
         </script>
     </h:head>
@@ -29,10 +29,12 @@
 
         <div id="top" class="top">
             <ui:insert name="top">
-                  
+                <h:link outcome="secure/adminmenu" value="Admin Access" /><br></br>
+                <br></br> 
+                <a href="logout.jsp">logout</a>        
                 <p> Date/Time : March24, 2014 15:17:20 EST</p>
                
-                Ip address Detected :  <p id="ipaddress"></p>
+                Ip address Detected :  <label id="ipaddress"></label>
                 <p>Customer Name : [ ] please enter the name of your company</p>
                
               
@@ -41,13 +43,7 @@
         <div>
             <div id="left">
                 <ui:insert name="left"> 
-                    <h:form>
-                        <h:commandButton  action="sipserver" rendered="#{p:ifGranted('admin')}" value="Manage the SIP Server" />
-                        <p:commandButton  action="algdetector" value="Run ALG Test Detector"></p:commandButton>
-                        <p:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></p:commandButton> 
-                        <p:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></p:commandButton> 
-
-                    </h:form></ui:insert>
+                      <ui:include src="menusrc.xhtml" /></ui:insert>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content"></ui:insert>
