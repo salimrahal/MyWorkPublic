@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+<!--        <script language="Javascript">
+  var _app = navigator.appName;
+  alert(_app);
+
+  if (_app == 'Netscape') {
+    document.write('<embed code="gui.ALGJApplet.class"',
+                   'width="200"',
+                   'height="200"',
+                   'type="application/x-java-applet;version=1.5.0">');
+    }
+  else if (_app == 'Microsoft Internet Explorer') {
+    document.write('<OBJECT ',
+                   'classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"',
+                   'width="200"',
+                   'height="200">',
+                   '<PARAM name="code" value="gui.ALGJApplet.class">',
+                   '</OBJECT>');
+    }
+  else {
+    document.write('<p>Sorry, unsupported browser.</p>');
+    }
+</script>-->
+        <div>plugin below:</div>
+        
+      "gui.ALGJApplet.class"
+      "AlgApplet.jar"
+       <h2>This applet has been deployed with the applet tag using JNLP</h2>
+<!--    <applet
+        alt = "ALG detector Applet"
+        code = 'applet.HelloWorld'
+        jnlp_href = 'alg_applet.jnlp',
+        width = 300,
+        height = 300 />-->
+<applet 
+    code="applet.HelloWorld"
+    codebase="."
+    width=512
+    height=256
+     archive="AlgApplet.jar,
+        lib/jain-sdp-1.0.1111.jar,
+        lib/jain-sdp-src-1.0.1111.jar,
+        lib/jain-sip-api-1.2.jar, 
+        lib/jain-sip-api-1.2-src.jar,
+        lib/jain-sip-ri-1.2.1111.jar,
+        lib/jain-sip-sdp-1.2.1111.jar,
+        lib/jain-sip-src-1.2.1111.jar,
+        lib/jain-sip-tck-1.2.1111.jar, 
+        lib/jain-sip-unit-test-1.2.1111.jar, 
+        lib/log4j-1.2.17.jar">
+  <param name="jnlp_href" value="alg_JNLP.jnlp">
+</applet>
+  </body>
+</html>

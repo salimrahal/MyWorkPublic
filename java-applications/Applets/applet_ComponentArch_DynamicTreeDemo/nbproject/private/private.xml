@@ -6,6 +6,10 @@
         <group name="My Work">
             <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/appletComponentArch/DynamicTreePanel.java</file>
             <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/appletComponentArch/DynamicTreeApplet.java</file>
+            <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/dynamictree_applet.jnlp</file>
+            <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/AppletPage_WithAppletTagNoJNLP.html</file>
+            <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/AppletPage_WithAppletTagUsingJNLP.html</file>
+            <file>file:/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/src/appletComponentArch/DynamicTree.java</file>
         </group>
     </open-files>
 </project-private>

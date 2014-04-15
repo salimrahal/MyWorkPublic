@@ -138,7 +138,7 @@ public class DynamicTreePanel extends JPanel
         frame.setVisible(true);
     }
     
-    /*
+    
     // called when run as an application
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
@@ -149,5 +149,5 @@ public class DynamicTreePanel extends JPanel
             }
         });
     }
-     */
+     
 }
