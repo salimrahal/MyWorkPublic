@@ -85,7 +85,7 @@ public class ClientController implements SipListener {
     //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
     // ConfVO confVO = ConfVO.getInstance();
     // Objects keeping local configuration.
-    String iplocal = "192.168.0.102";
+    String iplocal = "192.168.5.115";
     String hostnameLocal = "";
     Integer portSrc = ALGBo.comb1SrcPort;
     String extlocal = "me";

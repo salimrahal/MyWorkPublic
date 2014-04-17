@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip
+END
+ProviderDoesNotExistException.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ProviderDoesNotExistException.java
+END
+SipFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/SipFactory.java
+END
+TransportAlreadySupportedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransportAlreadySupportedException.java
+END
+Transaction.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/Transaction.java
+END
+change-log.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/change-log.html
+END
+TimeoutEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TimeoutEvent.java
+END
+ObjectInUseException.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ObjectInUseException.java
+END
+RequestEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/RequestEvent.java
+END
+copyright.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/copyright.html
+END
+Dialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/Dialog.java
+END
+TransportNotSupportedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransportNotSupportedException.java
+END
+SipProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/SipProvider.java
+END
+SipException.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/SipException.java
+END
+TransactionDoesNotExistException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransactionDoesNotExistException.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/package.html
+END
+PeerUnavailableException.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/PeerUnavailableException.java
+END
+SipStack.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/SipStack.java
+END
+ClientTransaction.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ClientTransaction.java
+END
+Timeout.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/Timeout.java
+END
+TransactionState.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransactionState.java
+END
+DialogDoesNotExistException.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/DialogDoesNotExistException.java
+END
+IOExceptionEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/IOExceptionEvent.java
+END
+overview.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/overview.html
+END
+ResponseEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ResponseEvent.java
+END
+DialogState.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/DialogState.java
+END
+SipListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/SipListener.java
+END
+TransactionTerminatedEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransactionTerminatedEvent.java
+END
+ListeningPoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ListeningPoint.java
+END
+TransactionAlreadyExistsException.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransactionAlreadyExistsException.java
+END
+InvalidArgumentException.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/InvalidArgumentException.java
+END
+TransactionUnavailableException.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/TransactionUnavailableException.java
+END
+ServerTransaction.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/ServerTransaction.java
+END
+DialogTerminatedEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/DialogTerminatedEvent.java
+END

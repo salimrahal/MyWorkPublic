@@ -72,25 +72,6 @@ public class MainALG extends JApplet {
         algJpanel = new AlgJPanel();
         algJpanel.setOpaque(true);
         setContentPane(algJpanel);
-//                ClientController  sipClientController = new ClientController();
-//                sipClientController.createSipStack();
-//                sipClientController.createSipFrameWork();
-//                algJpanel = new AlgJPanel(sipClientController);
-//                algJpanel.setOpaque(true);
-//                setContentPane(algJpanel);
-//            } catch (PeerUnavailableException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (TransportNotSupportedException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ObjectInUseException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (InvalidArgumentException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (TooManyListenersException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-//            }
 
     }
 }

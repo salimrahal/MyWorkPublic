@@ -6,7 +6,10 @@
 
 package gui;
 
+import bo.Networking;
 import controller.ClientController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -357,6 +360,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
         // The sip client should send SIP message to the server
+         //addr = Networking.getIpAddressMeth1();    
         if (getSipClientController() == null) {
             try {
                 sipClientController = new ClientController();
@@ -364,6 +368,11 @@ public class AlgJPanel extends javax.swing.JPanel {
                 sipClientController.createSipFrameWork();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    sipClientController.reset();
+                } catch (Exception ex1) {
+                  JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 sipClientController = null;
             }
             String res = sipClientController.sendRegisterStateless();
@@ -374,6 +383,14 @@ public class AlgJPanel extends javax.swing.JPanel {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO reset the test, or clear the message text areas
+          String msg = "";
+        try{
+          msg = sipClientController.reset();
+        }
+        catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);    
+            }
+        resultmsg.setText(msg);
     }//GEN-LAST:event_resetActionPerformed
 
 

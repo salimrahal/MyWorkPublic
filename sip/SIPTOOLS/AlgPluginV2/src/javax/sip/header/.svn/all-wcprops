@@ -1,0 +1,383 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header
+END
+ProxyAuthorizationHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ProxyAuthorizationHeader.java
+END
+FromHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/FromHeader.java
+END
+OrganizationHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/OrganizationHeader.java
+END
+RSeqHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RSeqHeader.java
+END
+ContentLengthHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContentLengthHeader.java
+END
+ExtensionHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ExtensionHeader.java
+END
+AllowHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AllowHeader.java
+END
+PriorityHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/PriorityHeader.java
+END
+EventHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/EventHeader.java
+END
+HeaderAddress.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/HeaderAddress.java
+END
+TooManyHopsException.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/TooManyHopsException.java
+END
+RetryAfterHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RetryAfterHeader.java
+END
+Parameters.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/Parameters.java
+END
+ContactHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContactHeader.java
+END
+SIPETagHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/SIPETagHeader.java
+END
+UserAgentHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/UserAgentHeader.java
+END
+RouteHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RouteHeader.java
+END
+AcceptHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AcceptHeader.java
+END
+SubjectHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/SubjectHeader.java
+END
+AuthorizationHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AuthorizationHeader.java
+END
+AllowEventsHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AllowEventsHeader.java
+END
+ErrorInfoHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ErrorInfoHeader.java
+END
+ServerHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ServerHeader.java
+END
+AcceptEncodingHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AcceptEncodingHeader.java
+END
+MediaType.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/MediaType.java
+END
+Encoding.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/Encoding.java
+END
+ProxyRequireHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ProxyRequireHeader.java
+END
+ExpiresHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ExpiresHeader.java
+END
+ContentEncodingHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContentEncodingHeader.java
+END
+ToHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ToHeader.java
+END
+AlertInfoHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AlertInfoHeader.java
+END
+SubscriptionStateHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/SubscriptionStateHeader.java
+END
+AuthenticationInfoHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AuthenticationInfoHeader.java
+END
+CSeqHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/CSeqHeader.java
+END
+MaxForwardsHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/MaxForwardsHeader.java
+END
+TimeStampHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/TimeStampHeader.java
+END
+AcceptLanguageHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/AcceptLanguageHeader.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/package.html
+END
+WarningHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/WarningHeader.java
+END
+RequireHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RequireHeader.java
+END
+ContentTypeHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContentTypeHeader.java
+END
+DateHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/DateHeader.java
+END
+ContentLanguageHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContentLanguageHeader.java
+END
+Header.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/Header.java
+END
+ViaHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ViaHeader.java
+END
+ProxyAuthenticateHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ProxyAuthenticateHeader.java
+END
+SupportedHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/SupportedHeader.java
+END
+CallInfoHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/CallInfoHeader.java
+END
+CallIdHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/CallIdHeader.java
+END
+UnsupportedHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/UnsupportedHeader.java
+END
+OptionTag.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/OptionTag.java
+END
+MimeVersionHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/MimeVersionHeader.java
+END
+RecordRouteHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RecordRouteHeader.java
+END
+ReplyToHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ReplyToHeader.java
+END
+ContentDispositionHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ContentDispositionHeader.java
+END
+ReferToHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ReferToHeader.java
+END
+HeaderFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/HeaderFactory.java
+END
+RAckHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/RAckHeader.java
+END
+MinExpiresHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/MinExpiresHeader.java
+END
+WWWAuthenticateHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/WWWAuthenticateHeader.java
+END
+InReplyToHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/InReplyToHeader.java
+END
+ReasonHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/ReasonHeader.java
+END
+SIPIfMatchHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/javax/sip/header/SIPIfMatchHeader.java
+END

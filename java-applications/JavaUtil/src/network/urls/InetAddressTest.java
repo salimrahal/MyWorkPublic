@@ -16,6 +16,7 @@ public class InetAddressTest {
      */
     public static void main(String[] args) throws UnknownHostException {
         getIpAdress();
+        getIpAddressMeth1();
     }
 
     public static void getIpAddressMeth1() {
@@ -31,7 +32,7 @@ public class InetAddressTest {
         while (nifAddresses.hasMoreElements()) {
             try {
                 nifAddresses.nextElement();
-                System.out.println(InetAddress.getByName("141.138.190.28"));
+                System.out.println(InetAddress.getAllByName("ss-host"));
             } catch (UnknownHostException e) {
                 // TODO FAuto-generated catch block
                 e.printStackTrace();

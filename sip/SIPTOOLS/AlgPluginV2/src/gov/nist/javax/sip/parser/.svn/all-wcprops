@@ -1,0 +1,455 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser
+END
+AddressParametersParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AddressParametersParser.java
+END
+RSeqParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RSeqParser.java
+END
+MessageParserFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/MessageParserFactory.java
+END
+ExpiresParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ExpiresParser.java
+END
+PriorityParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/PriorityParser.java
+END
+ContentEncodingParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContentEncodingParser.java
+END
+AddressParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AddressParser.java
+END
+InReplyToParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/InReplyToParser.java
+END
+TokenNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/TokenNames.java
+END
+Pipeline.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/Pipeline.java
+END
+TokenTypes.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/TokenTypes.java
+END
+SIPMessageListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SIPMessageListener.java
+END
+MaxForwardsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/MaxForwardsParser.java
+END
+ContentDispositionParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContentDispositionParser.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/package.html
+END
+StringMsgParserFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/StringMsgParserFactory.java
+END
+WarningParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/WarningParser.java
+END
+RequireParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RequireParser.java
+END
+ContentLengthParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContentLengthParser.java
+END
+ContentTypeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContentTypeParser.java
+END
+ProxyRequireParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ProxyRequireParser.java
+END
+AllowParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AllowParser.java
+END
+ContentLanguageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContentLanguageParser.java
+END
+ViaParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ViaParser.java
+END
+EventParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/EventParser.java
+END
+MinExpiresParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/MinExpiresParser.java
+END
+MessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/MessageParser.java
+END
+SIPIfMatchParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SIPIfMatchParser.java
+END
+ReasonParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ReasonParser.java
+END
+HeaderParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/HeaderParser.java
+END
+UnsupportedParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/UnsupportedParser.java
+END
+CSeqParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/CSeqParser.java
+END
+RecordRouteParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RecordRouteParser.java
+END
+MimeVersionParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/MimeVersionParser.java
+END
+UserAgentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/UserAgentParser.java
+END
+RouteParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RouteParser.java
+END
+ReplyToParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ReplyToParser.java
+END
+AuthorizationParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AuthorizationParser.java
+END
+Lexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/Lexer.java
+END
+ProxyAuthorizationParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ProxyAuthorizationParser.java
+END
+ParametersParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ParametersParser.java
+END
+ErrorInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ErrorInfoParser.java
+END
+ReferToParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ReferToParser.java
+END
+ParserFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ParserFactory.java
+END
+DateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/DateParser.java
+END
+Parser.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/Parser.java
+END
+PipelinedMsgParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/PipelinedMsgParser.java
+END
+ChallengeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ChallengeParser.java
+END
+ParseExceptionListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ParseExceptionListener.java
+END
+WWWAuthenticateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/WWWAuthenticateParser.java
+END
+AlertInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AlertInfoParser.java
+END
+SubscriptionStateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SubscriptionStateParser.java
+END
+CallInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/CallInfoParser.java
+END
+RetryAfterParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RetryAfterParser.java
+END
+AcceptParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AcceptParser.java
+END
+RequestLineParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RequestLineParser.java
+END
+TimeStampParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/TimeStampParser.java
+END
+AcceptEncodingParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AcceptEncodingParser.java
+END
+ServerParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ServerParser.java
+END
+StringMsgParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/StringMsgParser.java
+END
+ProxyAuthenticateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ProxyAuthenticateParser.java
+END
+RAckParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/RAckParser.java
+END
+ToParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ToParser.java
+END
+SupportedParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SupportedParser.java
+END
+CallIDParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/CallIDParser.java
+END
+AuthenticationInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AuthenticationInfoParser.java
+END
+ContactParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/ContactParser.java
+END
+StatusLineParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/StatusLineParser.java
+END
+SIPETagParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SIPETagParser.java
+END
+SubjectParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/SubjectParser.java
+END
+URLParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/URLParser.java
+END
+AllowEventsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AllowEventsParser.java
+END
+AcceptLanguageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/AcceptLanguageParser.java
+END
+FromParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/FromParser.java
+END
+OrganizationParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/parser/OrganizationParser.java
+END

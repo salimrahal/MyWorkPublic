@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core
+END
+ServerLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/ServerLogger.java
+END
+MultiValueMapImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/MultiValueMapImpl.java
+END
+NameValueList.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/NameValueList.java
+END
+Host.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/Host.java
+END
+NameValue.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/NameValue.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/package.html
+END
+LogWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/LogWriter.java
+END
+PackageNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/PackageNames.java
+END
+Token.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/Token.java
+END
+HostPort.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/HostPort.java
+END
+Separators.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/Separators.java
+END
+InternalErrorHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/InternalErrorHandler.java
+END
+MultiValueMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/MultiValueMap.java
+END
+Debug.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/Debug.java
+END
+MultiMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/MultiMap.java
+END
+LexerCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/LexerCore.java
+END
+HostNameParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/HostNameParser.java
+END
+LogLevels.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/LogLevels.java
+END
+Match.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/Match.java
+END
+ThreadAuditor.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/ThreadAuditor.java
+END
+GenericObjectList.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/GenericObjectList.java
+END
+StringTokenizer.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/StringTokenizer.java
+END
+GenericObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/GenericObject.java
+END
+DuplicateNameValueList.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/DuplicateNameValueList.java
+END
+StackLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/StackLogger.java
+END
+ParserCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/core/ParserCore.java
+END
