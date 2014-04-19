@@ -4,6 +4,7 @@
  */
 package controller;
 
+import bo.Networking1;
 import bo.PresenceCallable;
 import bo.ResponseProcessor;
 import bo.SipClientBO;
@@ -101,7 +102,7 @@ public class ClientController implements SipListener {
     //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
     ConfVO confVO = ConfVO.getInstance();
     // Objects keeping local configuration.
-    String iplocal = confVO.getUACIp();
+    String iplocal ; // The local IP its now reading dynamiccaly the IP
     String hostnameLocal = confVO.getHostNameLocal();// The local IP address.
     //String requestURI ;//= "sip:299@173.231.103.38:5060";
     int portlocal = confVO.getUACPort();
@@ -143,7 +144,9 @@ public class ClientController implements SipListener {
         saxparser = new SAXParserPresence();
         //initialize the Thread Pool for PresenceVO callable
         service = Executors.newFixedThreadPool(2);
-
+        
+        //iplocal = Networking1.getLocalIpAddress();// for LAN it's returning the loop back
+        iplocal = confVO.getUACIp();
     }
 
     /**

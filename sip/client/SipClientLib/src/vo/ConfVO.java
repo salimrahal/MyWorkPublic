@@ -85,8 +85,9 @@ public class ConfVO {
     public void setUASIp(String UASIp) {
         this.UASIp = UASIp;
     }
-
+//its changes to dynamically detect the local IP of the machine
     public String getUACIp() {
+
         return UACIp;
     }
 

@@ -7,6 +7,7 @@
 package siplib;
 
 import java.net.InetAddress;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 import javax.sip.DialogTerminatedEvent;
@@ -83,7 +84,8 @@ public class SipListenerServer implements SipListener{
          // Get the request.
         Request request = requestEvent.getRequest();
 
-        System.out.println("\nRECV " + request.getMethod() + " " + request.getRequestURI().toString());        
+        System.out.println(new Date()+"\nRECV " + request.getMethod() + " " + request.getRequestURI().toString());
+          System.out.println(request.toString());        
        try {
             // Get or create the server transaction.
             ServerTransaction transaction = requestEvent.getServerTransaction();

@@ -2,11 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package algController;
 
-import bo.ALGBo;
-import gui.AlgJFrame;
+import algBo.ALGBo;
+import algGui.AlgJFrame;
+import algGui.AlgJPanel;
 import java.io.PrintWriter;
+import java.net.SocketException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -85,14 +87,14 @@ public class ClientController implements SipListener {
     //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
     // ConfVO confVO = ConfVO.getInstance();
     // Objects keeping local configuration.
-    String iplocal = "192.168.5.115";
+    String iplocal;
     String hostnameLocal = "";
-    Integer portSrc = ALGBo.comb1SrcPort;
-    String extlocal = "me";
+    Integer portSrc;
+    String extlocal;
     //Server Info
-    String ipServer = "209.208.79.151";
-    Integer portServer = ALGBo.comb1DestPort;
-    String protocol = ALGBo.comb1Proto;       // The local protocol (UDP).
+    String ipServer;
+    Integer portServer;
+    String protocol;       // The local protocol (UDP).
     int tag = (new Random()).nextInt(); // The local tag.
     Address contactAddress;         // The contact address.
     ContactHeader contactHeader;    // The contact header.
@@ -105,8 +107,19 @@ public class ClientController implements SipListener {
     String toSipURI;
     //local SIP URI taken from the config
     String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + protocol;
-    //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
 
+    //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
+    public ClientController() throws SocketException {
+         iplocal = ALGBo.getIplocal();
+         extlocal = ALGBo.getExtlocal();
+         portSrc = ALGBo.comb3SrcPort5060;
+         ipServer = ALGBo.getIpServer();
+         portServer = ALGBo.comb3DestPort5060;
+         protocol = ALGBo.comb3ProtoUDP; 
+    }
+
+    
+    
     /**
      * It removes the listening point and sip provider in runtime. so the user
      * can change his IP address at runtime
@@ -133,7 +146,7 @@ public class ClientController implements SipListener {
     public void createSipStack() throws PeerUnavailableException, TransportNotSupportedException, ObjectInUseException, InvalidArgumentException, TooManyListenersException, ParseException {
 
         // A method called when you open your application.
-        // Create the SIP factory and set the path name.
+        // Create the SIP factory Singleton and set the path name.
         this.sipFactory = SipFactory.getInstance();
         this.sipFactory.setPathName("gov.nist");
         // Create and set the SIP stack properties.
@@ -246,10 +259,10 @@ public class ClientController implements SipListener {
             this.sipProvider.sendRequest(request);
 
             // Display the message in the text area.
-            res = ("Request sent:\n" + request.toString() + "\n\n");
+            res = ("\nRequest sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
             // If an error occurred, display the error.
-            res = "Request sent failed: " + e.getMessage() + "\n";
+            res = "\nRequest sent failed: " + e.getMessage() + "\n";
         }
         return res;
     }
@@ -296,12 +309,12 @@ public class ClientController implements SipListener {
 //            PrintWriterObj.writePrintWriter(pw, "Process Response...........\n" + response.toString());
         // Display the response message in the text area.
         System.out.println("\nReceived response: " + response.toString());
-        AlgJFrame.comb1RcvMsg.setText(responseStr);
+        AlgJPanel.comb1RcvMsg.append("\nReceived response: "+responseStr);
         /*
          TODO 1- implement the comparision algo then post the ALG detector message
          2- post the message:             
          */
-        AlgJFrame.resultmsg.setText(":OK:");
+        AlgJPanel.resultmsg.setText("No ALG Detected");
 
     }
 }

@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package gui;
+package algGui; 
 
 /**
  *
  * @author salim
  */
-public class AlgMain {
+public class AlgJFrameMain {
 
     /**
      * @param args the command line arguments

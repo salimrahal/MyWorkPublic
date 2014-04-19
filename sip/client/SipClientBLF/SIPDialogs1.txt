@@ -22120,3 +22120,107 @@ Contact: <sip:209.208.79.151:5060>
 Content-Length: 0
 
 
+============Logs: Fri Apr 18 13:37:10 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 7e9c2d6ae9186679e78e9fb24675ec0c@192.168.5.100
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=1036273407
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 192.168.5.100:5060;branch=z9hG4bK-84251100
+Max-Forwards: 70
+Contact: <sip:298@192.168.5.100:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 3c6602736d457a2e76783db54c781c09@127.0.0.1
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=343735166
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 127.0.0.1:5060;branch=z9hG4bK1582661190
+Max-Forwards: 70
+Contact: <sip:298@127.0.0.1:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+============Logs: Fri Apr 18 13:39:11 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 490dd233aa2ac8f625192ef0cf53d870@127.0.0.1
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=193975409
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 127.0.0.1:5060;branch=z9hG4bK2124403367
+Max-Forwards: 70
+Contact: <sip:298@127.0.0.1:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+============Logs: Fri Apr 18 13:40:56 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 5228117d08466a8d724b722df07bdf93@93.185.236.196
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=166833609
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 93.185.236.196:5060;branch=z9hG4bK-1361402540
+Max-Forwards: 70
+Contact: <sip:298@93.185.236.196:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+Process Response...........
+SIP/2.0 200 OK
+To: <sip:298@209.208.79.151:5060>;tag=1473966600
+Via: SIP/2.0/UDP 93.185.236.196:5060;branch=z9hG4bK-1361402540;received=193.138.226.203
+CSeq: 1 REGISTER
+Call-ID: 5228117d08466a8d724b722df07bdf93@93.185.236.196
+From: <sip:298@209.208.79.151:5060>;tag=166833609
+Contact: <sip:209.208.79.151:5060>
+Content-Length: 0
+
+
+"Success, implement REGISTER Business code: need to refresh the REGISTER"
+SIP/2.0 200 OK
+To: <sip:298@209.208.79.151:5060>;tag=1473966600
+Via: SIP/2.0/UDP 93.185.236.196:5060;branch=z9hG4bK-1361402540;received=193.138.226.203
+CSeq: 1 REGISTER
+Call-ID: 5228117d08466a8d724b722df07bdf93@93.185.236.196
+From: <sip:298@209.208.79.151:5060>;tag=166833609
+Contact: <sip:209.208.79.151:5060>
+Content-Length: 0
+
+
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 0fc6cc9f2ad888560898c48672efb655@93.185.236.196
+CSeq: 2 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=166833609
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 93.185.236.196:5060;branch=z9hG4bK1028266329
+Max-Forwards: 70
+Contact: <sip:298@93.185.236.196:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+
+============Logs: Fri Apr 18 14:37:03 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: e8c80bf84f2f23306bd3ada385150eb4@192.168.5.100
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=314318483
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 192.168.5.100:5060;branch=z9hG4bK-934267939
+Max-Forwards: 70
+Contact: <sip:298@192.168.5.100:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="applet_HelloWorld" default="default" basedir=".">
-    <description>Builds, tests, and runs the project applet_HelloWorld.</description>
+<project name="ALG Plugin" default="default" basedir=".">
+    <description>Builds, tests, and runs the project ALG Plugin.</description>
     <import file="nbproject/build-impl.xml"/>
     <target name="-do-jar-with-libraries-without-manifest"/>
 

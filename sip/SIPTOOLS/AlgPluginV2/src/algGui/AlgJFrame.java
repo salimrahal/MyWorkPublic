@@ -4,22 +4,19 @@
  * and open the template in the editor.
  */
 
-package gui;
+package algGui;
 
-import bo.Networking;
-import controller.ClientController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import algController.ClientController;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author salim
  */
-public class AlgJPanel extends javax.swing.JPanel {
+public class AlgJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AlgJPanel
+     /**
+     * Creates new form ALGGUI
      */
     public static ClientController sipClientController;
 
@@ -30,14 +27,12 @@ public class AlgJPanel extends javax.swing.JPanel {
     public static void setSipClientController(ClientController sipClientController) {
         AlgJFrame.sipClientController = sipClientController;
     }
-    public AlgJPanel(ClientController sipClientController) {
+
+    /**
+     * Creates new form AlgJFrame
+     */
+    public AlgJFrame() {
         initComponents();
-        AlgJPanel.sipClientController = sipClientController;
-    }
-    
-      public AlgJPanel() {
-        initComponents();
-      
     }
 
     /**
@@ -49,31 +44,25 @@ public class AlgJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
-        resultmsg = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        comb1Proto = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        comb1SrcPort = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        comb1SentMsg = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        comb1RcvMsg = new javax.swing.JTextArea();
         comb1DestPort = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        resultmsg = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea7 = new javax.swing.JTextArea();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea8 = new javax.swing.JTextArea();
+        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         runALGtest = new javax.swing.JButton();
@@ -82,74 +71,67 @@ public class AlgJPanel extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        comb1SentMsg = new javax.swing.JTextArea();
-        comb1SrcPort = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        comb1Proto = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        comb1RcvMsg = new javax.swing.JTextArea();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea3 = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextArea6 = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea7 = new javax.swing.JTextArea();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextArea8 = new javax.swing.JTextArea();
 
-        jLabel8.setText("Source Port:");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("Received message..");
-        jScrollPane3.setViewportView(jTextArea3);
+        jLabel2.setText("Source Port:");
+
+        comb1Proto.setText("UDP");
+        comb1Proto.setOpaque(true);
+
+        jLabel4.setText("Destination Port:");
+
+        comb1SrcPort.setText("5062");
+
+        comb1SentMsg.setColumns(20);
+        comb1SentMsg.setRows(5);
+        comb1SentMsg.setText("Sent message..");
+        jScrollPane1.setViewportView(comb1SentMsg);
+
+        comb1RcvMsg.setColumns(20);
+        comb1RcvMsg.setRows(5);
+        comb1RcvMsg.setText("Received message..");
+        jScrollPane2.setViewportView(comb1RcvMsg);
+
+        comb1DestPort.setText("5060");
+
+        jLabel6.setText("Protocol:");
+
+        jLabel9.setText("5060");
+
+        jLabel10.setText("Protocol:");
+
+        jLabel11.setText("5062");
+
+        jLabel12.setText("Destination Port:");
 
         jLabel7.setText("TCP");
 
         resultmsg.setText("result message");
         resultmsg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
 
-        jLabel21.setText("Protocol:");
-
-        jLabel11.setText("5062");
-
-        jLabel24.setText("Destination Port:");
-
-        jLabel12.setText("Destination Port:");
-
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        jTextArea5.setText("Received message..");
-        jScrollPane5.setViewportView(jTextArea5);
-
-        jLabel9.setText("5060");
-
-        jLabel10.setText("Protocol:");
-
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jTextArea4.setText("Sent message..");
-        jScrollPane4.setViewportView(jTextArea4);
-
-        comb1DestPort.setText("5060");
-
-        jLabel6.setText("Protocol:");
-
-        jLabel14.setText("5060");
+        jLabel8.setText("Source Port:");
 
         jLabel13.setText("Destination Port:");
 
-        jTextArea7.setColumns(20);
-        jTextArea7.setRows(5);
-        jTextArea7.setText("Received message..");
-        jScrollPane7.setViewportView(jTextArea7);
-
-        jTextArea6.setColumns(20);
-        jTextArea6.setRows(5);
-        jTextArea6.setText("Sent message..");
-        jScrollPane6.setViewportView(jTextArea6);
-
-        jTextArea8.setColumns(20);
-        jTextArea8.setRows(5);
-        jTextArea8.setText("Sent message..");
-        jScrollPane8.setViewportView(jTextArea8);
+        jLabel14.setText("5060");
 
         jLabel15.setText("Protocol:");
 
@@ -177,38 +159,56 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jLabel17.setText("Source Port:");
 
-        jLabel2.setText("Source Port:");
-
         jLabel22.setText("5060");
-
-        comb1SentMsg.setColumns(20);
-        comb1SentMsg.setRows(5);
-        comb1SentMsg.setText("Sent message..");
-        jScrollPane1.setViewportView(comb1SentMsg);
-
-        comb1SrcPort.setText("5062");
-
-        jLabel20.setText("Source Port:");
-
-        jLabel4.setText("Destination Port:");
 
         jLabel23.setText("5060");
 
-        comb1Proto.setText("UDP");
-        comb1Proto.setOpaque(true);
+        jLabel20.setText("Source Port:");
 
-        comb1RcvMsg.setColumns(20);
-        comb1RcvMsg.setRows(5);
-        comb1RcvMsg.setText("Received message..");
-        jScrollPane2.setViewportView(comb1RcvMsg);
+        jLabel21.setText("Protocol:");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jLabel24.setText("Destination Port:");
+
+        jTextArea3.setColumns(20);
+        jTextArea3.setRows(5);
+        jTextArea3.setText("Received message..");
+        jScrollPane3.setViewportView(jTextArea3);
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jTextArea4.setText("Sent message..");
+        jScrollPane4.setViewportView(jTextArea4);
+
+        jTextArea5.setColumns(20);
+        jTextArea5.setRows(5);
+        jTextArea5.setText("Received message..");
+        jScrollPane5.setViewportView(jTextArea5);
+
+        jTextArea6.setColumns(20);
+        jTextArea6.setRows(5);
+        jTextArea6.setText("Sent message..");
+        jScrollPane6.setViewportView(jTextArea6);
+
+        jTextArea7.setColumns(20);
+        jTextArea7.setRows(5);
+        jTextArea7.setText("Received message..");
+        jScrollPane7.setViewportView(jTextArea7);
+
+        jTextArea8.setColumns(20);
+        jTextArea8.setRows(5);
+        jTextArea8.setText("Sent message..");
+        jScrollPane8.setViewportView(jTextArea8);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(453, 453, 453)
+                        .addComponent(resultmsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -221,31 +221,6 @@ public class AlgJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(runALGtest)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1Proto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1SrcPort)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel26)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comb1DestPort))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addComponent(reset)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -285,11 +260,34 @@ public class AlgJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9))
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(runALGtest)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comb1Proto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comb1SrcPort)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel26)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(comb1DestPort))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(107, 107, 107)
+                                        .addComponent(reset))))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,11 +354,12 @@ public class AlgJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
         // The sip client should send SIP message to the server
-         //addr = Networking.getIpAddressMeth1();    
         if (getSipClientController() == null) {
             try {
                 sipClientController = new ClientController();
@@ -368,11 +367,6 @@ public class AlgJPanel extends javax.swing.JPanel {
                 sipClientController.createSipFrameWork();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                try {
-                    sipClientController.reset();
-                } catch (Exception ex1) {
-                  JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
                 sipClientController = null;
             }
             String res = sipClientController.sendRegisterStateless();
@@ -383,16 +377,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO reset the test, or clear the message text areas
-          String msg = "";
-        try{
-          msg = sipClientController.reset();
-        }
-        catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);    
-            }
-        resultmsg.setText(msg);
     }//GEN-LAST:event_resetActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel comb1DestPort;
@@ -440,4 +425,5 @@ public class AlgJPanel extends javax.swing.JPanel {
     public static javax.swing.JLabel resultmsg;
     private javax.swing.JButton runALGtest;
     // End of variables declaration//GEN-END:variables
+
 }
