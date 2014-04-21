@@ -139,7 +139,7 @@ public class ClientController implements SipListener {
         } catch (Exception ex) {
             msg = ex.getLocalizedMessage();
         }
-        // System.out.println("reset msg:"+msg);
+        System.out.println("reset() :reset msg:"+msg);
         return msg;
     }
 
@@ -259,10 +259,33 @@ public class ClientController implements SipListener {
             this.sipProvider.sendRequest(request);
 
             // Display the message in the text area.
-            res = ("\nRequest sent:\n" + request.toString() + "\n\n");
+            res = ("Request sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
             // If an error occurred, display the error.
-            res = "\nRequest sent failed: " + e.getMessage() + "\n";
+            res = "Request sent failed: " + e.getMessage() + "\n";
+        }
+        return res;
+    }
+    
+        public String sendInvite() {
+        String res = "";
+        // A method called when you click on the "Reg (SL)" button.
+        try {
+            // Get the destination address from the text field.
+            ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
+            //register here has the same URI to and FROM
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
+            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
+            Request request = generateFreshBasicRequestRegister(addressFromStr, addressToStr, "INVITE", this.protocol, 27);
+
+            // Send the request statelessly through the SIP provider.
+            this.sipProvider.sendRequest(request);
+
+            // Display the message in the text area.
+            res = ("Request sent:\n" + request.toString() + "\n\n");
+        } catch (Exception e) {
+            // If an error occurred, display the error.
+            res = "Request sent failed: " + e.getMessage() + "\n";
         }
         return res;
     }
@@ -274,7 +297,8 @@ public class ClientController implements SipListener {
      */
     public void processRequest(RequestEvent requestEvent) {
 
-        Response response = null;
+          Request request = requestEvent.getRequest();
+          System.out.println("Received request: " + request.toString());
 
     }
 
@@ -302,19 +326,31 @@ public class ClientController implements SipListener {
     public void processResponse(ResponseEvent responseEvent) {
         // Get the response.
         Response response = responseEvent.getResponse();
+        CSeqHeader cseqHd = (CSeqHeader) response.getHeader(CSeqHeader.NAME);
+        String methodResponse = cseqHd.getMethod();
         String responseStr = response.toString();
 //            //log the request to log file
 //            PrintWriterObj printSingleton = PrintWriterObj.getInstance();
 //            PrintWriter pw = printSingleton.getSipLogsPW();
 //            PrintWriterObj.writePrintWriter(pw, "Process Response...........\n" + response.toString());
         // Display the response message in the text area.
-        System.out.println("\nReceived response: " + response.toString());
-        AlgJPanel.comb1RcvMsg.append("\nReceived response: "+responseStr);
-        /*
+          System.out.println("Received response: " + response.toString());
+         if(methodResponse.equals("REGISTER")) {
+               //TODO: recognize the combination in order to choose the right output text
+             //port, transpot, port src, port dest
+            
+            //poet the result to the corresponding output: 
+            AlgJPanel.comb1RcvMsgREG.setText("Received response:\n "+responseStr);
+            AlgJPanel.comb1RcvMsgREG.setCaretPosition(0);
+            }
+            else if(methodResponse.equals("INVITE")) {
+            AlgJPanel.comb1RcvMsgINV.setText("Received response:\n "+responseStr);
+            AlgJPanel.comb1RcvMsgINV.setCaretPosition(0);
+            }
+    /*
          TODO 1- implement the comparision algo then post the ALG detector message
          2- post the message:             
          */
         AlgJPanel.resultmsg.setText("No ALG Detected");
-
     }
 }
