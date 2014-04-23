@@ -4,6 +4,7 @@
     <import file="nbproject/build-impl.xml"/>
  <target name="-post-jar">
             <copy file="${src.dir}/index.html" todir="${dist.jar.dir}"/>
+              <copy file="${src.dir}/index2.html" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/nexogy.gif" todir="${dist.jar.dir}"/>
         </target>
     <target name="-do-jar-with-libraries-without-manifest"/>

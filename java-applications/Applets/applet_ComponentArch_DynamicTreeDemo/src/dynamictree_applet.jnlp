@@ -46,7 +46,7 @@
     </resources>
     <applet-desc
          name="Dynamic Tree Demo Applet"
-         main-class="appletComponentArch.DynamicTreeApplet"
+         main-class="appletComponentArch.DynamicTreePanel"
          width="300"
          height="300">
      </applet-desc>

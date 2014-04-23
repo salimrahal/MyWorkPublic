@@ -85,7 +85,7 @@ public class SipListenerServer implements SipListener{
         Request request = requestEvent.getRequest();
 
         System.out.println(new Date()+"\nRECV " + request.getMethod() + " " + request.getRequestURI().toString());
-          System.out.println(request.toString());        
+        System.out.println(request.toString());        
        try {
             // Get or create the server transaction.
             ServerTransaction transaction = requestEvent.getServerTransaction();
@@ -101,7 +101,7 @@ public class SipListenerServer implements SipListener{
                 ((ToHeader)response.getHeader("To")).setTag(String.valueOf(this.tag));
                 response.addHeader(this.contactHeader);
                 transaction.sendResponse(response);
-                 System.out.println(" / SENT " + response.getStatusCode() + " " + response.getReasonPhrase());
+                System.out.println(" / Response SENT " + response.getStatusCode() + " " + response.getReasonPhrase()+"\n"+response.toString());
             }
             else if(request.getMethod().equals("INVITE")) {
                 // If the request is an INVITE.
@@ -109,7 +109,7 @@ public class SipListenerServer implements SipListener{
                 ((ToHeader)response.getHeader("To")).setTag(String.valueOf(this.tag));
                 response.addHeader(this.contactHeader);
                 transaction.sendResponse(response);
-                 System.out.println(" / SENT " + response.getStatusCode() + " " + response.getReasonPhrase());
+                System.out.println(" / Response SENT " + response.getStatusCode() + " " + response.getReasonPhrase()+"\n"+response.toString());
             }
             else if(request.getMethod().equals("ACK")) {
                 // If the request is an ACK.

@@ -6,6 +6,7 @@
 
 package algGui;
 
+import algBo.ALgDetect;
 import algBo.Networking;
 import algController.ClientController;
 import java.util.logging.Level;
@@ -464,7 +465,13 @@ public class AlgJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
+        //method-1: sending Datagrame directly to the server
+//        ALgDetect alg = new ALgDetect();
+//        String res = alg.algDetect();
+//        resultmsg.setText(res);
 
+        
+       
         if (getSipClientController() == null) {
             try {
                 sipClientController = new ClientController();
@@ -481,8 +488,9 @@ public class AlgJPanel extends javax.swing.JPanel {
             }
         }
         //Send register then invite
-            String resReg = sipClientController.sendRegisterStateless();
-            String resInv = sipClientController.sendInvite();
+            String resReg = sipClientController.sendRegisterStateful();
+            String resInv = "";
+            resInv = sipClientController.sendInvite();
             //TODO: invoke the message comparision algo between the sent and received
             
             
@@ -495,24 +503,10 @@ public class AlgJPanel extends javax.swing.JPanel {
             //INV
             comb1SentMsgINV.setText(resInv);
             //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);
-       
+            comb1SentMsgINV.setCaretPosition(0);    
     }//GEN-LAST:event_runALGtestActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-//        System.out.println("resetActionPerformed begin..");
-//          String msg = "";
-//          if(sipClientController != null){
-//              System.out.println("resetActionPerformed sipClientController is not null");
-//              try{
-//          msg = sipClientController.reset();
-//          sipClientController = null;
-//        }
-//        catch (Exception ex) {
-//                JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);    
-//            }
-//        resultmsg.setText(msg);
-        
         //clean the text areas:
         comb1SentMsgREG.setText("Sent message:");
         comb1SentMsgINV.setText("Sent message:");
@@ -545,7 +539,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private static javax.swing.JTextArea comb1SentMsg2;
     private static javax.swing.JTextArea comb1SentMsg3;
     private static javax.swing.JTextArea comb1SentMsgINV;
-    private javax.swing.JTextArea comb1SentMsgREG;
+    public static javax.swing.JTextArea comb1SentMsgREG;
     public javax.swing.JLabel comb1SrcPort;
     public javax.swing.JLabel comb1SrcPort1;
     public javax.swing.JLabel comb1SrcPort2;

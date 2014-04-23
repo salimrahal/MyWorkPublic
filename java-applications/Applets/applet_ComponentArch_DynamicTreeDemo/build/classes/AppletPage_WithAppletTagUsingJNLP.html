@@ -41,7 +41,22 @@
     <noscript>A browser with JavaScript enabled is required for this page to operate properly.</noscript>
     <h1>Dynamic Tree Applet Demo</h1>
     <h2>This applet has been deployed with the applet tag using JNLP</h2>
-    <applet
+    <!--
+    Applet tag using JNLP:
+    The below code has the below results: ( Run the files from the dist)
+    a- Ubuntu Chrome: not working !!!; 
+    b- Ubuntu Mozilla: Work normally
+     c- Window 7 Mozilla and IE 11: Application blocked by Security settings
+    -->
+<!-- original:   <applet
+        alt = "Dynamic Tree Applet Demo"
+        code = 'appletComponentArch.DynamicTreeApplet'
+        jnlp_href = 'dynamictree_applet.jnlp',
+        width = 300,
+        height = 300 />-->
+<!-- It wont work, its not detecting 
+the jnlp_hrep is always searching for the Jar in archive attribute-->
+  <applet
         alt = "Dynamic Tree Applet Demo"
         code = 'appletComponentArch.DynamicTreeApplet'
         jnlp_href = 'dynamictree_applet.jnlp',

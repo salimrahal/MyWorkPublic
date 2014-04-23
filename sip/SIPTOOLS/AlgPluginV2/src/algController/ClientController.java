@@ -7,6 +7,7 @@ package algController;
 import algBo.ALGBo;
 import algGui.AlgJFrame;
 import algGui.AlgJPanel;
+import gov.nist.javax.sip.header.extensions.ReplacesHeader;
 import java.io.PrintWriter;
 import java.net.SocketException;
 import java.text.ParseException;
@@ -43,6 +44,7 @@ import javax.sip.TransportNotSupportedException;
 import javax.sip.address.Address;
 import javax.sip.address.AddressFactory;
 import javax.sip.header.AcceptHeader;
+import javax.sip.header.AllowHeader;
 import javax.sip.header.CSeqHeader;
 import javax.sip.header.CallIdHeader;
 import javax.sip.header.ContactHeader;
@@ -88,7 +90,7 @@ public class ClientController implements SipListener {
     // ConfVO confVO = ConfVO.getInstance();
     // Objects keeping local configuration.
     String iplocal;
-    String hostnameLocal = "";
+    String hostnameLocal;
     Integer portSrc;
     String extlocal;
     //Server Info
@@ -110,16 +112,15 @@ public class ClientController implements SipListener {
 
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
-         iplocal = ALGBo.getIplocal();
-         extlocal = ALGBo.getExtlocal();
-         portSrc = ALGBo.comb3SrcPort5060;
-         ipServer = ALGBo.getIpServer();
-         portServer = ALGBo.comb3DestPort5060;
-         protocol = ALGBo.comb3ProtoUDP; 
+        iplocal = ALGBo.getIplocal();
+        extlocal = ALGBo.getExtlocal();
+        portSrc = ALGBo.comb3SrcPort5060;
+        ipServer = ALGBo.getIpServer();
+        portServer = ALGBo.comb3DestPort5060;
+        protocol = ALGBo.comb3ProtoUDP;
+        hostnameLocal = ALGBo.getHostname();
     }
 
-    
-    
     /**
      * It removes the listening point and sip provider in runtime. so the user
      * can change his IP address at runtime
@@ -139,7 +140,7 @@ public class ClientController implements SipListener {
         } catch (Exception ex) {
             msg = ex.getLocalizedMessage();
         }
-        System.out.println("reset() :reset msg:"+msg);
+        System.out.println("reset() :reset msg:" + msg);
         return msg;
     }
 
@@ -177,7 +178,7 @@ public class ClientController implements SipListener {
         //this.contactHeader.setParameter("+sip.instance", sipInstance);
     }
 
-    public Request generateFreshBasicRequestRegister(String fromAdress, String destAdresstextfield, String method, String protocol, Integer expiresparam) throws ParseException, InvalidArgumentException {
+    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, String method, String protocol, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
         /*3261: CSEQ:
          * “ When a UAC resubmits a request with its credentials after receiving a
          401 (Unauthorized) or 407 (Proxy Authentication Required) response,
@@ -239,6 +240,13 @@ public class ClientController implements SipListener {
         request.addHeader(uaHeader);
         // add expires header
         request.addHeader(expHd);
+        //add allow header      
+        AllowHeader allowHead = this.headerFactory.createAllowHeader("ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE");
+        request.addHeader(allowHead);
+        SupportedHeader suppHead = this.headerFactory.createSupportedHeader("replaces");
+        request.addHeader(suppHead);
+
+        //request = this.messageFactory.createRequest(ALGBo.getSimpleSIPMessage());
         System.out.println(request.toString());
         return request;
 
@@ -253,7 +261,7 @@ public class ClientController implements SipListener {
             //register here has the same URI to and FROM
             String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequestRegister(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
 
             // Send the request statelessly through the SIP provider.
             this.sipProvider.sendRequest(request);
@@ -266,8 +274,8 @@ public class ClientController implements SipListener {
         }
         return res;
     }
-    
-        public String sendInvite() {
+
+    public String sendRegisterStateful() {
         String res = "";
         // A method called when you click on the "Reg (SL)" button.
         try {
@@ -276,7 +284,32 @@ public class ClientController implements SipListener {
             //register here has the same URI to and FROM
             String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequestRegister(addressFromStr, addressToStr, "INVITE", this.protocol, 27);
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
+
+            // Create a new SIP client transaction.
+            ClientTransaction transaction = this.sipProvider.getNewClientTransaction(request);
+// Send the request statefully, through the client transaction.
+            transaction.sendRequest();
+        
+            // Display the message in the text area.
+            res = ("Request sent:\n" + request.toString() + "\n\n");
+        } catch (Exception e) {
+            // If an error occurred, display the error.
+            res = "Request sent failed: " + e.getMessage() + "\n";
+        }
+        return res;
+    }
+
+    public String sendInvite() {
+        String res = "";
+        // A method called when you click on the "Reg (SL)" button.
+        try {
+            // Get the destination address from the text field.
+            ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
+            //register here has the same URI to and FROM
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
+            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "INVITE", this.protocol, 27);
 
             // Send the request statelessly through the SIP provider.
             this.sipProvider.sendRequest(request);
@@ -297,8 +330,8 @@ public class ClientController implements SipListener {
      */
     public void processRequest(RequestEvent requestEvent) {
 
-          Request request = requestEvent.getRequest();
-          System.out.println("Received request: " + request.toString());
+        Request request = requestEvent.getRequest();
+        System.out.println("Received request: " + request.toString());
 
     }
 
@@ -334,20 +367,19 @@ public class ClientController implements SipListener {
 //            PrintWriter pw = printSingleton.getSipLogsPW();
 //            PrintWriterObj.writePrintWriter(pw, "Process Response...........\n" + response.toString());
         // Display the response message in the text area.
-          System.out.println("Received response: " + response.toString());
-         if(methodResponse.equals("REGISTER")) {
+        System.out.println("Received response: " + response.toString());
+        if (methodResponse.equals("REGISTER")) {
                //TODO: recognize the combination in order to choose the right output text
-             //port, transpot, port src, port dest
-            
+            //port, transpot, port src, port dest
+
             //poet the result to the corresponding output: 
-            AlgJPanel.comb1RcvMsgREG.setText("Received response:\n "+responseStr);
+            AlgJPanel.comb1RcvMsgREG.setText("Received response:\n " + responseStr);
             AlgJPanel.comb1RcvMsgREG.setCaretPosition(0);
-            }
-            else if(methodResponse.equals("INVITE")) {
-            AlgJPanel.comb1RcvMsgINV.setText("Received response:\n "+responseStr);
+        } else if (methodResponse.equals("INVITE")) {
+            AlgJPanel.comb1RcvMsgINV.setText("Received response:\n " + responseStr);
             AlgJPanel.comb1RcvMsgINV.setCaretPosition(0);
-            }
-    /*
+        }
+        /*
          TODO 1- implement the comparision algo then post the ALG detector message
          2- post the message:             
          */

@@ -48,7 +48,15 @@
     b- Ubuntu Mozilla: Work normally
      c- Window 7 Mozilla and IE 11: Application blocked by Security settings
     -->
-    <applet
+<!-- original:   <applet
+        alt = "Dynamic Tree Applet Demo"
+        code = 'appletComponentArch.DynamicTreeApplet'
+        jnlp_href = 'dynamictree_applet.jnlp',
+        width = 300,
+        height = 300 />-->
+<!-- It wont work on chrome, its not detecting 
+the jnlp_hrep is always searching for the Jar in archive attribute-->
+  <applet
         alt = "Dynamic Tree Applet Demo"
         code = 'appletComponentArch.DynamicTreeApplet'
         jnlp_href = 'dynamictree_applet.jnlp',

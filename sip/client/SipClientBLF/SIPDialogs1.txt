@@ -22224,3 +22224,17 @@ Expires: 30
 Content-Length: 0
 
 
+============Logs: Mon Apr 21 13:49:46 EEST 2014=============
+REGISTER sip:298@209.208.79.151:5060 SIP/2.0
+Call-ID: 6d99c39836439489c3d94402eb103891@192.168.5.100
+CSeq: 1 REGISTER
+From: <sip:298@209.208.79.151:5060>;tag=-1491378890
+To: <sip:298@209.208.79.151:5060>
+Via: SIP/2.0/UDP 192.168.5.100:5060;branch=z9hG4bK-1560064658
+Max-Forwards: 70
+Contact: <sip:298@192.168.5.100:5060;transport=udp>;+sip.instance="<urn:uuid:dccb4fab-efa3-430b-bab9-02afe0d80efa>"
+User-Agent: My Host
+Expires: 30
+Content-Length: 0
+
+

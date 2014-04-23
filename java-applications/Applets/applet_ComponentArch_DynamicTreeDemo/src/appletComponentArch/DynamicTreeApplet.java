@@ -30,6 +30,7 @@
  */ 
 package appletComponentArch;
 
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.JApplet;
 import javax.swing.SwingUtilities;
 
@@ -57,5 +58,6 @@ public class DynamicTreeApplet extends JApplet {
         DynamicTreePanel newContentPane = new DynamicTreePanel();
         newContentPane.setOpaque(true); 
         setContentPane(newContentPane);        
-    }        
+    }   
+   
 }

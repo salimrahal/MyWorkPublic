@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ALG Plugin" default="default" basedir=".">
+    <description>Builds, tests, and runs the project ALG Plugin.</description>
+    <import file="nbproject/build-impl.xml"/>
+ <target name="-post-jar">
+            <copy file="${src.dir}/index.html" todir="${dist.jar.dir}"/>
+            <copy file="${src.dir}/nexogy.gif" todir="${dist.jar.dir}"/>
+ <copy file="${src.dir}/alg.jnlp" todir="${dist.jar.dir}"/>
+        </target>
+    <target name="-do-jar-with-libraries-without-manifest"/>
+
+</project>

@@ -42,11 +42,12 @@ public static String getLocalIpAddress() throws SocketException{
                         //check if it's a valid IP
                         if(validator.validate(inetaddress.getHostAddress())){
                             localIp = inetaddress.getHostAddress();
-                            System.out.println("choosen: "+localIp);
+                            System.out.println("getLocalIpAddress choosen: "+localIp);
                         } 
                     }
                 }
             }
+            //localIp = "192.168.5.106";
            //System.out.println("localIp="+localIp);
             return localIp;
 }
