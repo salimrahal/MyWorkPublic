@@ -121,7 +121,9 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         resultmsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultmsg.setText("Result message");
+        resultmsg.setToolTipText("");
         resultmsg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
+        resultmsg.setOpaque(true);
 
         comb1DestPort.setText("5060");
 

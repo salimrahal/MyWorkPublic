@@ -38,6 +38,7 @@ import javax.sip.SipFactory;
 import javax.sip.SipListener;
 import javax.sip.SipProvider;
 import javax.sip.SipStack;
+import javax.sip.Timeout;
 import javax.sip.TimeoutEvent;
 import javax.sip.TransactionTerminatedEvent;
 import javax.sip.TransportNotSupportedException;
@@ -166,6 +167,7 @@ public class ClientController implements SipListener {
         this.addressFactory = this.sipFactory.createAddressFactory();
         // Create the SIP listening point and bind it to the local IP address, port and protocol.
         this.listeningPoint = this.sipStack.createListeningPoint(this.iplocal, this.portSrc, this.protocol);
+        //TODO: try to add another listening point with another point on the server side App
         // Create the SIP provider.
         this.sipProvider = this.sipStack.createSipProvider(this.listeningPoint);
         // Add our application as a SIP listener.
@@ -285,12 +287,12 @@ public class ClientController implements SipListener {
             String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
             Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
-
             // Create a new SIP client transaction.
             ClientTransaction transaction = this.sipProvider.getNewClientTransaction(request);
-// Send the request statefully, through the client transaction.
+            //Send the request statefully, through the client transaction.
             transaction.sendRequest();
-        
+
+            System.out.println("getRetransmitTimer="+transaction.getRetransmitTimer());
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
@@ -337,7 +339,11 @@ public class ClientController implements SipListener {
 
     @Override
     public void processTimeout(TimeoutEvent timeoutEvent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //The time out was minimize in: SipStackImpl: gov.nist.javax.sip.DIALOG_TIMEOUT_FACTOR 
+        AlgJPanel.resultmsg.setText("Firewall issue");
+        AlgJPanel.comb1RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
+        AlgJPanel.comb1RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
+        
     }
 
     @Override

@@ -104,6 +104,7 @@ public abstract class SIPTransaction extends MessageChannel implements
     protected int TIMER_I = T4;
 
     protected int TIMER_K = T4;
+
     protected int TIMER_D = 32000 / BASE_TIMER_INTERVAL;
 
     // protected static final int TIMER_C = 3 * 60 * 1000 / BASE_TIMER_INTERVAL;
@@ -120,15 +121,14 @@ public abstract class SIPTransaction extends MessageChannel implements
 
     /**
      * INVITE transaction timeout timer
-     * SR: changed from 64 --> 14
      */
-    protected static final int TIMER_B = 14;
+    protected static final int TIMER_B = 64;
 
-    protected static final int TIMER_J = 14;
+    protected static final int TIMER_J = 64;
 
-    protected static final int TIMER_F = 14;
+    protected static final int TIMER_F = 64;
 
-    protected static final int TIMER_H = 14;
+    protected static final int TIMER_H = 64;
 
     // Proposed feature for next release.
     protected transient Object applicationData;

@@ -389,8 +389,7 @@ public abstract class SIPTransactionStack implements
 	protected long minKeepAliveInterval = -1L;
 
 	// The time after which a "dialog timeout event" is delivered to a listener.
-        //SR: origin value: 64
-	protected int dialogTimeoutFactor = 64;//
+	protected int dialogTimeoutFactor = 64;
 
 	// factory used to create MessageParser objects
 	protected MessageParserFactory messageParserFactory;
