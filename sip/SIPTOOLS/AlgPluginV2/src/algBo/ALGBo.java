@@ -8,36 +8,94 @@ package algBo;
 
 import static algBo.Networking.getLocalIpAddress;
 import java.net.SocketException;
+import javax.sip.message.Request;
+import javax.sip.message.Response;
 
 /**
  *
  * @author salim
  */
 public class ALGBo {
+    
+    static public Integer portsrc1 = 5060;
+    static public Integer portsrc2 = 5062;
+    static public Integer portdest1 = 5060;
+   static public String transporttcp = "TCP";
+   static public String transportudp = "udp";
     /* TODO: config file extraction BO
     In V2 prtocol/port combination should be dynamic and read from a configuration file
     */
     static public String comb1ProtoUDP = "UDP";
-    static public Integer comb1SrcPort5052 = 5062;
-    static public Integer comb1DestPort5060 = 5060;
+    static public Integer comb1SrcPort1 = 5060;
+    static public Integer comb1DestPort1 = 5060;
     static public String iplocal;
      static public String ipServer;
     static public String extlocal;
       
     static public String comb2ProtoTCP = "TCP";
-    static public Integer comb2SrcPort5062 = 5062;
-    static public Integer comb2DestPort5060 = 5060;
+    static public Integer comb2SrcPort1 = 5060;
+    static public Integer comb2DestPort1 = 5060;
     
     static public  String comb3ProtoUDP = "UDP";
-    static public Integer comb3SrcPort5060 = 5060;
-    static public Integer comb3DestPort5060 = 5060;
+    static public Integer comb3SrcPort2 = 5062;
+    static public Integer comb3DestPort1 = 5060;
     
     static public String comb4ProtoTCP = "TCP";
-    static public Integer comb4SrcPort5060 = 5060;
-    static public Integer comb4DestPort5060 = 5060;
+    static public Integer comb4SrcPort2 = 5062;
+    static public Integer comb4DestPort1 = 5060;
 
     static public String hostname = "TALKSWITCH";
 
+    
+    
+    
+    public String algdetection(Request request, Response response){
+        String res = "";
+        System.out.println("["+request.toString()+"]\nres=["+response.toString()+"]");
+        return res;
+    }
+
+    public static Integer getPortsrc1() {
+        return portsrc1;
+    }
+
+    public static void setPortsrc1(Integer portsrc1) {
+        ALGBo.portsrc1 = portsrc1;
+    }
+
+    public static Integer getPortsrc2() {
+        return portsrc2;
+    }
+
+    public static void setPortsrc2(Integer portsrc2) {
+        ALGBo.portsrc2 = portsrc2;
+    }
+
+    public static Integer getPortdest1() {
+        return portdest1;
+    }
+
+    public static void setPortdest1(Integer portdest1) {
+        ALGBo.portdest1 = portdest1;
+    }
+
+    public static String getTransporttcp() {
+        return transporttcp;
+    }
+
+    public static void setTransporttcp(String transporttcp) {
+        ALGBo.transporttcp = transporttcp;
+    }
+
+    public static String getTransportudp() {
+        return transportudp;
+    }
+
+    public static void setTransportudp(String transportudp) {
+        ALGBo.transportudp = transportudp;
+    }
+    
+    
     public static String getHostname() {
         return hostname;
     }

@@ -27,7 +27,7 @@ public class ALgDetect {
         String found = "SIP ALG DETECTED";
         String notfound = "No SIP ALG";
         String serverIp = ALGBo.getIpServer();
-        Integer serverPort = ALGBo.comb1DestPort5060;
+        Integer serverPort = ALGBo.comb1DestPort1;
         DatagramSocket datagramsocket = null;
         int i = 0;
         boolean flag = false;

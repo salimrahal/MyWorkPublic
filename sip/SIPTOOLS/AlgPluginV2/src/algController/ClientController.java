@@ -76,15 +76,27 @@ import javax.swing.ListModel;
  * @author salim
  */
 public class ClientController implements SipListener {
-    // Objects used to communicate to the JAIN SIP API.
+
+//BO
+    ALGBo algBo;
+// Objects used to communicate to the JAIN SIP API.
 
     SipFactory sipFactory;          // Used to access the SIP API.
     SipStack sipStack;              // The SIP stack.
-    SipProvider sipProvider;        // Used to send SIP messages.
+    SipProvider sipProvider1;        // Used to send SIP messages.
+    SipProvider sipProvider2; 
+    SipProvider sipProvider3; 
+    SipProvider sipProvider4; 
+    
     MessageFactory messageFactory;  // Used to create SIP message factory.
     HeaderFactory headerFactory;    // Used to create SIP headers.
     AddressFactory addressFactory;  // Used to create SIP URIs.
-    ListeningPoint listeningPoint;  // SIP listening IP address/port.
+
+    ListeningPoint listeningPoint1;  // SIP listening IP address/port.
+    ListeningPoint listeningPoint2;
+    ListeningPoint listeningPoint3;
+    ListeningPoint listeningPoint4;
+
     Properties properties;          // Other properties.
     //Extract the config File
     //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
@@ -92,12 +104,16 @@ public class ClientController implements SipListener {
     // Objects keeping local configuration.
     String iplocal;
     String hostnameLocal;
-    Integer portSrc;
+    Integer portSrc1;
+    Integer portSrc2;
+    Integer portdest1;
+
     String extlocal;
     //Server Info
     String ipServer;
     Integer portServer;
-    String protocol;       // The local protocol (UDP).
+    String transportudp;       // The local protocol (UDP).
+    String transporttcp;       // 
     int tag = (new Random()).nextInt(); // The local tag.
     Address contactAddress;         // The contact address.
     ContactHeader contactHeader;    // The contact header.
@@ -109,16 +125,19 @@ public class ClientController implements SipListener {
      */
     String toSipURI;
     //local SIP URI taken from the config
-    String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + protocol;
+    String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + transportudp;
 
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
+        algBo = new ALGBo();
         iplocal = ALGBo.getIplocal();
         extlocal = ALGBo.getExtlocal();
-        portSrc = ALGBo.comb3SrcPort5060;
+        portSrc1 = ALGBo.getPortsrc1();
+        portSrc2 = ALGBo.getPortsrc2();
         ipServer = ALGBo.getIpServer();
-        portServer = ALGBo.comb3DestPort5060;
-        protocol = ALGBo.comb3ProtoUDP;
+        portServer = ALGBo.getPortdest1();
+        transportudp = ALGBo.getTransportudp();
+        transporttcp = ALGBo.getTransporttcp();
         hostnameLocal = ALGBo.getHostname();
     }
 
@@ -133,9 +152,22 @@ public class ClientController implements SipListener {
         // System.out.println("reset");
         String msg = "OK";
         try {
-            this.sipProvider.removeListeningPoint(listeningPoint);
-            this.sipProvider.removeSipListener(this);
-            this.sipStack.deleteSipProvider(this.sipProvider);
+            this.sipProvider1.removeListeningPoint(listeningPoint1);
+            this.sipProvider1.removeSipListener(this);
+            this.sipStack.deleteSipProvider(this.sipProvider1);
+            
+            this.sipProvider2.removeListeningPoint(listeningPoint2);
+            this.sipProvider2.removeSipListener(this);
+            this.sipStack.deleteSipProvider(this.sipProvider2);
+            
+            this.sipProvider3.removeListeningPoint(listeningPoint3);
+            this.sipProvider3.removeSipListener(this);
+            this.sipStack.deleteSipProvider(this.sipProvider3);
+            
+            this.sipProvider4.removeListeningPoint(listeningPoint4);
+            this.sipProvider4.removeSipListener(this);
+            this.sipStack.deleteSipProvider(this.sipProvider4);
+            
             this.sipFactory.resetFactory();
             this.sipStack = null;
         } catch (Exception ex) {
@@ -166,14 +198,26 @@ public class ClientController implements SipListener {
         // Create the SIP address factory.
         this.addressFactory = this.sipFactory.createAddressFactory();
         // Create the SIP listening point and bind it to the local IP address, port and protocol.
-        this.listeningPoint = this.sipStack.createListeningPoint(this.iplocal, this.portSrc, this.protocol);
-        //TODO: try to add another listening point with another point on the server side App
-        // Create the SIP provider.
-        this.sipProvider = this.sipStack.createSipProvider(this.listeningPoint);
+        this.listeningPoint1 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transportudp);
+        this.listeningPoint2 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transporttcp);
+        this.listeningPoint3 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transportudp);
+        this.listeningPoint4 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transporttcp);
+
+// Create the SIP provider.
+        this.sipProvider1 = this.sipStack.createSipProvider(this.listeningPoint1);
+        this.sipProvider2 = this.sipStack.createSipProvider(this.listeningPoint2);
+        this.sipProvider3 = this.sipStack.createSipProvider(this.listeningPoint3);
+        this.sipProvider4 = this.sipStack.createSipProvider(this.listeningPoint4);
+
         // Add our application as a SIP listener.
-        this.sipProvider.addSipListener(this);
+        this.sipProvider1.addSipListener(this);
+        this.sipProvider2.addSipListener(this);
+        this.sipProvider3.addSipListener(this);
+        this.sipProvider4.addSipListener(this);
+        
+        //TODO: the below contact address will change , depends on the port scr/ transport
         // Create the contact address used for all SIP messages.
-        this.contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + this.portSrc + ";transport=" + this.protocol);
+        this.contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + this.portSrc1 + ";transport=" + this.transportudp);
         // Create the contact header used for all SIP messages.
         this.contactHeader = this.headerFactory.createContactHeader(contactAddress);
         //add instance-id to contact header
@@ -199,7 +243,7 @@ public class ClientController implements SipListener {
         // Create the SIP message headers.
         // The "Via" headers.
         ArrayList viaHeaders = new ArrayList();
-        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, this.portSrc, protocol, null);
+        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, this.portSrc1, protocol, null);
         viaHeaders.add(viaHeader);
 
         //Adding the branch param
@@ -209,7 +253,7 @@ public class ClientController implements SipListener {
         // The "Max-Forwards" header.
         MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
         // The "Call-Id" header.
-        CallIdHeader callIdHeader = this.sipProvider.getNewCallId();
+        CallIdHeader callIdHeader = this.sipProvider1.getNewCallId();
 
         // The "CSeq" header.
         CSeqHeader cSeqHeader = this.headerFactory.createCSeqHeader(seqReg, method);
@@ -261,12 +305,12 @@ public class ClientController implements SipListener {
             // Get the destination address from the text field.
             ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
             //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.transportudp, 27);
 
             // Send the request statelessly through the SIP provider.
-            this.sipProvider.sendRequest(request);
+            this.sipProvider1.sendRequest(request);
 
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
@@ -284,15 +328,15 @@ public class ClientController implements SipListener {
             // Get the destination address from the text field.
             ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
             //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.protocol, 27);
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.transportudp, 27);
             // Create a new SIP client transaction.
-            ClientTransaction transaction = this.sipProvider.getNewClientTransaction(request);
+            ClientTransaction transaction = this.sipProvider1.getNewClientTransaction(request);
             //Send the request statefully, through the client transaction.
             transaction.sendRequest();
 
-            System.out.println("getRetransmitTimer="+transaction.getRetransmitTimer());
+            System.out.println("getRetransmitTimer=" + transaction.getRetransmitTimer());
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
@@ -309,12 +353,12 @@ public class ClientController implements SipListener {
             // Get the destination address from the text field.
             ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
             //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc;
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "INVITE", this.protocol, 27);
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "INVITE", this.transportudp, 27);
 
             // Send the request statelessly through the SIP provider.
-            this.sipProvider.sendRequest(request);
+            this.sipProvider1.sendRequest(request);
 
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
@@ -343,7 +387,7 @@ public class ClientController implements SipListener {
         AlgJPanel.resultmsg.setText("Firewall issue");
         AlgJPanel.comb1RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
         AlgJPanel.comb1RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
-        
+
     }
 
     @Override
@@ -363,8 +407,12 @@ public class ClientController implements SipListener {
 
     @Override
     public void processResponse(ResponseEvent responseEvent) {
-        // Get the response.
+        // Get the response and the request of a transaction
         Response response = responseEvent.getResponse();
+        Request request = responseEvent.getClientTransaction().getRequest();
+        //perform the ALG detection
+        algBo.algdetection(request, response);
+
         CSeqHeader cseqHd = (CSeqHeader) response.getHeader(CSeqHeader.NAME);
         String methodResponse = cseqHd.getMethod();
         String responseStr = response.toString();
@@ -373,12 +421,12 @@ public class ClientController implements SipListener {
 //            PrintWriter pw = printSingleton.getSipLogsPW();
 //            PrintWriterObj.writePrintWriter(pw, "Process Response...........\n" + response.toString());
         // Display the response message in the text area.
-        System.out.println("Received response: " + response.toString());
+        System.out.println("Received response: " + responseStr);
         if (methodResponse.equals("REGISTER")) {
                //TODO: recognize the combination in order to choose the right output text
             //port, transpot, port src, port dest
 
-            //poet the result to the corresponding output: 
+            //post the result to the corresponding output: 
             AlgJPanel.comb1RcvMsgREG.setText("Received response:\n " + responseStr);
             AlgJPanel.comb1RcvMsgREG.setCaretPosition(0);
         } else if (methodResponse.equals("INVITE")) {

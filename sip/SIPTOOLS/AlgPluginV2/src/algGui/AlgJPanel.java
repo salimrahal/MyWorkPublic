@@ -50,16 +50,11 @@ public class AlgJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         resultmsg = new javax.swing.JLabel();
-        comb1DestPort = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         runALGtest = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        comb1SrcPort = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        comb1Proto = new javax.swing.JLabel();
         jTabbedPane1Reg = new javax.swing.JTabbedPane();
         jScrollPane9 = new javax.swing.JScrollPane();
         comb1SentMsgREG = new javax.swing.JTextArea();
@@ -70,64 +65,46 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb1RcvMsgREG = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         comb1RcvMsgINV = new javax.swing.JTextArea();
-        comb1Proto1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        comb1DestPort1 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        comb1SrcPort1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jScrollPane11 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         comb1SentMsg1 = new javax.swing.JTextArea();
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        comb1RcvMsg1 = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        comb1RcvMsg1 = new javax.swing.JTextArea();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jScrollPane13 = new javax.swing.JScrollPane();
         jTextArea9 = new javax.swing.JTextArea();
         jScrollPane14 = new javax.swing.JScrollPane();
         comb1SentMsg2 = new javax.swing.JTextArea();
         jTabbedPane6 = new javax.swing.JTabbedPane();
-        jScrollPane15 = new javax.swing.JScrollPane();
-        comb1RcvMsg2 = new javax.swing.JTextArea();
         jScrollPane16 = new javax.swing.JScrollPane();
         jTextArea10 = new javax.swing.JTextArea();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        comb1RcvMsg2 = new javax.swing.JTextArea();
         jTabbedPane7 = new javax.swing.JTabbedPane();
-        jScrollPane17 = new javax.swing.JScrollPane();
-        jTextArea11 = new javax.swing.JTextArea();
         jScrollPane18 = new javax.swing.JScrollPane();
         comb1SentMsg3 = new javax.swing.JTextArea();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTextArea11 = new javax.swing.JTextArea();
         jTabbedPane8 = new javax.swing.JTabbedPane();
         jScrollPane19 = new javax.swing.JScrollPane();
         comb1RcvMsg3 = new javax.swing.JTextArea();
         jScrollPane20 = new javax.swing.JScrollPane();
         jTextArea12 = new javax.swing.JTextArea();
-        comb1Proto2 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        comb1DestPort2 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        comb1SrcPort2 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        comb1Proto3 = new javax.swing.JLabel();
-        comb1SrcPort3 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        comb1DestPort3 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         resultmsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultmsg.setText("Result message");
         resultmsg.setToolTipText("");
         resultmsg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
         resultmsg.setOpaque(true);
-
-        comb1DestPort.setText("5060");
-
-        jLabel6.setText("Transport:");
 
         runALGtest.setText("Run Test");
         runALGtest.addActionListener(new java.awt.event.ActionListener() {
@@ -146,15 +123,6 @@ public class AlgJPanel extends javax.swing.JPanel {
                 resetActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Source Port:");
-
-        comb1SrcPort.setText("5062");
-
-        jLabel4.setText("Destination Port:");
-
-        comb1Proto.setText("UDP");
-        comb1Proto.setOpaque(true);
 
         jTabbedPane1Reg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -190,19 +158,6 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane2Reg.addTab("Invite", jScrollPane2);
 
-        comb1Proto1.setText("TCP");
-        comb1Proto1.setOpaque(true);
-
-        jLabel3.setText("Source Port:");
-
-        comb1DestPort1.setText("5060");
-
-        jLabel25.setText("Transport:");
-
-        comb1SrcPort1.setText("5062");
-
-        jLabel5.setText("Destination Port:");
-
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane11.setViewportView(jTextArea3);
@@ -216,18 +171,18 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane3.addTab("tab1", jScrollPane3);
 
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane12.setViewportView(jTextArea4);
+
+        jTabbedPane4.addTab("tab2", jScrollPane12);
+
         comb1RcvMsg1.setColumns(20);
         comb1RcvMsg1.setRows(5);
         comb1RcvMsg1.setText("Received message:");
         jScrollPane4.setViewportView(comb1RcvMsg1);
 
         jTabbedPane4.addTab("tab2", jScrollPane4);
-
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane12.setViewportView(jTextArea4);
-
-        jTabbedPane4.addTab("tab2", jScrollPane12);
 
         jTextArea9.setColumns(20);
         jTextArea9.setRows(5);
@@ -242,6 +197,12 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane5.addTab("tab1", jScrollPane14);
 
+        jTextArea10.setColumns(20);
+        jTextArea10.setRows(5);
+        jScrollPane16.setViewportView(jTextArea10);
+
+        jTabbedPane6.addTab("tab2", jScrollPane16);
+
         comb1RcvMsg2.setColumns(20);
         comb1RcvMsg2.setRows(5);
         comb1RcvMsg2.setText("Received message:");
@@ -249,24 +210,18 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane6.addTab("tab2", jScrollPane15);
 
-        jTextArea10.setColumns(20);
-        jTextArea10.setRows(5);
-        jScrollPane16.setViewportView(jTextArea10);
-
-        jTabbedPane6.addTab("tab2", jScrollPane16);
-
-        jTextArea11.setColumns(20);
-        jTextArea11.setRows(5);
-        jScrollPane17.setViewportView(jTextArea11);
-
-        jTabbedPane7.addTab("tab2", jScrollPane17);
-
         comb1SentMsg3.setColumns(20);
         comb1SentMsg3.setRows(5);
         comb1SentMsg3.setText("Sent message:");
         jScrollPane18.setViewportView(comb1SentMsg3);
 
         jTabbedPane7.addTab("tab1", jScrollPane18);
+
+        jTextArea11.setColumns(20);
+        jTextArea11.setRows(5);
+        jScrollPane17.setViewportView(jTextArea11);
+
+        jTabbedPane7.addTab("tab2", jScrollPane17);
 
         comb1RcvMsg3.setColumns(20);
         comb1RcvMsg3.setRows(5);
@@ -281,31 +236,18 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane8.addTab("tab2", jScrollPane20);
 
-        comb1Proto2.setText("UDP");
-        comb1Proto2.setOpaque(true);
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Transport: UDP Source Port: 5060 Destination Port: 5060");
 
-        jLabel27.setText("Source Port:");
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Transport: TCP Source Port: 5060 Destination Port: 5060");
 
-        jLabel28.setText("Destination Port:");
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Transport: UDP Source Port: 5062 Destination Port: 5060");
 
-        comb1DestPort2.setText("5060");
-
-        jLabel29.setText("Transport:");
-
-        comb1SrcPort2.setText("5060");
-
-        jLabel30.setText("Source Port:");
-
-        jLabel31.setText("Destination Port:");
-
-        comb1Proto3.setText("TCP");
-        comb1Proto3.setOpaque(true);
-
-        comb1SrcPort3.setText("5060");
-
-        jLabel32.setText("Transport:");
-
-        comb1DestPort3.setText("5060");
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setText("Transport: TCP Source Port: 5062 Destination Port: 5060");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -316,153 +258,83 @@ public class AlgJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTabbedPane7, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1Proto1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1SrcPort1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5)
-                                .addGap(9, 9, 9)
-                                .addComponent(comb1DestPort1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel29)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1Proto2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1SrcPort2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel28)
-                                .addGap(9, 9, 9)
-                                .addComponent(comb1DestPort2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel32)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1Proto3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel30)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comb1SrcPort3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel31)
-                                .addGap(9, 9, 9)
-                                .addComponent(comb1DestPort3)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jTabbedPane1Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                            .addComponent(jTabbedPane4)
+                            .addComponent(jTabbedPane8)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(393, 393, 393)
-                                .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel26)
-                                        .addGap(100, 100, 100))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(runALGtest)
-                                        .addGap(93, 93, 93)
+                                        .addGap(71, 71, 71)
                                         .addComponent(reset)
-                                        .addGap(45, 45, 45))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTabbedPane1Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comb1Proto)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comb1SrcPort)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)))
-                                .addGap(9, 9, 9)
-                                .addComponent(comb1DestPort)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
+                                        .addGap(39, 39, 39))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel26)
+                                        .addGap(77, 77, 77)))))
+                        .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(reset, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(runALGtest))
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(comb1Proto)
-                            .addComponent(jLabel2)
-                            .addComponent(comb1SrcPort)
-                            .addComponent(jLabel4)
-                            .addComponent(comb1DestPort)))
-                    .addComponent(resultmsg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(reset)
+                            .addComponent(runALGtest))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1Reg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(comb1Proto1)
-                    .addComponent(jLabel3)
-                    .addComponent(comb1SrcPort1)
-                    .addComponent(jLabel5)
-                    .addComponent(comb1DestPort1))
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
-                    .addComponent(comb1Proto2)
-                    .addComponent(jLabel27)
-                    .addComponent(comb1SrcPort2)
-                    .addComponent(jLabel28)
-                    .addComponent(comb1DestPort2))
+                .addComponent(jRadioButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
-                    .addComponent(comb1Proto3)
-                    .addComponent(jLabel30)
-                    .addComponent(comb1SrcPort3)
-                    .addComponent(jLabel31)
-                    .addComponent(comb1DestPort3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -471,10 +343,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 //        ALgDetect alg = new ALgDetect();
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
-
-        
-       
-        if (getSipClientController() == null) {
+   if (getSipClientController() == null) {
             try {
                 sipClientController = new ClientController();
                 sipClientController.createSipStack();
@@ -489,13 +358,12 @@ public class AlgJPanel extends javax.swing.JPanel {
                 sipClientController = null;
             }
         }
+        //TODO: pass as parameter the Port Scr/ Port Dest, transport
         //Send register then invite
             String resReg = sipClientController.sendRegisterStateful();
             String resInv = "";
             resInv = sipClientController.sendInvite();
-            //TODO: invoke the message comparision algo between the sent and received
-            
-            
+                   
             //filling the output log after sending the messeges
            //REG
             comb1SentMsgREG.setText(resReg);
@@ -524,14 +392,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel comb1DestPort;
-    public javax.swing.JLabel comb1DestPort1;
-    public javax.swing.JLabel comb1DestPort2;
-    public javax.swing.JLabel comb1DestPort3;
-    public javax.swing.JLabel comb1Proto;
-    public javax.swing.JLabel comb1Proto1;
-    public javax.swing.JLabel comb1Proto2;
-    public javax.swing.JLabel comb1Proto3;
+    private javax.swing.ButtonGroup buttonGroup1;
     public static javax.swing.JTextArea comb1RcvMsg1;
     public static javax.swing.JTextArea comb1RcvMsg2;
     public static javax.swing.JTextArea comb1RcvMsg3;
@@ -542,23 +403,11 @@ public class AlgJPanel extends javax.swing.JPanel {
     private static javax.swing.JTextArea comb1SentMsg3;
     private static javax.swing.JTextArea comb1SentMsgINV;
     public static javax.swing.JTextArea comb1SentMsgREG;
-    public javax.swing.JLabel comb1SrcPort;
-    public javax.swing.JLabel comb1SrcPort1;
-    public javax.swing.JLabel comb1SrcPort2;
-    public javax.swing.JLabel comb1SrcPort3;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;

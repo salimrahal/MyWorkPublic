@@ -31,7 +31,7 @@ public class SipClient extends JFrame implements SipListener {
 
 // Objects keeping local configuration.
     String ip;                      // The local IP address.
-    int port = 6060;                // The local port.
+    int port = 5062;                // The local port.
     String protocol = "udp";        // The local protocol (UDP).
     int tag = (new Random()).nextInt(); // The local tag.
     Address contactAddress;         // The contact address.
@@ -196,7 +196,7 @@ public class SipClient extends JFrame implements SipListener {
             // Create the SIP message headers.
             // The "Via" headers.
             ArrayList viaHeaders = new ArrayList();
-            ViaHeader viaHeader = this.headerFactory.createViaHeader(this.ip, this.port, "udp", null);
+            ViaHeader viaHeader = this.headerFactory.createViaHeader(this.ip, this.port, this.protocol, null);
             viaHeaders.add(viaHeader);
             // The "Max-Forwards" header.
             MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
@@ -245,7 +245,7 @@ public class SipClient extends JFrame implements SipListener {
             // Create the SIP message headers.
             // The "Via" headers.
             ArrayList viaHeaders = new ArrayList();
-            ViaHeader viaHeader = this.headerFactory.createViaHeader(this.ip, this.port, "udp", null);
+            ViaHeader viaHeader = this.headerFactory.createViaHeader(this.ip, this.port,this.protocol, null);
             viaHeaders.add(viaHeader);
             // The "Max-Forwards" header.
             MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
