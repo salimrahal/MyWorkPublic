@@ -69,9 +69,9 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb1RcvMsgINV = new javax.swing.JTextArea();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        comb2SentMsgREG = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        comb1SentMsg1 = new javax.swing.JTextArea();
+        comb2SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane12 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
@@ -79,9 +79,9 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb1RcvMsg1 = new javax.swing.JTextArea();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTextArea9 = new javax.swing.JTextArea();
+        comb3SentMsgREG = new javax.swing.JTextArea();
         jScrollPane14 = new javax.swing.JScrollPane();
-        comb1SentMsg2 = new javax.swing.JTextArea();
+        comb3SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         jScrollPane16 = new javax.swing.JScrollPane();
         jTextArea10 = new javax.swing.JTextArea();
@@ -89,9 +89,9 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb1RcvMsg2 = new javax.swing.JTextArea();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane18 = new javax.swing.JScrollPane();
-        comb1SentMsg3 = new javax.swing.JTextArea();
+        comb4SentMsgREG = new javax.swing.JTextArea();
         jScrollPane17 = new javax.swing.JScrollPane();
-        jTextArea11 = new javax.swing.JTextArea();
+        comb4SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane8 = new javax.swing.JTabbedPane();
         jScrollPane19 = new javax.swing.JScrollPane();
         comb1RcvMsg3 = new javax.swing.JTextArea();
@@ -160,83 +160,83 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane2Reg.addTab("Invite", jScrollPane2);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane11.setViewportView(jTextArea3);
+        comb2SentMsgREG.setColumns(20);
+        comb2SentMsgREG.setRows(5);
+        jScrollPane11.setViewportView(comb2SentMsgREG);
 
-        jTabbedPane3.addTab("tab2", jScrollPane11);
+        jTabbedPane3.addTab("Register", jScrollPane11);
 
-        comb1SentMsg1.setColumns(20);
-        comb1SentMsg1.setRows(5);
-        comb1SentMsg1.setText("Sent message:");
-        jScrollPane3.setViewportView(comb1SentMsg1);
+        comb2SentMsgINV.setColumns(20);
+        comb2SentMsgINV.setRows(5);
+        comb2SentMsgINV.setText("Sent message:");
+        jScrollPane3.setViewportView(comb2SentMsgINV);
 
-        jTabbedPane3.addTab("tab1", jScrollPane3);
+        jTabbedPane3.addTab("Invite", jScrollPane3);
 
         jTextArea4.setColumns(20);
         jTextArea4.setRows(5);
         jScrollPane12.setViewportView(jTextArea4);
 
-        jTabbedPane4.addTab("tab2", jScrollPane12);
+        jTabbedPane4.addTab("Register", jScrollPane12);
 
         comb1RcvMsg1.setColumns(20);
         comb1RcvMsg1.setRows(5);
         comb1RcvMsg1.setText("Received message:");
         jScrollPane4.setViewportView(comb1RcvMsg1);
 
-        jTabbedPane4.addTab("tab2", jScrollPane4);
+        jTabbedPane4.addTab("Invite", jScrollPane4);
 
-        jTextArea9.setColumns(20);
-        jTextArea9.setRows(5);
-        jScrollPane13.setViewportView(jTextArea9);
+        comb3SentMsgREG.setColumns(20);
+        comb3SentMsgREG.setRows(5);
+        jScrollPane13.setViewportView(comb3SentMsgREG);
 
-        jTabbedPane5.addTab("tab2", jScrollPane13);
+        jTabbedPane5.addTab("Register", jScrollPane13);
 
-        comb1SentMsg2.setColumns(20);
-        comb1SentMsg2.setRows(5);
-        comb1SentMsg2.setText("Sent message:");
-        jScrollPane14.setViewportView(comb1SentMsg2);
+        comb3SentMsgINV.setColumns(20);
+        comb3SentMsgINV.setRows(5);
+        comb3SentMsgINV.setText("Sent message:");
+        jScrollPane14.setViewportView(comb3SentMsgINV);
 
-        jTabbedPane5.addTab("tab1", jScrollPane14);
+        jTabbedPane5.addTab("Invite", jScrollPane14);
 
         jTextArea10.setColumns(20);
         jTextArea10.setRows(5);
         jScrollPane16.setViewportView(jTextArea10);
 
-        jTabbedPane6.addTab("tab2", jScrollPane16);
+        jTabbedPane6.addTab("Register", jScrollPane16);
 
         comb1RcvMsg2.setColumns(20);
         comb1RcvMsg2.setRows(5);
         comb1RcvMsg2.setText("Received message:");
         jScrollPane15.setViewportView(comb1RcvMsg2);
 
-        jTabbedPane6.addTab("tab2", jScrollPane15);
+        jTabbedPane6.addTab("Invite", jScrollPane15);
 
-        comb1SentMsg3.setColumns(20);
-        comb1SentMsg3.setRows(5);
-        comb1SentMsg3.setText("Sent message:");
-        jScrollPane18.setViewportView(comb1SentMsg3);
+        comb4SentMsgREG.setColumns(20);
+        comb4SentMsgREG.setRows(5);
+        comb4SentMsgREG.setText("Sent message:");
+        jScrollPane18.setViewportView(comb4SentMsgREG);
 
-        jTabbedPane7.addTab("tab1", jScrollPane18);
+        jTabbedPane7.addTab("Register", jScrollPane18);
 
-        jTextArea11.setColumns(20);
-        jTextArea11.setRows(5);
-        jScrollPane17.setViewportView(jTextArea11);
+        comb4SentMsgINV.setColumns(20);
+        comb4SentMsgINV.setRows(5);
+        jScrollPane17.setViewportView(comb4SentMsgINV);
 
-        jTabbedPane7.addTab("tab2", jScrollPane17);
+        jTabbedPane7.addTab("Invite", jScrollPane17);
 
         comb1RcvMsg3.setColumns(20);
         comb1RcvMsg3.setRows(5);
         comb1RcvMsg3.setText("Received message:");
         jScrollPane19.setViewportView(comb1RcvMsg3);
 
-        jTabbedPane8.addTab("tab2", jScrollPane19);
+        jTabbedPane8.addTab("Register", jScrollPane19);
 
         jTextArea12.setColumns(20);
         jTextArea12.setRows(5);
         jScrollPane20.setViewportView(jTextArea12);
 
-        jTabbedPane8.addTab("tab2", jScrollPane20);
+        jTabbedPane8.addTab("Invite", jScrollPane20);
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);
@@ -395,12 +395,12 @@ public class AlgJPanel extends javax.swing.JPanel {
             //set the caret to the top always
             comb1SentMsgINV.setCaretPosition(0);
         } else if (jRadioButton3.isSelected()) {
-            System.out.println("radio1 selected");
+            System.out.println("radio3 selected");
             //Send register then invite
-            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
-            String resReg = sipClientController.sendRegisterStateful(comb1);
+            Combination comb3 = new Combination(3, ALGBo.getPortsrc3(), ALGBo.getPortdest3(), ALGBo.getTransport3());
+            String resReg = sipClientController.sendRegisterStateful(comb3);
             String resInv = "";
-            resInv = sipClientController.sendInvite(comb1);
+            resInv = sipClientController.sendInvite(comb3);
 
             //filling the output log after sending the messeges
             //REG
@@ -413,12 +413,12 @@ public class AlgJPanel extends javax.swing.JPanel {
             comb1SentMsgINV.setCaretPosition(0);
         }
         if (jRadioButton4.isSelected()) {
-            System.out.println("radio1 selected");
+            System.out.println("radio4 selected");
             //Send register then invite
-            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
-            String resReg = sipClientController.sendRegisterStateful(comb1);
+            Combination comb4 = new Combination(4, ALGBo.getPortsrc4(), ALGBo.getPortdest4(), ALGBo.getTransport4());
+            String resReg = sipClientController.sendRegisterStateful(comb4);
             String resInv = "";
-            resInv = sipClientController.sendInvite(comb1);
+            resInv = sipClientController.sendInvite(comb4);
 
             //filling the output log after sending the messeges
             //REG
@@ -456,11 +456,14 @@ public class AlgJPanel extends javax.swing.JPanel {
     public static javax.swing.JTextArea comb1RcvMsg3;
     public static javax.swing.JTextArea comb1RcvMsgINV;
     public static javax.swing.JTextArea comb1RcvMsgREG;
-    private static javax.swing.JTextArea comb1SentMsg1;
-    private static javax.swing.JTextArea comb1SentMsg2;
-    private static javax.swing.JTextArea comb1SentMsg3;
     private static javax.swing.JTextArea comb1SentMsgINV;
     public static javax.swing.JTextArea comb1SentMsgREG;
+    public static javax.swing.JTextArea comb2SentMsgINV;
+    public static javax.swing.JTextArea comb2SentMsgREG;
+    public static javax.swing.JTextArea comb3SentMsgINV;
+    public static javax.swing.JTextArea comb3SentMsgREG;
+    public static javax.swing.JTextArea comb4SentMsgINV;
+    public static javax.swing.JTextArea comb4SentMsgREG;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
@@ -491,11 +494,8 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
     private javax.swing.JTextArea jTextArea10;
-    private javax.swing.JTextArea jTextArea11;
     private javax.swing.JTextArea jTextArea12;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea9;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsg;
     private javax.swing.JButton runALGtest;
