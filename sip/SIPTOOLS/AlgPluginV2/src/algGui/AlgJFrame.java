@@ -357,7 +357,7 @@ public class AlgJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+@Deprecated
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
         // The sip client should send SIP message to the server
         if (getSipClientController() == null) {
@@ -369,9 +369,9 @@ public class AlgJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 sipClientController = null;
             }
-            String res = sipClientController.sendRegisterStateless();
+          //  String res = sipClientController.sendRegisterStateless();
             //TODO: invoke the message comparision algo between the sent and received
-            comb1SentMsg.setText(res);
+         //   comb1SentMsg.setText(res);
         }
     }//GEN-LAST:event_runALGtestActionPerformed
 

@@ -7,6 +7,7 @@ package algController;
 import algBo.ALGBo;
 import algGui.AlgJFrame;
 import algGui.AlgJPanel;
+import algVo.Combination;
 import gov.nist.javax.sip.header.extensions.ReplacesHeader;
 import java.io.PrintWriter;
 import java.net.SocketException;
@@ -84,10 +85,10 @@ public class ClientController implements SipListener {
     SipFactory sipFactory;          // Used to access the SIP API.
     SipStack sipStack;              // The SIP stack.
     SipProvider sipProvider1;        // Used to send SIP messages.
-    SipProvider sipProvider2; 
-    SipProvider sipProvider3; 
-    SipProvider sipProvider4; 
-    
+    SipProvider sipProvider2;
+    SipProvider sipProvider3;
+    SipProvider sipProvider4;
+
     MessageFactory messageFactory;  // Used to create SIP message factory.
     HeaderFactory headerFactory;    // Used to create SIP headers.
     AddressFactory addressFactory;  // Used to create SIP URIs.
@@ -106,17 +107,24 @@ public class ClientController implements SipListener {
     String hostnameLocal;
     Integer portSrc1;
     Integer portSrc2;
-    Integer portdest1;
+    Integer portSrc3;
+    Integer portSrc4;
 
     String extlocal;
     //Server Info
     String ipServer;
-    Integer portServer;
-    String transportudp;       // The local protocol (UDP).
-    String transporttcp;       // 
+    Integer portServer1;
+    Integer portServer2;
+    Integer portServer3;
+    Integer portServer4;
+
+    String transport1;
+    String transport2;
+    String transport3;
+    String transport4; // 
     int tag = (new Random()).nextInt(); // The local tag.
-    Address contactAddress;         // The contact address.
-    ContactHeader contactHeader;    // The contact header.
+    //Address contactAddress;         // The contact address.
+    //ContactHeader contactHeader;    // The contact header.
     public boolean retryAuth;
     public long seqReg = 0;
     public long seqSub = 0;
@@ -125,19 +133,29 @@ public class ClientController implements SipListener {
      */
     String toSipURI;
     //local SIP URI taken from the config
-    String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + transportudp;
+    String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + transport1;
 
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
         algBo = new ALGBo();
         iplocal = ALGBo.getIplocal();
         extlocal = ALGBo.getExtlocal();
+
         portSrc1 = ALGBo.getPortsrc1();
         portSrc2 = ALGBo.getPortsrc2();
+        portSrc3 = ALGBo.getPortsrc3();
+        portSrc4 = ALGBo.getPortsrc4();
+        //get server configs
         ipServer = ALGBo.getIpServer();
-        portServer = ALGBo.getPortdest1();
-        transportudp = ALGBo.getTransportudp();
-        transporttcp = ALGBo.getTransporttcp();
+        portServer1 = ALGBo.getPortdest1();
+        portServer2 = ALGBo.getPortdest2();
+        portServer3 = ALGBo.getPortdest3();
+        portServer4 = ALGBo.getPortdest4();
+
+        transport1 = ALGBo.getTransport1();
+        transport2 = ALGBo.getTransport2();
+        transport3 = ALGBo.getTransport3();
+        transport4 = ALGBo.getTransport4();
         hostnameLocal = ALGBo.getHostname();
     }
 
@@ -155,19 +173,19 @@ public class ClientController implements SipListener {
             this.sipProvider1.removeListeningPoint(listeningPoint1);
             this.sipProvider1.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider1);
-            
+
             this.sipProvider2.removeListeningPoint(listeningPoint2);
             this.sipProvider2.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider2);
-            
+
             this.sipProvider3.removeListeningPoint(listeningPoint3);
             this.sipProvider3.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider3);
-            
+
             this.sipProvider4.removeListeningPoint(listeningPoint4);
             this.sipProvider4.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider4);
-            
+
             this.sipFactory.resetFactory();
             this.sipStack = null;
         } catch (Exception ex) {
@@ -198,10 +216,10 @@ public class ClientController implements SipListener {
         // Create the SIP address factory.
         this.addressFactory = this.sipFactory.createAddressFactory();
         // Create the SIP listening point and bind it to the local IP address, port and protocol.
-        this.listeningPoint1 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transportudp);
-        this.listeningPoint2 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transporttcp);
-        this.listeningPoint3 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transportudp);
-        this.listeningPoint4 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transporttcp);
+        this.listeningPoint1 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transport1);
+        this.listeningPoint2 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transport2);
+        this.listeningPoint3 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc3, this.transport3);
+        this.listeningPoint4 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc4, this.transport4);
 
 // Create the SIP provider.
         this.sipProvider1 = this.sipStack.createSipProvider(this.listeningPoint1);
@@ -214,17 +232,12 @@ public class ClientController implements SipListener {
         this.sipProvider2.addSipListener(this);
         this.sipProvider3.addSipListener(this);
         this.sipProvider4.addSipListener(this);
-        
-        //TODO: the below contact address will change , depends on the port scr/ transport
-        // Create the contact address used for all SIP messages.
-        this.contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + this.portSrc1 + ";transport=" + this.transportudp);
-        // Create the contact header used for all SIP messages.
-        this.contactHeader = this.headerFactory.createContactHeader(contactAddress);
+
         //add instance-id to contact header
         //this.contactHeader.setParameter("+sip.instance", sipInstance);
     }
 
-    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, String method, String protocol, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
+    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield,SipProvider sippro, String method, Combination comb, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
         /*3261: CSEQ:
          * “ When a UAC resubmits a request with its credentials after receiving a
          401 (Unauthorized) or 407 (Proxy Authentication Required) response,
@@ -234,6 +247,12 @@ public class ClientController implements SipListener {
          */
         seqReg++;
         Integer expires = expiresparam;
+        Address contactAddress;         // The contact address.
+        ContactHeader contactHeader;    // The contact header.
+        // Create the contact address used for all SIP messages.
+        contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + comb.getPortscr() + ";transport=" + comb.getTransport());
+        // Create the contact header used for all SIP messages.
+        contactHeader = this.headerFactory.createContactHeader(contactAddress);
 
         // Get the destination address from the text field.
         Address addressTo = this.addressFactory.createAddress(destAdresstextfield);
@@ -243,7 +262,7 @@ public class ClientController implements SipListener {
         // Create the SIP message headers.
         // The "Via" headers.
         ArrayList viaHeaders = new ArrayList();
-        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, this.portSrc1, protocol, null);
+        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, comb.getPortscr(), comb.getTransport(), null);
         viaHeaders.add(viaHeader);
 
         //Adding the branch param
@@ -253,7 +272,7 @@ public class ClientController implements SipListener {
         // The "Max-Forwards" header.
         MaxForwardsHeader maxForwardsHeader = this.headerFactory.createMaxForwardsHeader(70);
         // The "Call-Id" header.
-        CallIdHeader callIdHeader = this.sipProvider1.getNewCallId();
+        CallIdHeader callIdHeader = sippro.getNewCallId();
 
         // The "CSeq" header.
         CSeqHeader cSeqHeader = this.headerFactory.createCSeqHeader(seqReg, method);
@@ -298,45 +317,44 @@ public class ClientController implements SipListener {
 
     }
 
-    public String sendRegisterStateless() {
-        String res = "";
-        // A method called when you click on the "Reg (SL)" button.
-        try {
-            // Get the destination address from the text field.
-            ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
-            //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
-            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.transportudp, 27);
-
-            // Send the request statelessly through the SIP provider.
-            this.sipProvider1.sendRequest(request);
-
-            // Display the message in the text area.
-            res = ("Request sent:\n" + request.toString() + "\n\n");
-        } catch (Exception e) {
-            // If an error occurred, display the error.
-            res = "Request sent failed: " + e.getMessage() + "\n";
+    protected SipProvider getSipProvider(Integer seqNo) {
+        SipProvider sippro = null;
+        switch (seqNo) {
+            case 1:
+                sippro = this.sipProvider1;
+                break;
+            case 2:
+                sippro = this.sipProvider2;
+                break;
+            case 3:
+                sippro = this.sipProvider3;
+                break;
+            case 4:
+                sippro = this.sipProvider4;
+                break;
         }
-        return res;
+        return sippro;
     }
 
-    public String sendRegisterStateful() {
+    //it takes the combination including the sequence number: 1, udp, 5060, 5060
+    public String sendRegisterStateful(Combination combination) {
         String res = "";
+        SipProvider sipPro = null;
         // A method called when you click on the "Reg (SL)" button.
         try {
             // Get the destination address from the text field.
             ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
             //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
-            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "REGISTER", this.transportudp, 27);
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortscr();
+            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortDest();
+            sipPro = getSipProvider(combination.getSeqNumber());
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr,sipPro, "REGISTER", combination, 27);
+
             // Create a new SIP client transaction.
-            ClientTransaction transaction = this.sipProvider1.getNewClientTransaction(request);
+            ClientTransaction transaction = sipPro.getNewClientTransaction(request);
             //Send the request statefully, through the client transaction.
             transaction.sendRequest();
 
-            System.out.println("getRetransmitTimer=" + transaction.getRetransmitTimer());
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
@@ -346,19 +364,23 @@ public class ClientController implements SipListener {
         return res;
     }
 
-    public String sendInvite() {
-        String res = "";
+        public String sendInvite(Combination combination) {
+         String res = "";
+        SipProvider sipPro = null;
         // A method called when you click on the "Reg (SL)" button.
         try {
             // Get the destination address from the text field.
             ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
             //register here has the same URI to and FROM
-            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
-            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "INVITE", this.transportudp, 27);
+            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortscr();
+            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortDest();
+            sipPro = getSipProvider(combination.getSeqNumber());
+            Request request = generateFreshBasicRequest(addressFromStr, addressToStr,sipPro, "INVITE", combination, 27);
 
-            // Send the request statelessly through the SIP provider.
-            this.sipProvider1.sendRequest(request);
+            // Create a new SIP client transaction.
+            ClientTransaction transaction = sipPro.getNewClientTransaction(request);
+            //Send the request statefully, through the client transaction.
+            transaction.sendRequest();
 
             // Display the message in the text area.
             res = ("Request sent:\n" + request.toString() + "\n\n");
@@ -368,6 +390,34 @@ public class ClientController implements SipListener {
         }
         return res;
     }
+    
+//    public String sendInviteStatless() {
+//        String res = "";
+//        // A method called when you click on the "Reg (SL)" button.
+//        try {
+//            // Get the destination address from the text field.
+//            ////"sip:" + extLocal + "@" + ipServer + ":" + portlocal;
+//            //register here has the same URI to and FROM
+//            String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portSrc1;
+//            String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + this.portServer;
+//            // Create the contact address used for all SIP messages.
+//            this.contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + this.portSrc1 + ";transport=" + this.transport1);
+//            // Create the contact header used for all SIP messages.
+//            this.contactHeader = this.headerFactory.createContactHeader(contactAddress);
+//
+//            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, "INVITE", this.transport1, 27);
+//
+//            // Send the request statelessly through the SIP provider.
+//            this.sipProvider1.sendRequest(request);
+//
+//            // Display the message in the text area.
+//            res = ("Request sent:\n" + request.toString() + "\n\n");
+//        } catch (Exception e) {
+//            // If an error occurred, display the error.
+//            res = "Request sent failed: " + e.getMessage() + "\n";
+//        }
+//        return res;
+//    }
 
     @Override
     /**

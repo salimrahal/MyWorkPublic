@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package algGui;
 
+import algBo.ALGBo;
 import algBo.ALgDetect;
 import algBo.Networking;
 import algController.ClientController;
+import algVo.Combination;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,14 +32,15 @@ public class AlgJPanel extends javax.swing.JPanel {
     public static void setSipClientController(ClientController sipClientController) {
         AlgJFrame.sipClientController = sipClientController;
     }
+
     public AlgJPanel(ClientController sipClientController) {
         initComponents();
         AlgJPanel.sipClientController = sipClientController;
     }
-    
-      public AlgJPanel() {
+
+    public AlgJPanel() {
         initComponents();
-      
+
     }
 
     /**
@@ -343,7 +345,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 //        ALgDetect alg = new ALgDetect();
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
-   if (getSipClientController() == null) {
+        if (getSipClientController() == null) {
             try {
                 sipClientController = new ClientController();
                 sipClientController.createSipStack();
@@ -353,27 +355,83 @@ public class AlgJPanel extends javax.swing.JPanel {
                 try {
                     sipClientController.reset();
                 } catch (Exception ex1) {
-                  JOptionPane.showMessageDialog(this, ex1.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, ex1.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 sipClientController = null;
             }
         }
-        //TODO: pass as parameter the Port Scr/ Port Dest, transport
-        //Send register then invite
-            String resReg = sipClientController.sendRegisterStateful();
+        if (jRadioButton1.isSelected()) {
+            System.out.println("radio1 selected");
+            //Send register then invite
+            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
+            String resReg = sipClientController.sendRegisterStateful(comb1);
             String resInv = "";
-            resInv = sipClientController.sendInvite();
-                   
+            resInv = sipClientController.sendInvite(comb1);
+
             //filling the output log after sending the messeges
-           //REG
+            //REG
             comb1SentMsgREG.setText(resReg);
             //set the caret to the top always
             comb1SentMsgREG.setCaretPosition(0);
-            
             //INV
             comb1SentMsgINV.setText(resInv);
             //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);    
+            comb1SentMsgINV.setCaretPosition(0);
+        } else if (jRadioButton2.isSelected()) {
+            System.out.println("radio2 selected");
+            //Send register then invite
+            Combination comb2 = new Combination(2, ALGBo.getPortsrc2(), ALGBo.getPortdest2(), ALGBo.getTransport2());
+            String resReg = sipClientController.sendRegisterStateful(comb2);
+            String resInv = "";
+            resInv = sipClientController.sendInvite(comb2);
+
+            //filling the output log after sending the messeges
+            //REG
+            comb1SentMsgREG.setText(resReg);
+            //set the caret to the top always
+            comb1SentMsgREG.setCaretPosition(0);
+            //INV
+            comb1SentMsgINV.setText(resInv);
+            //set the caret to the top always
+            comb1SentMsgINV.setCaretPosition(0);
+        } else if (jRadioButton3.isSelected()) {
+            System.out.println("radio1 selected");
+            //Send register then invite
+            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
+            String resReg = sipClientController.sendRegisterStateful(comb1);
+            String resInv = "";
+            resInv = sipClientController.sendInvite(comb1);
+
+            //filling the output log after sending the messeges
+            //REG
+            comb1SentMsgREG.setText(resReg);
+            //set the caret to the top always
+            comb1SentMsgREG.setCaretPosition(0);
+            //INV
+            comb1SentMsgINV.setText(resInv);
+            //set the caret to the top always
+            comb1SentMsgINV.setCaretPosition(0);
+        }
+        if (jRadioButton4.isSelected()) {
+            System.out.println("radio1 selected");
+            //Send register then invite
+            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
+            String resReg = sipClientController.sendRegisterStateful(comb1);
+            String resInv = "";
+            resInv = sipClientController.sendInvite(comb1);
+
+            //filling the output log after sending the messeges
+            //REG
+            comb1SentMsgREG.setText(resReg);
+            //set the caret to the top always
+            comb1SentMsgREG.setCaretPosition(0);
+            //INV
+            comb1SentMsgINV.setText(resInv);
+            //set the caret to the top always
+            comb1SentMsgINV.setCaretPosition(0);
+        }
+        //TODO: pass as parameter the Port Scr/ Port Dest, transport
+
     }//GEN-LAST:event_runALGtestActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
@@ -381,7 +439,7 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb1SentMsgREG.setText("Sent message:");
         comb1SentMsgINV.setText("Sent message:");
         comb1RcvMsgREG.setText("Received message:");
-        comb1RcvMsgINV.setText("Received message:");  
+        comb1RcvMsgINV.setText("Received message:");
         resultmsg.setText("OK");
     }//GEN-LAST:event_resetActionPerformed
 
