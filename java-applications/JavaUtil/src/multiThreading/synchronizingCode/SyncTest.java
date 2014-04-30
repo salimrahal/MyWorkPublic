@@ -3,7 +3,7 @@ package multiThreading.synchronizingCode;
 public class SyncTest implements Runnable {
 
 	/**
-	 * the syn block is more flexible the sync_method, but both gas the same
+	 * the syn block is more flexible the sync_method, but both has the same
 	 * effect
 	 * 
 	 * @param args

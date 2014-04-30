@@ -10,9 +10,15 @@ import algBo.ALgDetect;
 import algBo.Networking;
 import algController.ClientController;
 import algVo.Combination;
+import java.awt.Color;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sip.ObjectInUseException;
+import javax.sip.PeerUnavailableException;
+import javax.sip.TransportNotSupportedException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -29,18 +35,12 @@ public class AlgJPanel extends javax.swing.JPanel {
         return sipClientController;
     }
 
-    public static void setSipClientController(ClientController sipClientController) {
-        AlgJFrame.sipClientController = sipClientController;
+    public static void setSipClientController(ClientController sipClientControllerparam) {
+        sipClientController = sipClientControllerparam;
     }
 
-    public AlgJPanel(ClientController sipClientController) {
+    public AlgJPanel() throws Exception {
         initComponents();
-        AlgJPanel.sipClientController = sipClientController;
-    }
-
-    public AlgJPanel() {
-        initComponents();
-
     }
 
     /**
@@ -53,7 +53,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        resultmsg = new javax.swing.JLabel();
+        resultmsgjlabel = new javax.swing.JLabel();
         runALGtest = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
@@ -74,9 +74,9 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb2SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        comb2RcvMsgREG = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        comb1RcvMsg1 = new javax.swing.JTextArea();
+        comb2RcvMsgINV = new javax.swing.JTextArea();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jScrollPane13 = new javax.swing.JScrollPane();
         comb3SentMsgREG = new javax.swing.JTextArea();
@@ -84,9 +84,9 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb3SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jTextArea10 = new javax.swing.JTextArea();
+        comb3RcvMsgREG = new javax.swing.JTextArea();
         jScrollPane15 = new javax.swing.JScrollPane();
-        comb1RcvMsg2 = new javax.swing.JTextArea();
+        comb3RcvMsgINV = new javax.swing.JTextArea();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane18 = new javax.swing.JScrollPane();
         comb4SentMsgREG = new javax.swing.JTextArea();
@@ -94,19 +94,29 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb4SentMsgINV = new javax.swing.JTextArea();
         jTabbedPane8 = new javax.swing.JTabbedPane();
         jScrollPane19 = new javax.swing.JScrollPane();
-        comb1RcvMsg3 = new javax.swing.JTextArea();
+        comb4RcvMsgREG = new javax.swing.JTextArea();
         jScrollPane20 = new javax.swing.JScrollPane();
-        jTextArea12 = new javax.swing.JTextArea();
+        comb4RcvMsgINV = new javax.swing.JTextArea();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
 
-        resultmsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        resultmsg.setText("Result message");
-        resultmsg.setToolTipText("");
-        resultmsg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
-        resultmsg.setOpaque(true);
+        setPreferredSize(new java.awt.Dimension(800, 735));
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                formAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        resultmsgjlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resultmsgjlabel.setText("result message");
+        resultmsgjlabel.setToolTipText("");
+        resultmsgjlabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
 
         runALGtest.setText("Run Test");
         runALGtest.addActionListener(new java.awt.event.ActionListener() {
@@ -126,12 +136,6 @@ public class AlgJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTabbedPane1Reg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jTabbedPane1RegMousePressed(evt);
-            }
-        });
-
         comb1SentMsgREG.setColumns(20);
         comb1SentMsgREG.setRows(5);
         comb1SentMsgREG.setText("Sent message:");
@@ -147,6 +151,7 @@ public class AlgJPanel extends javax.swing.JPanel {
         jTabbedPane1Reg.addTab("Invite", jScrollPane1);
 
         comb1RcvMsgREG.setColumns(20);
+        comb1RcvMsgREG.setLineWrap(true);
         comb1RcvMsgREG.setRows(5);
         comb1RcvMsgREG.setText("Received message:");
         jScrollPane10.setViewportView(comb1RcvMsgREG);
@@ -173,16 +178,16 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane3.addTab("Invite", jScrollPane3);
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane12.setViewportView(jTextArea4);
+        comb2RcvMsgREG.setColumns(20);
+        comb2RcvMsgREG.setRows(5);
+        jScrollPane12.setViewportView(comb2RcvMsgREG);
 
         jTabbedPane4.addTab("Register", jScrollPane12);
 
-        comb1RcvMsg1.setColumns(20);
-        comb1RcvMsg1.setRows(5);
-        comb1RcvMsg1.setText("Received message:");
-        jScrollPane4.setViewportView(comb1RcvMsg1);
+        comb2RcvMsgINV.setColumns(20);
+        comb2RcvMsgINV.setRows(5);
+        comb2RcvMsgINV.setText("Received message:");
+        jScrollPane4.setViewportView(comb2RcvMsgINV);
 
         jTabbedPane4.addTab("Invite", jScrollPane4);
 
@@ -199,16 +204,16 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane5.addTab("Invite", jScrollPane14);
 
-        jTextArea10.setColumns(20);
-        jTextArea10.setRows(5);
-        jScrollPane16.setViewportView(jTextArea10);
+        comb3RcvMsgREG.setColumns(20);
+        comb3RcvMsgREG.setRows(5);
+        jScrollPane16.setViewportView(comb3RcvMsgREG);
 
         jTabbedPane6.addTab("Register", jScrollPane16);
 
-        comb1RcvMsg2.setColumns(20);
-        comb1RcvMsg2.setRows(5);
-        comb1RcvMsg2.setText("Received message:");
-        jScrollPane15.setViewportView(comb1RcvMsg2);
+        comb3RcvMsgINV.setColumns(20);
+        comb3RcvMsgINV.setRows(5);
+        comb3RcvMsgINV.setText("Received message:");
+        jScrollPane15.setViewportView(comb3RcvMsgINV);
 
         jTabbedPane6.addTab("Invite", jScrollPane15);
 
@@ -225,35 +230,25 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         jTabbedPane7.addTab("Invite", jScrollPane17);
 
-        comb1RcvMsg3.setColumns(20);
-        comb1RcvMsg3.setRows(5);
-        comb1RcvMsg3.setText("Received message:");
-        jScrollPane19.setViewportView(comb1RcvMsg3);
+        comb4RcvMsgREG.setColumns(20);
+        comb4RcvMsgREG.setRows(5);
+        comb4RcvMsgREG.setText("Received message:");
+        jScrollPane19.setViewportView(comb4RcvMsgREG);
 
         jTabbedPane8.addTab("Register", jScrollPane19);
 
-        jTextArea12.setColumns(20);
-        jTextArea12.setRows(5);
-        jScrollPane20.setViewportView(jTextArea12);
+        comb4RcvMsgINV.setColumns(20);
+        comb4RcvMsgINV.setRows(5);
+        jScrollPane20.setViewportView(comb4RcvMsgINV);
 
         jTabbedPane8.addTab("Invite", jScrollPane20);
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Transport: UDP Source Port: 5060 Destination Port: 5060");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Transport: TCP Source Port: 5060 Destination Port: 5060");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Transport: UDP Source Port: 5062 Destination Port: 5060");
@@ -281,31 +276,31 @@ public class AlgJPanel extends javax.swing.JPanel {
                             .addComponent(jTabbedPane4)
                             .addComponent(jTabbedPane8)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jRadioButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(runALGtest)
                                         .addGap(71, 71, 71)
                                         .addComponent(reset)
                                         .addGap(39, 39, 39))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel26)
                                         .addGap(77, 77, 77)))))
-                        .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4))
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -322,7 +317,7 @@ public class AlgJPanel extends javax.swing.JPanel {
                             .addComponent(runALGtest))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(resultmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,6 +343,8 @@ public class AlgJPanel extends javax.swing.JPanel {
                     .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
+
+        resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
     }// </editor-fold>//GEN-END:initComponents
 
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
@@ -355,138 +352,114 @@ public class AlgJPanel extends javax.swing.JPanel {
 //        ALgDetect alg = new ALgDetect();
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
-        if (getSipClientController() == null) {
-            try {
-                sipClientController = new ClientController();
-                sipClientController.createSipStack();
-                sipClientController.createSipFrameWork();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                try {
-                    sipClientController.reset();
-                } catch (Exception ex1) {
-                    JOptionPane.showMessageDialog(this, ex1.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                sipClientController = null;
-            }
-        }
+        resultmsgjlabel.setText(ALGBo.INPROGRESS);
+//        if (getSipClientController() == null) {
+//            try {
+//                sipClientController = new ClientController();
+//                sipClientController.createSipStack();
+//                sipClientController.createSipFrameWork();
+//            } catch (Exception ex) {
+//                JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);           
+//            }//end exception
+//        }//end sipclientcontroller == null
         if (jRadioButton1.isSelected()) {
-            System.out.println("radio1 selected");
-            //Send register then invite
-            Combination comb1 = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
-            String resReg = sipClientController.sendRegisterStateful(comb1);
-            String resInv = "";
-            resInv = sipClientController.sendInvite(comb1);
-
-            //filling the output log after sending the messeges
-            //REG
-            comb1SentMsgREG.setText(resReg);
-            //set the caret to the top always
-            comb1SentMsgREG.setCaretPosition(0);
-            //INV
-            comb1SentMsgINV.setText(resInv);
-            //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);
+            sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
         } else if (jRadioButton2.isSelected()) {
-            System.out.println("radio2 selected");
-            //Send register then invite
-            Combination comb2 = new Combination(2, ALGBo.getPortsrc2(), ALGBo.getPortdest2(), ALGBo.getTransport2());
-            String resReg = sipClientController.sendRegisterStateful(comb2);
-            String resInv = "";
-            resInv = sipClientController.sendInvite(comb2);
-
-            //filling the output log after sending the messeges
-            //REG
-            comb1SentMsgREG.setText(resReg);
-            //set the caret to the top always
-            comb1SentMsgREG.setCaretPosition(0);
-            //INV
-            comb1SentMsgINV.setText(resInv);
-            //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);
+            sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
         } else if (jRadioButton3.isSelected()) {
-            System.out.println("radio3 selected");
-            //Send register then invite
-            Combination comb3 = new Combination(3, ALGBo.getPortsrc3(), ALGBo.getPortdest3(), ALGBo.getTransport3());
-            String resReg = sipClientController.sendRegisterStateful(comb3);
-            String resInv = "";
-            resInv = sipClientController.sendInvite(comb3);
-
-            //filling the output log after sending the messeges
-            //REG
-            comb1SentMsgREG.setText(resReg);
-            //set the caret to the top always
-            comb1SentMsgREG.setCaretPosition(0);
-            //INV
-            comb1SentMsgINV.setText(resInv);
-            //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);
+            sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
+        } else if (jRadioButton4.isSelected()) {
+            sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
         }
-        if (jRadioButton4.isSelected()) {
-            System.out.println("radio4 selected");
-            //Send register then invite
-            Combination comb4 = new Combination(4, ALGBo.getPortsrc4(), ALGBo.getPortdest4(), ALGBo.getTransport4());
-            String resReg = sipClientController.sendRegisterStateful(comb4);
-            String resInv = "";
-            resInv = sipClientController.sendInvite(comb4);
-
-            //filling the output log after sending the messeges
-            //REG
-            comb1SentMsgREG.setText(resReg);
-            //set the caret to the top always
-            comb1SentMsgREG.setCaretPosition(0);
-            //INV
-            comb1SentMsgINV.setText(resInv);
-            //set the caret to the top always
-            comb1SentMsgINV.setCaretPosition(0);
-        }
-        //TODO: pass as parameter the Port Scr/ Port Dest, transport
-
     }//GEN-LAST:event_runALGtestActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+//     removed to avoid aobject already in used exception while doing reset
+        resultmsgjlabel.setText(ALGBo.INPROGRESS);
+        System.out.println("resetActionPerformed...");
+//        if (getSipClientController() != null) {
+//             System.out.println("resetActionPerformed...getSipClientController is null");
+//            try {
+//                String res = sipClientController.reset();
+//                if(res.equalsIgnoreCase(ALGBo.RESET_OK)){
+//                    resultmsgjlabel.setText(ALGBo.RESET_OK);
+//                    sipClientController = null;
+//                }else{
+//                    resultmsgjlabel.setText("Reset failed: "+res);
+//                    System.out.println("Reset failed! "+res);
+//                           
+//                    //TODO: clean well the Sip points
+//                    //resultmsgjlabel.setText("Reset failed! "+res);
+//                }   
+//            } catch (Exception ex1) {
+//                JOptionPane.showMessageDialog(this, ex1.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+        //resultmsgjlabel.setText("OK");
+        resultmsgjlabel.setBackground(Color.white);
         //clean the text areas:
         comb1SentMsgREG.setText("Sent message:");
         comb1SentMsgINV.setText("Sent message:");
         comb1RcvMsgREG.setText("Received message:");
         comb1RcvMsgINV.setText("Received message:");
-        resultmsg.setText("OK");
+
+        comb2SentMsgREG.setText("Sent message:");
+        comb2SentMsgINV.setText("Sent message:");
+        comb2RcvMsgREG.setText("Received message:");
+        comb2RcvMsgINV.setText("Received message:");
+
+        comb3SentMsgREG.setText("Sent message:");
+        comb3SentMsgINV.setText("Sent message:");
+        comb3RcvMsgREG.setText("Received message:");
+        comb3RcvMsgINV.setText("Received message:");
+
+        comb4SentMsgREG.setText("Sent message:");
+        comb4SentMsgINV.setText("Sent message:");
+        comb4RcvMsgREG.setText("Received message:");
+        comb4RcvMsgINV.setText("Received message:");
+         resultmsgjlabel.setText(ALGBo.RESET_OK);
+
     }//GEN-LAST:event_resetActionPerformed
 
-    private void jTabbedPane1RegMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1RegMousePressed
-
-        //TODO: once the user click on register -> click on the register received tab
-    }//GEN-LAST:event_jTabbedPane1RegMousePressed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+        System.out.println("Event AncestorAdded...");
+         if (getSipClientController() == null) {
+             System.out.println("formAncestorAdded: Sip Listener null..initialise the stack");
+            try {
+                sipClientController = new ClientController();
+                sipClientController.createSipStack();
+                sipClientController.createSipFrameWork();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);           
+            }//end exception
+        }//end sipclientcontroller == null
+    }//GEN-LAST:event_formAncestorAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    public static javax.swing.JTextArea comb1RcvMsg1;
-    public static javax.swing.JTextArea comb1RcvMsg2;
-    public static javax.swing.JTextArea comb1RcvMsg3;
     public static javax.swing.JTextArea comb1RcvMsgINV;
     public static javax.swing.JTextArea comb1RcvMsgREG;
     private static javax.swing.JTextArea comb1SentMsgINV;
     public static javax.swing.JTextArea comb1SentMsgREG;
+    public static javax.swing.JTextArea comb2RcvMsgINV;
+    public static javax.swing.JTextArea comb2RcvMsgREG;
     public static javax.swing.JTextArea comb2SentMsgINV;
     public static javax.swing.JTextArea comb2SentMsgREG;
+    public static javax.swing.JTextArea comb3RcvMsgINV;
+    public static javax.swing.JTextArea comb3RcvMsgREG;
     public static javax.swing.JTextArea comb3SentMsgINV;
     public static javax.swing.JTextArea comb3SentMsgREG;
+    public static javax.swing.JTextArea comb4RcvMsgINV;
+    public static javax.swing.JTextArea comb4RcvMsgREG;
     public static javax.swing.JTextArea comb4SentMsgINV;
     public static javax.swing.JTextArea comb4SentMsgREG;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    public static javax.swing.JRadioButton jRadioButton1;
+    public static javax.swing.JRadioButton jRadioButton2;
+    public static javax.swing.JRadioButton jRadioButton3;
+    public static javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -511,11 +484,35 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
-    private javax.swing.JTextArea jTextArea10;
-    private javax.swing.JTextArea jTextArea12;
-    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JButton reset;
-    public static javax.swing.JLabel resultmsg;
+    public static javax.swing.JLabel resultmsgjlabel;
     private javax.swing.JButton runALGtest;
     // End of variables declaration//GEN-END:variables
+
+    public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
+        Combination comb = null;
+        if (combSeq == 1) {
+            comb = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
+        } else if (combSeq == 2) {
+            comb = new Combination(2, ALGBo.getPortsrc2(), ALGBo.getPortdest2(), ALGBo.getTransport2());
+        } else if (combSeq == 3) {
+            comb = new Combination(3, ALGBo.getPortsrc3(), ALGBo.getPortdest3(), ALGBo.getTransport3());
+        } else if (combSeq == 4) {
+            comb = new Combination(4, ALGBo.getPortsrc4(), ALGBo.getPortdest4(), ALGBo.getTransport4());
+        }
+
+        String resReg = sipClientController.sendRegisterStateful(comb);
+        String resInv = sipClientController.sendInvite(comb);
+
+        //filling the output log after sending the messeges
+        //REG
+        sentmsgReg.setText(resReg);
+        //set the caret to the top always
+        sentmsgReg.setCaretPosition(0);
+        //INV
+        sentmsgInv.setText(resInv);
+        //set the caret to the top always
+        sentmsgInv.setCaretPosition(0);
+    }
+
 }

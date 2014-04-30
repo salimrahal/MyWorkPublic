@@ -27,7 +27,11 @@ public class MainALG extends JApplet {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {                   
-                     createGUI();
+                    try {
+                        createGUI();
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             });
         } catch (Exception e) {
@@ -37,14 +41,23 @@ public class MainALG extends JApplet {
 
     @Override
     public void destroy() {
+        System.out.println("Final cleanup ....destroy...");
         super.destroy(); //To change body of generated methods, choose Tools | Templates.
+         //System.exit(0);
          ClientController sipClient = AlgJPanel.getSipClientController();
          if(sipClient!=null){
             try {
-                sipClient.reset();
+                  System.out.println("destroy...sipClient not null..");
+               String res = sipClient.reset();//reset msg:Object is in use
+                 if(res.equalsIgnoreCase("OK")){
+                    sipClient = null;
+                }else{//TODO: alg clean the sipListeners and close existing connections
+                    System.out.println("Reset failed! "+res);
+                   
+                }
             } catch (Exception ex) {
                 Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           }
          }
     }
     
@@ -52,7 +65,7 @@ public class MainALG extends JApplet {
      * Create the GUI. For thread safety, this method should be invoked from the
      * event-dispatching thread.
      */
-    private void createGUI() {
+    private void createGUI() throws Exception {
  //           try {
                 //
         algJpanel = new AlgJPanel(); 

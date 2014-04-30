@@ -192,3 +192,6 @@
 /sip/SIPTOOLS/AlgPluginV2/scripts/
 /sip/SIPTOOLS/AlgPluginV2/src/alglogs/
 /sip/SIPTOOLS/AlgPluginDG/dist/
+/java-applications/swing_f/swingComponents/build/
+/java-applications/Socket_Examples/Echo/nbproject/private/
+/java-applications/Socket_Examples/Echo/build/
