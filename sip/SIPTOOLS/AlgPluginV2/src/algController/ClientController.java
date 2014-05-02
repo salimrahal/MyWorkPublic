@@ -151,7 +151,7 @@ public class ClientController implements SipListener {
         try {
             //go to implementation: SipProviderImpl
             //UDP
- //           this.sipProvider1.removeListeningPoint(listeningPoint1);
+            //           this.sipProvider1.removeListeningPoint(listeningPoint1);
             this.sipProvider1.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider1);
             //TCP
@@ -159,7 +159,7 @@ public class ClientController implements SipListener {
             this.sipProvider2.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider2);
             //UDP
-    //       this.sipProvider3.removeListeningPoint(listeningPoint3);
+            //       this.sipProvider3.removeListeningPoint(listeningPoint3);
             this.sipProvider3.removeSipListener(this);
             this.sipStack.deleteSipProvider(this.sipProvider3);
             //TCP
@@ -392,7 +392,9 @@ public class ClientController implements SipListener {
     public void processTimeout(TimeoutEvent timeoutEvent) {
         //The time out was minimize in: SipStackImpl: gov.nist.javax.sip.DIALOG_TIMEOUT_FACTOR 
         AlgJPanel.resultmsgjlabel.setText("Firewall issue");
-        setFWMsgToCorrespondentOutput();
+        ClientTransaction clientTrans = timeoutEvent.getClientTransaction();
+        Request request = clientTrans.getRequest();
+        setFWMsgToCorrespondentOutput(request);
     }
 
     @Override
@@ -445,91 +447,85 @@ public class ClientController implements SipListener {
         setRcvMsgToCorrespondentOutput(methodResponse, response);
     }
 
-    public void setFWMsgToCorrespondentOutput() {
-        if (AlgJPanel.jRadioButton1.isSelected()) {
-            AlgJPanel.comb1RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
-            AlgJPanel.comb1RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
-
-//            AlgJPanel.comb1RcvMsgREG.setBackground(Color.red);
-//            AlgJPanel.comb1RcvMsgINV.setBackground(Color.red);
-        } else if (AlgJPanel.jRadioButton2.isSelected()) {
-            AlgJPanel.comb2RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
-            AlgJPanel.comb2RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
-
-//            AlgJPanel.comb2RcvMsgREG.setBackground(Color.red);
-//            AlgJPanel.comb2RcvMsgINV.setBackground(Color.red);
-        } else if (AlgJPanel.jRadioButton3.isSelected()) {
-            AlgJPanel.comb3RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
-            AlgJPanel.comb3RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
-
-//            AlgJPanel.comb3RcvMsgREG.setBackground(Color.red);
-//            AlgJPanel.comb3RcvMsgINV.setBackground(Color.red);
-        } else if (AlgJPanel.jRadioButton4.isSelected()) {
-            AlgJPanel.comb4RcvMsgREG.setText("No Packet Received - SIP ALG / Firewall issue");
-            AlgJPanel.comb4RcvMsgINV.setText("No Packet Received - SIP ALG / Firewall issue");
-
-//            AlgJPanel.comb4RcvMsgREG.setBackground(Color.red);
-//            AlgJPanel.comb4RcvMsgINV.setBackground(Color.red);
+    public void setFWMsgToCorrespondentOutput(Request request) {
+        Integer combId = algBo.getCombinationIdFromRequest(request);
+        switch (combId) {
+            case 1:
+                AlgJPanel.comb1RcvMsgREG.setText(ALGBo.FIREWALL_MSG);
+                AlgJPanel.comb1RcvMsgINV.setText(ALGBo.FIREWALL_MSG);
+                break;
+            case 2:
+                AlgJPanel.comb2RcvMsgREG.setText(ALGBo.FIREWALL_MSG);
+                AlgJPanel.comb2RcvMsgINV.setText(ALGBo.FIREWALL_MSG);
+                break;
+            case 3:
+                AlgJPanel.comb3RcvMsgREG.setText(ALGBo.FIREWALL_MSG);
+                AlgJPanel.comb3RcvMsgINV.setText(ALGBo.FIREWALL_MSG);
+                break;
+            case 4:
+                AlgJPanel.comb4RcvMsgREG.setText(ALGBo.FIREWALL_MSG);
+                AlgJPanel.comb4RcvMsgINV.setText(ALGBo.FIREWALL_MSG);
+                break;
         }
     }
 
     public void setRcvMsgToCorrespondentOutput(String methodResponse, Response response) {
         String responseStr = response.toString();
         Integer combId = algBo.getCombinationIdFromResponse(response);
-        
-        switch(combId){
+
+        switch (combId) {
             case 1:
-                 //filling the output log after sending the messeges
+                //filling the output log after sending the messeges
                 //REG
-            if (methodResponse.equals("REGISTER")) {
-                AlgJPanel.comb1RcvMsgREG.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb1RcvMsgREG.setCaretPosition(0);
-            } else if (methodResponse.equals("INVITE")) {
-                //INV
-                AlgJPanel.comb1RcvMsgINV.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb1RcvMsgINV.setCaretPosition(0);
-            }
-            break;
+                if (methodResponse.equals("REGISTER")) {
+                    AlgJPanel.comb1RcvMsgREG.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb1RcvMsgREG.setCaretPosition(0);
+                } else if (methodResponse.equals("INVITE")) {
+                    //INV
+                    AlgJPanel.comb1RcvMsgINV.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb1RcvMsgINV.setCaretPosition(0);
+                }
+                break;
             case 2:
-            if (methodResponse.equals("REGISTER")) {
-                AlgJPanel.comb2RcvMsgREG.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb2RcvMsgREG.setCaretPosition(0);
-            } else if (methodResponse.equals("INVITE")) {
-                //INV
-                AlgJPanel.comb2RcvMsgINV.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb2RcvMsgINV.setCaretPosition(0);
-            }
-            break;
+                if (methodResponse.equals("REGISTER")) {
+                    AlgJPanel.comb2RcvMsgREG.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb2RcvMsgREG.setCaretPosition(0);
+                } else if (methodResponse.equals("INVITE")) {
+                    //INV
+                    AlgJPanel.comb2RcvMsgINV.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb2RcvMsgINV.setCaretPosition(0);
+                }
+                break;
             case 3:
-              if (methodResponse.equals("REGISTER")) {
-                AlgJPanel.comb3RcvMsgREG.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb3RcvMsgREG.setCaretPosition(0);
-            } else if (methodResponse.equals("INVITE")) {
-                //INV
-                AlgJPanel.comb3RcvMsgINV.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb3RcvMsgINV.setCaretPosition(0);
-            }            
-            break;   
+                if (methodResponse.equals("REGISTER")) {
+                    AlgJPanel.comb3RcvMsgREG.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb3RcvMsgREG.setCaretPosition(0);
+                } else if (methodResponse.equals("INVITE")) {
+                    //INV
+                    AlgJPanel.comb3RcvMsgINV.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb3RcvMsgINV.setCaretPosition(0);
+                }
+                break;
             case 4:
-              if (methodResponse.equals("REGISTER")) {
-                AlgJPanel.comb4RcvMsgREG.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb4RcvMsgREG.setCaretPosition(0);
-            } else if (methodResponse.equals("INVITE")) {
-                //INV
-                AlgJPanel.comb4RcvMsgINV.setText("Received response:\n " + responseStr);
-                //set the caret to the top always
-                AlgJPanel.comb4RcvMsgINV.setCaretPosition(0);
-            }    
-            break;
+                if (methodResponse.equals("REGISTER")) {
+                    AlgJPanel.comb4RcvMsgREG.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb4RcvMsgREG.setCaretPosition(0);
+                } else if (methodResponse.equals("INVITE")) {
+                    //INV
+                    AlgJPanel.comb4RcvMsgINV.setText("Received response:\n " + responseStr);
+                    //set the caret to the top always
+                    AlgJPanel.comb4RcvMsgINV.setCaretPosition(0);
+                }
+                break;
         }
-                
+
 //        if (AlgJPanel.jRadioButton1.isSelected()) {
 //
 //           

@@ -8,11 +8,8 @@ package algBo;
 import static algBo.Networking.getLocalIpAddress;
 import gov.nist.javax.sip.header.SIPHeader;
 import java.net.SocketException;
-import javax.sip.address.Address;
 import javax.sip.header.ContactHeader;
 import javax.sip.header.FromHeader;
-import javax.sip.header.Header;
-import javax.sip.header.HeaderAddress;
 import javax.sip.header.ToHeader;
 import javax.sip.header.ViaHeader;
 import javax.sip.message.Request;
@@ -23,16 +20,16 @@ import javax.sip.message.Response;
  * @author salim
  */
 public class ALGBo {
+
     //combination id: 1, 2, 3, 4
     static public final Integer Comb1Id = 1;
     static public final Integer Comb2Id = 2;
     static public final Integer Comb3Id = 3;
     static public final Integer Comb4Id = 4;
-    
+
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-
     static public Integer portsrc1 = 5060;
     static public Integer portsrc2 = 5060;
     static public Integer portsrc3 = 5062;
@@ -55,41 +52,66 @@ public class ALGBo {
     static public String iplocal;
     static String ipServer = "209.208.79.151";
     static String extlocal;
-    
+
     //messages
     public static final String RESET_OK = "OK";
-     public static final String INPROGRESS = "in progress..";
+    public static final String INPROGRESS = "in progress..";
+    //No Packet Received - SIP ALG / Firewall issue
+    public static final String FIREWALL_MSG = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
 
-     
-     
+    //it gets combination Id from port src/dest and Transport
+    public Integer getCombinationIdFromResponse(Response response) {
+        Integer combId = -1;
+        ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
+        FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
+        ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
+        //get the transport
+        String transport = via.getTransport();
+        //get the ports
+        String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+        Integer fromPort = extractPort(fromURI);
+
+        String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+        Integer toPort = extractPort(toURI);
+
+        if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
+            combId = Comb1Id;
+        } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
+            combId = Comb2Id;
+        } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
+            combId = Comb3Id;
+        } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
+            combId = Comb4Id;
+        }
+        return combId;
+    }
+
      //it gets combination Id from port src/dest and Transport
-     public Integer getCombinationIdFromResponse(Response response){
-         Integer combId = -1;
-          ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
-          FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
-          ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
-            //get the transport
-            String transport = via.getTransport();
-            //get the ports
-            String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-            Integer fromPort = extractPort(fromURI);
+    public Integer getCombinationIdFromRequest(Request request) {
+        Integer combId = -1;
+        ViaHeader via = (ViaHeader) request.getHeader(SIPHeader.VIA);
+        FromHeader from = (FromHeader) request.getHeader(SIPHeader.FROM);
+        ToHeader to = (ToHeader) request.getHeader(SIPHeader.TO);
+        //get the transport
+        String transport = via.getTransport();
+        //get the ports
+        String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+        Integer fromPort = extractPort(fromURI);
 
-            String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-            Integer toPort = extractPort(toURI);
-         
-            if(transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)){
-                combId = Comb1Id;
-            }else if(transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)){
-                combId = Comb2Id;
-            }else if(transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)){
-                combId = Comb3Id;
-            }else if(transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)){
-                combId = Comb4Id;
-            }
-            return combId;
-     }
-     
-     
+        String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+        Integer toPort = extractPort(toURI);
+
+        if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
+            combId = Comb1Id;
+        } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
+            combId = Comb2Id;
+        } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
+            combId = Comb3Id;
+        } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
+            combId = Comb4Id;
+        }
+        return combId;
+    }
     /*
      a- test the port ranges: 1024 -> 65535
      b- callerId should be z same
@@ -107,14 +129,17 @@ public class ALGBo {
         /* handling callID 
          callID should be the same
          */
-        
+        //
+        /*TODO:alg check for ALG modification: IP modification covering: 
+         “Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router ”
+         */
         String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
         String callIdRes = response.getHeader(SIPHeader.CALL_ID).toString();
         //callIdRes = "newcallID";
         if (!callIdReq.equalsIgnoreCase(callIdRes)) {
-           res = -1;
+            res = -1;
             //res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
-            
+
         } else {
             //checking port number: via, to, from, contact
             ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
@@ -134,8 +159,8 @@ public class ALGBo {
             Integer contactPort = extractPort(contactURI);
 
             if (!(checkPortValidity(viaPort) && checkPortValidity(fromPort) && checkPortValidity(toPort) && checkPortValidity(contactPort))) {
-               // res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
-             res = -1;
+                // res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
+                res = -1;
             }
         }
         return res;
@@ -283,7 +308,7 @@ public class ALGBo {
     }
 
     public static String getIpServer() {
-        
+
         return ipServer;
     }
 
