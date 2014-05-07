@@ -56,7 +56,6 @@ public class AlgJPanel extends javax.swing.JPanel {
         resultmsgjlabel = new javax.swing.JLabel();
         runALGtest = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        reset = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -106,6 +105,11 @@ public class AlgJPanel extends javax.swing.JPanel {
         comb4RcvMsgREG = new javax.swing.JTextArea();
         jScrollPane20 = new javax.swing.JScrollPane();
         comb4RcvMsgINV = new javax.swing.JTextArea();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6ALHHelp = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        reset = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -133,13 +137,6 @@ public class AlgJPanel extends javax.swing.JPanel {
         jLabel26.setBackground(new java.awt.Color(230, 137, 45));
         jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel26.setText("ALG Detector");
-
-        reset.setText("Reset");
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
-            }
-        });
 
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -267,7 +264,7 @@ public class AlgJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test B", jPanel2);
@@ -326,7 +323,7 @@ public class AlgJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test C", jPanel3);
@@ -386,15 +383,68 @@ public class AlgJPanel extends javax.swing.JPanel {
                         .addComponent(jRadioButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test D", jPanel4);
+
+        jPanel6ALHHelp.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jScrollPane5.setAlignmentX(0.0F);
+        jScrollPane5.setAlignmentY(0.0F);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Purpose of this test:\nSIP-ALG is a software implemented in routers, it may interrupt the VOIP call. When an SIP-ALG is detected during this test, please check your router or Internet Service Provider.\n\nYou may be affected by SIP-ALG if you run into these scenarios:\n  -One way audio on calls\n  -No audio\n  -Phones dropping registration\n  -Callers go straight to voicemail for no known reason\n  -Random error messages when your number is called (e.g. “The caller you have dialed is no longer in service”)\n\nSIP-ALG - Overview:\n\nMany of today's commercial routers implement SIP ALG (Application-level gateway), coming with this feature enabled by default.\n While ALG could help in solving NAT related problems, the fact is that many routers' ALG implementations are wrong and break SIP.\nThere are various solutions for SIP clients behind NAT, some of them in client side (STUN, TURN, ICE), others in server side (Proxy RTP as RtpProxy, MediaProxy). \nALG works typically in the client LAN router or gateway. In some scenarios some client side solutions are not valid, for example STUN with symmetrical NAT router.\n If the SIP proxy doesn't provide a server side NAT solution, then an ALG solution could have a place.\n\nAn ALG understands the protocol used by the specific applications that it supports (in this case SIP) and does a protocol packet-inspection of traffic through it. \nA NAT router with a built-in SIP ALG can re-write information within the SIP messages (SIP headers and SDP body) making signaling \nand audio traffic between the client behind NAT and the SIP endpoint possible.");
+        jScrollPane5.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout jPanel6ALHHelpLayout = new javax.swing.GroupLayout(jPanel6ALHHelp);
+        jPanel6ALHHelp.setLayout(jPanel6ALHHelpLayout);
+        jPanel6ALHHelpLayout.setHorizontalGroup(
+            jPanel6ALHHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6ALHHelpLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6ALHHelpLayout.setVerticalGroup(
+            jPanel6ALHHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6ALHHelpLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6ALHHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6ALHHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Why ALG Detection?", jPanel5);
+
+        reset.setText("Reset");
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +458,6 @@ public class AlgJPanel extends javax.swing.JPanel {
                         .addGap(140, 140, 140)))
                 .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,9 +472,9 @@ public class AlgJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addGap(39, 39, 39))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -437,22 +486,17 @@ public class AlgJPanel extends javax.swing.JPanel {
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
         resultmsgjlabel.setText(ALGBo.INPROGRESS);
-//        if (getSipClientController() == null) {
-//            try {
-//                sipClientController = new ClientController();
-//                sipClientController.createSipStack();
-//                sipClientController.createSipFrameWork();
-//            } catch (Exception ex) {
-//                JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);           
-//            }//end exception
-//        }//end sipclientcontroller == null
+        //udp
         if (jRadioButton1.isSelected()) {
             sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
-        } else if (jRadioButton2.isSelected()) {
+        } //tcp
+        else if (jRadioButton2.isSelected()) {
             sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
-        } else if (jRadioButton3.isSelected()) {
+        } //udp
+        else if (jRadioButton3.isSelected()) {
             sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
-        } else if (jRadioButton4.isSelected()) {
+        } //tcp
+        else if (jRadioButton4.isSelected()) {
             sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
         }
     }//GEN-LAST:event_runALGtestActionPerformed
@@ -504,7 +548,7 @@ public class AlgJPanel extends javax.swing.JPanel {
         resultmsgjlabel.setText(ALGBo.RESET_OK);
 
     }//GEN-LAST:event_resetActionPerformed
-
+//creating the SIP stack and Listening point upon formAncestoradded Event occured
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
         System.out.println("Event AncestorAdded...");
@@ -568,6 +612,8 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6ALHHelp;
     public static javax.swing.JRadioButton jRadioButton1;
     public static javax.swing.JRadioButton jRadioButton2;
     public static javax.swing.JRadioButton jRadioButton3;
@@ -587,6 +633,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane20;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane1Reg;
@@ -597,6 +644,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     private javax.swing.JButton runALGtest;

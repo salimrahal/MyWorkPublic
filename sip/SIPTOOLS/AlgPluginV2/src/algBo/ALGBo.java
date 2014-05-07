@@ -130,7 +130,7 @@ public class ALGBo {
          callID should be the same
          */
         //
-        /*TODO:alg check for ALG modification: IP modification covering: 
+        /*TODO:alg check for ALG modification: IP modification: chek IP of VIA header
          “Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router ”
          */
         String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
@@ -350,6 +350,12 @@ public class ALGBo {
 //                      append(s3).append(":").
 //                      append(i).append(">;expires=60\r\nUser-Agent: FortiVoice/7.31b00\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();       
         return s4;
+    }
+    
+    public static String getNetworkError(String ip){
+        StringBuilder sb = new StringBuilder("Error: Check your network connection [current IP address:");
+        sb.append(ip).append("]");
+        return sb.toString();
     }
 
 }

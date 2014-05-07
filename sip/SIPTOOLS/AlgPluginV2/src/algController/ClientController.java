@@ -5,6 +5,8 @@
 package algController;
 
 import algBo.ALGBo;
+import algBo.Networking;
+import static algBo.Networking.getLocalIpAddress;
 import algGui.AlgJPanel;
 import algVo.Combination;
 import java.awt.Color;
@@ -61,9 +63,9 @@ public class ClientController implements SipListener {
     ALGBo algBo;
 // Objects used to communicate to the JAIN SIP API.
 
-    SipFactory sipFactory;          // Used to access the SIP API.
-    SipStack sipStack;              // The SIP stack.
-    SipProvider sipProvider1;        // Used to send SIP messages.
+    SipFactory sipFactory = null;          // Used to access the SIP API.
+    SipStack sipStack = null;              // The SIP stack.
+    SipProvider sipProvider1;     // Used to send SIP messages.
     SipProvider sipProvider2;
     SipProvider sipProvider3;
     SipProvider sipProvider4;
@@ -82,7 +84,7 @@ public class ClientController implements SipListener {
     //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
     // ConfVO confVO = ConfVO.getInstance();
     // Objects keeping local configuration.
-    String iplocal;
+    String iplocal = null;
     String hostnameLocal;
     Integer portSrc1;
     Integer portSrc2;
@@ -117,9 +119,8 @@ public class ClientController implements SipListener {
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
         algBo = new ALGBo();
-        iplocal = ALGBo.getIplocal();
         extlocal = ALGBo.getExtlocal();
-
+        iplocal = ALGBo.getIplocal();
         portSrc1 = ALGBo.getPortsrc1();
         portSrc2 = ALGBo.getPortsrc2();
         portSrc3 = ALGBo.getPortsrc3();
@@ -136,6 +137,19 @@ public class ClientController implements SipListener {
         transport3 = ALGBo.getTransport3();
         transport4 = ALGBo.getTransport4();
         hostnameLocal = ALGBo.getHostname();
+    }
+
+    public String getIplocal() throws SocketException {
+        return this.iplocal;
+    }
+
+    public String resetIplocal() throws SocketException {
+        setIplocal(ALGBo.getIplocal());
+        return getIplocal();
+    }
+
+    public void setIplocal(String iplocal) {
+        this.iplocal = iplocal;
     }
 
     /**
@@ -189,7 +203,7 @@ public class ClientController implements SipListener {
         this.sipStack = this.sipFactory.createSipStack(this.properties);
     }
 
-    public void createSipFrameWork() throws PeerUnavailableException, TransportNotSupportedException, ObjectInUseException, InvalidArgumentException, TooManyListenersException, ParseException {
+    public void createSipFrameWork() throws PeerUnavailableException, TransportNotSupportedException, ObjectInUseException, InvalidArgumentException, TooManyListenersException, ParseException, SocketException {
         // Create the SIP message factory.
         this.messageFactory = this.sipFactory.createMessageFactory();
         // Create the SIP header factory.
@@ -197,10 +211,10 @@ public class ClientController implements SipListener {
         // Create the SIP address factory.
         this.addressFactory = this.sipFactory.createAddressFactory();
         // Create the SIP listening point and bind it to the local IP address, port and protocol.
-        this.listeningPoint1 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc1, this.transport1);
-        this.listeningPoint2 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc2, this.transport2);
-        this.listeningPoint3 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc3, this.transport3);
-        this.listeningPoint4 = this.sipStack.createListeningPoint(this.iplocal, this.portSrc4, this.transport4);
+        this.listeningPoint1 = this.sipStack.createListeningPoint(getIplocal(), this.portSrc1, this.transport1);
+        this.listeningPoint2 = this.sipStack.createListeningPoint(getIplocal(), this.portSrc2, this.transport2);
+        this.listeningPoint3 = this.sipStack.createListeningPoint(getIplocal(), this.portSrc3, this.transport3);
+        this.listeningPoint4 = this.sipStack.createListeningPoint(getIplocal(), this.portSrc4, this.transport4);
 
 // Create the SIP provider.
         //UDP:5060 and TCP:5060
@@ -221,7 +235,7 @@ public class ClientController implements SipListener {
         //this.contactHeader.setParameter("+sip.instance", sipInstance);
     }
 
-    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, SipProvider sippro, String method, Combination comb, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
+    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, String ipLocal, SipProvider sippro, String method, Combination comb, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
         /*3261: CSEQ:
          * “ When a UAC resubmits a request with its credentials after receiving a
          401 (Unauthorized) or 407 (Proxy Authentication Required) response,
@@ -234,7 +248,7 @@ public class ClientController implements SipListener {
         Address contactAddress;         // The contact address.
         ContactHeader contactHeader;    // The contact header.
         // Create the contact address used for all SIP messages.
-        contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + this.iplocal + ":" + comb.getPortscr() + ";transport=" + comb.getTransport());
+        contactAddress = this.addressFactory.createAddress("sip:" + this.extlocal + "@" + ipLocal + ":" + comb.getPortscr() + ";transport=" + comb.getTransport());
         // Create the contact header used for all SIP messages.
         contactHeader = this.headerFactory.createContactHeader(contactAddress);
 
@@ -246,7 +260,7 @@ public class ClientController implements SipListener {
         // Create the SIP message headers.
         // The "Via" headers.
         ArrayList viaHeaders = new ArrayList();
-        ViaHeader viaHeader = this.headerFactory.createViaHeader(this.iplocal, comb.getPortscr(), comb.getTransport(), null);
+        ViaHeader viaHeader = this.headerFactory.createViaHeader(getIplocal(), comb.getPortscr(), comb.getTransport(), null);
         viaHeaders.add(viaHeader);
 
         //Adding the branch param
@@ -324,6 +338,8 @@ public class ClientController implements SipListener {
     public String sendRegisterStateful(Combination combination) {
         String res = "";
         SipProvider sipPro = null;
+        Request request = null;
+        String iplocaltmp;
         // A method called when you click on the "Reg (SL)" button.
         try {
             // Get the destination address from the text field.
@@ -332,18 +348,33 @@ public class ClientController implements SipListener {
             String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortscr();
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortDest();
             sipPro = getSipProvider(combination.getSeqNumber());
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, sipPro, "REGISTER", combination, 27);
+            if (sipPro != null) {
+                iplocaltmp = resetIplocal();
+                System.out.println("after reset:iplocal" + iplocaltmp);
+                if (!iplocaltmp.equalsIgnoreCase(Networking.LOOPBACK)) {
+                    request = generateFreshBasicRequest(addressFromStr, addressToStr, iplocaltmp, sipPro, "REGISTER", combination, 27);
+                    // Create a new SIP client transaction.
+                    ClientTransaction transaction = sipPro.getNewClientTransaction(request);
+                    //Send the request statefully, through the client transaction.
+                    transaction.sendRequest();
+                    // Display the message in the text area.
+                    res = ("Request sent:\n" + request.toString() + "\n\n");
+                } else {
+                    res = ALGBo.getNetworkError(iplocaltmp);
+                    setresultmessage(res);
+                }//end of else not loopback
+            }//end SIpPro !null
+            else {
+                res = "Error: You can open only one ALG detector Web page, close other instance, then restart the test!";
+                setresultmessage(res);
+//createSipStack();
+                //createSipFrameWork();
+            }
 
-            // Create a new SIP client transaction.
-            ClientTransaction transaction = sipPro.getNewClientTransaction(request);
-            //Send the request statefully, through the client transaction.
-            transaction.sendRequest();
-
-            // Display the message in the text area.
-            res = ("Request sent:\n" + request.toString() + "\n\n");
         } catch (Exception e) {
             // If an error occurred, display the error.
             res = "Request sent failed: " + e.getMessage() + "\n";
+            setresultmessage(res);
         }
         return res;
     }
@@ -359,18 +390,26 @@ public class ClientController implements SipListener {
             String addressFromStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortscr();
             String addressToStr = "sip:" + extlocal + "@" + ipServer + ":" + combination.getPortDest();
             sipPro = getSipProvider(combination.getSeqNumber());
-            Request request = generateFreshBasicRequest(addressFromStr, addressToStr, sipPro, "INVITE", combination, 27);
-            //TODO:ALG create content Type, header
-            // Create a new SIP client transaction.
-            ClientTransaction transaction = sipPro.getNewClientTransaction(request);
-            //Send the request statefully, through the client transaction.
-            transaction.sendRequest();
+            String iplocaltmp = resetIplocal();
+            System.out.println("after reset:iplocal" + iplocaltmp);
+            if (!iplocaltmp.equalsIgnoreCase(Networking.LOOPBACK)) {
+                Request request = generateFreshBasicRequest(addressFromStr, addressToStr, iplocaltmp, sipPro, "INVITE", combination, 27);
+                //TODO:ALG create content Type, header
+                // Create a new SIP client transaction.
+                ClientTransaction transaction = sipPro.getNewClientTransaction(request);
+                //Send the request statefully, through the client transaction.
+                transaction.sendRequest();
 
-            // Display the message in the text area.
-            res = ("Request sent:\n" + request.toString() + "\n\n");
+                // Display the message in the text area.
+                res = ("Request sent:\n" + request.toString() + "\n\n");
+            } else {
+                res = ALGBo.getNetworkError(iplocaltmp);
+                setresultmessage(res);
+            }//end of else not loopback
         } catch (Exception e) {
             // If an error occurred, display the error.
             res = "Request sent failed: " + e.getMessage() + "\n";
+            setresultmessage(res);
         }
         return res;
     }
@@ -391,7 +430,7 @@ public class ClientController implements SipListener {
     @Override
     public void processTimeout(TimeoutEvent timeoutEvent) {
         //The time out was minimize in: SipStackImpl: gov.nist.javax.sip.DIALOG_TIMEOUT_FACTOR 
-        AlgJPanel.resultmsgjlabel.setText("Firewall issue");
+        setresultmessage("You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider");
         ClientTransaction clientTrans = timeoutEvent.getClientTransaction();
         Request request = clientTrans.getRequest();
         setFWMsgToCorrespondentOutput(request);
@@ -425,14 +464,13 @@ public class ClientController implements SipListener {
 
         //perform the ALG detection
         Integer resultcode = algBo.algdetection(request, response);
+        String outmsg = "";
         if (resultcode.equals(1)) {
-            AlgJPanel.resultmsgjlabel.setText("No ALG Detected");
+            outmsg = "No ALG Detected";
         } else if (resultcode.equals(-1)) {
-            String labelText = String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 200, "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router");
-            AlgJPanel.resultmsgjlabel.setText(labelText);
-            AlgJPanel.resultmsgjlabel.setBackground(Color.red);
+            outmsg = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
         }
-
+        setresultmessage(outmsg);
         //set the received msgs to the correspondent output
         CSeqHeader cseqHd = (CSeqHeader) response.getHeader(CSeqHeader.NAME);
         String methodResponse = cseqHd.getMethod();
@@ -525,56 +563,16 @@ public class ClientController implements SipListener {
                 }
                 break;
         }
+    }
 
-//        if (AlgJPanel.jRadioButton1.isSelected()) {
-//
-//           
-//
-//        } else if (AlgJPanel.jRadioButton2.isSelected()) {
-//
-//            //filling the output log after sending the messeges
-//            //REG
-//            if (methodResponse.equals("REGISTER")) {
-//                AlgJPanel.comb2RcvMsgREG.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb2RcvMsgREG.setCaretPosition(0);
-//            } else if (methodResponse.equals("INVITE")) {
-//                //INV
-//                AlgJPanel.comb2RcvMsgINV.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb2RcvMsgINV.setCaretPosition(0);
-//            }
-//
-//        } else if (AlgJPanel.jRadioButton3.isSelected()) {
-//
-//            //filling the output log after sending the messeges
-//            //REG
-//            if (methodResponse.equals("REGISTER")) {
-//                AlgJPanel.comb3RcvMsgREG.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb3RcvMsgREG.setCaretPosition(0);
-//            } else if (methodResponse.equals("INVITE")) {
-//                //INV
-//                AlgJPanel.comb3RcvMsgINV.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb3RcvMsgINV.setCaretPosition(0);
-//            }
-//
-//        } else if (AlgJPanel.jRadioButton4.isSelected()) {
-//
-//            //filling the output log after sending the messeges
-//            //REG
-//            if (methodResponse.equals("REGISTER")) {
-//                AlgJPanel.comb4RcvMsgREG.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb4RcvMsgREG.setCaretPosition(0);
-//            } else if (methodResponse.equals("INVITE")) {
-//                //INV
-//                AlgJPanel.comb4RcvMsgINV.setText("Received response:\n " + responseStr);
-//                //set the caret to the top always
-//                AlgJPanel.comb4RcvMsgINV.setCaretPosition(0);
-//            }
-//
-//        }
-    }//end of method
+    /*
+    
+     */
+    protected void setresultmessage(String outmessage) {
+        //AlgJPanel.resultmsgjlabel.setText(outmessage);        
+        String labelText = String.format("<html><div style=\"width:%dpx;\"><p align=\"center\">%s</p></div><html>", 200, outmessage);
+        AlgJPanel.resultmsgjlabel.setText(labelText);
+        AlgJPanel.resultmsgjlabel.setBackground(Color.red);
+    }
+
 }

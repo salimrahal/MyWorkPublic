@@ -2,6 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+http://my.safaribooksonline.com/book/programming/java/9780137017256/gui-builder/ch06lev1sec3
  */
 
 package swingcomponents;
