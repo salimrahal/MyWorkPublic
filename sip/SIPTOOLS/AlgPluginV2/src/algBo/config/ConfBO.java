@@ -1,0 +1,98 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package algBo.config;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+import org.xml.sax.SAXException;
+import algVo.config.ConfVO;
+
+/**
+ * @author salim ConfBO: - if the config.xml exists --> retrieve it --> and
+ * create the singleton ConfVO - otherwise the user need to fill the parameters
+ * from Settings and I should save them in this xml file
+ *
+ * TODO: Methode to write: 1- dev the write xml: given confVO --> xml doc 2-
+ * function that parse from xml to POJO and instantiate the singleton confVO
+ *
+ * http://stackoverflow.com/questions/4898590/generating-xml-using-sax-and-java
+ *
+ * Write XML using XMLStreamWriter
+<configuration>
+    <sipServer ip="209.208.79.151"/>
+    <sipIdLocal id="ALGdetector"/>
+    <agentname id="Cisco/SPA303-8.0.1"/>
+    <test id="testtA">      
+            <portsrc portsrc="5060"/>
+            <portdest portdest="5060"/>
+            <transport transport="udp"/>
+    </test>
+      <test id="testB">      
+            <portsrc portsrc="5060"/>
+            <portdest portdest="5060"/>
+            <transport transport="tcp"/>
+    </test>
+      <test id="testC">      
+            <portsrc portsrc="5062"/>
+            <portdest portdest="5060"/>
+            <transport transport="udp"/>
+    </test>
+      <test id="testD">      
+            <portsrc portsrc="5062"/>
+            <portdest portdest="5060"/>
+            <transport transport="tcp"/>
+    </test>
+</configuration>
+ */
+public class ConfBO {
+  
+    //TODO: build the confVO
+    
+    //TODO: get the Hashmap of combinations
+    
+    public static void parseConfVO() throws ParserConfigurationException, SAXException, IOException{
+        SAXParserConf.parseConfVO();
+    }
+    
+   
+//for insert  
+    public static void overwriteXMLConfig() throws FileNotFoundException, XMLStreamException, UnsupportedEncodingException {
+        ConfVO confVO = ConfVO.getInstance();
+        File f = new File("config.xml");
+        System.out.println(f.exists());
+        OutputStream outputStream = new FileOutputStream(f);
+
+        XMLStreamWriter out = XMLOutputFactory.newInstance().createXMLStreamWriter(
+                new OutputStreamWriter(outputStream, "utf-8"));
+
+        out.writeStartDocument();
+        out.writeStartElement("PROPERTIES");
+
+        out.writeStartElement("SIP-SERVER");
+        out.writeCharacters("INSERT VALUE FROM BEAN");
+        out.writeEndElement();
+
+        //insert other value ....
+        //close the xml file
+        out.writeEndElement();
+        out.writeEndDocument();
+
+        out.close();
+    }
+
+    public static void main(String[] args) throws Exception {
+        overwriteXMLConfig();
+    }
+}

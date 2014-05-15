@@ -12,10 +12,11 @@
                     xmlns:ui="http://java.sun.com/jsf/facelets"> 
         <h:form>
 <!--            <h:commandButton  action="secure/sipserver" rendered="#{p:ifGranted('admin')}" value="Manage the SIP Server" />-->
-             <p:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
+            <p:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
             <p:commandButton  action="algdetector" value="Run ALG Test Detector"></p:commandButton>
             <p:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></p:commandButton> 
             <p:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></p:commandButton> 
+            
 
         </h:form>
     </ui:composition>

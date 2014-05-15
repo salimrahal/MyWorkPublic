@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp
+END
+TimeDescriptionImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/TimeDescriptionImpl.java
+END
+MediaDescriptionImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/MediaDescriptionImpl.java
+END
+SdpEncoderImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/SdpEncoderImpl.java
+END
+SessionDescriptionImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/SessionDescriptionImpl.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/package.html
+END

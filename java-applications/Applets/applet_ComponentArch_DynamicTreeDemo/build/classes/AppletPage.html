@@ -40,11 +40,23 @@
   <body>
     <noscript>A browser with JavaScript enabled is required for this page to operate properly.</noscript>
     <h1>Dynamic Tree Applet Demo</h1>
-    <script src="https://www.java.com/js/deployJava.js"></script>
+<!--    <script src="https://www.java.com/js/deployJava.js"></script>
     <script>
         var attributes = { code:'appletComponentArch.DynamicTreeApplet.class', archive:'DynamicTreeDemo.jar',  width:300, height:300} ;
         var parameters = {jnlp_href: 'dynamictree_applet.jnlp'} ;
         deployJava.runApplet(attributes, parameters, '1.4');
     </script>
+    
+    <script src="http://www.java.com/js/deployJava.js"></script>-->
+
+    <script>
+    var attributes = {codebase:'/home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/dist',
+                       code:'appletComponentArch.DynamicTreeApplet.class',
+                      archive:'DynamicTreeDemo.jar',
+                      width:710, height:540} ;
+    var parameters = {fontSize:16} ;
+    var version = '1.6' ;
+    deployJava.runApplet(attributes, parameters, version);
+</script>
   </body>
 </html>

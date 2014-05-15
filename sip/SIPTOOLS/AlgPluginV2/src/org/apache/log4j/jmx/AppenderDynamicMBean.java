@@ -237,7 +237,7 @@ public class AppenderDynamicMBean extends AbstractDynamicMBean {
 
     if(mu != null && mu.readMethod != null) {
       try {
-	return mu.readMethod.invoke(appender, null);
+	return mu.readMethod.invoke(appender, (Object) null);
       } catch(Exception e) {
 	return null;
       }

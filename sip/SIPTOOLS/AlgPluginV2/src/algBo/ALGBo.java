@@ -48,17 +48,17 @@ public class ALGBo {
     /* TODO: config file extraction BO
      In V2 prtocol/port combination should be dynamic and read from a configuration file
      */
-    static public String hostname = "TALKSWITCH";
+    static public String agentname = "TALKSWITCH";
     static public String iplocal;
     static String ipServer = "209.208.79.151";
-    static String extlocal;
+    static String sipIdLocal;
 
     //messages
     public static final String RESET_OK = "OK";
     public static final String INPROGRESS = "in progress..";
     //No Packet Received - SIP ALG / Firewall issue
     public static final String FIREWALL_MSG = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
-
+    public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
     //it gets combination Id from port src/dest and Transport
     public Integer getCombinationIdFromResponse(Response response) {
         Integer combId = -1;
@@ -119,9 +119,9 @@ public class ALGBo {
      c- check for missed semicolumns ";" in headers parameters
     
      If some value(s) were modified, the client app should indicate 
-     “Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router ”,
+     â€œWarning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router â€‌,
      in addition if the Call-ID was modified or there are some missed semi-colon in the header parameters the client app should indicate 
-     “Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router”
+     â€œCritical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
      */
     public synchronized Integer algdetection(Request request, Response response) {
         Integer res = 1;//No ALG Detected";
@@ -131,7 +131,7 @@ public class ALGBo {
          */
         //
         /*TODO:alg check for ALG modification: IP modification: chek IP of VIA header
-         “Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router ”
+         â€œWarning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router â€‌
          */
         String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
         String callIdRes = response.getHeader(SIPHeader.CALL_ID).toString();
@@ -291,11 +291,11 @@ public class ALGBo {
     }
 
     public static String getHostname() {
-        return hostname;
+        return agentname;
     }
 
     public static void setHostname(String hostname) {
-        ALGBo.hostname = hostname;
+        ALGBo.agentname = hostname;
     }
 
     public static String getIplocal() throws SocketException {
@@ -317,12 +317,12 @@ public class ALGBo {
     }
 
     public static String getExtlocal() {
-        extlocal = "ALGDetector";
-        return extlocal;
+        sipIdLocal = "ALGDetector";
+        return sipIdLocal;
     }
 
     public static void setExtlocal(String extlocal) {
-        ALGBo.extlocal = extlocal;
+        ALGBo.sipIdLocal = extlocal;
     }
 
     public static String getSimpleSIPMessage(String method) throws SocketException {

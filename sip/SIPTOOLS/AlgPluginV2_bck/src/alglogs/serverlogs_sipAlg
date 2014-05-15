@@ -1,0 +1,147 @@
+
+Mon Apr 21 12:04:26 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+
+Call-ID: 6db440f0b8e0fbaa332c64733441e1e1@192.168.22.208
+
+CSeq: 1 REGISTER
+
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=1365888081
+
+To: <sip:ALGDetector@209.208.79.151:5060>
+
+Via: SIP/2.0/UDP 192.168.22.208:5060;branch=z9hG4bK-636624771;received=174.61.80.6
+
+Max-Forwards: 70
+
+Contact: <sip:ALGDetector@192.168.22.208:5060;transport=UDP>
+
+Expires: 27 
+
+
+
+
+/ SENT 200 OK
+Mon Apr 21 15:11:17 EDT 2014
+RECV INVITE sip:ALGDetector@209.208.79.151:5060
+INVITE sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+
+Call-ID: b09bcdad64887a16a1939c111520e136@192.168.210.211
+
+CSeq: 2 INVITE
+
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=-488654735
+
+To: <sip:ALGDetector@209.208.79.151:5060>
+
+Via: SIP/2.0/UDP 192.168.210.211:5060;branch=z9hG4bK-929580331;received=23.24.162.227
+
+Max-Forwards: 70
+
+Contact: <sip:ALGDetector@192.168.210.211:5060;transport=UDP>
+
+Expires: 27
+
+User-Agent:
+
+Content-Length: 0
+
+
+
+
+
+
+Mon Apr 21 02:53:01 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: 3d6a0c4c477468766c23ba376b27f56f@192.168.5.100
+CSeq: 1 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=852210755
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 192.168.5.100:5060;branch=z9hG4bK-45764074;received=109.110.113.76
+Max-Forwards: 70
+Contact: <sip:ALGDetector@192.168.5.100:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0
+
+
+ / SENT 200 OK
+Mon Apr 21 03:04:17 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: 1d22e842acfd245775a5086f3370dd85@141.138.191.170
+CSeq: 1 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=-244303103
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.191.170:5060;branch=z9hG4bK1508880576;received=193.138.226.203
+Max-Forwards: 70
+Contact: <sip:ALGDetector@141.138.191.170:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0
+
+
+ / SENT 200 OK
+Mon Apr 21 03:12:19 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: f07c91bba93bc54baa4e75f8c0d070b7@141.138.191.170
+CSeq: 1 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=894283468
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.191.170:5060;branch=z9hG4bK1562502961;received=193.138.226.203
+Max-Forwards: 70
+Contact: <sip:ALGDetector@141.138.191.170:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0
+
+
+ / SENT 200 OK
+Mon Apr 21 03:27:40 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: 60948c5cc616f9863661046c5c1f9824@141.138.191.170
+CSeq: 2 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=894283468
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.191.170:5060;branch=z9hG4bK-1399886198;received=193.138.226.203
+Max-Forwards: 70
+Contact: <sip:ALGDetector@141.138.191.170:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0
+
+
+ / SENT 200 OK
+Mon Apr 21 03:27:44 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: e8eda0d2fd8bb6fd1c110a05050cf9da@141.138.191.170
+CSeq: 3 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=894283468
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.191.170:5060;branch=z9hG4bK2092095455;received=193.138.226.203
+Max-Forwards: 70
+Contact: <sip:ALGDetector@141.138.191.170:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0
+
+
+ / SENT 200 OK
+Mon Apr 21 03:27:50 EDT 2014
+RECV REGISTER sip:ALGDetector@209.208.79.151:5060
+REGISTER sip:ALGDetector@209.208.79.151:5060 SIP/2.0
+Call-ID: 55987fd0e9ec4e7789bf60d1031b58a8@141.138.191.170
+CSeq: 1 REGISTER
+From: <sip:ALGDetector@209.208.79.151:5060>;tag=-1210252606
+To: <sip:ALGDetector@209.208.79.151:5060>
+Via: SIP/2.0/UDP 141.138.191.170:5060;branch=z9hG4bK-1663060998;received=193.138.226.203
+Max-Forwards: 70
+Contact: <sip:ALGDetector@141.138.191.170:5060;transport=UDP>
+Expires: 27
+User-Agent:
+Content-Length: 0

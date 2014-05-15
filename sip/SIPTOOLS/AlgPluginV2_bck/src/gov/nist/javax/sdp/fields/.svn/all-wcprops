@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields
+END
+MediaField.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/MediaField.java
+END
+PreconditionFields.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/PreconditionFields.java
+END
+RepeatField.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/RepeatField.java
+END
+SDPFieldList.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPFieldList.java
+END
+Email.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/Email.java
+END
+SessionNameField.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SessionNameField.java
+END
+InformationField.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/InformationField.java
+END
+SDPField.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPField.java
+END
+EmailField.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/EmailField.java
+END
+OriginField.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/OriginField.java
+END
+KeyField.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/KeyField.java
+END
+EmailAddress.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/EmailAddress.java
+END
+SDPFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPFormat.java
+END
+TimeField.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/TimeField.java
+END
+ConnectionField.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/ConnectionField.java
+END
+URIField.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/URIField.java
+END
+TypedTime.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/TypedTime.java
+END
+ConnectionAddress.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/ConnectionAddress.java
+END
+AttributeField.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/AttributeField.java
+END
+BandwidthField.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/BandwidthField.java
+END
+SDPObjectList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPObjectList.java
+END
+ZoneAdjustment.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/ZoneAdjustment.java
+END
+Indentation.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/Indentation.java
+END
+SDPObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPObject.java
+END
+PhoneField.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/PhoneField.java
+END
+ProtoVersionField.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/ProtoVersionField.java
+END
+SDPFieldNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPFieldNames.java
+END
+SDPKeywords.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/SDPKeywords.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/package.html
+END
+ZoneField.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sdp/fields/ZoneField.java
+END

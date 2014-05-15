@@ -1,0 +1,2 @@
+
+jarsigner -keystore /home/salim/Development/mykeystore/siptools.jks /home/salim/Development/MyWorkPublic/java-applications/Applets/applet_ComponentArch_DynamicTreeDemo/dist/DynamicTreeDemo.jar nexogi.com

@@ -1,0 +1,659 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header
+END
+RetryAfter.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RetryAfter.java
+END
+ContactList.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContactList.java
+END
+SIPDate.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPDate.java
+END
+SIPETag.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPETag.java
+END
+RecordRoute.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RecordRoute.java
+END
+Credentials.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Credentials.java
+END
+MimeVersion.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/MimeVersion.java
+END
+Route.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Route.java
+END
+Accept.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Accept.java
+END
+AllowEventsList.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AllowEventsList.java
+END
+Authorization.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Authorization.java
+END
+ErrorInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ErrorInfoList.java
+END
+AcceptEncodingList.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AcceptEncodingList.java
+END
+ExtensionHeaderImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ExtensionHeaderImpl.java
+END
+AddressParameters.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AddressParameters.java
+END
+HeaderExt.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/HeaderExt.java
+END
+ProxyRequireList.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyRequireList.java
+END
+ContentEncodingList.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentEncodingList.java
+END
+NameMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/NameMap.java
+END
+CallIdentifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/CallIdentifier.java
+END
+AlertInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AlertInfoList.java
+END
+RAck.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RAck.java
+END
+Challenge.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Challenge.java
+END
+WWWAuthenticate.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/WWWAuthenticate.java
+END
+ReasonList.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ReasonList.java
+END
+InReplyTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/InReplyTo.java
+END
+CSeq.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/CSeq.java
+END
+StatusLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/StatusLine.java
+END
+AuthenticationInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AuthenticationInfo.java
+END
+SIPHeaderList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPHeaderList.java
+END
+WarningList.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/WarningList.java
+END
+ProxyAuthorization.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyAuthorization.java
+END
+AcceptLanguage.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AcceptLanguage.java
+END
+Organization.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Organization.java
+END
+SipStatusLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SipStatusLine.java
+END
+RSeq.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RSeq.java
+END
+AllowList.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AllowList.java
+END
+ViaList.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ViaList.java
+END
+ContentType.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentType.java
+END
+Require.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Require.java
+END
+SIPObjectList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPObjectList.java
+END
+ContentLanguage.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentLanguage.java
+END
+ProxyAuthenticate.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyAuthenticate.java
+END
+Event.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Event.java
+END
+SupportedList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SupportedList.java
+END
+CallInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/CallInfo.java
+END
+SIPHeaderNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPHeaderNames.java
+END
+Unsupported.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Unsupported.java
+END
+RecordRouteList.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RecordRouteList.java
+END
+RouteList.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RouteList.java
+END
+AcceptList.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AcceptList.java
+END
+Contact.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Contact.java
+END
+AuthorizationList.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AuthorizationList.java
+END
+UserAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/UserAgent.java
+END
+ReplyTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ReplyTo.java
+END
+ContentDisposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentDisposition.java
+END
+Subject.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Subject.java
+END
+AllowEvents.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AllowEvents.java
+END
+ParameterNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ParameterNames.java
+END
+ErrorInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ErrorInfo.java
+END
+Server.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Server.java
+END
+AcceptEncoding.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AcceptEncoding.java
+END
+ReferTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ReferTo.java
+END
+ViaHeaderExt.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ViaHeaderExt.java
+END
+ParametersHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ParametersHeader.java
+END
+SIPHeaderNamesCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPHeaderNamesCache.java
+END
+Indentation.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Indentation.java
+END
+ProxyRequire.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyRequire.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/package.html
+END
+WWWAuthenticateList.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/WWWAuthenticateList.java
+END
+Expires.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Expires.java
+END
+InReplyToList.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/InReplyToList.java
+END
+ContentEncoding.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentEncoding.java
+END
+ExtensionHeaderList.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ExtensionHeaderList.java
+END
+To.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/To.java
+END
+AlertInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AlertInfo.java
+END
+MinExpires.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/MinExpires.java
+END
+SubscriptionState.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SubscriptionState.java
+END
+AuthenticationInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AuthenticationInfoList.java
+END
+Reason.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Reason.java
+END
+SIPIfMatch.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPIfMatch.java
+END
+CallID.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/CallID.java
+END
+AuthenticationHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AuthenticationHeader.java
+END
+MediaRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/MediaRange.java
+END
+MaxForwards.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/MaxForwards.java
+END
+ProxyAuthorizationList.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyAuthorizationList.java
+END
+AcceptLanguageList.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AcceptLanguageList.java
+END
+RequestLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RequestLine.java
+END
+HeaderFactoryExt.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/HeaderFactoryExt.java
+END
+Protocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Protocol.java
+END
+SIPDateHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPDateHeader.java
+END
+HeaderFactoryImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/HeaderFactoryImpl.java
+END
+TimeStamp.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/TimeStamp.java
+END
+From.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/From.java
+END
+SIPHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPHeader.java
+END
+Warning.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Warning.java
+END
+RequireList.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/RequireList.java
+END
+ContentLanguageList.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentLanguageList.java
+END
+SipRequestLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SipRequestLine.java
+END
+ProxyAuthenticateList.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ProxyAuthenticateList.java
+END
+ContentLength.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/ContentLength.java
+END
+Allow.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Allow.java
+END
+Via.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Via.java
+END
+Priority.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Priority.java
+END
+AddressParametersHeader.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/AddressParametersHeader.java
+END
+SIPObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/SIPObject.java
+END
+CallInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/CallInfoList.java
+END
+UnsupportedList.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/UnsupportedList.java
+END
+Supported.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/jsip~svn/!svn/ver/1626/branches/JAIN-SIP-1-2-148-Branch/src/gov/nist/javax/sip/header/Supported.java
+END

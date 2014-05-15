@@ -7,6 +7,7 @@
             <copy file="${src.dir}/AppletPage_WithAppletTagNoJNLP.html" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/dynamictree_applet.jnlp" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/AppletPage_WithObjectTagNoJNLP.html" todir="${dist.jar.dir}"/>
+<copy file="${src.dir}/objecttest.html" todir="${dist.jar.dir}"/>
         </target>
     <target name="-do-jar-with-libraries-without-manifest"/>
 
