@@ -8,7 +8,7 @@ import algBo.ALGBo;
 import algBo.Networking;
 import static algBo.Networking.getLocalIpAddress;
 import algGui.AlgJPanel;
-import algVo.Combination;
+import algVo.Test;
 import java.awt.Color;
 import java.net.SocketException;
 import java.text.ParseException;
@@ -119,32 +119,43 @@ public class ClientController implements SipListener {
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
         algBo = new ALGBo();
-        extlocal = ALGBo.getExtlocal();
-        iplocal = ALGBo.getIplocal();
-        portSrc1 = ALGBo.getPortsrc1();
-        portSrc2 = ALGBo.getPortsrc2();
-        portSrc3 = ALGBo.getPortsrc3();
-        portSrc4 = ALGBo.getPortsrc4();
+        //parse xml file
+        algBo.performConfiParsing();
+        extlocal = algBo.getExtlocal();
+        iplocal = algBo.getIplocal();
         //get server configs
-        ipServer = ALGBo.getIpServer();
-        portServer1 = ALGBo.getPortdest1();
-        portServer2 = ALGBo.getPortdest2();
-        portServer3 = ALGBo.getPortdest3();
-        portServer4 = ALGBo.getPortdest4();
+        ipServer = algBo.getIpServer();
+        
+        portSrc1 = algBo.getPortsrc1();
+        portSrc2 = algBo.getPortsrc2();
+        portSrc3 = algBo.getPortsrc3();
+        portSrc4 = algBo.getPortsrc4();
 
-        transport1 = ALGBo.getTransport1();
-        transport2 = ALGBo.getTransport2();
-        transport3 = ALGBo.getTransport3();
-        transport4 = ALGBo.getTransport4();
-        hostnameLocal = ALGBo.getHostname();
+        portServer1 = algBo.getPortdest1();
+        portServer2 = algBo.getPortdest2();
+        portServer3 = algBo.getPortdest3();
+        portServer4 = algBo.getPortdest4();
+
+        transport1 = algBo.getTransport1();
+        transport2 = algBo.getTransport2();
+        transport3 = algBo.getTransport3();
+        transport4 = algBo.getTransport4();
+        hostnameLocal = algBo.getHostname();
     }
 
+    public ALGBo getAlgBo() {
+        return algBo;
+    }
+
+    public void setAlgBo(ALGBo algBo) {
+        this.algBo = algBo;
+    }
     public String getIplocal() throws SocketException {
         return this.iplocal;
     }
 
     public String resetIplocal() throws SocketException {
-        setIplocal(ALGBo.getIplocal());
+        setIplocal(algBo.getIplocal());
         return getIplocal();
     }
 
@@ -235,7 +246,7 @@ public class ClientController implements SipListener {
         //this.contactHeader.setParameter("+sip.instance", sipInstance);
     }
 
-    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, String ipLocal, SipProvider sippro, String method, Combination comb, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
+    public Request generateFreshBasicRequest(String fromAdress, String destAdresstextfield, String ipLocal, SipProvider sippro, String method, Test comb, Integer expiresparam) throws ParseException, InvalidArgumentException, SocketException {
         /*3261: CSEQ:
          * “ When a UAC resubmits a request with its credentials after receiving a
          401 (Unauthorized) or 407 (Proxy Authentication Required) response,
@@ -335,7 +346,7 @@ public class ClientController implements SipListener {
     }
 
     //it takes the combination including the sequence number: 1, udp, 5060, 5060
-    public String sendRegisterStateful(Combination combination) {
+    public String sendRegisterStateful(Test combination) {
         String res = "";
         SipProvider sipPro = null;
         Request request = null;
@@ -380,7 +391,7 @@ public class ClientController implements SipListener {
         return res;
     }
 
-    public String sendInvite(Combination combination) {
+    public String sendInvite(Test combination) {
         String res = "";
         SipProvider sipPro = null;
         String iplocaltmp;

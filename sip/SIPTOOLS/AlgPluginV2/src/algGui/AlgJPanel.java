@@ -9,7 +9,7 @@ import algBo.ALGBo;
 import algBo.ALgDetect;
 import algBo.Networking;
 import algController.ClientController;
-import algVo.Combination;
+import algVo.Test;
 import java.awt.Color;
 import java.net.SocketException;
 import java.util.logging.Level;
@@ -651,15 +651,16 @@ public class AlgJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
-        Combination comb = null;
+        Test comb = null;
+        ALGBo algBo = sipClientController.getAlgBo();
         if (combSeq == 1) {
-            comb = new Combination(1, ALGBo.getPortsrc1(), ALGBo.getPortdest1(), ALGBo.getTransport1());
+            comb = new Test(1, algBo.getPortsrc1(), algBo.getPortdest1(), algBo.getTransport1());
         } else if (combSeq == 2) {
-            comb = new Combination(2, ALGBo.getPortsrc2(), ALGBo.getPortdest2(), ALGBo.getTransport2());
+            comb = new Test(2, algBo.getPortsrc2(), algBo.getPortdest2(), algBo.getTransport2());
         } else if (combSeq == 3) {
-            comb = new Combination(3, ALGBo.getPortsrc3(), ALGBo.getPortdest3(), ALGBo.getTransport3());
+            comb = new Test(3, algBo.getPortsrc3(), algBo.getPortdest3(), algBo.getTransport3());
         } else if (combSeq == 4) {
-            comb = new Combination(4, ALGBo.getPortsrc4(), ALGBo.getPortdest4(), ALGBo.getTransport4());
+            comb = new Test(4, algBo.getPortsrc4(), algBo.getPortdest4(), algBo.getTransport4());
         }
 
         String resReg = sipClientController.sendRegisterStateful(comb);

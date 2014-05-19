@@ -63,7 +63,8 @@ public class ConfBO {
     //TODO: get the Hashmap of combinations
     
     public static void parseConfVO() throws ParserConfigurationException, SAXException, IOException{
-        SAXParserConf.parseConfVO();
+        SAXParserConf saxparser = new SAXParserConf();
+        saxparser.parseConfVO();
     }
     
    

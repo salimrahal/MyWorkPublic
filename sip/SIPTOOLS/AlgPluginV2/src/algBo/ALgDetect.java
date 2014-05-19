@@ -26,8 +26,10 @@ public class ALgDetect {
         String res = "";
         String found = "SIP ALG DETECTED";
         String notfound = "No SIP ALG";
-        String serverIp = ALGBo.getIpServer();
-        Integer serverPort = ALGBo.portdest1;
+        String serverIp = "209.208.79.151";
+        ALGBo alBo = new ALGBo();
+        Integer serverPort = alBo.portdest1;
+        ALGBo algbo = new ALGBo();
         DatagramSocket datagramsocket = null;
         int i = 0;
         boolean flag = false;
@@ -35,7 +37,7 @@ public class ALgDetect {
         boolean flag1 = false;
 
         try {
-           String sipmessageREG = ALGBo.getSimpleSIPMessage("REGISTER");
+           String sipmessageREG = algbo.getSimpleSIPMessage("REGISTER");
             System.out.println("Message to send:"+sipmessageREG);
            //String sipmessageINV = ALGBo.getSimpleSIPMessage("INVITE");
             datagramsocket = new DatagramSocket(i);

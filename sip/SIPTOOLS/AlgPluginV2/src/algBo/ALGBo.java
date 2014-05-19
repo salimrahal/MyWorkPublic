@@ -6,19 +6,30 @@
 package algBo;
 
 import static algBo.Networking.getLocalIpAddress;
+import algBo.config.SAXParserConf;
+import algVo.Test;
+import algVo.config.ConfVO;
 import gov.nist.javax.sip.header.SIPHeader;
+import java.io.IOException;
 import java.net.SocketException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sip.header.ContactHeader;
 import javax.sip.header.FromHeader;
 import javax.sip.header.ToHeader;
 import javax.sip.header.ViaHeader;
 import javax.sip.message.Request;
 import javax.sip.message.Response;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
  * @author salim
  */
+   //TODO: build the confVO
+    //TODO: get the Hashmap of combinations
 public class ALGBo {
 
     //combination id: 1, 2, 3, 4
@@ -30,28 +41,28 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-    static public Integer portsrc1 = 5060;
-    static public Integer portsrc2 = 5060;
-    static public Integer portsrc3 = 5062;
-    static public Integer portsrc4 = 5062;
+     public Integer portsrc1;
+     public Integer portsrc2;
+     public Integer portsrc3;
+     public Integer portsrc4;
     //currently the server is running on the same port
-    static public Integer portdest1 = 5060;
-    static public Integer portdest2 = 5060;
-    static public Integer portdest3 = 5060;
-    static public Integer portdest4 = 5060;
+     public Integer portdest1;
+     public Integer portdest2;
+     public Integer portdest3;
+     public Integer portdest4;
 
-    static public String transport1 = "udp";
-    static public String transport2 = "tcp";
-    static public String transport3 = "udp";
-    static public String transport4 = "tcp";
+     public String transport1;
+     public String transport2;
+     public String transport3;
+     public String transport4;
 
     /* TODO: config file extraction BO
      In V2 prtocol/port combination should be dynamic and read from a configuration file
      */
-    static public String agentname = "TALKSWITCH";
-    static public String iplocal;
-    static String ipServer = "209.208.79.151";
-    static String sipIdLocal;
+     public String agentname;
+     public String iplocal;
+     String ipServer;
+     String sipIdLocal;
 
     //messages
     public static final String RESET_OK = "OK";
@@ -60,6 +71,57 @@ public class ALGBo {
     public static final String FIREWALL_MSG = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
     //it gets combination Id from port src/dest and Transport
+    ConfVO conVO;
+    static SAXParserConf saxparserconf;
+
+    public ALGBo() {
+      
+    }
+    
+    public void performConfiParsing(){
+          //extract the config file to confVO
+        saxparserconf = new SAXParserConf();
+        try {
+            saxparserconf.parseConfVO();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conVO = ConfVO.getInstance();
+       setparamFromConfig();
+    }
+
+    public void setparamFromConfig() {
+        List<Test> testL = conVO.getTestL();
+        for (Test t : testL) {
+            switch (t.seqNumber) {
+                case 1:
+                    setPortsrc1(t.getPortscr());
+                    setPortdest1(t.getPortDest());
+                    setTransport1(t.getTransport());
+                    break;
+                case 2:
+                    setPortsrc2(t.getPortscr());
+                    setPortdest2(t.getPortDest());
+                    setTransport2(t.getTransport());
+                    break;
+                case 3:
+                    setPortsrc3(t.getPortscr());
+                    setPortdest3(t.getPortDest());
+                    setTransport3(t.getTransport());
+                    break;
+                case 4:
+                    setPortsrc4(t.getPortscr());
+                    setPortdest4(t.getPortDest());
+                    setTransport4(t.getTransport());
+                    break;
+            }
+        }
+    }
+
     public Integer getCombinationIdFromResponse(Response response) {
         Integer combId = -1;
         ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
@@ -86,7 +148,7 @@ public class ALGBo {
         return combId;
     }
 
-     //it gets combination Id from port src/dest and Transport
+    //it gets combination Id from port src/dest and Transport
     public Integer getCombinationIdFromRequest(Request request) {
         Integer combId = -1;
         ViaHeader via = (ViaHeader) request.getHeader(SIPHeader.VIA);
@@ -123,6 +185,7 @@ public class ALGBo {
      in addition if the Call-ID was modified or there are some missed semi-colon in the header parameters the client app should indicate 
      â€œCritical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
      */
+
     public synchronized Integer algdetection(Request request, Response response) {
         Integer res = 1;//No ALG Detected";
         //System.out.println("algdetection\n[request=" + request.toString() + "]\n[response=" + response.toString() + "]");
@@ -194,138 +257,138 @@ public class ALGBo {
         }
     }
 
-    public static Integer getPortsrc1() {
+    public Integer getPortsrc1() {
         return portsrc1;
     }
 
-    public static void setPortsrc1(Integer portsrc1) {
-        ALGBo.portsrc1 = portsrc1;
+    public void setPortsrc1(Integer portsrc1) {
+        this.portsrc1 = portsrc1;
     }
 
-    public static Integer getPortsrc2() {
+    public Integer getPortsrc2() {
         return portsrc2;
     }
 
-    public static void setPortsrc2(Integer portsrc2) {
-        ALGBo.portsrc2 = portsrc2;
+    public  void setPortsrc2(Integer portsrc2) {
+        this.portsrc2 = portsrc2;
     }
 
-    public static Integer getPortdest1() {
+    public Integer getPortdest1() {
         return portdest1;
     }
 
-    public static void setPortdest1(Integer portdest1) {
-        ALGBo.portdest1 = portdest1;
+    public  void setPortdest1(Integer portdest1) {
+        this.portdest1 = portdest1;
     }
 
-    public static Integer getPortsrc3() {
+    public  Integer getPortsrc3() {
         return portsrc3;
     }
 
-    public static void setPortsrc3(Integer portsrc3) {
-        ALGBo.portsrc3 = portsrc3;
+    public  void setPortsrc3(Integer portsrc3) {
+        this.portsrc3 = portsrc3;
     }
 
-    public static Integer getPortsrc4() {
+    public  Integer getPortsrc4() {
         return portsrc4;
     }
 
-    public static void setPortsrc4(Integer portsrc4) {
-        ALGBo.portsrc4 = portsrc4;
+    public  void setPortsrc4(Integer portsrc4) {
+        this.portsrc4 = portsrc4;
     }
 
-    public static Integer getPortdest2() {
+    public Integer getPortdest2() {
         return portdest2;
     }
 
-    public static void setPortdest2(Integer portdest2) {
-        ALGBo.portdest2 = portdest2;
+    public  void setPortdest2(Integer portdest2) {
+        this.portdest2 = portdest2;
     }
 
-    public static Integer getPortdest3() {
+    public  Integer getPortdest3() {
         return portdest3;
     }
 
-    public static void setPortdest3(Integer portdest3) {
-        ALGBo.portdest3 = portdest3;
+    public  void setPortdest3(Integer portdest3) {
+        this.portdest3 = portdest3;
     }
 
-    public static Integer getPortdest4() {
+    public  Integer getPortdest4() {
         return portdest4;
     }
 
-    public static void setPortdest4(Integer portdest4) {
-        ALGBo.portdest4 = portdest4;
+    public void setPortdest4(Integer portdest4) {
+        this.portdest4 = portdest4;
     }
 
-    public static String getTransport1() {
+    public String getTransport1() {
         return transport1;
     }
 
-    public static void setTransport1(String transport1) {
-        ALGBo.transport1 = transport1;
+    public void setTransport1(String transport1) {
+        this.transport1 = transport1;
     }
 
-    public static String getTransport2() {
+    public  String getTransport2() {
         return transport2;
     }
 
-    public static void setTransport2(String transport2) {
-        ALGBo.transport2 = transport2;
+    public  void setTransport2(String transport2) {
+        this.transport2 = transport2;
     }
 
-    public static String getTransport3() {
+    public  String getTransport3() {
         return transport3;
     }
 
-    public static void setTransport3(String transport3) {
-        ALGBo.transport3 = transport3;
+    public  void setTransport3(String transport3) {
+        this.transport3 = transport3;
     }
 
-    public static String getTransport4() {
+    public  String getTransport4() {
         return transport4;
     }
 
-    public static void setTransport4(String transport4) {
-        ALGBo.transport4 = transport4;
+    public  void setTransport4(String transport4) {
+        this.transport4 = transport4;
     }
 
-    public static String getHostname() {
-        return agentname;
+    public String getHostname() {
+        return agentname = conVO.getAgentname();
     }
 
-    public static void setHostname(String hostname) {
-        ALGBo.agentname = hostname;
+    public void setHostname(String hostname) {
+        this.agentname = hostname;
     }
 
-    public static String getIplocal() throws SocketException {
+    public String getIplocal() throws SocketException {
         iplocal = getLocalIpAddress();
         return iplocal;
     }
 
-    public static void setIplocal(String iplocal) {
-        ALGBo.iplocal = iplocal;
+    public  void setIplocal(String iplocal) {
+        this.iplocal = iplocal;
     }
 
-    public static String getIpServer() {
+    public String getIpServer() {
 
-        return ipServer;
+        return ipServer = conVO.getIpServer();
     }
 
-    public static void setIpServer(String ipServer) {
-        ALGBo.ipServer = ipServer;
+    public void setIpServer(String ipServer) {
+        this.ipServer = ipServer;
     }
 
-    public static String getExtlocal() {
+    public String getExtlocal() {
         sipIdLocal = "ALGDetector";
         return sipIdLocal;
     }
 
-    public static void setExtlocal(String extlocal) {
-        ALGBo.sipIdLocal = extlocal;
+    public void setExtlocal(String extlocal) {
+        this.sipIdLocal = extlocal;
     }
 
-    public static String getSimpleSIPMessage(String method) throws SocketException {
+    public String getSimpleSIPMessage(String method) throws SocketException {
         String c = "5060";
         String serverIp = getIpServer();
         String s3 = getLocalIpAddress();
@@ -351,8 +414,8 @@ public class ALGBo {
 //                      append(i).append(">;expires=60\r\nUser-Agent: FortiVoice/7.31b00\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();       
         return s4;
     }
-    
-    public static String getNetworkError(String ip){
+
+    public static String getNetworkError(String ip) {
         StringBuilder sb = new StringBuilder("Error: Check your network connection [current IP address:");
         sb.append(ip).append("]");
         return sb.toString();

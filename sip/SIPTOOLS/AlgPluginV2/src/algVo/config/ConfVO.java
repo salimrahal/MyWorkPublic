@@ -4,7 +4,7 @@
  */
 package algVo.config;
 
-import algVo.Combination;
+import algVo.Test;
 import java.util.List;
 
 /**
@@ -13,70 +13,77 @@ import java.util.List;
  */
 public class ConfVO {
 
-    List<Combination> lcomb;
+    List<Test> testL;
 
-    private static String ipServer;
-    private static String agentname;
-    private static String sipIdLocal;
+    String ipServer;
+    String agentname;
+    String sipIdLocal;
 
     private static final ConfVO INSTANCE = new ConfVO();
 
     private ConfVO() {
     }
 
-    public List<Combination> getLcomb() {
-        return lcomb;
+    public List<Test> getTestL() {
+        return testL;
     }
 
-    public void setLcomb(List<Combination> lcomb) {
-        this.lcomb = lcomb;
+    public void setTestL(List<Test> testL) {
+        this.testL = testL;
     }
 
     public static ConfVO getInstance() {
         return INSTANCE;
     }
 
-    public static String getAgentname() {
-        return agentname;
-    }
-
-    public static void setAgentname(String agentname) {
-        ConfVO.agentname = agentname;
-    }
-
-    public static String getIpServer() {
+    public String getIpServer() {
         return ipServer;
     }
 
-    public static void setIpServer(String ipServer) {
-        ConfVO.ipServer = ipServer;
+    public void setIpServer(String ipServer) {
+        this.ipServer = ipServer;
     }
 
-    public static String getSipIdLocal() {
+    public String getAgentname() {
+        return agentname;
+    }
+
+    public void setAgentname(String agentname) {
+        this.agentname = agentname;
+    }
+
+    public String getSipIdLocal() {
         return sipIdLocal;
     }
 
-    public static void setSipIdLocal(String sipIdLocal) {
-        ConfVO.sipIdLocal = sipIdLocal;
+    public void setSipIdLocal(String sipIdLocal) {
+        this.sipIdLocal = sipIdLocal;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + (this.lcomb != null ? this.lcomb.hashCode() : 0);
-        return hash;
+    public String toString() {
+        return "ConfVO{" + "lcomb=" + testL + ", ipServer=" + ipServer + ", agentname=" + agentname + ", sipIdLocal=" + sipIdLocal + '}';
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ConfVO other = (ConfVO) obj;
-        return true;
-    }
+
+    
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 89 * hash + (this.lcomb != null ? this.lcomb.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final ConfVO other = (ConfVO) obj;
+//        return true;
+//    }
 
 }

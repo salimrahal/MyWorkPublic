@@ -10,7 +10,7 @@ package algVo;
  *
  * @author salim
  */
-public class Combination {
+public class Test {
 
     /**
      *
@@ -20,11 +20,14 @@ public class Combination {
     Integer portDest;
     String transport;
 
-    public Combination(Integer seqNumber, Integer portscr, Integer portDest, String transport) {
+    public Test(Integer seqNumber, Integer portscr, Integer portDest, String transport) {
         this.seqNumber = seqNumber;
         this.portscr = portscr;
         this.portDest = portDest;
         this.transport = transport;
+    }
+
+    public Test() {
     }
 
     public Integer getSeqNumber() {
@@ -59,4 +62,10 @@ public class Combination {
     public void setTransport(String transport) {
         this.transport = transport;
     }
+
+    @Override
+    public String toString() {
+        return "Test{" + "seqNumber=" + seqNumber + ", portscr=" + portscr + ", portDest=" + portDest + ", transport=" + transport + '}';
+    }
+    
 }

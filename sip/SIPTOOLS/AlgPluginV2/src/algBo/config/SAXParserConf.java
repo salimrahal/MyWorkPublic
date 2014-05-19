@@ -4,13 +4,15 @@
  */
 package algBo.config;
 
+import algVo.Test;
+import algVo.config.ConfVO;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
-import algVo.config.ConfVO;
 
 /**
  *
@@ -30,13 +32,14 @@ public class SAXParserConf {
     /*
      * It pareses from XML to POJO the confVO
      */
-    public static void parseConfVO() throws ParserConfigurationException, SAXException, IOException {
-        
+    public void parseConfVO() throws ParserConfigurationException, SAXException, IOException {
+
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
         ConfHandler handler = new ConfHandler();
         //parser.parse(inputStream, handler);
-        File f = new File("./config.xml");       
+        File f = new File("./config.xml");
+        System.out.println("config exists?" + f.exists());
         parser.parse(f, handler);
         /*TODO: property file
          * 1- deve the POJO property file
@@ -45,10 +48,14 @@ public class SAXParserConf {
          */
         //Printing the list of employees obtained from XML
         ConfVO confvo = handler.confVO;
-        System.out.println("parseConfVO:"+confvo.toString());
+        List<Test> testL = handler.getTestList();
+        for(Test t:testL)
+            System.out.println("t:" + t.toString());
+        System.out.println("parseConfVO:" + confvo.toString());
     }
 
     public static void main(String[] args) throws Exception {
-         parseConfVO();
+        SAXParserConf saxparserconf = new SAXParserConf();
+        saxparserconf.parseConfVO();
     }
 }
