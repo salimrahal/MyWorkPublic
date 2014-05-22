@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>NEXOGY</title>
 
         <script type="text/javascript">
             window.onload = function() {
@@ -30,18 +30,26 @@
                 <h:link outcome="secure/adminmenu" value="Admin Access" /><br></br>
                 <a href="logout.jsp">logout</a>        
                 <p> Date/Time : March24, 2014 15:17:20 EST;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
-                
+
                 <p>Customer Name : [ ] please enter the name of your company</p>
             </ui:insert>
         </div>
         <div>
             <div id="top">
                 <ui:insert name="left"> 
-                      <ui:include src="menusrc.xhtml" />
+                    <h:form target="_blank">
+<!--            <h:commandButton  action="secure/sipserver" rendered="#{p:ifGranted('admin')}" value="Manage the SIP Server" />-->
+                        <h:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
+                        <h:commandButton  action="algdetector/algdetector" value="Run ALG Test Detector"></h:commandButton>
+                        <h:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></h:commandButton> 
+                        <h:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
+
+
+                    </h:form>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
-                
+
                 <ui:insert name="content"></ui:insert>
             </div>
         </div>

@@ -10,12 +10,12 @@
                     xmlns:f="http://java.sun.com/jsf/core"
                     xmlns:h="http://java.sun.com/jsf/html"
                     xmlns:ui="http://java.sun.com/jsf/facelets"> 
-        <h:form>
+        <h:form target="_blank">
 <!--            <h:commandButton  action="secure/sipserver" rendered="#{p:ifGranted('admin')}" value="Manage the SIP Server" />-->
-            <p:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
-            <p:commandButton  action="algdetector" value="Run ALG Test Detector"></p:commandButton>
-            <p:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></p:commandButton> 
-            <p:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></p:commandButton> 
+            <h:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
+            <h:commandButton  action="algdetector/algdetector" value="Run ALG Test Detector"></h:commandButton>
+            <h:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></h:commandButton> 
+            <h:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
             
 
         </h:form>
