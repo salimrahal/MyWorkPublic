@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
  * @author salim
  */
    //TODO: build the confVO
-    //TODO: get the Hashmap of combinations
+//TODO: get the Hashmap of combinations
 public class ALGBo {
 
     //combination id: 1, 2, 3, 4
@@ -41,28 +41,28 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-     public Integer portsrc1;
-     public Integer portsrc2;
-     public Integer portsrc3;
-     public Integer portsrc4;
+    public Integer portsrc1;
+    public Integer portsrc2;
+    public Integer portsrc3;
+    public Integer portsrc4;
     //currently the server is running on the same port
-     public Integer portdest1;
-     public Integer portdest2;
-     public Integer portdest3;
-     public Integer portdest4;
+    public Integer portdest1;
+    public Integer portdest2;
+    public Integer portdest3;
+    public Integer portdest4;
 
-     public String transport1;
-     public String transport2;
-     public String transport3;
-     public String transport4;
+    public String transport1;
+    public String transport2;
+    public String transport3;
+    public String transport4;
 
     /* TODO: config file extraction BO
      In V2 prtocol/port combination should be dynamic and read from a configuration file
      */
-     public String agentname;
-     public String iplocal;
-     String ipServer;
-     String sipIdLocal;
+    public String agentname;
+    public String iplocal;
+    String ipServer;
+    String sipIdLocal;
 
     //messages
     public static final String RESET_OK = "OK";
@@ -75,11 +75,11 @@ public class ALGBo {
     static SAXParserConf saxparserconf;
 
     public ALGBo() {
-      
+
     }
-    
-    public void performConfiParsing(){
-          //extract the config file to confVO
+
+    public void performConfiParsing() {
+        //extract the config file to confVO
         saxparserconf = new SAXParserConf();
         try {
             saxparserconf.parseConfVO();
@@ -91,7 +91,7 @@ public class ALGBo {
             Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
         }
         conVO = ConfVO.getInstance();
-       setparamFromConfig();
+        setparamFromConfig();
     }
 
     public void setparamFromConfig() {
@@ -180,10 +180,12 @@ public class ALGBo {
     
      c- check for missed semicolumns ";" in headers parameters
     
+     d- check Via header, it should be the same (not implemented yet)
+    
      If some value(s) were modified, the client app should indicate 
-     â€œWarning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router â€‌,
+     - Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router â€‌,
      in addition if the Call-ID was modified or there are some missed semi-colon in the header parameters the client app should indicate 
-     â€œCritical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
+     - Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
      */
 
     public synchronized Integer algdetection(Request request, Response response) {
@@ -199,17 +201,18 @@ public class ALGBo {
         String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
         String callIdRes = response.getHeader(SIPHeader.CALL_ID).toString();
         //callIdRes = "newcallID";
+        //retrieve the headers
+        ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
+        FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
+        ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
+        ContactHeader contact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
+
         if (!callIdReq.equalsIgnoreCase(callIdRes)) {
             res = -1;
             //res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
 
         } else {
             //checking port number: via, to, from, contact
-            ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
-            FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
-            ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
-            ContactHeader contact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
-
             Integer viaPort = via.getPort();
             //viaPort = 100000;
             String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
@@ -224,6 +227,13 @@ public class ALGBo {
             if (!(checkPortValidity(viaPort) && checkPortValidity(fromPort) && checkPortValidity(toPort) && checkPortValidity(contactPort))) {
                 // res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
                 res = -1;
+            } //check the via header: in case we have rport or recieved params --> Warning ALG SIP detected:
+            else {
+                String receieved = via.getReceived();
+                int rport = via.getRPort();
+                if (receieved != null || rport != -1) {
+                    res = -2;
+                }
             }
         }
         return res;
@@ -269,7 +279,7 @@ public class ALGBo {
         return portsrc2;
     }
 
-    public  void setPortsrc2(Integer portsrc2) {
+    public void setPortsrc2(Integer portsrc2) {
         this.portsrc2 = portsrc2;
     }
 
@@ -277,23 +287,23 @@ public class ALGBo {
         return portdest1;
     }
 
-    public  void setPortdest1(Integer portdest1) {
+    public void setPortdest1(Integer portdest1) {
         this.portdest1 = portdest1;
     }
 
-    public  Integer getPortsrc3() {
+    public Integer getPortsrc3() {
         return portsrc3;
     }
 
-    public  void setPortsrc3(Integer portsrc3) {
+    public void setPortsrc3(Integer portsrc3) {
         this.portsrc3 = portsrc3;
     }
 
-    public  Integer getPortsrc4() {
+    public Integer getPortsrc4() {
         return portsrc4;
     }
 
-    public  void setPortsrc4(Integer portsrc4) {
+    public void setPortsrc4(Integer portsrc4) {
         this.portsrc4 = portsrc4;
     }
 
@@ -301,19 +311,19 @@ public class ALGBo {
         return portdest2;
     }
 
-    public  void setPortdest2(Integer portdest2) {
+    public void setPortdest2(Integer portdest2) {
         this.portdest2 = portdest2;
     }
 
-    public  Integer getPortdest3() {
+    public Integer getPortdest3() {
         return portdest3;
     }
 
-    public  void setPortdest3(Integer portdest3) {
+    public void setPortdest3(Integer portdest3) {
         this.portdest3 = portdest3;
     }
 
-    public  Integer getPortdest4() {
+    public Integer getPortdest4() {
         return portdest4;
     }
 
@@ -329,27 +339,27 @@ public class ALGBo {
         this.transport1 = transport1;
     }
 
-    public  String getTransport2() {
+    public String getTransport2() {
         return transport2;
     }
 
-    public  void setTransport2(String transport2) {
+    public void setTransport2(String transport2) {
         this.transport2 = transport2;
     }
 
-    public  String getTransport3() {
+    public String getTransport3() {
         return transport3;
     }
 
-    public  void setTransport3(String transport3) {
+    public void setTransport3(String transport3) {
         this.transport3 = transport3;
     }
 
-    public  String getTransport4() {
+    public String getTransport4() {
         return transport4;
     }
 
-    public  void setTransport4(String transport4) {
+    public void setTransport4(String transport4) {
         this.transport4 = transport4;
     }
 
@@ -366,7 +376,7 @@ public class ALGBo {
         return iplocal;
     }
 
-    public  void setIplocal(String iplocal) {
+    public void setIplocal(String iplocal) {
         this.iplocal = iplocal;
     }
 

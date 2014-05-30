@@ -491,6 +491,9 @@ public class ClientController implements SipListener {
         } else if (resultcode.equals(-1)) {
             outmsg = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
         }
+        else if (resultcode.equals(-2)) {
+            outmsg = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
+        }
         setresultmessage(outmsg);
         //set the received msgs to the correspondent output
         CSeqHeader cseqHd = (CSeqHeader) response.getHeader(CSeqHeader.NAME);
