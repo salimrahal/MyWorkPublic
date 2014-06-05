@@ -26,7 +26,8 @@ public class MainALG extends JApplet {
                     try {
                         createGUI();
                        // System.out.println("getCodeBase;"+getCodeBase());
-                       algBo.ALGBo.readFile( "config.xml",getCodeBase());
+                      //usefull for reading from XML file
+                       // algBo.ALGBo.readFile( "config.xml",getCodeBase());
                     } catch (Exception ex) {
                         Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
                     }

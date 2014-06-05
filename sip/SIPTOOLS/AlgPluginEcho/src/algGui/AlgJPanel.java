@@ -14,9 +14,6 @@ import java.awt.Color;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sip.ObjectInUseException;
-import javax.sip.PeerUnavailableException;
-import javax.sip.TransportNotSupportedException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -552,16 +549,20 @@ public class AlgJPanel extends javax.swing.JPanel {
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
         System.out.println("Event AncestorAdded...");
+
         if (getSipClientController() == null) {
             System.out.println("formAncestorAdded: Sip Listener null..initialise the stack");
             try {
                 sipClientController = new ClientController();
-                sipClientController.createSipStack();
-                sipClientController.createSipFrameWork();
+//                sipClientController.createSipStack();
+//                sipClientController.createSipFrameWork();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }//end exception
         }//end sipclientcontroller == null
+
+        //update the test parameters 
+        updateTestLabels();
     }//GEN-LAST:event_formAncestorAdded
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
@@ -652,9 +653,14 @@ public class AlgJPanel extends javax.swing.JPanel {
 
     public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
         Test comb = null;
+        JTextArea recvjtextregister = null;
+        JTextArea recvjtextinvite = null;
+        
         ALGBo algBo = sipClientController.getAlgBo();
         if (combSeq == 1) {
             comb = new Test(1, algBo.getPortsrc1(), algBo.getPortdest1(), algBo.getTransport1());
+            recvjtextregister = comb1RcvMsgREG;
+            recvjtextinvite = comb1RcvMsgINV;
         } else if (combSeq == 2) {
             comb = new Test(2, algBo.getPortsrc2(), algBo.getPortdest2(), algBo.getTransport2());
         } else if (combSeq == 3) {
@@ -663,18 +669,66 @@ public class AlgJPanel extends javax.swing.JPanel {
             comb = new Test(4, algBo.getPortsrc4(), algBo.getPortdest4(), algBo.getTransport4());
         }
 
-        String resReg = sipClientController.sendRegisterStateful(comb);
-        String resInv = sipClientController.sendInvite(comb);
+        String resReg = sipClientController.sendRegisterStateful(comb, sentmsgReg, recvjtextregister);
+        String resInv = sipClientController.sendInvite(comb, sentmsgInv, recvjtextinvite);
+//
+//        //filling the output log after sending the messeges
+//        //REG
+//        sentmsgReg.setText(resReg);
+//        //set the caret to the top always
+//        sentmsgReg.setCaretPosition(0);
+//        //INV
+//        sentmsgInv.setText(resInv);
+//        //set the caret to the top always
+//        sentmsgInv.setCaretPosition(0);
+    }
 
-        //filling the output log after sending the messeges
-        //REG
-        sentmsgReg.setText(resReg);
-        //set the caret to the top always
-        sentmsgReg.setCaretPosition(0);
-        //INV
-        sentmsgInv.setText(resInv);
-        //set the caret to the top always
-        sentmsgInv.setCaretPosition(0);
+    /*
+     update jradio buttoms labels
+     */
+    public static void updateTestLabels() {
+        //update the test parameters 
+        String testA;
+        //assign default value
+        testA = "Transport: UDP Source Port: 5060 Destination Port: 5060";
+        ALGBo algBo = getSipClientController().getAlgBo();
+        if (algBo.getPortsrc1() != null && algBo.getTransport1() != null && algBo.getPortdest1() != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Transport: ").append(algBo.getTransport1()).append(" Source Port: ").append(algBo.getPortsrc1()).append(" Destination Port: ").append(algBo.getPortdest1());
+            testA = sb.toString();
+        }
+        jRadioButton1.setText(testA);
+
+        String testB;
+        //assign default value
+        testB = "Transport: TCP Source Port: 5060 Destination Port: 5060";
+        if (algBo.getPortsrc2() != null && algBo.getTransport2() != null && algBo.getPortdest2() != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Transport: ").append(algBo.getTransport2()).append(" Source Port: ").append(algBo.getPortsrc2()).append(" Destination Port: ").append(algBo.getPortdest2());
+            testB = sb.toString();
+        }
+        jRadioButton2.setText(testB);
+
+        String testC;
+        //assign default value
+        testC = "Transport: UDP Source Port: 5062 Destination Port: 5060";
+        if (algBo.getPortsrc3() != null && algBo.getTransport3() != null && algBo.getPortdest3() != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Transport: ").append(algBo.getTransport3()).append(" Source Port: ").append(algBo.getPortsrc3()).append(" Destination Port: ").append(algBo.getPortdest3());
+            testC = sb.toString();
+
+        }
+        jRadioButton3.setText(testC);
+
+        String testD;
+        //assign default value
+        testD = "Transport: TCP Source Port: 5062 Destination Port: 5060";
+        if (algBo.getPortsrc4() != null && algBo.getTransport4() != null && algBo.getPortdest4() != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Transport: ").append(algBo.getTransport4()).append(" Source Port: ").append(algBo.getPortsrc4()).append(" Destination Port: ").append(algBo.getPortdest4());
+            testD = sb.toString();
+        }
+        jRadioButton4.setText(testD);
     }
 
 }

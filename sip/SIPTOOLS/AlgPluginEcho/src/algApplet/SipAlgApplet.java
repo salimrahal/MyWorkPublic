@@ -51,26 +51,26 @@ String serverIp = "209.208.79.151";
     public void algDetect()
     {
         DatagramSocket datagramsocket = null;
-        String s = srcport.getText();
-        int i = 0;
+        String portsrcStr = srcport.getText();
+        int portsrc = 0;
         boolean flag = false;
         String s1 = new String();
         boolean flag1 = false;
         try
         {
-            i = Integer.parseInt(s.trim());
+            portsrc = Integer.parseInt(portsrcStr.trim());
         }
         catch(NumberFormatException numberformatexception)
         {
             sendarea.append((new StringBuilder()).append(newline).append("[INVALID PORT - Defaulting to 5060]").toString());
             receivearea.append((new StringBuilder()).append(newline).append("[INVALID PORT - Defaulting to 5060]").toString());
-            i = 5060;
+            portsrc = 5060;
         }
         try
         {
-            datagramsocket = new DatagramSocket(i);
+            datagramsocket = new DatagramSocket(portsrc);
             Object obj = null;
-            String s3 = "127.0.0.1";
+            String iplocal = "127.0.0.1";
             for(Enumeration enumeration = NetworkInterface.getNetworkInterfaces(); enumeration.hasMoreElements();)
             {
                 NetworkInterface networkinterface = (NetworkInterface)enumeration.nextElement();
@@ -80,10 +80,10 @@ String serverIp = "209.208.79.151";
                 {
                     InetAddress inetaddress = (InetAddress)enumeration1.nextElement();
                     if(!inetaddress.isLoopbackAddress() && inetaddress.isSiteLocalAddress())
-                        s3 = inetaddress.getHostAddress();
+                        iplocal = inetaddress.getHostAddress();
                 }
             }
-            System.out.println("s3="+s3);
+            System.out.println("s3="+iplocal);
             char c;
             if(dstRadio5060.getState())
                 c = '\u13C4';
@@ -92,32 +92,32 @@ String serverIp = "209.208.79.151";
             String s4 = "";
             System.out.println("c="+c);
            //sr
-            String port = "5060";
+            String portdest = "5060";
             if(radio1.getState())
             {
               s4 = (new StringBuilder()).append("REGISTER sip:").append(serverIp).append(":")
-                      .append(port).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":")
-                      .append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
-                      .append(serverIp).append(":").append(port).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
-                      .append(serverIp).append(":").append(port).
-                      append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).
+                      .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(iplocal).append(":")
+                      .append(portsrc).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
+                      .append(serverIp).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
+                      .append(serverIp).append(":").append(portdest).
+                      append(">\r\nCall-ID: 11256979-ca11b60c@").append(iplocal).
                       append("\r\nCSeq: 7990 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:18009834289@").
-                      append(s3).append(":").
-                      append(i).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
+                      append(iplocal).append(":").
+                      append(portsrc).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
              //s4 = (new StringBuilder()).append("REGISTER sip:209.208.79.151:5060").append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":").append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:18009834289@209.208.79.151>;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:18009834289@209.208.79.151:").append(c).append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).append("\r\nCSeq: 7990 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:18009834289@").append(s3).append(":").append(i).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
             } else
             {
-                String s2 = (new StringBuilder()).append("v=0\r\no=- 276061282 276061282 IN IP4 ").append(s3).append("\r\ns=-\r\nc=IN IP4 ").
-                        append(s3).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
+                String s2 = (new StringBuilder()).append("v=0\r\no=- 276061282 276061282 IN IP4 ").append(iplocal).append("\r\ns=-\r\nc=IN IP4 ").
+                        append(iplocal).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
                 int j = s2.getBytes().length;
                 s4 = (new StringBuilder()).append("INVITE sip:18009834289@").append(serverIp).append(":").append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").
-                        append(s3).append(":").append(i).append(";branch=z9hG4bK-467cc605\r\nFrom: SIP_ALG_DETECTOR <sip:18009834289@").
+                        append(iplocal).append(":").append(portsrc).append(";branch=z9hG4bK-467cc605\r\nFrom: SIP_ALG_DETECTOR <sip:18009834289@").
                         append(serverIp).append(">;tag=8e059c0484ff02ado0\r\nTo: <sip:18009834289@").append(serverIp).append(":").append(c).
-                        append(">\r\nCall-ID: ce8cc10-3400b211@").append(s3).
-                        append("\r\nCSeq: 101 INVITE\r\nMax-Forwards: 70\r\nContact: SIP_ALG_DETECTOR <sip:18009834289@").append(s3).append(":").append(i).
+                        append(">\r\nCall-ID: ce8cc10-3400b211@").append(iplocal).
+                        append("\r\nCSeq: 101 INVITE\r\nMax-Forwards: 70\r\nContact: SIP_ALG_DETECTOR <sip:18009834289@").append(iplocal).append(":").append(portsrc).
                         append(">\r\nExpires: 60\r\nUser-Agent: SIP_ALG_DETECTOR\r\nContent-Length: ").
                         append(j).append("\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER\r\nSupported: replaces\r\nContent-Type: application/sdp\r\n\r\nv=0\r\no=- 276061282 276061282 IN IP4 ").
-                        append(s3).append("\r\ns=-\r\nc=IN IP4 ").append(s3).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
+                        append(iplocal).append("\r\ns=-\r\nc=IN IP4 ").append(iplocal).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
             }
             byte abyte0[] = s4.getBytes();
             //the destination/server IP in Byte --> 208.73.148.19

@@ -110,7 +110,7 @@ String serverIp = "209.208.79.151";
                 String s2 = (new StringBuilder()).append("v=0\r\no=- 276061282 276061282 IN IP4 ").append(s3).append("\r\ns=-\r\nc=IN IP4 ").
                         append(s3).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
                 int j = s2.getBytes().length;
-                s4 = (new StringBuilder()).append("INVITE sip:18009834289@").append(serverIp).append(":").append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").
+                s4 = (new StringBuilder()).append("INVITE sip:18009834289@").append(serverIp).append(":").append(c).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").
                         append(s3).append(":").append(i).append(";branch=z9hG4bK-467cc605\r\nFrom: SIP_ALG_DETECTOR <sip:18009834289@").
                         append(serverIp).append(">;tag=8e059c0484ff02ado0\r\nTo: <sip:18009834289@").append(serverIp).append(":").append(c).
                         append(">\r\nCall-ID: ce8cc10-3400b211@").append(s3).

@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
    //TODO: build the confVO
 //TODO: get the Hashmap of combinations
 public class ALGBo {
-
     //combination id: 1, 2, 3, 4
     static public final Integer Comb1Id = 1;
     static public final Integer Comb2Id = 2;
@@ -145,7 +144,7 @@ public class ALGBo {
             }
         }
     }
-
+/*
     public Integer getCombinationIdFromResponse(Response response) {
         Integer combId = -1;
         ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
@@ -171,7 +170,8 @@ public class ALGBo {
         }
         return combId;
     }
-
+    */
+    /*
     //it gets combination Id from port src/dest and Transport
     public Integer getCombinationIdFromRequest(Request request) {
         Integer combId = -1;
@@ -198,6 +198,8 @@ public class ALGBo {
         }
         return combId;
     }
+    */
+    
     /*
      a- test the port ranges: 1024 -> 65535
      b- callerId should be z same
@@ -211,13 +213,12 @@ public class ALGBo {
      in addition if the Call-ID was modified or there are some missed semi-colon in the header parameters the client app should indicate 
      - Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
      */
-
+/*
     public synchronized Integer algdetection(Request request, Response response) {
         Integer res = 1;//No ALG Detected";
         //System.out.println("algdetection\n[request=" + request.toString() + "]\n[response=" + response.toString() + "]");
-        /* handling callID 
-         callID should be the same
-         */
+        // handling callID  callID should be the same
+         
         String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
         ViaHeader svia = (ViaHeader) response.getHeader(SIPHeader.VIA);
         ContactHeader scontact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
@@ -277,7 +278,7 @@ public class ALGBo {
         }
         return res;
     }
-
+*/
     /*It retrive the port numbers from below URI:
      URI: Contact: <sip:ALGDetector@93.185.239.118:5062;transport=udp>
      From: <sip:ALGDetector@209.208.79.151:5062>;tag=-1997789931
@@ -402,11 +403,11 @@ public class ALGBo {
         this.transport4 = transport4;
     }
 
-    public String getHostname() {
+    public String getAgentname() {
         return agentname;
     }
 
-    public void setHostname(String hostname) {
+    public void setAgentname(String hostname) {
         this.agentname = hostname;
     }
 
@@ -451,15 +452,6 @@ public class ALGBo {
                 append(s3).append(":").
                 append(i).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
 
-//        String s5 = (new StringBuilder()).append("").append(method).append(" sip:").append(serverIp).append(":")
-//                      .append(c).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":")
-//                      .append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"ALGDETECTOR\" <sip:18009834289@")
-//                      .append(serverIp).append(":").append(c).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"ALGDETECTOR\" <sip:18009834289@")
-//                      .append(serverIp).append(":").append(c).
-//                      append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).
-//                      append("\r\nCSeq: 7990 ").append(method).append("\r\nMax-Forwards: 70\r\nContact: \"ALGDETECTOR\" <sip:18009834289@").
-//                      append(s3).append(":").
-//                      append(i).append(">;expires=60\r\nUser-Agent: FortiVoice/7.31b00\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();       
         return s4;
     }
 
