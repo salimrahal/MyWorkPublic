@@ -68,8 +68,10 @@ public class ClientController {
     //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
     public ClientController() throws SocketException {
         algBo = new ALGBo();
-        //parse xml file
-        algBo.performConfiParsing();
+        /*parse xml file and retrieve values of port/tranport etc
+        >>>>>>>>>>>>>Triger the below Line when using the XML file<<<<<<<<<<<<<
+        algBo.performConfiParsing()
+        */
         extlocal = algBo.getExtlocal();
         iplocal = algBo.getIplocal();
         //get server configs

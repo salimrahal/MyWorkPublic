@@ -39,28 +39,28 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-    public Integer portsrc1;
-    public Integer portsrc2;
-    public Integer portsrc3;
-    public Integer portsrc4;
+    public Integer portsrc1 = 5060;
+    public Integer portsrc2 = 5060;
+    public Integer portsrc3 = 5062;
+    public Integer portsrc4 = 5062;
     //currently the server is running on the same port
-    public Integer portdest1;
-    public Integer portdest2;
-    public Integer portdest3;
-    public Integer portdest4;
+    public Integer portdest1 = 5060;
+    public Integer portdest2 = 5060;
+    public Integer portdest3 = 5060;
+    public Integer portdest4 = 5060;
 
-    public String transport1;
-    public String transport2;
-    public String transport3;
-    public String transport4;
+    public String transport1 = "udp";
+    public String transport2 = "tcp";
+    public String transport3 = "udp";
+    public String transport4 = "tcp";
 
     /* TODO: config file extraction BO
      In V2 prtocol/port combination should be dynamic and read from a configuration file
      */
-    public String agentname;
+    public String agentname = "Cisco/SPA303-8.0.1";
     public String iplocal;
-    String ipServer;
-    String sipIdLocal;
+    String ipServer = "209.208.79.151";
+    String sipIdLocal = "ALGDetector";
 
     //messages
     public static final String RESET_OK = "OK";
@@ -98,6 +98,7 @@ public class ALGBo {
         }
     }
 
+    //parse the xml and set the parameters values: server ip, portsrc, port dest, etc
     public void performConfiParsing() {
         //extract the config file to confVO
         saxparserconf = new SAXParserConf();
@@ -111,10 +112,13 @@ public class ALGBo {
             Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
         }
         conVO = ConfVO.getInstance();
+        
         setparamFromConfig();
     }
 
     public void setparamFromConfig() {
+        this.agentname = conVO.getAgentname();
+        this.ipServer = conVO.getIpServer();
         List<Test> testL = conVO.getTestL();
         for (Test t : testL) {
             switch (t.seqNumber) {
@@ -399,7 +403,7 @@ public class ALGBo {
     }
 
     public String getHostname() {
-        return agentname = conVO.getAgentname();
+        return agentname;
     }
 
     public void setHostname(String hostname) {
@@ -417,7 +421,7 @@ public class ALGBo {
 
     public String getIpServer() {
 
-        return ipServer = conVO.getIpServer();
+        return ipServer;
     }
 
     public void setIpServer(String ipServer) {
@@ -425,7 +429,6 @@ public class ALGBo {
     }
 
     public String getExtlocal() {
-        sipIdLocal = "ALGDetector";
         return sipIdLocal;
     }
 
