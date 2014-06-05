@@ -114,6 +114,7 @@ public class SipListenerServer implements SipListener {
             if (request.getMethod().equals("REGISTER")) {
                 // If the request is a REGISTER.
                 response = this.messageFactory.createResponse(200, request);
+                //this.messageFactory.createResponse(request.toString());
                 /*
                  ((ToHeader)response.getHeader("To")).setTag(String.valueOf(this.tag));
                  */

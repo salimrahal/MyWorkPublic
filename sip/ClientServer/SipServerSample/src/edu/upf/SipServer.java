@@ -201,13 +201,19 @@ public class SipServer extends javax.swing.JFrame implements SipListener {
             // Process the request and send a response.
             Response response;
             if(request.getMethod().equals("REGISTER")) {
-                // If the request is a REGISTER.
+                Request req = this.messageFactory.createRequest(getSimpleSIPMessage("REGISTER"));
+                System.out.println("req via="+req.getHeader(ViaHeader.NAME)); 
+                
+                 //If the request is a REGISTER.             
                 response = this.messageFactory.createResponse(200, request);
                 ((ToHeader)response.getHeader("To")).setTag(String.valueOf(this.tag));
                 response.addHeader(this.contactHeader);
                 transaction.sendResponse(response);
+                
+                 
                 this.jTextArea.append(" / SENT " + response.getStatusCode() + " " + response.getReasonPhrase());
-            }
+           
+                       }
             else if(request.getMethod().equals("INVITE")) {
                 // If the request is an INVITE.
                 response = this.messageFactory.createResponse(200, request);
@@ -283,5 +289,33 @@ public class SipServer extends javax.swing.JFrame implements SipListener {
             transaction.getBranchId(),
             "Request",
             request.getMethod() });
+    }
+    
+    //by Salim
+     public String getSimpleSIPMessage(String method) throws SocketException, UnknownHostException {
+        String c = "5060";
+        String serverIp = InetAddress.getLocalHost().getHostAddress();
+        String s3 = InetAddress.getLocalHost().getHostAddress();
+        String i = "5060";
+        String s4 = (new StringBuilder()).append("REGISTER sip:").append(serverIp).append(":")
+                .append(c).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":")
+                .append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
+                .append(serverIp).append(":").append(c).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
+                .append(serverIp).append(":").append(c).
+                append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).
+                append("\r\nCSeq: 7990 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:18009834289@").
+                append(s3).append(":").
+                append(i).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
+
+//        String s5 = (new StringBuilder()).append("").append(method).append(" sip:").append(serverIp).append(":")
+//                      .append(c).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":")
+//                      .append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"ALGDETECTOR\" <sip:18009834289@")
+//                      .append(serverIp).append(":").append(c).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"ALGDETECTOR\" <sip:18009834289@")
+//                      .append(serverIp).append(":").append(c).
+//                      append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).
+//                      append("\r\nCSeq: 7990 ").append(method).append("\r\nMax-Forwards: 70\r\nContact: \"ALGDETECTOR\" <sip:18009834289@").
+//                      append(s3).append(":").
+//                      append(i).append(">;expires=60\r\nUser-Agent: FortiVoice/7.31b00\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();       
+        return s4;
     }
 }

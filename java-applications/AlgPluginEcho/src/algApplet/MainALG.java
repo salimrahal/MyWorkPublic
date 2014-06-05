@@ -5,16 +5,11 @@ package algApplet;
 
 import algController.ClientController;
 import algGui.AlgJPanel;
-import gov.nist.javax.sip.stack.SIPClientTransaction;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sip.InvalidArgumentException;
-import javax.sip.ObjectInUseException;
-import javax.sip.PeerUnavailableException;
-import javax.sip.TransportNotSupportedException;
 import javax.swing.JApplet;
 import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
@@ -48,16 +43,16 @@ public class MainALG extends JApplet {
         super.destroy(); //To change body of generated methods, choose Tools | Templates.
          //System.exit(0);
          ClientController sipClient = AlgJPanel.getSipClientController();
-         if(sipClient!=null){
+         if(sipClient!=null){//Do something
             try {
-                  System.out.println("destroy...sipClient not null..");
-               String res = sipClient.reset();//reset msg:Object is in use
-                 if(res.equalsIgnoreCase("OK")){
-                    sipClient = null;
-                }else{//TODO: alg clean the sipListeners and close existing connections
-                    System.out.println("Reset failed! "+res);
-                   
-                }
+//                  System.out.println("destroy...sipClient not null..");
+//               String res = sipClient.reset();//reset msg:Object is in use
+//                 if(res.equalsIgnoreCase("OK")){
+//                    sipClient = null;
+//                }else{//TODO: alg clean the sipListeners and close existing connections
+//                    System.out.println("Reset failed! "+res);
+//                   
+//                }
             } catch (Exception ex) {
                 Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
            }
