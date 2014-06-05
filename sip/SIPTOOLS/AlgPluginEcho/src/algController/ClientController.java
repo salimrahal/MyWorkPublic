@@ -124,6 +124,7 @@ public class ClientController {
 
     public String sendRegisterStateful(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister) {
         String outmsg;
+        //String callId = 
         if (test.getTransport().equalsIgnoreCase("udp")) {
             DatagramSocket datagramsocket = null;
             Integer portdest = test.getPortDest();
@@ -183,8 +184,9 @@ public class ClientController {
                 setresultmessage(outmsg);
                 datagramsocket.close();
             }
+        }else if (test.getTransport().equalsIgnoreCase("tcp")) {
+            
         }
-
         return null;
     }
 
@@ -251,7 +253,9 @@ public class ClientController {
                 datagramsocket.close();
             }
         }
-
+        else if (test.getTransport().equalsIgnoreCase("tcp")) {
+            
+        }
         return null;
     }
 
