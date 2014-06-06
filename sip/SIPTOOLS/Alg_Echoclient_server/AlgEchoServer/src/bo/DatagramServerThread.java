@@ -4,6 +4,7 @@ import test.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import network.Networking;
 
 public class DatagramServerThread extends Thread {
 
@@ -17,7 +18,10 @@ public class DatagramServerThread extends Thread {
 
     public DatagramServerThread(String name,Integer port) throws IOException {
         super(name);
-        socket = new DatagramSocket(port);
+       String localIp = Networking.getLocalIpAddress();
+       InetAddress address = InetAddress.getByName(localIp);
+        System.out.println("Sip DatagramServer: listening on port "+port+"/ Ip "+localIp);
+        socket = new DatagramSocket(port, address);
     }
 
     public void run() {
