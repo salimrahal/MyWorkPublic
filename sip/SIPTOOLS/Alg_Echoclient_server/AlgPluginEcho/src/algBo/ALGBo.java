@@ -38,7 +38,7 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-    public Integer portsrc1 = 5060;
+    public Integer portsrc1 = 5060;//5060 for remote test
     public Integer portsrc2 = 5060;
     public Integer portsrc3 = 5062;
     public Integer portsrc4 = 5062;
@@ -58,7 +58,7 @@ public class ALGBo {
      */
     public String agentname = "Cisco/SPA303-8.0.1";
     public String iplocal;
-    String ipServer = "209.208.79.151";
+    String ipServer = "209.208.79.151";//"127.0.1.1";//"209.208.79.151";//
     String sipIdLocal = "ALGDetector";
 
     //messages

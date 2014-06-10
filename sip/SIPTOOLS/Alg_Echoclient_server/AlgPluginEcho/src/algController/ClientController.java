@@ -139,7 +139,7 @@ public class ClientController {
                         .append(ipServer).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:58569874@")
                         .append(ipServer).append(":").append(portdest).
                         append(">\r\nCall-ID: ").append(callIdSent).
-                        append("\r\nCSeq: 7990 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:58569874@").
+                        append("\r\nCSeq: 6999 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:58569874@").
                         append(iplocal).append(":").
                         append(portsrc).append(">;expires=60\r\nUser-Agent: ").append(agentName).append("\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
 
@@ -148,9 +148,11 @@ public class ClientController {
                 //inetaddress1 = InetAddress.getByAddress(abyte1);
                 inetaddress1 = InetAddress.getByName(ipServer);
                 //construct a packet that recieve data on the destination Addr and port specified by the constructor
-                System.out.println("inetaddress1=" + inetaddress1.getHostAddress());
+                System.out.println("sendRegisterStateful inetaddress1=" + inetaddress1.getHostAddress());
                 DatagramPacket datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
+                System.out.println("sendRegisterStateful sending the packet..");
                 datagramsocket.send(datagrampacket);
+                System.out.println("sendRegisterStateful packet sent");
                 //int k = datagramsocket.getLocalPort();
                 sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
                  //set the caret to the top always
@@ -160,19 +162,21 @@ public class ClientController {
                 datagramsocket.setSoTimeout(7000);
                 //Constructs a DatagramPacket for receiving packets of length length.
                 DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
+                 System.out.println("sendRegisterStateful waiting for response..");
                 datagramsocket.receive(datagrampacketRec);
                 String recvMsg = new String(datagrampacketRec.getData(), 0, datagrampacketRec.getLength());
                 byte recMsgByte[] = recvMsg.getBytes();
-                System.out.println("recvMsg=["+recvMsg+"]");
+                System.out.println("sendRegisterStateful receieved message = ["+recvMsg+"]");
                 if (recvMsg.equals(registerMsg)) {
                     outmsg = algBo.MSG_SipALGNotFound;
                 } else {
                     // check the caller-ID
                     //retreive received caller Id
                    outmsg = algBo.algcheck( recvMsg, callIdSent);
-                   setresultmessage(outmsg);
                 }
+                 setresultmessage(outmsg);
                 recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
+                recvjtextregister.setCaretPosition(0);
                 datagramsocket.close();
 
             } catch (SocketTimeoutException sockettimeoutexception) {
@@ -218,9 +222,11 @@ public class ClientController {
                 //inetaddress1 = InetAddress.getByAddress(abyte1);
                 inetaddress1 = InetAddress.getByName(ipServer);
                 //construct a packet that recieve data on the destination Addr and port specified by the constructor
-                System.out.println("inetaddress1=" + inetaddress1.getHostAddress());
+                System.out.println("sendInvite inetaddress1=" + inetaddress1.getHostAddress());
                 DatagramPacket datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
+                System.out.println("sendInvite sending the packet..");
                 datagramsocket.send(datagrampacket);
+                 System.out.println("sendInvite packet sent");
                 //int k = datagramsocket.getLocalPort();
                 sentmsgInv.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(inviteMsg).toString());
                  //set the caret to the top always
@@ -230,19 +236,21 @@ public class ClientController {
                 datagramsocket.setSoTimeout(7000);
                 //Constructs a DatagramPacket for receiving packets of length length.
                 DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
+                System.out.println("sendInvite waiting for response..");
                 datagramsocket.receive(datagrampacketRec);
                 String recvMsg = new String(datagrampacketRec.getData(), 0, datagrampacketRec.getLength());
                 byte recMsgByte[] = recvMsg.getBytes();
-                System.out.println("recvMsg=["+recvMsg+"]");
+                System.out.println("sendInvite received message = ["+recvMsg+"]");
                 if (recvMsg.equals(inviteMsg)) {
                        outmsg = algBo.MSG_SipALGNotFound;
                 } else {
                     // check the caller-ID
                     //retreive received caller Id
                     outmsg = algBo.algcheck( recvMsg, callIdSent);
-                    setresultmessage(outmsg);
                 }
+                setresultmessage(outmsg);
                 recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
+                recvjtextinvite.setCaretPosition(0);
                 datagramsocket.close();
 
             } catch (SocketTimeoutException sockettimeoutexception) {

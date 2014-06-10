@@ -6,7 +6,6 @@
 package algGui;
 
 import algBo.ALGBo;
-import algBo.ALgDetect;
 import algBo.Networking;
 import algController.ClientController;
 import algVo.Test;
@@ -648,7 +647,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
-    private javax.swing.JButton runALGtest;
+    public static javax.swing.JButton runALGtest;
     // End of variables declaration//GEN-END:variables
 
     public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
@@ -664,6 +663,8 @@ public class AlgJPanel extends javax.swing.JPanel {
         } else if (combSeq == 2) {
             comb = new Test(2, algBo.getPortsrc2(), algBo.getPortdest2(), algBo.getTransport2());
         } else if (combSeq == 3) {
+             recvjtextregister = comb3RcvMsgREG;
+            recvjtextinvite = comb3RcvMsgINV;
             comb = new Test(3, algBo.getPortsrc3(), algBo.getPortdest3(), algBo.getTransport3());
         } else if (combSeq == 4) {
             comb = new Test(4, algBo.getPortsrc4(), algBo.getPortdest4(), algBo.getTransport4());

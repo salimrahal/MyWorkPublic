@@ -14,7 +14,7 @@ import javax.swing.JApplet;
 import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 
-public class MainALG extends JApplet {
+public class MainJapplet extends JApplet {
         AlgJPanel algJpanel;
     //Called when this applet is loaded into the browser.
         @Override
@@ -29,7 +29,7 @@ public class MainALG extends JApplet {
                       //usefull for reading from XML file
                        // algBo.ALGBo.readFile( "config.xml",getCodeBase());
                     } catch (Exception ex) {
-                        Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             });
@@ -55,7 +55,7 @@ public class MainALG extends JApplet {
 //                   
 //                }
             } catch (Exception ex) {
-                Logger.getLogger(MainALG.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);
            }
          }
     }

@@ -13,7 +13,7 @@
     <target name="-post-jar">
             <copy file="${src.dir}/index.html" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/nexogy.gif" todir="${dist.jar.dir}"/>
-            <copy file="${src.dir}/indexbck.html" todir="${dist.jar.dir}"/>
+            <copy file="${src.dir}/indexbck.gif" todir="${dist.jar.dir}"/>
         </target>   
  <!--
 
