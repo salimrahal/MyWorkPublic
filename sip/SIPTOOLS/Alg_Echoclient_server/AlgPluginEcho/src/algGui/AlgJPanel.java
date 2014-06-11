@@ -10,6 +10,7 @@ import algBo.Networking;
 import algController.ClientController;
 import algVo.Test;
 import java.awt.Color;
+import java.io.IOException;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -657,21 +658,24 @@ public class AlgJPanel extends javax.swing.JPanel {
         
         ALGBo algBo = sipClientController.getAlgBo();
         if (combSeq == 1) {
-            comb = new Test(1, algBo.getPortsrc1(), algBo.getPortdest1(), algBo.getTransport1());
+            comb = algBo.getTestfromCombId(1);
             recvjtextregister = comb1RcvMsgREG;
             recvjtextinvite = comb1RcvMsgINV;
         } else if (combSeq == 2) {
-            comb = new Test(2, algBo.getPortsrc2(), algBo.getPortdest2(), algBo.getTransport2());
+            comb = algBo.getTestfromCombId(2);
         } else if (combSeq == 3) {
-             recvjtextregister = comb3RcvMsgREG;
+            recvjtextregister = comb3RcvMsgREG;
             recvjtextinvite = comb3RcvMsgINV;
-            comb = new Test(3, algBo.getPortsrc3(), algBo.getPortdest3(), algBo.getTransport3());
+             comb = algBo.getTestfromCombId(3);
         } else if (combSeq == 4) {
-            comb = new Test(4, algBo.getPortsrc4(), algBo.getPortdest4(), algBo.getTransport4());
+             comb = algBo.getTestfromCombId(4);
         }
 
-        String resReg = sipClientController.sendRegisterStateful(comb, sentmsgReg, recvjtextregister);
-        String resInv = sipClientController.sendInvite(comb, sentmsgInv, recvjtextinvite);
+        try {
+         sipClientController.processRequests(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);  
+        
+//           sipClientController.sendRegister(comb, sentmsgReg, recvjtextregister);
+//           sipClientController.sendInvite(comb, sentmsgInv, recvjtextinvite);
 //
 //        //filling the output log after sending the messeges
 //        //REG
@@ -682,6 +686,10 @@ public class AlgJPanel extends javax.swing.JPanel {
 //        sentmsgInv.setText(resInv);
 //        //set the caret to the top always
 //        sentmsgInv.setCaretPosition(0);
+        } catch (IOException ex) {
+            Logger.getLogger(AlgJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /*

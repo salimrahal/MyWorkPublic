@@ -1,0 +1,4 @@
+AlgEchoServer:
+this is a Multithreaded server. It receieves UDP or TCP packet then echo the same packet to the client.
+it excludes all packets other than Register or Invite.
+ 

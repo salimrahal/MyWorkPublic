@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,13 +49,13 @@ public class ClientConnection implements Runnable {
         byte[] buf;
         try {
            
-            System.out.println("["+ threadName + "] received packet clientID:" + clientID + "\n" + recvMsg);
+            //System.out.println("["+ threadName + "] received packet clientID:" + clientID + "\n" + recvMsg);
             buf = recvMsg.getBytes();
             
             incomingPacketLocal = new DatagramPacket(buf, buf.length, address, port);
             //send the packet back to the client
             socket.send(incomingPacketLocal);
-            System.out.println("["+ threadName + "] sent packet: clientID:" + clientID);
+            System.out.println("["+new Date()+"]\n - ["+ threadName + "] packet: clientID:" + clientID+" is sent.");
 
         } catch (IOException ex) {
             Logger.getLogger(ClientConnection.class.getName()).log(Level.SEVERE, null, ex);

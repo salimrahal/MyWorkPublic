@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
    //TODO: build the confVO
 //TODO: get the Hashmap of combinations
 public class ALGBo {
+
     //combination id: 1, 2, 3, 4
     static public final Integer Comb1Id = 1;
     static public final Integer Comb2Id = 2;
@@ -58,7 +59,8 @@ public class ALGBo {
      */
     public String agentname = "Cisco/SPA303-8.0.1";
     public String iplocal;
-    String ipServer = "209.208.79.151";//"127.0.1.1";//"209.208.79.151";//
+    //String ipServer = "127.0.1.1";//local test
+    String ipServer = "209.208.79.151";//remote test
     String sipIdLocal = "ALGDetector";
 
     //messages
@@ -67,21 +69,52 @@ public class ALGBo {
     //No Packet Received - SIP ALG / Firewall issue
     public static final String MSG_FIREWALLISSUE = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
-    public static final String MSG_SipALGError  = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
+    public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
     public static final String MSG_SipALGNotFound = "No ALG Detected";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
+
+    public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
     //it gets combination Id from port src/dest and Transport
     ConfVO conVO;
     static SAXParserConf saxparserconf;
 
-    public ALGBo() {
+    Test test1;
+    Test test2;
+    Test test3;
+    Test test4;
 
+    public ALGBo() {
+        test1 = new Test(1, getPortsrc1(), getPortdest1(), getTransport1());
+        test2 = new Test(2, getPortsrc2(), getPortdest2(), getTransport2());
+        test3 = new Test(3, getPortsrc3(), getPortdest3(), getTransport3());
+        test3 = new Test(4, getPortsrc4(), getPortdest4(), getTransport4());
+    }
+
+    public Test getTestfromCombId(int id) {
+        Test resT = null;
+        switch (id) {
+            case 1:
+                resT = test1;
+                break;
+            case 2:
+                resT = test2;
+                break;
+            case 3:
+                resT = test3;
+                break;
+            case 4:
+                resT = test4;
+                break;
+            default:
+                resT = test1;
+        }
+        return resT;
     }
 
     public static void readFile(String fileToRead, URL codebase) {
         String line;
         URL url = null;
-        System.out.println("readFile::codebase:"+codebase);
+        System.out.println("readFile::codebase:" + codebase);
         try {
             url = new URL(codebase, fileToRead);
         } catch (MalformedURLException e) {
@@ -94,28 +127,28 @@ public class ALGBo {
             while ((line = bf.readLine()) != null) {
                 strBuff.append(line + "\n");
             }
-            System.out.println("readFile="+strBuff.toString());
+            System.out.println("readFile=" + strBuff.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     /*
-    its checks whether A callerid is changed or not otherwise it will indicates a warning
-    */
-    public String algcheck(String recvMsg, String callIdSent){
-         String callIdRecv;
-         String resMsg;
-                    Integer callidindex = recvMsg.indexOf("Call-ID: ");
-                    // retreive the value of callId. 9 is the lenght of [Call-ID: ]
-                    callIdRecv = recvMsg.substring(callidindex+9, callidindex+9+callIdSent.length());
-                    if(!callIdSent.equals(callIdRecv)){
-                         resMsg = MSG_SipALGError;
-                    }else{
-                        //sip alg detected
-                    resMsg = MSG_SipALGWarning; 
-                    }
-                    return resMsg;
+     its checks whether A callerid is changed or not otherwise it will indicates a warning
+     */
+    public String algcheck(String recvMsg, String callIdSent) {
+        String callIdRecv;
+        String resMsg;
+        Integer callidindex = recvMsg.indexOf("Call-ID: ");
+        // retreive the value of callId. 9 is the lenght of [Call-ID: ]
+        callIdRecv = recvMsg.substring(callidindex + 9, callidindex + 9 + callIdSent.length());
+        if (!callIdSent.equals(callIdRecv)) {
+            resMsg = MSG_SipALGError;
+        } else {
+            //sip alg detected
+            resMsg = MSG_SipALGWarning;
+        }
+        return resMsg;
     }
 
     //parse the xml and set the parameters values: server ip, portsrc, port dest, etc
@@ -132,7 +165,7 @@ public class ALGBo {
             Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
         }
         conVO = ConfVO.getInstance();
-        
+
         setparamFromConfig();
     }
 
@@ -165,62 +198,62 @@ public class ALGBo {
             }
         }
     }
-/*
-    public Integer getCombinationIdFromResponse(Response response) {
-        Integer combId = -1;
-        ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
-        FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
-        ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
-        //get the transport
-        String transport = via.getTransport();
-        //get the ports
-        String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-        Integer fromPort = extractPort(fromURI);
-
-        String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-        Integer toPort = extractPort(toURI);
-
-        if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
-            combId = Comb1Id;
-        } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
-            combId = Comb2Id;
-        } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
-            combId = Comb3Id;
-        } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
-            combId = Comb4Id;
-        }
-        return combId;
-    }
-    */
     /*
-    //it gets combination Id from port src/dest and Transport
-    public Integer getCombinationIdFromRequest(Request request) {
-        Integer combId = -1;
-        ViaHeader via = (ViaHeader) request.getHeader(SIPHeader.VIA);
-        FromHeader from = (FromHeader) request.getHeader(SIPHeader.FROM);
-        ToHeader to = (ToHeader) request.getHeader(SIPHeader.TO);
-        //get the transport
-        String transport = via.getTransport();
-        //get the ports
-        String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-        Integer fromPort = extractPort(fromURI);
+     public Integer getCombinationIdFromResponse(Response response) {
+     Integer combId = -1;
+     ViaHeader via = (ViaHeader) response.getHeader(SIPHeader.VIA);
+     FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
+     ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
+     //get the transport
+     String transport = via.getTransport();
+     //get the ports
+     String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer fromPort = extractPort(fromURI);
 
-        String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-        Integer toPort = extractPort(toURI);
+     String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer toPort = extractPort(toURI);
 
-        if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
-            combId = Comb1Id;
-        } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
-            combId = Comb2Id;
-        } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
-            combId = Comb3Id;
-        } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
-            combId = Comb4Id;
-        }
-        return combId;
-    }
-    */
-    
+     if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
+     combId = Comb1Id;
+     } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
+     combId = Comb2Id;
+     } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
+     combId = Comb3Id;
+     } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
+     combId = Comb4Id;
+     }
+     return combId;
+     }
+     */
+    /*
+     //it gets combination Id from port src/dest and Transport
+     public Integer getCombinationIdFromRequest(Request request) {
+     Integer combId = -1;
+     ViaHeader via = (ViaHeader) request.getHeader(SIPHeader.VIA);
+     FromHeader from = (FromHeader) request.getHeader(SIPHeader.FROM);
+     ToHeader to = (ToHeader) request.getHeader(SIPHeader.TO);
+     //get the transport
+     String transport = via.getTransport();
+     //get the ports
+     String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer fromPort = extractPort(fromURI);
+
+     String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer toPort = extractPort(toURI);
+
+     if (transport.equalsIgnoreCase(transport1) && fromPort.equals(portsrc1) && toPort.equals(portdest1)) {
+     combId = Comb1Id;
+     } else if (transport.equalsIgnoreCase(transport2) && fromPort.equals(portsrc2) && toPort.equals(portdest2)) {
+     combId = Comb2Id;
+     } else if (transport.equalsIgnoreCase(transport3) && fromPort.equals(portsrc3) && toPort.equals(portdest3)) {
+     combId = Comb3Id;
+     } else if (transport.equalsIgnoreCase(transport4) && fromPort.equals(portsrc4) && toPort.equals(portdest4)) {
+     combId = Comb4Id;
+     }
+     return combId;
+     }
+     */
+
     /*
      a- test the port ranges: 1024 -> 65535
      b- callerId should be z same
@@ -234,72 +267,72 @@ public class ALGBo {
      in addition if the Call-ID was modified or there are some missed semi-colon in the header parameters the client app should indicate 
      - Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the routerâ€‌
      */
-/*
-    public synchronized Integer algdetection(Request request, Response response) {
-        Integer res = 1;//No ALG Detected";
-        //System.out.println("algdetection\n[request=" + request.toString() + "]\n[response=" + response.toString() + "]");
-        // handling callID  callID should be the same
+    /*
+     public synchronized Integer algdetection(Request request, Response response) {
+     Integer res = 1;//No ALG Detected";
+     //System.out.println("algdetection\n[request=" + request.toString() + "]\n[response=" + response.toString() + "]");
+     // handling callID  callID should be the same
          
-        String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
-        ViaHeader svia = (ViaHeader) response.getHeader(SIPHeader.VIA);
-        ContactHeader scontact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
+     String callIdReq = request.getHeader(SIPHeader.CALL_ID).toString();
+     ViaHeader svia = (ViaHeader) response.getHeader(SIPHeader.VIA);
+     ContactHeader scontact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
 
-        String callIdRes = response.getHeader(SIPHeader.CALL_ID).toString();
-        //callIdRes = "newcallID";
-        //retrieve the headers
-        ViaHeader rvia = (ViaHeader) response.getHeader(SIPHeader.VIA);
-        FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
-        ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
-        ContactHeader rcontact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
+     String callIdRes = response.getHeader(SIPHeader.CALL_ID).toString();
+     //callIdRes = "newcallID";
+     //retrieve the headers
+     ViaHeader rvia = (ViaHeader) response.getHeader(SIPHeader.VIA);
+     FromHeader from = (FromHeader) response.getHeader(SIPHeader.FROM);
+     ToHeader to = (ToHeader) response.getHeader(SIPHeader.TO);
+     ContactHeader rcontact = (ContactHeader) response.getHeader(SIPHeader.CONTACT);
 
-        if (!callIdReq.equalsIgnoreCase(callIdRes)) {
-            res = -1;
-            //res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
+     if (!callIdReq.equalsIgnoreCase(callIdRes)) {
+     res = -1;
+     //res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
 
-        } else {
-            //checking port number: via, to, from, contact
-            Integer viaPort = rvia.getPort();
-            //viaPort = 100000;
-            String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-            Integer fromPort = extractPort(fromURI);
+     } else {
+     //checking port number: via, to, from, contact
+     Integer viaPort = rvia.getPort();
+     //viaPort = 100000;
+     String fromURI = from.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer fromPort = extractPort(fromURI);
 
-            String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-            Integer toPort = extractPort(toURI);
+     String toURI = to.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer toPort = extractPort(toURI);
 
-            String contactURI = rcontact.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
-            Integer contactPort = extractPort(contactURI);
+     String contactURI = rcontact.getAddress().getURI().toString();//sip:ALGDetector@209.208.79.151:5062
+     Integer contactPort = extractPort(contactURI);
 
-            if (!(checkPortValidity(viaPort) && checkPortValidity(fromPort) && checkPortValidity(toPort) && checkPortValidity(contactPort))) {
-                // res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
-                res = -1;
-            } //check the via and contact header: --> Warning ALG SIP detected:
-            else {
-                boolean viahostchange = ischangedViaHost(svia, rvia);
-                boolean contacthostchange = ischangedContactHost(scontact, rcontact);
-                if (viahostchange || contacthostchange) {
-                    res = -2;
-                }
-            }
-        }
-        return res;
-    }
+     if (!(checkPortValidity(viaPort) && checkPortValidity(fromPort) && checkPortValidity(toPort) && checkPortValidity(contactPort))) {
+     // res = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
+     res = -1;
+     } //check the via and contact header: --> Warning ALG SIP detected:
+     else {
+     boolean viahostchange = ischangedViaHost(svia, rvia);
+     boolean contacthostchange = ischangedContactHost(scontact, rcontact);
+     if (viahostchange || contacthostchange) {
+     res = -2;
+     }
+     }
+     }
+     return res;
+     }
 
-    public boolean ischangedViaHost(ViaHeader svia, ViaHeader rvia) {
-        boolean res = false;
-        if (!(svia.getHost().equalsIgnoreCase(rvia.getHost()))) {
-            res = true;
-        }
-        return res;
-    }
+     public boolean ischangedViaHost(ViaHeader svia, ViaHeader rvia) {
+     boolean res = false;
+     if (!(svia.getHost().equalsIgnoreCase(rvia.getHost()))) {
+     res = true;
+     }
+     return res;
+     }
 
-    public boolean ischangedContactHost(ContactHeader scontact, ContactHeader rcontact) {
-        boolean res = false;
-        if (!(scontact.getAddress().toString().equalsIgnoreCase(rcontact.getAddress().toString()))) {
-            res = true;
-        }
-        return res;
-    }
-*/
+     public boolean ischangedContactHost(ContactHeader scontact, ContactHeader rcontact) {
+     boolean res = false;
+     if (!(scontact.getAddress().toString().equalsIgnoreCase(rcontact.getAddress().toString()))) {
+     res = true;
+     }
+     return res;
+     }
+     */
     /*It retrive the port numbers from below URI:
      URI: Contact: <sip:ALGDetector@93.185.239.118:5062;transport=udp>
      From: <sip:ALGDetector@209.208.79.151:5062>;tag=-1997789931
@@ -458,22 +491,35 @@ public class ALGBo {
         this.sipIdLocal = extlocal;
     }
 
-    public String getSimpleSIPMessage(String method) throws SocketException {
-        String c = "5060";
-        String serverIp = getIpServer();
-        String s3 = getLocalIpAddress();
-        String i = "5060";
-        String s4 = (new StringBuilder()).append("REGISTER sip:").append(serverIp).append(":")
-                .append(c).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(s3).append(":")
-                .append(i).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
-                .append(serverIp).append(":").append(c).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:18009834289@")
-                .append(serverIp).append(":").append(c).
-                append(">\r\nCall-ID: 11256979-ca11b60c@").append(s3).
-                append("\r\nCSeq: 7990 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:18009834289@").
-                append(s3).append(":").
-                append(i).append(">;expires=60\r\nUser-Agent: Cisco/SPA303-7.4.7\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
+    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+        String registerMsg = "";
+        registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
+                .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(ipLocalparam).append(":")
+                .append(portsrc).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:58569874@")
+                .append(ipServer).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:58569874@")
+                .append(ipServer).append(":").append(portdest).
+                append(">\r\nCall-ID: ").append(callIdSent).
+                append("\r\nCSeq: 6999 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:58569874@").
+                append(ipLocalparam).append(":").
+                append(portsrc).append(">;expires=60\r\nUser-Agent: ").append(agentName).append("\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();
 
-        return s4;
+        return registerMsg;
+    }
+
+    public String buildInviteSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+        String inviteMsgInner = (new StringBuilder()).append("v=0\r\no=- 54899656 54899656 IN IP4 ").append(ipLocalparam).append("\r\ns=-\r\nc=IN IP4 ").
+                append(ipLocalparam).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
+        int contentLength = inviteMsgInner.getBytes().length;
+
+        String inviteMsg = (new StringBuilder()).append("INVITE sip:58569874@").append(ipServer).append(":").append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").
+                append(ipLocalparam).append(":").append(portsrc).append(";branch=z9hG4bK-467cc605\r\nFrom: SIP_ALG_DETECTOR <sip:58569874@").
+                append(ipServer).append(portdest).append(">;tag=8e059c0484ff02ado0\r\nTo: <sip:58569874@").append(ipServer).append(":").append(portdest).
+                append(">\r\nCall-ID: ").append(callIdSent).
+                append("\r\nCSeq: 101 INVITE\r\nMax-Forwards: 70\r\nContact: SIP_ALG_DETECTOR <sip:58569874@").append(ipLocalparam).append(":").append(portsrc).
+                append(">\r\nExpires: 60\r\nUser-Agent: ").append(agentName).append("\r\nContent-Length: ").
+                append(contentLength).append("\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER\r\nSupported: replaces\r\nContent-Type: application/sdp\r\n\r\n").append(inviteMsgInner).toString();
+
+        return inviteMsg;
     }
 
     public static String getNetworkError(String ip) {

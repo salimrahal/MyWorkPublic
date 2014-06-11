@@ -12,6 +12,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +28,9 @@ public class ServerDatagram {
     BufferedReader in = null;
     InetAddress address;
     String registerKey = "REGISTER";
-      String inviteKey = "INVITE";
-    
+    String inviteKey = "INVITE";
+    Integer maxThreadnum = 50;
+
     public ServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
         address = InetAddress.getByName(localIp);
         System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp);
@@ -35,38 +39,41 @@ public class ServerDatagram {
 
     public void processrequests() throws UnknownHostException, SocketException {
         int i = 0;
-        String subStr ;
-        System.out.println("Sip DatagramServer: run begins");
+        String subStr;
+        ExecutorService poolservice = Executors.newFixedThreadPool(maxThreadnum);
+        System.out.println("Sip DatagramServer(UDP Server) starts..");
         //buffer to receive incoming data
         byte[] buf = new byte[1024];//65536
         try {
-            DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-            System.out.println("Sip DatagramServer: waiting to receive packets");
 
+            System.out.println("Sip DatagramServer: waiting to receive packets");
             //communication loop
             while (true) {
+                //create udp packet
+                DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
                 // receive request    
                 socket.receive(incomingPacket);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
-                System.out.println("received packet clientID:" + i + "\n" + recvMsg);
+                System.out.println("["+new Date()+"]\n received packet clientID:" + i + "\n" + recvMsg);
+                //check the message type to ensure it's: register or invite, drop the sip spam
                 subStr = recvMsg.substring(0, 8);
-                System.out.println("subStr"+subStr);
-                
-                if(subStr.contains(registerKey)||subStr.contains(inviteKey)){
-                       // send the response to the client at "address" and "port"
-                InetAddress addressInco = incomingPacket.getAddress();
-                int portInco = incomingPacket.getPort();
-                
-                ClientConnection clientConn = new ClientConnection(socket, recvMsg, addressInco, portInco, i);
-                Thread clientThread = new Thread(clientConn);
-                clientThread.setName("Thread name ID: " + i);
-                clientThread.start();
-                i++;
-                }else{
-                     System.out.println("Sip DatagramServer:unknown client, disregard the packet");
+                //System.out.println("subStr" + subStr);
+
+                if (subStr.contains(registerKey) || subStr.contains(inviteKey)) {
+                    // send the response to the client at "address" and "port"
+                    InetAddress addressInco = incomingPacket.getAddress();
+                    int portInco = incomingPacket.getPort();
+                    
+                    //create the thread that sends the message                  
+                    ClientConnection clientConn = new ClientConnection(socket, recvMsg, addressInco, portInco, i);
+                    //and this task to a pool, so clientConnection thread will be started
+                    poolservice.execute(clientConn);
+                    i++;
+                } else {
+                    System.out.println("Sip DatagramServer:unknown client, disregard the packet");
                 }
-             
+
             }//end of while
         }//end try
         catch (IOException e) {
