@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author salim
  */
-public class ClientConnection implements Runnable {
+public class ClientDatagramConnection implements Runnable {
 
     private int clientID;
     //private int bytesToReceive;
@@ -27,7 +27,7 @@ public class ClientConnection implements Runnable {
     InetAddress address;
     Integer port;
 
-    public ClientConnection(DatagramSocket socket, String recvMsg, InetAddress address, Integer port, int clientID) throws IOException {
+    public ClientDatagramConnection(DatagramSocket socket, String recvMsg, InetAddress address, Integer port, int clientID) throws IOException {
         this.socket = socket;
         //this.incomingPacket = incomingPacket;
         this.clientID = clientID;
@@ -58,7 +58,7 @@ public class ClientConnection implements Runnable {
             System.out.println("["+new Date()+"]\n - ["+ threadName + "] packet: clientID:" + clientID+" is sent.");
 
         } catch (IOException ex) {
-            Logger.getLogger(ClientConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientDatagramConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

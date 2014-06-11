@@ -29,18 +29,18 @@ public class ServerDatagram {
     InetAddress address;
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";
-    Integer maxThreadnum = 50;
+    Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
 
     public ServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
         address = InetAddress.getByName(localIp);
-        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp);
+        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp+" / poolsize="+poolsize);
         socket = new DatagramSocket(port, address);
     }
 
     public void processrequests() throws UnknownHostException, SocketException {
         int i = 0;
         String subStr;
-        ExecutorService poolservice = Executors.newFixedThreadPool(maxThreadnum);
+        ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
         System.out.println("Sip DatagramServer(UDP Server) starts..");
         //buffer to receive incoming data
         byte[] buf = new byte[1024];//65536
@@ -65,8 +65,8 @@ public class ServerDatagram {
                     InetAddress addressInco = incomingPacket.getAddress();
                     int portInco = incomingPacket.getPort();
                     
-                    //create the thread that sends the message                  
-                    ClientConnection clientConn = new ClientConnection(socket, recvMsg, addressInco, portInco, i);
+                    //create the thread(Runnable) that sends the message                  
+                    ClientDatagramConnection clientConn = new ClientDatagramConnection(socket, recvMsg, addressInco, portInco, i);
                     //and this task to a pool, so clientConnection thread will be started
                     poolservice.execute(clientConn);
                     i++;

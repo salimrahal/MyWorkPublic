@@ -10,12 +10,17 @@ import static algBo.Networking.getLocalIpAddress;
 import algGui.AlgJPanel;
 import algVo.Test;
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -129,245 +134,221 @@ public class ClientController {
     public String processRequests(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
         DatagramSocket datagramsocket = null;
         counter++;
-        Integer regiseRes ;
-        Integer inviteRes ;
+        Integer regiseRes;
+        Integer inviteRes;
         String outmsg;
-         if (test.getTransport().equalsIgnoreCase("udp")) {
-             try {
-            datagramsocket = new DatagramSocket(test.getPortscr());
-            regiseRes = sendRegisterDatagram(datagramsocket, test, sentmsgReg, recvjtextregister);
-            //after send/receive the register successfully then send the invite
-            if(regiseRes == 1){
-                inviteRes = sendInviteDatagram(datagramsocket, test, sentmsgInv, recvjtextinvite);
-            }else if(regiseRes == -1){
-                outmsg = algBo.MSG_FIREWALLISSUE;
-                setresultmessage(outmsg);
-                recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
-            }else if(regiseRes == -2){
-                outmsg = "Unknown Socket Error";
-                setresultmessage(outmsg);
-                recvjtextregister.setText(new StringBuilder().append(newline).append(outmsg).toString());
-            }       
-        } catch (SocketException ex) {
-            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (datagramsocket != null) {
-                datagramsocket.close();
+        Integer portDest = test.getPortscr();
+        if (test.getTransport().equalsIgnoreCase("udp")) {
+            try {
+                datagramsocket = new DatagramSocket(portDest);
+                regiseRes = sendRegisterDatagram(datagramsocket, test, sentmsgReg, recvjtextregister);
+                //after send/receive the register successfully then send the invite
+                if (regiseRes == 1) {
+                    inviteRes = sendInviteDatagram(datagramsocket, test, sentmsgInv, recvjtextinvite);
+                } else if (regiseRes == -1) {
+                    outmsg = algBo.MSG_FIREWALLISSUE;
+                    setresultmessage(outmsg);
+                    recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
+                } else if (regiseRes == -2) {
+                    outmsg = "Unknown Socket Error";
+                    setresultmessage(outmsg);
+                    recvjtextregister.setText(new StringBuilder().append(newline).append(outmsg).toString());
+                }
+            } catch (SocketException ex) {
+                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (datagramsocket != null) {
+                    datagramsocket.close();
+                }
             }
+        }//end of udp
+        else if (test.getTransport().equalsIgnoreCase("tcp")) {
+             String serverHostname = ipServer;
+        Socket echoSocket = new Socket(serverHostname, portDest);
+            sendRegisterStream(echoSocket, test, sentmsgReg, recvjtextregister);
         }
-         }//end of udp
-          else if (test.getTransport().equalsIgnoreCase("tcp")) {
 
-        }
-           
         return null;
     }
-    
-     public Integer sendRegisterStream(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister) throws IOException {
+
+    public Integer sendRegisterStream(Socket echosocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister) throws IOException {
         String outmsg = null;
-        byte abyteReg[] = null;
         Integer resCode = 0;
-        
         String callIdSent = new StringBuilder().append("11256979-ca11b60c@").append(iplocal).toString();
-            //DatagramSocket datagramsocket = null;
-            Integer portdest = test.getPortDest();
-            Integer portsrc = test.getPortscr();
-            String agentName = algBo.getAgentname();
-            DatagramPacket datagrampacket = null;
-            InetAddress inetaddress1 = null;
-            //inetaddress1 = InetAddress.getByAddress(abyte1);
-            inetaddress1 = InetAddress.getByName(ipServer);
-            try {
-                //datagramsocket = new DatagramSocket(test.getPortscr());
-                //-------------------------send/receive the register---------------------------//
-                String registerMsg = "";
-                registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
-                abyteReg = registerMsg.getBytes();
+        Integer portdest = test.getPortDest();
+        Integer portsrc = test.getPortscr();
+        String agentName = algBo.getAgentname();
+        //String serverHostname = new String ("127.0.0.1");
+        String serverHostname = ipServer;
+        System.out.println("Attemping to connect to host "
+                + serverHostname + " on port "+portdest+".");
 
-                //construct a packet that recieve data on the destination Addr and port specified by the constructor
-                System.out.println("sendRegisterStateful inetaddress1=" + inetaddress1.getHostAddress() + "- counter=" + counter);
-                datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
-                System.out.println("sendRegisterStateful sending REGISTER packet..");
-                datagramsocket.send(datagrampacket);
-                System.out.println("sendRegisterStateful REGISTER packet sent");
-                //int k = datagramsocket.getLocalPort();
-                sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
-                //set the caret to the top always
-                sentmsgReg.setCaretPosition(0);
+        Socket echoSocket = null;
+        PrintWriter out = null;
+        BufferedReader in = null;
 
-                byte abyteBuff[] = new byte[1024];
-                datagramsocket.setSoTimeout(socktimeout);
-                //Constructs a DatagramPacket for receiving packets of length length.
-                DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
-                System.out.println("sendRegisterStateful waiting REGISTER for response..");
-                datagramsocket.receive(datagrampacketRecReg);
-                String recvMsg = new String(datagrampacketRecReg.getData(), 0, datagrampacketRecReg.getLength());
-                byte recMsgByte[] = recvMsg.getBytes();
-                System.out.println("sendRegister REGISTER received message = [" + recvMsg + "]");
-                if (recvMsg.equals(registerMsg)) {
-                    outmsg = algBo.MSG_SipALGNotFound;
-                } else {
-                    // check the caller-ID
-                    //retreive received caller Id
-                    outmsg = algBo.algcheck(recvMsg, callIdSent);
-                }
-                setresultmessage(outmsg);
-                recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
-                recvjtextregister.setCaretPosition(0);
-                //close the socket
-                //datagramsocket.close();
-                resCode = 1;
-            } catch (SocketTimeoutException sockettimeoutexception) {
-                 resCode = -1;
-                recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
-                outmsg = algBo.MSG_FIREWALLISSUE;
-                setresultmessage(outmsg);
-                datagramsocket.close();
-                System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
-            } catch (Exception exception) {
-                resCode = -2;
-                System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
-                outmsg = "Unknown Socket Error";
-                setresultmessage(outmsg);
-                datagramsocket.close();
+        try {
+            // echoSocket = new Socket("taranis", 7);
+            echoSocket = new Socket(serverHostname, portdest);
+            out = new PrintWriter(echoSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(
+                    echoSocket.getInputStream()));
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host: " + serverHostname);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for "
+                    + "the connection to: " + serverHostname);
+            System.exit(1);
+        }
+        BufferedReader stdIn = new BufferedReader(
+                new InputStreamReader(System.in));
 
-            }  
+        String registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
+
+        out.println(registerMsg);
+        //in only reads line I should read all the message
+        System.out.println("echo: " + in.readLine());
+
+        out.close();
+        in.close();
+        stdIn.close();
+        echoSocket.close();
         return resCode;
     }
-
 
     public Integer sendRegisterDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister) throws IOException {
         String outmsg = null;
         byte abyteReg[] = null;
         Integer resCode = 0;
-        
+
         String callIdSent = new StringBuilder().append("11256979-ca11b60c@").append(iplocal).toString();
-            //DatagramSocket datagramsocket = null;
-            Integer portdest = test.getPortDest();
-            Integer portsrc = test.getPortscr();
-            String agentName = algBo.getAgentname();
-            DatagramPacket datagrampacket = null;
-            InetAddress inetaddress1 = null;
-            //inetaddress1 = InetAddress.getByAddress(abyte1);
-            inetaddress1 = InetAddress.getByName(ipServer);
-            try {
+        //DatagramSocket datagramsocket = null;
+        Integer portdest = test.getPortDest();
+        Integer portsrc = test.getPortscr();
+        String agentName = algBo.getAgentname();
+        DatagramPacket datagrampacket = null;
+        InetAddress inetaddress1 = null;
+        //inetaddress1 = InetAddress.getByAddress(abyte1);
+        inetaddress1 = InetAddress.getByName(ipServer);
+        try {
                 //datagramsocket = new DatagramSocket(test.getPortscr());
-                //-------------------------send/receive the register---------------------------//
-                String registerMsg = "";
-                registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
-                abyteReg = registerMsg.getBytes();
+            //-------------------------send/receive the register---------------------------//
+            String registerMsg = "";
+            registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
+            abyteReg = registerMsg.getBytes();
 
-                //construct a packet that recieve data on the destination Addr and port specified by the constructor
-                System.out.println("sendRegisterStateful inetaddress1=" + inetaddress1.getHostAddress() + "- counter=" + counter);
-                datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
-                System.out.println("sendRegisterStateful sending REGISTER packet..");
-                datagramsocket.send(datagrampacket);
-                System.out.println("sendRegisterStateful REGISTER packet sent");
-                //int k = datagramsocket.getLocalPort();
-                sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
-                //set the caret to the top always
-                sentmsgReg.setCaretPosition(0);
+            //construct a packet that recieve data on the destination Addr and port specified by the constructor
+            System.out.println("sendRegisterStateful inetaddress1=" + inetaddress1.getHostAddress() + "- counter=" + counter);
+            datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
+            System.out.println("sendRegisterStateful sending REGISTER packet..");
+            datagramsocket.send(datagrampacket);
+            System.out.println("sendRegisterStateful REGISTER packet sent");
+            //int k = datagramsocket.getLocalPort();
+            sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
+            //set the caret to the top always
+            sentmsgReg.setCaretPosition(0);
 
-                byte abyteBuff[] = new byte[1024];
-                datagramsocket.setSoTimeout(socktimeout);
-                //Constructs a DatagramPacket for receiving packets of length length.
-                DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
-                System.out.println("sendRegisterStateful waiting REGISTER for response..");
-                datagramsocket.receive(datagrampacketRecReg);
-                String recvMsg = new String(datagrampacketRecReg.getData(), 0, datagrampacketRecReg.getLength());
-                byte recMsgByte[] = recvMsg.getBytes();
-                System.out.println("sendRegister REGISTER received message = [" + recvMsg + "]");
-                if (recvMsg.equals(registerMsg)) {
-                    outmsg = algBo.MSG_SipALGNotFound;
-                } else {
+            byte abyteBuff[] = new byte[1024];
+            datagramsocket.setSoTimeout(socktimeout);
+            //Constructs a DatagramPacket for receiving packets of length length.
+            DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
+            System.out.println("sendRegisterStateful waiting REGISTER for response..");
+            datagramsocket.receive(datagrampacketRecReg);
+            String recvMsg = new String(datagrampacketRecReg.getData(), 0, datagrampacketRecReg.getLength());
+            byte recMsgByte[] = recvMsg.getBytes();
+            System.out.println("sendRegister REGISTER received message = [" + recvMsg + "]");
+            if (recvMsg.equals(registerMsg)) {
+                outmsg = algBo.MSG_SipALGNotFound;
+            } else {
                     // check the caller-ID
-                    //retreive received caller Id
-                    outmsg = algBo.algcheck(recvMsg, callIdSent);
-                }
-                setresultmessage(outmsg);
-                recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
-                recvjtextregister.setCaretPosition(0);
-                //close the socket
-                //datagramsocket.close();
-                resCode = 1;
-            } catch (SocketTimeoutException sockettimeoutexception) {
-                 resCode = -1;
-                recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
-                outmsg = algBo.MSG_FIREWALLISSUE;
-                setresultmessage(outmsg);
-                datagramsocket.close();
-                System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
-            } catch (Exception exception) {
-                resCode = -2;
-                System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
-                outmsg = "Unknown Socket Error";
-                setresultmessage(outmsg);
-                datagramsocket.close();
-
+                //retreive received caller Id
+                outmsg = algBo.algcheck(recvMsg, callIdSent);
             }
-        
+            setresultmessage(outmsg);
+            recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
+            recvjtextregister.setCaretPosition(0);
+                //close the socket
+            //datagramsocket.close();
+            resCode = 1;
+        } catch (SocketTimeoutException sockettimeoutexception) {
+            resCode = -1;
+            recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
+            outmsg = algBo.MSG_FIREWALLISSUE;
+            setresultmessage(outmsg);
+            datagramsocket.close();
+            System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
+        } catch (Exception exception) {
+            resCode = -2;
+            System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
+            outmsg = "Unknown Socket Error";
+            setresultmessage(outmsg);
+            datagramsocket.close();
+
+        }
+
         return resCode;
     }
 
     public Integer sendInviteDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgInv, JTextArea recvjtextinvite) {
         String outmsg;
-         Integer resCode = 0;
+        Integer resCode = 0;
         String callIdSent = new StringBuilder().append("ce8cc10-3400b211@").append(iplocal).toString();
-            //DatagramSocket datagramsocket = null;
-            Integer portdest = test.getPortDest();
-            Integer portsrc = test.getPortscr();
-            String agentName = algBo.getAgentname();
-            try {
-                //datagramsocket = new DatagramSocket(test.getPortscr());
-                String inviteMsg = algBo.buildInviteSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
-                byte[] abyteInv = inviteMsg.getBytes();
-                InetAddress inetaddress1 = null;
-                //inetaddress1 = InetAddress.getByAddress(abyte1);
-                inetaddress1 = InetAddress.getByName(ipServer);
-                //construct a packet that recieve data on the destination Addr and port specified by the constructor
-                System.out.println("sendInvite inetaddress1=" + inetaddress1.getHostAddress()+ "- counter=" + counter);
-                DatagramPacket datagrampacket = new DatagramPacket(abyteInv, abyteInv.length, inetaddress1, portdest);
-                System.out.println("sendInvite sending INVITE packet..");
-                datagramsocket.send(datagrampacket);
-                System.out.println("sendInvite INVITE packet sent");
-                //int k = datagramsocket.getLocalPort();
-                sentmsgInv.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(inviteMsg).toString());
-                //set the caret to the top always
-                sentmsgInv.setCaretPosition(0);
+        //DatagramSocket datagramsocket = null;
+        Integer portdest = test.getPortDest();
+        Integer portsrc = test.getPortscr();
+        String agentName = algBo.getAgentname();
+        try {
+            //datagramsocket = new DatagramSocket(test.getPortscr());
+            String inviteMsg = algBo.buildInviteSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
+            byte[] abyteInv = inviteMsg.getBytes();
+            InetAddress inetaddress1 = null;
+            //inetaddress1 = InetAddress.getByAddress(abyte1);
+            inetaddress1 = InetAddress.getByName(ipServer);
+            //construct a packet that recieve data on the destination Addr and port specified by the constructor
+            System.out.println("sendInvite inetaddress1=" + inetaddress1.getHostAddress() + "- counter=" + counter);
+            DatagramPacket datagrampacket = new DatagramPacket(abyteInv, abyteInv.length, inetaddress1, portdest);
+            System.out.println("sendInvite sending INVITE packet..");
+            datagramsocket.send(datagrampacket);
+            System.out.println("sendInvite INVITE packet sent");
+            //int k = datagramsocket.getLocalPort();
+            sentmsgInv.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(inviteMsg).toString());
+            //set the caret to the top always
+            sentmsgInv.setCaretPosition(0);
 
-                byte abyteBuff[] = new byte[1024];
-                datagramsocket.setSoTimeout(socktimeout);
-                //Constructs a DatagramPacket for receiving packets of length length.
-                DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
-                System.out.println("sendInvite waiting for INVITE response..");
-                datagramsocket.receive(datagrampacketRec);
-                String recvMsg = new String(datagrampacketRec.getData(), 0, datagrampacketRec.getLength());
-                byte recMsgByte[] = recvMsg.getBytes();
-                System.out.println("sendInvite received INVITE message = [" + recvMsg + "]");
-                if (recvMsg.equals(inviteMsg)) {
-                    outmsg = algBo.MSG_SipALGNotFound;
-                } else {
+            byte abyteBuff[] = new byte[1024];
+            datagramsocket.setSoTimeout(socktimeout);
+            //Constructs a DatagramPacket for receiving packets of length length.
+            DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
+            System.out.println("sendInvite waiting for INVITE response..");
+            datagramsocket.receive(datagrampacketRec);
+            String recvMsg = new String(datagrampacketRec.getData(), 0, datagrampacketRec.getLength());
+            byte recMsgByte[] = recvMsg.getBytes();
+            System.out.println("sendInvite received INVITE message = [" + recvMsg + "]");
+            if (recvMsg.equals(inviteMsg)) {
+                outmsg = algBo.MSG_SipALGNotFound;
+            } else {
                     // check the caller-ID
-                    //retreive received caller Id
-                    outmsg = algBo.algcheck(recvMsg, callIdSent);
-                }
-                setresultmessage(outmsg);
-                recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
-                recvjtextinvite.setCaretPosition(0);
-                resCode = 1;
-                //datagramsocket.close();
-            } catch (SocketTimeoutException sockettimeoutexception) {
-                recvjtextinvite.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
-                outmsg = "SIP ALG/Firewall Problem Found";
-                setresultmessage(outmsg);
-                datagramsocket.close();
-                System.out.println("sendInvite excpetion:" + sockettimeoutexception.getLocalizedMessage());
-            } catch (Exception exception) {
-                outmsg = "Unknown Socket Error";
-                setresultmessage(outmsg);
-                datagramsocket.close();
-
+                //retreive received caller Id
+                outmsg = algBo.algcheck(recvMsg, callIdSent);
             }
+            setresultmessage(outmsg);
+            recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
+            recvjtextinvite.setCaretPosition(0);
+            resCode = 1;
+            //datagramsocket.close();
+        } catch (SocketTimeoutException sockettimeoutexception) {
+            recvjtextinvite.setText(new StringBuilder().append(newline).append("[No Packet Received - SIP ALG / Firewall issue]").toString());
+            outmsg = "SIP ALG/Firewall Problem Found";
+            setresultmessage(outmsg);
+            datagramsocket.close();
+            System.out.println("sendInvite excpetion:" + sockettimeoutexception.getLocalizedMessage());
+        } catch (Exception exception) {
+            outmsg = "Unknown Socket Error";
+            setresultmessage(outmsg);
+            datagramsocket.close();
+
+        }
         return null;
     }
 
