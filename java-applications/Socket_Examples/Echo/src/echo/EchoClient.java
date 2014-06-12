@@ -18,12 +18,12 @@ public class EchoClient {
 
         //String serverHostname = new String ("127.0.0.1");
         String serverHostname = new String("127.0.0.1");
-
+        Integer port = 5060;//old port: 10007
         if (args.length > 0) {
             serverHostname = args[0];
         }
         System.out.println("Attemping to connect to host "
-                + serverHostname + " on port 10007.");
+                + serverHostname + " on port "+port+".");
 
         Socket echoSocket = null;
         PrintWriter out = null;
@@ -31,7 +31,7 @@ public class EchoClient {
 
         try {
             // echoSocket = new Socket("taranis", 7);
-            echoSocket = new Socket(serverHostname, 10007);
+            echoSocket = new Socket(serverHostname, port );
             out = new PrintWriter(echoSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     echoSocket.getInputStream()));
@@ -46,26 +46,57 @@ public class EchoClient {
 
         BufferedReader stdIn = new BufferedReader(
                 new InputStreamReader(System.in));
-        String userInput;
-        out.println("sfasfasfasfasfasffasffasfasf"
-                + "asf"
-                + "asfasf"
-                + "as"
-                + "fas"
-                + "f"
-                + "as"
-                + "fasfasfasfsafffffffffffffffffffffffff");
-        System.out.println("echo: " + in.readLine());
-//        System.out.print ("input: ");
-//	while ((userInput = stdIn.readLine()) != null) {
-//	    out.println(userInput);
-//	    System.out.println("echo: " + in.readLine());
-//            System.out.print ("input: ");
-//	}
 
+        EchoClient client = new EchoClient();
+
+        String msgSent = client.buildRegisterSIPMessage("sereverIp", "10101010", 5060, 5060, "safasfasfga@10101010", "agent");
+        StringReader msgreader = new StringReader(msgSent);
+        BufferedReader msgbr = new BufferedReader(msgreader);
+
+        String msgRecv;
+        String submsgToSend;
+        StringBuilder strbuilder = new StringBuilder();
+        //out.println(msg);
+        //System.out.println("echo: " + in.readLine());
+//        System.out.print ("input: ");
+        while ((submsgToSend = msgbr.readLine()) != null) {
+            //write to the server
+            out.println(submsgToSend);
+            //recieve from the server
+            msgRecv = in.readLine();
+            System.out.println("echo: " + msgRecv);
+
+            //append the recv msg to string builder, and add new line: \r\n after every line
+            strbuilder.append(msgRecv).append("\r\n");
+        }
+
+        msgRecv = strbuilder.toString();
+        System.out.println("all message received=[" + msgRecv + "]");
+        //msgRecv = msgRecv.trim();
+        System.out.println("sent=[" + msgSent + "] received=[" + msgRecv + "]");
+        if (msgSent.equalsIgnoreCase(msgRecv)) {
+            System.out.println("equal");
+        } else {
+            System.out.println("NOT equal");
+        }
         out.close();
         in.close();
         stdIn.close();
         echoSocket.close();
+    }
+
+    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+        String registerMsg = "";
+        registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
+                .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(ipLocalparam).append(":")
+                .append(portsrc).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:58569874@")
+                .append(ipServer).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:58569874@")
+                .append(ipServer).append(":").append(portdest).
+                append(">\r\nCall-ID: ").append(callIdSent).
+                append("\r\nCSeq: 6999 REGISTER\r\nMax-Forwards: 70\r\nContact: \"SIP_ALG_DETECTOR\" <sip:58569874@").
+                append(ipLocalparam).append(":").
+                append(portsrc).append(">;expires=60\r\nUser-Agent: ").append(agentName).append("\r\nContent-Length: 0\r\nAllow: ACK, BYE, CANCEL, INFO, INVITE, NOTIFY, OPTIONS, REFER, UPDATE\r\nSupported: replaces\r\n\r\n").toString();//removed from the end:\r\n\r\n
+
+        return registerMsg;
     }
 }

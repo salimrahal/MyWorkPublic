@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -201,18 +202,38 @@ public class ClientController {
                     + "the connection to: " + serverHostname);
             System.exit(1);
         }
-        BufferedReader stdIn = new BufferedReader(
-                new InputStreamReader(System.in));
 
-        String registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
+        String msgToSend = algBo.buildRegisterSIPMessage(ipServer, iplocal, portsrc, portdest, callIdSent, agentName);
+        StringReader msgreader = new StringReader(msgToSend);
+        BufferedReader msgbr = new BufferedReader(msgreader);
 
-        out.println(registerMsg);
-        //in only reads line I should read all the message
-        System.out.println("echo: " + in.readLine());
+        String msgRecv;
+        String submsgToSend;
+        StringBuilder strbuilder = new StringBuilder();
 
+        while ((submsgToSend = msgbr.readLine()) != null) {
+            //write to the server
+            out.println(submsgToSend);
+            //recieve from the server
+            msgRecv = in.readLine();
+            System.out.println("echo: " + msgRecv);
+
+            //append the recv msg to string builder, and add new line: \r\n after every line
+            strbuilder.append(msgRecv).append("\r\n");
+        }
+
+        msgRecv = strbuilder.toString();
+        System.out.println("all message received=[" + msgRecv + "]");
+        //msgRecv = msgRecv.trim();
+        System.out.println("sent=[" + msgToSend + "] received=[" + msgRecv + "]");
+        if (msgToSend.equalsIgnoreCase(msgRecv)) {
+            System.out.println("equal");
+        } else {
+            System.out.println("NOT equal");
+        }
+        
         out.close();
         in.close();
-        stdIn.close();
         echoSocket.close();
         return resCode;
     }

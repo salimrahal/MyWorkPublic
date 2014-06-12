@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author salim
  */
-public class ServerDatagram {
+public class EchoServerDatagram implements Runnable{
 
     DatagramSocket socket = null;
     BufferedReader in = null;
@@ -31,10 +31,19 @@ public class ServerDatagram {
     String inviteKey = "INVITE";
     Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
 
-    public ServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
+    public EchoServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
         address = InetAddress.getByName(localIp);
-        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp+" / poolsize="+poolsize);
         socket = new DatagramSocket(port, address);
+        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp+" / poolsize="+poolsize);   
+    }
+    
+       @Override
+    public void run() {
+        try {
+            processrequests();
+        } catch (SocketException | UnknownHostException ex) {
+            System.out.println("Sip DatagramServer: Error: couldn;t run the serverUdp:"+ex.getLocalizedMessage()); 
+        }
     }
 
     public void processrequests() throws UnknownHostException, SocketException {
@@ -51,7 +60,7 @@ public class ServerDatagram {
             while (true) {
                 //create udp packet
                 DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-                // receive request    
+                // receive request
                 socket.receive(incomingPacket);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
@@ -84,4 +93,6 @@ public class ServerDatagram {
             }
         }
     }
+
+ 
 }

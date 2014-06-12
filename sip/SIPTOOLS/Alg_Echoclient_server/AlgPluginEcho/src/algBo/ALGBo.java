@@ -39,7 +39,7 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-    public Integer portsrc1 = 5060;//5060 for remote test
+    public Integer portsrc1 = 5062;//5060 for remote test
     public Integer portsrc2 = 5060;
     public Integer portsrc3 = 5062;
     public Integer portsrc4 = 5062;
@@ -491,7 +491,7 @@ public class ALGBo {
         this.sipIdLocal = extlocal;
     }
 
-    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
         String registerMsg = "";
         registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
                 .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(ipLocalparam).append(":")

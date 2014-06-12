@@ -5,12 +5,12 @@
  */
 package algechoserver;
 
-import bo.DatagramServerRunnable;
-import bo.ServerDatagram;
+import bo.EchoServerDatagram;
+import bo.EchoServerTcp;
 import java.io.IOException;
-import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import network.Networking;
-import sun.awt.windows.ThemeReader;
 
 /**
  *
@@ -22,30 +22,35 @@ public class AlgEchoServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
-        //String localIp = "127.0.1.1";
-       // try{
-       
+        //String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
+        String localIp = "127.0.1.1";
+        // try{
+
         Integer defaultport = 5060;
         String portStr;
         if (args.length == 0) {
-             
             System.out.println("The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
                     + "");
-            ServerDatagram serverUdp = new ServerDatagram(localIp, defaultport);
-            serverUdp.processrequests();
+            //launching UDP TCP echo server thread
+            launchingServers(localIp, defaultport);
         } else {
             portStr = args[0];
             Integer port = Integer.valueOf(portStr);
-            ServerDatagram serverUdp = new ServerDatagram(localIp, port);
-            serverUdp.processrequests();
+            launchingServers(localIp, port);
 
-        }  
-//        }catch(Exception ex){
-//            System.out.println("Error: "+ex.getLocalizedMessage());
-//        }
-        
+        }
+    }
 
+    public static void launchingServers(String localIp, Integer port) throws SocketException, UnknownHostException {
+        //launching UDP echo server thread
+        EchoServerDatagram serverUdp = new EchoServerDatagram(localIp, port);
+        Thread serverUdpThread = new Thread(serverUdp);
+        serverUdpThread.start();
+
+        //launching TCP echo server
+        EchoServerTcp serverTcp = new EchoServerTcp(port);
+        Thread serverTcpThread = new Thread(serverTcp);
+        serverTcpThread.start();
     }
 
 }
