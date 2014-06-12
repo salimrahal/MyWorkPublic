@@ -22,8 +22,8 @@ public class AlgEchoServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        //String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
-        String localIp = "127.0.1.1";
+        String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
+        //String localIp = "127.0.1.1";
         // try{
 
         Integer defaultport = 5060;
