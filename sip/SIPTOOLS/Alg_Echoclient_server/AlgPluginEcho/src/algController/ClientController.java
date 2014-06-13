@@ -239,7 +239,6 @@ public class ClientController {
                 //recieve from the server
                 msgRecv = in.readLine();
                 System.out.println("echo: " + msgRecv);
-
                 //append the recv msg to string builder, and add new line: \r\n after every line
                 strbuilder.append(msgRecv).append("\r\n");
             }
