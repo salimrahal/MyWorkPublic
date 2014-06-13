@@ -6,12 +6,10 @@
 package algGui;
 
 import algBo.ALGBo;
-import algBo.Networking;
 import algController.ClientController;
 import algVo.Test;
 import java.awt.Color;
 import java.io.IOException;
-import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

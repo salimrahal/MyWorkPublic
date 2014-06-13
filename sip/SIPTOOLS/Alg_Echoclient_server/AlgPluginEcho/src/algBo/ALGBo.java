@@ -88,6 +88,8 @@ public class ALGBo {
     /*CALLID_PREFIX: one callid in invite and register message
      */
     public static final String CALLID_PREFIX = "11256979-ca11b60c";
+    //the time a tcp connection will wait before it throws an exception: firewall: ...
+    public static final Integer TCP_TIMEOUT = 7000;
 
     Test test1;
     Test test2;
