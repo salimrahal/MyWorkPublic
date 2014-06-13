@@ -67,14 +67,14 @@ public class ClientTcpConnection implements Runnable {
                     }
                     firstLine = false;
                 }
-                //check for the call ID whether recognized or not: disregard all unknown invite and register
-                if (inputLine.contains(AlgEchoServer.CLIENT_CALLID_HEADER)) {
-                    if (!inputLine.contains(AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
-                        recognizedClient = false;
-                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
-                        break;
-                    }
-                }
+                //CLIENT_CALLID_HEADER Disregarded :check for the call ID whether recognized or not: disregard all unknown invite and register
+//                if (inputLine.contains(AlgEchoServer.CLIENT_CALLID_HEADER)) {
+//                    if (!inputLine.contains(AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
+//                        recognizedClient = false;
+//                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
+//                        break;
+//                    }
+//                }
                 //if recognized client send back the message
                 if (recognizedClient) {
                     //System.out.println("Sip ServerTcp: send back:" + inputLine);

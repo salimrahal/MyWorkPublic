@@ -66,9 +66,10 @@ public class EchoServerDatagram implements Runnable{
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
                 System.out.println("["+new Date()+"]\n received packet clientID:" + i + "\n" + recvMsg);
                 //check the message type to ensure it's: register or invite, drop the sip spam
-                //subStr = recvMsg.substring(0, 8);//check the first line or method type
-
-                if (recvMsg.contains(algechoserver.AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
+                subStr = recvMsg.substring(0, 8);//check the first line or method type
+                    
+                //only echo the register and invite message
+                if (subStr.contains(registerKey)||subStr.contains(inviteKey)) {
                     // send the response to the client at "address" and "port"
                     InetAddress addressInco = incomingPacket.getAddress();
                     int portInco = incomingPacket.getPort();

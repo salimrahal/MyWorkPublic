@@ -18,16 +18,17 @@ import network.Networking;
  */
 public class AlgEchoServer {
 
-    //this callid key is used by the server to accept only the sip message contains this key
-    public static final String CLIENT_RECOGNIZED_CALLID_PREFIX = "11256979-ca11b60c";//
-    public static final String CLIENT_CALLID_HEADER = "Call-ID";
+    //CLIENT_CALLID_HEADER Diregarded: this callid key is used by the server to accept only the sip message contains this key
+   // public static final String CLIENT_RECOGNIZED_CALLID_PREFIX = "11256979-ca11b60c";//
+   // public static final String CLIENT_CALLID_HEADER = "Call-ID";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        //String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
-        String localIp = "127.0.1.1";
-        // try{
+        //for remote test
+        String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
+        //for local host test
+        //String localIp = "127.0.1.1";
 
         Integer defaultport = 5060;
         String portStr;

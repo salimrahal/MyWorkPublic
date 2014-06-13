@@ -40,13 +40,13 @@ public class ALGBo {
      and I should read them from the config file
      */
     //udp
-    public Integer portsrc1 = 5062;//UDP 5060 for remote test
+    public Integer portsrc1 = 5060;//UDP 5060 for remote test
     //tcp
-    public Integer portsrc2 = 5060;//in tcp the same port of the server
+    public Integer portsrc2 = 5062;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
     //udp
-    public Integer portsrc3 = 5062;//UDP 5060 for remote test
+    public Integer portsrc3 = 5060;//UDP 5060 for remote test
     //tcp
-    public Integer portsrc4 = 5060;
+    public Integer portsrc4 = 5062;
     
     //currently the server is running on the same port
     public Integer portdest1 = 5060;
@@ -62,10 +62,10 @@ public class ALGBo {
     /* TODO: config file extraction BO
      In V2 prtocol/port combination should be dynamic and read from a configuration file
      */
-    public String agentname = "Cisco/SPA303-8.0.1";
+    public String agentname = "CISCO spa504g";//
     public String iplocal;
-    String ipServer = "127.0.1.1";//local test
-    //String ipServer = "209.208.79.151";//remote test
+    //String ipServer = "127.0.1.1";//local test
+    String ipServer = "209.208.79.151";//remote test
     String sipIdLocal = "ALGDetector";
 
     public static final String REGISTER = "REGISTER";
@@ -85,9 +85,7 @@ public class ALGBo {
     //it gets combination Id from port src/dest and Transport
     ConfVO conVO;
     static SAXParserConf saxparserconf;
-    /*CALLID_KEY:
-     - this callid key is used by the server to accept only the sip message contains this key
-     - If changed here it should be changed on the server side too.
+    /*CALLID_PREFIX: one callid in invite and register message
      */
     public static final String CALLID_PREFIX = "11256979-ca11b60c";
 
@@ -502,10 +500,10 @@ public class ALGBo {
         this.sipIdLocal = extlocal;
     }
 
-    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
+    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
         String registerMsg = "";
         registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
-                .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(ipLocalparam).append(":")
+                .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/").append(transport).append(" ").append(ipLocalparam).append(":")
                 .append(portsrc).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:58569874@")
                 .append(ipServer).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:58569874@")
                 .append(ipServer).append(":").append(portdest).
@@ -517,12 +515,12 @@ public class ALGBo {
         return registerMsg;
     }
 
-    public String buildInviteSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+    public String buildInviteSIPMessage(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
         String inviteMsgInner = (new StringBuilder()).append("v=0\r\no=- 54899656 54899656 IN IP4 ").append(ipLocalparam).append("\r\ns=-\r\nc=IN IP4 ").
                 append(ipLocalparam).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
         int contentLength = inviteMsgInner.getBytes().length;
 
-        String inviteMsg = (new StringBuilder()).append("INVITE sip:58569874@").append(ipServer).append(":").append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").
+        String inviteMsg = (new StringBuilder()).append("INVITE sip:58569874@").append(ipServer).append(":").append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/").append(transport).append(" ").
                 append(ipLocalparam).append(":").append(portsrc).append(";branch=z9hG4bK-467cc605\r\nFrom: SIP_ALG_DETECTOR <sip:58569874@").
                 append(ipServer).append(portdest).append(">;tag=8e059c0484ff02ado0\r\nTo: <sip:58569874@").append(ipServer).append(":").append(portdest).
                 append(">\r\nCall-ID: ").append(callIdSent).
