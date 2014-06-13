@@ -655,7 +655,7 @@ public class AlgJPanel extends javax.swing.JPanel {
         Test comb = null;
         JTextArea recvjtextregister = null;
         JTextArea recvjtextinvite = null;
-        
+
         ALGBo algBo = sipClientController.getAlgBo();
         if (combSeq == 1) {
             comb = algBo.getTestfromCombId(1);
@@ -663,17 +663,21 @@ public class AlgJPanel extends javax.swing.JPanel {
             recvjtextinvite = comb1RcvMsgINV;
         } else if (combSeq == 2) {
             comb = algBo.getTestfromCombId(2);
+            recvjtextregister = comb2RcvMsgREG;
+            recvjtextinvite = comb2RcvMsgINV;
         } else if (combSeq == 3) {
+            comb = algBo.getTestfromCombId(3);
             recvjtextregister = comb3RcvMsgREG;
             recvjtextinvite = comb3RcvMsgINV;
-             comb = algBo.getTestfromCombId(3);
         } else if (combSeq == 4) {
-             comb = algBo.getTestfromCombId(4);
+            comb = algBo.getTestfromCombId(4);
+            recvjtextregister = comb4RcvMsgREG;
+            recvjtextinvite = comb4RcvMsgINV;
         }
 
         try {
-         sipClientController.processRequests(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);  
-        
+            sipClientController.processRequests(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+
 //           sipClientController.sendRegister(comb, sentmsgReg, recvjtextregister);
 //           sipClientController.sendInvite(comb, sentmsgInv, recvjtextinvite);
 //
@@ -699,7 +703,8 @@ public class AlgJPanel extends javax.swing.JPanel {
         //update the test parameters 
         String testA;
         //assign default value
-        testA = "Transport: UDP Source Port: 5060 Destination Port: 5060";
+        //testA = "Transport: UDP Source Port: 5060 Destination Port: 5060";
+        testA = "No Parameters have been found!";
         ALGBo algBo = getSipClientController().getAlgBo();
         if (algBo.getPortsrc1() != null && algBo.getTransport1() != null && algBo.getPortdest1() != null) {
             StringBuilder sb = new StringBuilder();
@@ -710,7 +715,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         String testB;
         //assign default value
-        testB = "Transport: TCP Source Port: 5060 Destination Port: 5060";
+        testB = "No Parameters have been found!";
         if (algBo.getPortsrc2() != null && algBo.getTransport2() != null && algBo.getPortdest2() != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("Transport: ").append(algBo.getTransport2()).append(" Source Port: ").append(algBo.getPortsrc2()).append(" Destination Port: ").append(algBo.getPortdest2());
@@ -720,7 +725,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         String testC;
         //assign default value
-        testC = "Transport: UDP Source Port: 5062 Destination Port: 5060";
+        testC = "No Parameters have been found!";
         if (algBo.getPortsrc3() != null && algBo.getTransport3() != null && algBo.getPortdest3() != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("Transport: ").append(algBo.getTransport3()).append(" Source Port: ").append(algBo.getPortsrc3()).append(" Destination Port: ").append(algBo.getPortdest3());
@@ -731,7 +736,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         String testD;
         //assign default value
-        testD = "Transport: TCP Source Port: 5062 Destination Port: 5060";
+        testD = "No Parameters have been found!";
         if (algBo.getPortsrc4() != null && algBo.getTransport4() != null && algBo.getPortdest4() != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("Transport: ").append(algBo.getTransport4()).append(" Source Port: ").append(algBo.getPortsrc4()).append(" Destination Port: ").append(algBo.getPortdest4());

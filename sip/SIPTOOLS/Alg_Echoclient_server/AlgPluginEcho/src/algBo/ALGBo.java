@@ -39,10 +39,15 @@ public class ALGBo {
     /*considering we have 4 port source and four port dest,
      and I should read them from the config file
      */
-    public Integer portsrc1 = 5062;//5060 for remote test
-    public Integer portsrc2 = 5060;
-    public Integer portsrc3 = 5062;
-    public Integer portsrc4 = 5062;
+    //udp
+    public Integer portsrc1 = 5062;//UDP 5060 for remote test
+    //tcp
+    public Integer portsrc2 = 5060;//in tcp the same port of the server
+    //udp
+    public Integer portsrc3 = 5062;//UDP 5060 for remote test
+    //tcp
+    public Integer portsrc4 = 5060;
+    
     //currently the server is running on the same port
     public Integer portdest1 = 5060;
     public Integer portdest2 = 5060;
@@ -59,9 +64,12 @@ public class ALGBo {
      */
     public String agentname = "Cisco/SPA303-8.0.1";
     public String iplocal;
-    //String ipServer = "127.0.1.1";//local test
-    String ipServer = "209.208.79.151";//remote test
+    String ipServer = "127.0.1.1";//local test
+    //String ipServer = "209.208.79.151";//remote test
     String sipIdLocal = "ALGDetector";
+
+    public static final String REGISTER = "REGISTER";
+    public static final String INVITE = "INVITE";
 
     //messages
     public static final String RESET_OK = "OK";
@@ -77,6 +85,11 @@ public class ALGBo {
     //it gets combination Id from port src/dest and Transport
     ConfVO conVO;
     static SAXParserConf saxparserconf;
+    /*CALLID_KEY:
+     - this callid key is used by the server to accept only the sip message contains this key
+     - If changed here it should be changed on the server side too.
+     */
+    public static final String CALLID_PREFIX = "11256979-ca11b60c";
 
     Test test1;
     Test test2;
@@ -87,7 +100,7 @@ public class ALGBo {
         test1 = new Test(1, getPortsrc1(), getPortdest1(), getTransport1());
         test2 = new Test(2, getPortsrc2(), getPortdest2(), getTransport2());
         test3 = new Test(3, getPortsrc3(), getPortdest3(), getTransport3());
-        test3 = new Test(4, getPortsrc4(), getPortdest4(), getTransport4());
+        test4 = new Test(4, getPortsrc4(), getPortdest4(), getTransport4());
     }
 
     public Test getTestfromCombId(int id) {
@@ -105,8 +118,6 @@ public class ALGBo {
             case 4:
                 resT = test4;
                 break;
-            default:
-                resT = test1;
         }
         return resT;
     }

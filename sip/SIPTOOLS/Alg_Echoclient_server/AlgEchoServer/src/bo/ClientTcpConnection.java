@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import algechoserver.AlgEchoServer;
 
 /**
  *
@@ -37,33 +38,51 @@ public class ClientTcpConnection implements Runnable {
     }//end run
 
     private synchronized void sendbackStream() {
+        boolean recognizedClient = true;
         PrintWriter out = null;
         BufferedReader in = null;
         String threadName = Thread.currentThread().getName();
         try {
-           
+
             System.out.println("Sip ServerTcp: threadName ["
-                    + threadName + "] is going to handle TCP connection num " + clientID+". Waiting to inputs..");
-            String subStr = null;
+                    + threadName + "] is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
             in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
             String inputLine;
+            int i = 0;
+            boolean firstLine = false;
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("Sip ServerTcp: " + inputLine);
-                out.println(inputLine);
-                //TODO: if the first line contains OPTIONS then break and dont re-send the message
-                if (inputLine.equals("Bye.")) {
-                    break;
+                if (i == 0) {
+                    firstLine = true;
                 }
+                // if the first line contains OPTIONS then break and dont re-send the message
+                if (firstLine) {
+                    if (inputLine.contains(optionKey)) {
+                        recognizedClient = false;
+                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
+                        break;
+                    }
+                    firstLine = false;
+                }
+                //check for the call ID whether recognized or not: disregard all unknown invite and register
+                if (inputLine.contains(AlgEchoServer.CLIENT_CALLID_HEADER)) {
+                    if (!inputLine.contains(AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
+                        recognizedClient = false;
+                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
+                        break;
+                    }
+                }
+                //if recognized client send back the message
+                if (recognizedClient) {
+                    //System.out.println("Sip ServerTcp: send back:" + inputLine);
+                    out.println(inputLine);
+                }
+                i++;
             }
-          
-//            if (subStr.contains(registerKey) || subStr.contains(inviteKey)) {
-//                //To handle later
-//            } else {
-//                System.out.println("Sip DatagramServer:unknown client, disregard the packet");
-//            }
+
         } catch (IOException ex) {
             Logger.getLogger(ClientTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -80,14 +99,17 @@ public class ClientTcpConnection implements Runnable {
             if (clientSocket != null) {
                 try {
                     clientSocket.close();
-                   // System.out.println("Client connection(clientSocket) is closed");
+                    // System.out.println("Client connection(clientSocket) is closed");
                 } catch (IOException ex) {
                     Logger.getLogger(ClientTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
         }
-          System.out.println("Sip ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". messages are sent back and the connection is closed.");
+        if (recognizedClient) {
+            System.out.println("Sip ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
+        }
+
     }//end of method
 
 }
