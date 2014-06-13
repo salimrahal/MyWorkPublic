@@ -232,7 +232,7 @@ public class ClientController {
             String msgRecv;
             String submsgToSend;
             StringBuilder strbuilder = new StringBuilder();
-
+//sending the message
             while ((submsgToSend = msgbr.readLine()) != null) {
                 //write to the server
                 out.println(submsgToSend);
@@ -246,8 +246,7 @@ public class ClientController {
 
             msgRecv = strbuilder.toString();
             System.out.println("all message received=[" + msgRecv + "]");
-            //msgRecv = msgRecv.trim();
-            //System.out.println("original message sent=[" + msgToSend + "] received=[" + msgRecv + "]");
+            //TODO: fill the sent text field
             if (msgToSend.equalsIgnoreCase(msgRecv)) {
                 outmsg = algBo.MSG_SipALGNotFound;
                 recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
