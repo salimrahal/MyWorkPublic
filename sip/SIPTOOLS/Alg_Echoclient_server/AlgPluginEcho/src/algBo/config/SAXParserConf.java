@@ -34,17 +34,18 @@ public class SAXParserConf {
     /*
      * It pareses from XML to POJO the confVO
      */
-    public void parseConfVO() throws ParserConfigurationException, SAXException, IOException {
+    public void parseConfVO(String URI) throws ParserConfigurationException, SAXException, IOException {
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
         ConfHandler handler = new ConfHandler();
        
-        
-        File f = new File("./config.xml");
-        
+        //TODO read and parse the config
+        //File f = new File("./config.xml");
+        File f = new File(URI);
+          
         System.out.println("config exists?" + f.exists());
-        parser.parse(f, handler);
+        parser.parse(URI, handler);
         
         //parser.parse(ClassLoader.getSystemResourceAsStream("algBo/config/config.xml"), handler);
         
@@ -65,6 +66,6 @@ public class SAXParserConf {
 
     public static void main(String[] args) throws Exception {
         SAXParserConf saxparserconf = new SAXParserConf();
-        saxparserconf.parseConfVO();
+        //saxparserconf.parseConfVO();
     }
 }

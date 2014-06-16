@@ -1,7 +1,0 @@
-package applet;
-
-import java.applet.Applet;
-
-public class Simple extends Applet {
-
-}

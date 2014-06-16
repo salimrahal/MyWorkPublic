@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename source module &apos;web.helloWorld.php&apos; to &apos;helloWorld_html.php&apos;&#x0A;- Original element: &apos;web\helloWorld.php&apos;&#x0A;- Renamed element: &apos;web\helloWorld_html.php&apos;" description="Rename source module &apos;helloWorld.php&apos;" flags="589830" id="org.eclipse.dltk.ui.rename.sourcemodule" input="/&lt;web{helloWorld.php" name="helloWorld_html.php" stamp="1357738009879" version="1.0"/>
-</session>

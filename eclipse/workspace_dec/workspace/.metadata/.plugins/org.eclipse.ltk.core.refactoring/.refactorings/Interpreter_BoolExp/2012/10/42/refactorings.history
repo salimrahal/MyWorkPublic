@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;pack1.BooleanExpImpl&apos; to &apos;AndExp&apos;&#x0D;&#x0A;- Original project: &apos;Interpreter_BoolExp&apos;&#x0D;&#x0A;- Original element: &apos;pack1.BooleanExpImpl&apos;&#x0D;&#x0A;- Renamed element: &apos;pack1.AndExp&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;BooleanExpImpl&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;pack1{BooleanExpImpl.java[BooleanExpImpl" matchStrategy="1" name="AndExp" qualified="false" references="true" similarDeclarations="false" stamp="1350319235573" textual="false" version="1.0"/>
-</session>

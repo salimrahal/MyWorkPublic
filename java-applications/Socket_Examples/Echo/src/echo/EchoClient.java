@@ -49,7 +49,7 @@ public class EchoClient {
 
         EchoClient client = new EchoClient();
 
-        String msgSent = client.buildRegisterSIPMessage("sereverIp", "10101010", 5060, 5060, "safasfasfga@10101010", "agent");
+        String msgSent = client.buildRegisterSIPMessage("sereverIp", "10101010", 5060, 5060, "11256979-ca11b60c", "agent");
         StringReader msgreader = new StringReader(msgSent);
         BufferedReader msgbr = new BufferedReader(msgreader);
 
@@ -87,7 +87,7 @@ public class EchoClient {
 
     public String buildRegisterSIPMessage(String ipServer, String ipLocalparam, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
         String registerMsg = "";
-        registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
+        registerMsg = (new StringBuilder()).append("OPTIONS sip:").append(ipServer).append(":")
                 .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/UDP ").append(ipLocalparam).append(":")
                 .append(portsrc).append(";branch=z9hG4bK-7d0f94c9\r\nFrom: \"SIP_ALG_DETECTOR\" <sip:58569874@")
                 .append(ipServer).append(":").append(portdest).append(">;tag=1b38e99fe68ccce9o0\r\nTo: \"SIP_ALG_DETECTOR\" <sip:58569874@")

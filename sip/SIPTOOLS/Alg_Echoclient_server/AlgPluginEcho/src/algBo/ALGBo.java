@@ -30,6 +30,8 @@ import org.xml.sax.SAXException;
 //TODO: get the Hashmap of combinations
 public class ALGBo {
 
+    //config file name
+    public static final String CONFIG_FILE_NAME = "config.xml";
     //combination id: 1, 2, 3, 4
     static public final Integer Comb1Id = 1;
     static public final Integer Comb2Id = 2;
@@ -42,9 +44,9 @@ public class ALGBo {
     //udp
     public Integer portsrc1 = 5060;//UDP 5060 for remote test
     //tcp
-    public Integer portsrc2 = 5062;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
+    public Integer portsrc2 = 5060;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
     //udp
-    public Integer portsrc3 = 5060;//UDP 5060 for remote test
+    public Integer portsrc3 = 5062;//UDP 5060 for remote test
     //tcp
     public Integer portsrc4 = 5062;
     
@@ -75,6 +77,7 @@ public class ALGBo {
     public static final String RESET_OK = "OK";
     public static final String INPROGRESS = "in progress..";
     //No Packet Received - SIP ALG / Firewall issue
+    public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     public static final String MSG_FIREWALLISSUE = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
@@ -82,8 +85,6 @@ public class ALGBo {
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
 
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
-    //it gets combination Id from port src/dest and Transport
-    ConfVO conVO;
     static SAXParserConf saxparserconf;
     /*CALLID_PREFIX: one callid in invite and register message
      */
@@ -103,6 +104,23 @@ public class ALGBo {
         test4 = new Test(4, getPortsrc4(), getPortdest4(), getTransport4());
     }
 
+    //parse the xml and set the parameters values: server ip, portsrc, port dest, etc
+    public void performConfigParsing(String configUri){
+        System.out.println("performConfigParsing::configUri = "+configUri);//file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/dist/config.xml
+          //extract the config file to confVO
+        saxparserconf = new SAXParserConf();
+        try {
+            saxparserconf.parseConfVO(configUri);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        setparamFromConfig();
+    }
     public Test getTestfromCombId(int id) {
         Test resT = null;
         switch (id) {
@@ -129,6 +147,7 @@ public class ALGBo {
         try {
             url = new URL(codebase, fileToRead);
         } catch (MalformedURLException e) {
+            System.err.println(e.getLocalizedMessage());
         }
 
         try {
@@ -162,25 +181,9 @@ public class ALGBo {
         return resMsg;
     }
 
-    //parse the xml and set the parameters values: server ip, portsrc, port dest, etc
-    public void performConfiParsing() {
-        //extract the config file to confVO
-        saxparserconf = new SAXParserConf();
-        try {
-            saxparserconf.parseConfVO();
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        conVO = ConfVO.getInstance();
-
-        setparamFromConfig();
-    }
 
     public void setparamFromConfig() {
+        ConfVO conVO = ConfVO.getInstance();
         this.agentname = conVO.getAgentname();
         this.ipServer = conVO.getIpServer();
         List<Test> testL = conVO.getTestL();

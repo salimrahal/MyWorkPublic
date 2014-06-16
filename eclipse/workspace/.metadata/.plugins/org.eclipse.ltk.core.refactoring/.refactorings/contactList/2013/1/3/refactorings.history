@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename source module &apos;src.updateForm.php&apos; to &apos;populateRecord.php&apos;&#x0A;- Original element: &apos;src\updateForm.php&apos;&#x0A;- Renamed element: &apos;src\populateRecord.php&apos;" description="Rename source module &apos;updateForm.php&apos;" flags="589830" id="org.eclipse.dltk.ui.rename.sourcemodule" input="/&lt;src{updateForm.php" name="populateRecord.php" stamp="1358155715388" version="1.0"/>
-</session>

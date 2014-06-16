@@ -3,6 +3,7 @@ package algApplet;
 /*
  */ 
 
+import algBo.ALGBo;
 import algController.ClientController;
 import algGui.AlgJPanel;
 import java.net.URL;
@@ -11,8 +12,8 @@ import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JApplet;
-import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class MainJapplet extends JApplet {
         AlgJPanel algJpanel;
@@ -25,9 +26,14 @@ public class MainJapplet extends JApplet {
                 public void run() {                   
                     try {
                         createGUI();
-                       // System.out.println("getCodeBase;"+getCodeBase());
+                        ///getCodeBase: home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/dist/
+                        System.out.println("getCodeBase:"+getCodeBase()+"file to read= "+ algBo.ALGBo.CONFIG_FILE_NAME);
                       //usefull for reading from XML file
-                       // algBo.ALGBo.readFile( "config.xml",getCodeBase());
+                        //TODO parse the XML config to class VO by passing URI
+                        ALGBo algBo = new ALGBo();
+                        ALGBo.readFile( algBo.CONFIG_FILE_NAME,getCodeBase());
+                        String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
+                        algBo.performConfigParsing(configUri);
                     } catch (Exception ex) {
                         Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);
                     }

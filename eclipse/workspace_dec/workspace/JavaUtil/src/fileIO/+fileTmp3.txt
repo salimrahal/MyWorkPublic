@@ -1,2 +1,0 @@
-text from the PrintWriter.Write()
-tmp3 is created by PrintWriter because file.createNewfile was not invoked

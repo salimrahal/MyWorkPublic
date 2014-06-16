@@ -14,6 +14,7 @@
             <copy file="${src.dir}/index.html" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/nexogy.gif" todir="${dist.jar.dir}"/>
             <copy file="${src.dir}/indexbck.html" todir="${dist.jar.dir}"/>
+            <copy file="${src.dir}/config.xml" todir="${dist.jar.dir}"/>
         </target>   
  <!--
 

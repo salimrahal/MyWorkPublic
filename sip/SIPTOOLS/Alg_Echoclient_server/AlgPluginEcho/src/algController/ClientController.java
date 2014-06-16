@@ -23,6 +23,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -81,8 +82,7 @@ public class ClientController {
     public ClientController() throws SocketException {
         algBo = new ALGBo();
         /*parse xml file and retrieve values of port/tranport etc
-         >>>>>>>>>>>>>Triger the below Line when using the XML file<<<<<<<<<<<<<
-         algBo.performConfiParsing()
+         moved to MainApplet Class
          */
         extlocal = algBo.getExtlocal();
         iplocal = algBo.getIplocal();
@@ -104,7 +104,7 @@ public class ClientController {
         transport3 = algBo.getTransport3();
         transport4 = algBo.getTransport4();
         hostnameLocal = algBo.getAgentname();
-        newline = new String("\n");
+        newline = "\n";
     }
 
     public ALGBo getAlgBo() {
@@ -167,7 +167,9 @@ public class ClientController {
                 System.out.println("Process Request: Attemping to connect to host " + serverHostname + " on port " + portDest + "/TCP.");
                 //echoSocket = new Socket(serverHostname, portDest);
                 echoSocket = new Socket();
+
                 echoSocket.connect(new InetSocketAddress(serverHostname, portDest), ALGBo.TCP_TIMEOUT);
+                System.out.println("Process Request: connected.");
                 out = new PrintWriter(echoSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(
                         echoSocket.getInputStream()));
@@ -185,10 +187,6 @@ public class ClientController {
                 setresultmessage(outmsg);
 
             } catch (IOException iOException) {
-                //post the sent message in sent text area for consistency like UDP behavior
-                //String msgToSend = algBo.buildRegisterSIPMessage(ipServer, iplocal,"TCP", portSrc, portDest, callId, algBo.getAgentname());
-//                sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
-//                sentmsgReg.setCaretPosition(0);
                 //handling firewall issue of TCP
                 outmsg = ALGBo.MSG_FIREWALLISSUE;
                 //"processRequests: Couldn't get I/O for "
@@ -228,15 +226,25 @@ public class ClientController {
             String msgRecv;
             String submsgToSend;
             StringBuilder strbuilder = new StringBuilder();
+
+            int val = 0;
+            char[] buffer = new char[256];
+
 //sending the message
             while ((submsgToSend = msgbr.readLine()) != null) {
                 //write to the server
                 out.println(submsgToSend);
-                //recieve from the server
-                msgRecv = in.readLine();
-                System.out.println("echo: " + msgRecv);
-                //append the recv msg to string builder, and add new line: \r\n after every line
-                strbuilder.append(msgRecv).append("\r\n");
+                //recieve from the server,
+                //TODO: in some case it will freeze here nothing is received
+                try {
+                    msgRecv = in.readLine();
+                    System.out.println("echo: " + msgRecv);
+                    strbuilder.append(msgRecv).append("\r\n");
+                } catch (IOException iOException) {
+                    System.err.println("sendStream Error:" + iOException.getLocalizedMessage());
+                    //setJtextRegisterTxt( outmsg, JTextArea sentmsgReg, JTextArea recvjtextregister) {
+                    break;
+                } 
             }
             msgRecv = strbuilder.toString();
             System.out.println("all message received=[" + msgRecv + "]");
@@ -323,7 +331,7 @@ public class ClientController {
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {
             System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
-            outmsg = exception.getLocalizedMessage();
+            outmsg = algBo.MSG_FIREWALLISSUE;
             setresultmessage(outmsg);
         }
         return resCode;
