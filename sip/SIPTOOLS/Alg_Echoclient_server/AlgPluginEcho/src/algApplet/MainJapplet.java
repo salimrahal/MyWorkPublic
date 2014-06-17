@@ -26,13 +26,13 @@ public class MainJapplet extends JApplet {
                 public void run() {                   
                     try {
                         createGUI();
-                        ///getCodeBase: home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/dist/
-                        System.out.println("getCodeBase:"+getCodeBase()+"file to read= "+ algBo.ALGBo.CONFIG_FILE_NAME);
-                      //usefull for reading from XML file
+                       
                         //TODO parse the XML config to class VO by passing URI
                         ALGBo algBo = new ALGBo();
-                        ALGBo.readFile( algBo.CONFIG_FILE_NAME,getCodeBase());
+                        //ALGBo.readFile( algBo.CONFIG_FILE_NAME,getCodeBase());
+                        //the Confi URI: configUri = http://siptools.safirasoft.com/alg/config.xml
                         String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
+                        //retrieve the config values and assign the proper values to ALGBo properties
                         algBo.performConfigParsing(configUri);
                     } catch (Exception ex) {
                         Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);

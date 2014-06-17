@@ -78,13 +78,20 @@ public class ClientController {
     //socket time out
     Integer socktimeout = 7000;
 
-    //String requestURITextField = "sip:" + 201 + "@" + ipServer + ":" + portServer;
+    /*
+    ClientController: it instanciated an ALGBo and retrieved fron Singleton ConfVo the properties and assign it to BO 
+    , then to the controller correspondant properties 
+    */
     public ClientController() throws SocketException {
         algBo = new ALGBo();
-        /*parse xml file and retrieve values of port/tranport etc
-         moved to MainApplet Class
-         */
-        extlocal = algBo.getExtlocal();
+        /*
+        Retrieve confi values from singleton to the algBo properties
+        */
+        algBo.retrieveParamFromConfVo();
+        /*
+        read properties from the BO
+        */
+        extlocal = algBo.getSipIdLocal();
         iplocal = algBo.getIplocal();
         //get server configs
         ipServer = algBo.getIpServer();
