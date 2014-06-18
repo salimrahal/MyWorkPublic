@@ -77,6 +77,7 @@ public class ALGBo {
     public static final String RESET_OK = "OK";
     public static final String INPROGRESS = "in progress..";
     //No Packet Received - SIP ALG / Firewall issue
+    public static final String MSG_SERVERNOTRESPONDING_ISSUE = "The server is not responding";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     public static final String MSG_FIREWALLISSUE = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
@@ -90,7 +91,9 @@ public class ALGBo {
      */
     public static final String CALLID_PREFIX = "11256979-ca11b60c";
     //the time a tcp connection will wait before it throws an exception: firewall: ...
-    public static final Integer TCP_TIMEOUT = 7000;
+    public static final Integer TCP_TIMEOUT = 20000;////millisecond
+    public static final Integer UDP_TIMEOUT = 7000;//millisecond
+    
 
     Test test1;
     Test test2;

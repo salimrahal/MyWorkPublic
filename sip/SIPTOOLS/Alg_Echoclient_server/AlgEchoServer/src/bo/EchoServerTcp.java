@@ -20,13 +20,14 @@ public class EchoServerTcp implements Runnable {
 
     ServerSocket serverSocket = null;
     InetAddress address;
-    Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();
+    //Remote server 1 CPU::: Sip ServerTcp: listening on port 5060 / poolsize=20
+    //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
 
     //insert the constructor
     public EchoServerTcp(Integer port) {
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Sip ServerTcp: listening on port " + port + " / poolsize=" + poolsize);
+            System.out.println("Sip ServerTcp: listening on port " + port + " /using cachedThreadPoo");
         } catch (IOException e) {
             System.err.println("ServerTcp: Could not listen on port:" + port);
             System.exit(1);
@@ -34,11 +35,11 @@ public class EchoServerTcp implements Runnable {
     }
 
     public void processrequests() throws IOException {
-        int i = 0;
+        int i = 0;// when it attemps 90 the client cannot sende / receive data to the server: DEAD Lock
         boolean processrequets = true;
-        ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
-        System.out.println("Sip ServerTcp starts..");
-        System.out.println("Sip ServerTcp: waiting for connections");
+        //ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
+        ExecutorService poolservice = Executors.newCachedThreadPool();
+        System.out.println("Sip ServerTcp starts..\n waiting for connections");
         while (processrequets) {
             try {
                 // a "blocking" call which waits until a connection is requested

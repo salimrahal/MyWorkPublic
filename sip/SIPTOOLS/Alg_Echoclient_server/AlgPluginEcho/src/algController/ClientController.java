@@ -5,6 +5,7 @@
 package algController;
 
 import algBo.ALGBo;
+import algConcurrent.SendRcvCallable;
 import algGui.AlgJPanel;
 import algVo.Test;
 import java.awt.Color;
@@ -23,6 +24,11 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,22 +81,23 @@ public class ClientController {
     //local SIP URI taken from the config
     String localSipURI = "sip:" + 201 + "@" + ipServer + ":" + transport1;
     String newline;
-    //socket time out
-    Integer socktimeout = 7000;
+
+    //use to execute tcp send/rcv message callable method
+    ExecutorService executor;
 
     /*
-    ClientController: it instanciated an ALGBo and retrieved fron Singleton ConfVo the properties and assign it to BO 
-    , then to the controller correspondant properties 
-    */
+     ClientController: it instanciated an ALGBo and retrieved fron Singleton ConfVo the properties and assign it to BO 
+     , then to the controller correspondant properties 
+     */
     public ClientController() throws SocketException {
         algBo = new ALGBo();
         /*
-        Retrieve confi values from singleton to the algBo properties
-        */
+         Retrieve confi values from singleton to the algBo properties
+         */
         algBo.retrieveParamFromConfVo();
         /*
-        read properties from the BO
-        */
+         read properties from the BO
+         */
         extlocal = algBo.getSipIdLocal();
         iplocal = algBo.getIplocal();
         //get server configs
@@ -112,6 +119,8 @@ public class ClientController {
         transport4 = algBo.getTransport4();
         hostnameLocal = algBo.getAgentname();
         newline = "\n";
+        executor = Executors.newCachedThreadPool();
+
     }
 
     public ALGBo getAlgBo() {
@@ -193,6 +202,14 @@ public class ClientController {
                 System.err.println(outmsg);
                 setresultmessage(outmsg);
 
+            } catch (SocketTimeoutException socketTimeout) {
+                //handling firewall issue of TCP
+                outmsg = ALGBo.MSG_FIREWALLISSUE;
+                //"processRequests: Couldn't get I/O for "
+                //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
+                System.err.println(outmsg);
+                setresultmessage(outmsg);
+                setJtextRegisterTxt(outmsg, sentmsgReg, recvjtextregister);
             } catch (IOException iOException) {
                 //handling firewall issue of TCP
                 outmsg = ALGBo.MSG_FIREWALLISSUE;
@@ -226,41 +243,20 @@ public class ClientController {
             } else {
                 msgToSend = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP", portsrc, portdest, callId, agentName);
             }
-
-            StringReader msgreader = new StringReader(msgToSend);
-            BufferedReader msgbr = new BufferedReader(msgreader);
-
-            String msgRecv;
-            String submsgToSend;
-            StringBuilder strbuilder = new StringBuilder();
-
-            int val = 0;
-            char[] buffer = new char[256];
-
-//sending the message
-            while ((submsgToSend = msgbr.readLine()) != null) {
-                //write to the server
-                out.println(submsgToSend);
-                //recieve from the server,
-                //TODO: in some case it will freeze here nothing is received
-                try {
-                    msgRecv = in.readLine();
-                    System.out.println("echo: " + msgRecv);
-                    strbuilder.append(msgRecv).append("\r\n");
-                } catch (IOException iOException) {
-                    System.err.println("sendStream Error:" + iOException.getLocalizedMessage());
-                    //setJtextRegisterTxt( outmsg, JTextArea sentmsgReg, JTextArea recvjtextregister) {
-                    break;
-                } 
-            }
-            msgRecv = strbuilder.toString();
+            String msgRecv = null;
+            //execute the send/receive as Callable task in order to handle the excpetion in case of a timeout
+            
+             SendRcvCallable sendRcvTask = new SendRcvCallable(msgToSend, in, out);
+             Future<String> future = executor.submit(sendRcvTask);
+            
+             try {
+            msgRecv = future.get(ALGBo.TCP_TIMEOUT, TimeUnit.MILLISECONDS);
+            //msgRecv = handleSendReceiveTcp(msgToSend, in, out);
             System.out.println("all message received=[" + msgRecv + "]");
             sentmsgJtext.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
             sentmsgJtext.setCaretPosition(0);
             recvJtext.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
             recvJtext.setCaretPosition(0);
-
-            //TODO: fill the sent text field
             if (msgToSend.equalsIgnoreCase(msgRecv)) {
                 outmsg = ALGBo.MSG_SipALGNotFound;
 
@@ -272,10 +268,43 @@ public class ClientController {
             setresultmessage(outmsg);
             //echoSocket.close();
             resCode = 1;
+              } catch (InterruptedException ex) {
+             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (ExecutionException ex) {
+             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (TimeoutException ex) {
+             //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
+             outmsg = ALGBo.MSG_FIREWALLISSUE;
+             setresultmessage(outmsg);
+             setJtextRegisterTxt(msgToSend, sentmsgJtext);
+             //set the out putmessage or issue message to the received text area
+             setJtextRegisterTxt(outmsg, recvJtext);
+             //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+             }
         } catch (IOException ex) {
             System.err.println("sendStream Error:" + ex.getLocalizedMessage());
         }
         return resCode;
+    }
+
+    public String handleSendReceiveTcp(String msgToSend, BufferedReader in, PrintWriter out) throws IOException {
+        StringReader msgreader = new StringReader(msgToSend);
+        BufferedReader msgbr = new BufferedReader(msgreader);
+
+        String msgRecv;
+        String submsgToSend;
+        StringBuilder strbuilder = new StringBuilder();
+
+        while ((submsgToSend = msgbr.readLine()) != null) {
+            //write to the server
+            out.println(submsgToSend);
+            //recieve from the server,
+            //TODO: in some case it will freeze here nothing is received
+            msgRecv = in.readLine();
+            System.out.println("echo: " + msgRecv);
+            strbuilder.append(msgRecv).append("\r\n");
+        }
+        return strbuilder.toString();
     }
 
     public Integer sendRegisterDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, String callId) throws IOException {
@@ -310,7 +339,7 @@ public class ClientController {
             sentmsgReg.setCaretPosition(0);
 
             byte abyteBuff[] = new byte[1024];
-            datagramsocket.setSoTimeout(socktimeout);
+            datagramsocket.setSoTimeout(ALGBo.UDP_TIMEOUT);
             //Constructs a DatagramPacket for receiving packets of length length.
             DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
             System.out.println("sendRegisterStateful waiting REGISTER for response..");
@@ -370,7 +399,7 @@ public class ClientController {
             sentmsgInv.setCaretPosition(0);
 
             byte abyteBuff[] = new byte[1024];
-            datagramsocket.setSoTimeout(socktimeout);
+            datagramsocket.setSoTimeout(ALGBo.UDP_TIMEOUT);
             //Constructs a DatagramPacket for receiving packets of length length.
             DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
             System.out.println("sendInvite waiting for INVITE response..");
@@ -404,10 +433,15 @@ public class ClientController {
     }
 
     public void setJtextRegisterTxt(String outmsg, JTextArea sentmsgReg, JTextArea recvjtextregister) {
-        sentmsgReg.setText(new StringBuilder().append(outmsg).toString());
+        sentmsgReg.setText(outmsg);
         sentmsgReg.setCaretPosition(0);
-        recvjtextregister.setText(new StringBuilder().append(outmsg).toString());
+        recvjtextregister.setText(outmsg);
         recvjtextregister.setCaretPosition(0);
+    }
+
+    public void setJtextRegisterTxt(String outmsg, JTextArea jtext) {
+        jtext.setText(outmsg);
+        jtext.setCaretPosition(0);
     }
     /*
     

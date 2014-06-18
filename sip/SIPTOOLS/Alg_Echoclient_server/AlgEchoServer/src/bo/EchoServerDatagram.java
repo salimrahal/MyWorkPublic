@@ -29,12 +29,14 @@ public class EchoServerDatagram implements Runnable{
     InetAddress address;
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";
+    //// poolsize=30; unsused
     Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
+
 
     public EchoServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
         address = InetAddress.getByName(localIp);
         socket = new DatagramSocket(port, address);
-        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp+" / poolsize="+poolsize);   
+        System.out.println("Sip DatagramServer: listening on port " + port + "/ Ip " + localIp+" / use a cached pool");   
     }
     
        @Override
@@ -42,14 +44,14 @@ public class EchoServerDatagram implements Runnable{
         try {
             processrequests();
         } catch (SocketException | UnknownHostException ex) {
-            System.out.println("Sip DatagramServer: Error: couldn;t run the serverUdp:"+ex.getLocalizedMessage()); 
+            System.out.println("Sip DatagramServer: Error: couldn't run the serverUdp:"+ex.getLocalizedMessage()); 
         }
     }
 
     public void processrequests() throws UnknownHostException, SocketException {
         int i = 0;
         String subStr;
-        ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
+        ExecutorService poolservice = Executors.newCachedThreadPool();
         System.out.println("Sip DatagramServer(UDP Server) starts..");
         //buffer to receive incoming data
         byte[] buf = new byte[1024];//65536

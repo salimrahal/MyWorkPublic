@@ -52,17 +52,13 @@ public class ClientTcpConnection implements Runnable {
                     new InputStreamReader(clientSocket.getInputStream()));
             String inputLine;
             int i = 0;
-            boolean firstLine = false;
+            boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
-                System.out.println("Sip ServerTcp: " + inputLine);
-                if (i == 0) {
-                    firstLine = true;
-                }
                 // if the first line contains OPTIONS then break and dont re-send the message
                 if (firstLine) {
                     if (inputLine.contains(optionKey)) {
                         recognizedClient = false;
-                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
+                        System.out.println("Sip ServerTcp: Unrecognized Client, breaking:" + inputLine);
                         break;
                     }
                     firstLine = false;
@@ -76,12 +72,11 @@ public class ClientTcpConnection implements Runnable {
 //                    }
 //                }
                 //if recognized client send back the message
-                if (recognizedClient) {
                     //System.out.println("Sip ServerTcp: send back:" + inputLine);
                     out.println(inputLine);
-                }
                 i++;
-            }
+            }//end of while     
+            System.out.println("Sip ServerTcp: reading/writing message is finished . The loop is ended on line number:"+i);
 
         } catch (IOException ex) {
             Logger.getLogger(ClientTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,9 +101,11 @@ public class ClientTcpConnection implements Runnable {
             }
 
         }
-        if (recognizedClient) {
-            System.out.println("Sip ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
-        }
+        if(recognizedClient){
+                System.out.println("Sip ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
+            }
+        
+            
 
     }//end of method
 
