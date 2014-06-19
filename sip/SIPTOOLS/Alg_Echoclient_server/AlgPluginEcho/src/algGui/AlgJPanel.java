@@ -476,7 +476,10 @@ public class AlgJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
-        //method-1: sending Datagrame directly to the server
+       
+//call reset and clean text fields:
+        reset.doClick();
+//method-1: sending Datagrame directly to the server
 //        ALgDetect alg = new ALgDetect();
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
