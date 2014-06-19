@@ -6,6 +6,7 @@
 
 package progressbar;
 
+import java.beans.PropertyChangeListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ChangeEvent;
@@ -36,7 +37,7 @@ public class formProgress extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         startjButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        resultJlable = new javax.swing.JLabel();
+        resultjlabel = new javax.swing.JLabel();
         value_int = new javax.swing.JTextField();
         resetJbutton = new javax.swing.JButton();
 
@@ -53,7 +54,7 @@ public class formProgress extends javax.swing.JFrame {
 
         jLabel1.setText("result:");
 
-        resultJlable.setText("----");
+        resultjlabel.setText("----");
 
         value_int.setText("enter int value");
 
@@ -81,7 +82,7 @@ public class formProgress extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resultJlable))
+                        .addComponent(resultjlabel))
                     .addComponent(value_int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -98,7 +99,7 @@ public class formProgress extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(resultJlable))
+                    .addComponent(resultjlabel))
                 .addContainerGap(188, Short.MAX_VALUE))
         );
 
@@ -108,15 +109,19 @@ public class formProgress extends javax.swing.JFrame {
     private void startjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startjButtonActionPerformed
     //run the progress bar
         resetJbutton.doClick();
-      //int value = Integer.parseInt(value_int.getText());
-        jProgressBar1.setValue(10);
-        try {
-            int res = computeNum();
-      
-        }catch(Exception ex){
-            
-        }
-          jProgressBar1.setValue(100);
+        int num = Integer.valueOf(value_int.getText());
+        PrimeNumbersTask task = new PrimeNumbersTask(resultjlabel,num);
+ task.addPropertyChangeListener(
+     new PropertyChangeListener() {
+         public  void propertyChange(PropertyChangeEvent evt) {
+             if ("progress".equals(evt.getPropertyName())) {
+                 progressBar.setValue((Integer)evt.getNewValue());
+             }
+         }
+     });
+
+ task.execute();
+ System.out.println(task.get()); //prints all prime numbers we have got
     }//GEN-LAST:event_startjButtonActionPerformed
 
     private void resetJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetJbuttonActionPerformed
@@ -172,7 +177,7 @@ public class formProgress extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JButton resetJbutton;
-    public static javax.swing.JLabel resultJlable;
+    public static javax.swing.JLabel resultjlabel;
     private javax.swing.JButton startjButton;
     private javax.swing.JTextField value_int;
     // End of variables declaration//GEN-END:variables
