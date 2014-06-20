@@ -5,6 +5,7 @@
  */
 package progressbar;
 
+import java.awt.Cursor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -119,9 +120,10 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
         int num = Integer.valueOf(value_int.getText());
         jProgressBar1.setValue(num);
        */
-        int numbersToFind = 9;
+        int numbersToFind = 5;
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         PrimeNumbersTask task = new PrimeNumbersTask(resTextField, numbersToFind, jProgressBar1);
-        //task.addPropertyChangeListener(this);
+        task.addPropertyChangeListener(this);
         task.execute();
         try {
             System.out.println("getting results:" + task.get());
@@ -195,6 +197,7 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
 //    @Override
 //
 //    public void propertyChange(PropertyChangeEvent evt) {
@@ -227,7 +230,7 @@ class PrimeNumbersTask extends
         this.numbersToFind = numbersToFind; 
         this.myLimit = numbersToFind; 
                 /* change listener for progress bar*/
-        jProgressBar1.addChangeListener(new BoundedChangeListener());
+        //jProgressBar1.addChangeListener(new BoundedChangeListener());
      }
 
 
@@ -241,13 +244,16 @@ class PrimeNumbersTask extends
                  progress = number;
                  progressbar.setValue(number);
                  System.out.println("PrimeNumbersTask calling doInBackground(): progress="+progress);
-                 publish(number);
+                 //publish(number);
                  setProgress(100 * numbers.size() / numbersToFind);
              }
          return numbers;
      }
      
-     
+    @Override
+     public void done() {
+              System.out.println("PrimeNumbersTask done.");
+     }
 
      @Override
      protected void process(List<Integer> chunks) {
@@ -287,6 +293,7 @@ class PrimeNumbersTask extends
  }
 
 //the below model doesn't update the UI in parallele with a background model
+//Unsused
 class BoundedChangeListener implements ChangeListener {
   public void stateChanged(ChangeEvent changeEvent) {
     Object source = changeEvent.getSource();
