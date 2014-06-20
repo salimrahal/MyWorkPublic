@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package progressbar;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -16,7 +22,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author salim
  */
-public class formProgress extends javax.swing.JFrame {
+public class formProgress extends javax.swing.JFrame implements PropertyChangeListener {
 
     /**
      * Creates new form formProgress
@@ -37,9 +43,9 @@ public class formProgress extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         startjButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        resultjlabel = new javax.swing.JLabel();
         value_int = new javax.swing.JTextField();
         resetJbutton = new javax.swing.JButton();
+        resTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,8 +60,6 @@ public class formProgress extends javax.swing.JFrame {
 
         jLabel1.setText("result:");
 
-        resultjlabel.setText("----");
-
         value_int.setText("enter int value");
 
         resetJbutton.setText("reset");
@@ -64,6 +68,8 @@ public class formProgress extends javax.swing.JFrame {
                 resetJbuttonActionPerformed(evt);
             }
         });
+
+        resTextField.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,10 +87,10 @@ public class formProgress extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resultjlabel))
+                        .addGap(2, 2, 2)
+                        .addComponent(resTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(value_int, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 267, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,45 +105,47 @@ public class formProgress extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(resultjlabel))
-                .addContainerGap(188, Short.MAX_VALUE))
+                    .addComponent(resTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void startjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startjButtonActionPerformed
-    //run the progress bar
+        //run the progress bar
+    /*
         resetJbutton.doClick();
         int num = Integer.valueOf(value_int.getText());
-        PrimeNumbersTask task = new PrimeNumbersTask(resultjlabel,num);
- task.addPropertyChangeListener(
-     new PropertyChangeListener() {
-         public  void propertyChange(PropertyChangeEvent evt) {
-             if ("progress".equals(evt.getPropertyName())) {
-                 progressBar.setValue((Integer)evt.getNewValue());
-             }
-         }
-     });
+        jProgressBar1.setValue(num);
+       */
+        int numbersToFind = 9;
+        PrimeNumbersTask task = new PrimeNumbersTask(resTextField, numbersToFind, jProgressBar1);
+        //task.addPropertyChangeListener(this);
+        task.execute();
+        try {
+            System.out.println("getting results:" + task.get());
+        } catch (InterruptedException interruptedException) {
+        } catch (ExecutionException executionException) {
+        }
 
- task.execute();
- System.out.println(task.get()); //prints all prime numbers we have got
+        /*
+        for (int i = 0; i < 100; i++) {
+            jProgressBar1.setValue(i++);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(formProgress.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
+
+
     }//GEN-LAST:event_startjButtonActionPerformed
 
     private void resetJbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetJbuttonActionPerformed
-        int val = 0;  
+        int val = 0;
         jProgressBar1.setValue(val);
     }//GEN-LAST:event_resetJbuttonActionPerformed
-
-    public int computeNum() throws InterruptedException{
-        int res = 0;
-        for (int i=0;i<=10; i++){
-            System.out.println("res="+res);
-            res++;
-            Thread.currentThread().sleep(1000);
-        }
-        return res;
-    }
     /**
      * @param args the command line arguments
      */
@@ -175,10 +183,121 @@ public class formProgress extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JProgressBar jProgressBar1;
+    public javax.swing.JProgressBar jProgressBar1;
+    public javax.swing.JTextField resTextField;
     private javax.swing.JButton resetJbutton;
-    public static javax.swing.JLabel resultjlabel;
     private javax.swing.JButton startjButton;
     private javax.swing.JTextField value_int;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+//    @Override
+//
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        System.out.println("propertyChange invoked.." + evt.getPropertyName());
+//        if ("progress" == evt.getPropertyName()) {
+//            int progress = (Integer) evt.getNewValue();
+//            System.out.println("propertyChange: progress=" + progress);
+//            jProgressBar1.setValue(progress);
+//
+//        }
+//    }
+    
+    /*****************SwingWorker***********************/
+class PrimeNumbersTask extends
+         SwingWorker<List<Integer>, Integer>  {
+    
+    JTextField textfield;
+     JProgressBar progressbar;
+    private int numbersToFind; 
+    private List<Integer> numbers = new ArrayList<Integer>(); 
+    private int number = 0; 
+    private final int myLimit; 
+    private int myLimitCounter; 
+    boolean enough = false; 
+    
+     PrimeNumbersTask(JTextField textfield, int numbersToFind,JProgressBar progressbar) {
+         System.out.println("PrimeNumbersTask calling constructor");
+         this.textfield = textfield; 
+         this.progressbar = progressbar;
+        this.numbersToFind = numbersToFind; 
+        this.myLimit = numbersToFind; 
+                /* change listener for progress bar*/
+        jProgressBar1.addChangeListener(new BoundedChangeListener());
+     }
+
+
+     @Override
+     public List<Integer> doInBackground() {
+          int progress = 0;
+             System.out.println("PrimeNumbersTask calling doInBackground()");
+         while (! enough && ! isCancelled()) {
+                 number = nextPrimeNumber();
+                 //send the data chunk tp the process(List<>), in order to push them immediately
+                 progress = number;
+                 progressbar.setValue(number);
+                 System.out.println("PrimeNumbersTask calling doInBackground(): progress="+progress);
+                 publish(number);
+                 setProgress(100 * numbers.size() / numbersToFind);
+             }
+         return numbers;
+     }
+     
+     
+
+     @Override
+     protected void process(List<Integer> chunks) {
+            System.out.println("PrimeNumbersTask calling process()");
+         for (int number : chunks) {
+             textfield.setText(String.valueOf(number));//  textArea.append(number + "\n");
+         }
+     }
+     
+      //in my case next natural number 
+    private int nextPrimeNumber() { 
+         System.out.println("PrimeNumbersTask calling nextPrimeNumber()");
+        //end condition 
+        if (++myLimitCounter >= myLimit) { 
+            enough = true; 
+        } 
+        try { 
+            Thread.sleep(1000); 
+        } catch (InterruptedException ex) { 
+            // 
+        } 
+        return (++number); 
+    }
+    
+      /**
+     * Invoked when task's progress property changes.
+     */
+//    public void propertyChange(PropertyChangeEvent evt) {
+//        System.out.println("propertyChange invoked..");
+//        if ("progress" == evt.getPropertyName()) {
+//            int progress = (Integer) evt.getNewValue();
+//               System.out.println("propertyChange: progress="+progress);
+//               progressbar.setValue(progress);
+//           
+//        } 
+//    }
+ }
+
+//the below model doesn't update the UI in parallele with a background model
+class BoundedChangeListener implements ChangeListener {
+  public void stateChanged(ChangeEvent changeEvent) {
+    Object source = changeEvent.getSource();
+    if (source instanceof JProgressBar) {
+      JProgressBar theJProgressBar = (JProgressBar) source;
+      System.out.println("ProgressBar changed: " + theJProgressBar.getValue());
+      theJProgressBar.setValue(theJProgressBar.getValue());//sr
+    } else {
+      System.out.println("Something changed: " + source);
+    }
+  }
+}
+
 }

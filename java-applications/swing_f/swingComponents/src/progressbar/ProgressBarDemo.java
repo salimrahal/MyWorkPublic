@@ -127,8 +127,11 @@ public class ProgressBarDemo extends JPanel
      * Invoked when task's progress property changes.
      */
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("propertyChange invoked..");
         if ("progress" == evt.getPropertyName()) {
             int progress = (Integer) evt.getNewValue();
+               System.out.println("propertyChange: progress="+progress);
+            //this is where we update the UI progress Bar
             progressBar.setValue(progress);
             taskOutput.append(String.format(
                     "Completed %d%% of task.\n", task.getProgress()));
