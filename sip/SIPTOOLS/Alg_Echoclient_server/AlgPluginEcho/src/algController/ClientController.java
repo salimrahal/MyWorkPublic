@@ -149,7 +149,7 @@ public class ClientController {
         counter++;
         //result message no effect on the UI 
         setresultmessage(ALGBo.INPROGRESS);
-        String outmsg;
+        String outmsg = null;
         Integer portSrc = test.getPortscr();
         Integer portDest = test.getPortDest();
         //this callID is unique for both register and invite
@@ -157,11 +157,14 @@ public class ClientController {
         if (test.getTransport().equalsIgnoreCase("udp")) {
             try {
                 datagramsocket = new DatagramSocket(portSrc);
-                Integer regiseRes = sendRegisterDatagram(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
+                ResultObj resObjreg  = sendRegisterDatagram(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
+                 outmsg = resObjreg.getResmessage();
                 //after send/receive the register successfully then send the invite
-                if (regiseRes == 1) {
-                    Integer inviteRes = sendInviteDatagram(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
+                if (resObjreg.getRescode() == 1) {
+                    ResultObj resObjinv  = sendInviteDatagram(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
+                    outmsg = resObjinv.getResmessage();
                 }
+                setresultmessage(outmsg);
             } catch (SocketException ex) {
                 Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
                 outmsg = "Unknown Socket Error";
@@ -189,11 +192,14 @@ public class ClientController {
                 out = new PrintWriter(echoSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(
                         echoSocket.getInputStream()));
-                Integer regiseRes = sendStream(ALGBo.REGISTER, echoSocket, test, sentmsgReg, recvjtextregister, callId, out, in);
+                ResultObj resObjreg = sendStream(ALGBo.REGISTER, echoSocket, test, sentmsgReg, recvjtextregister, callId, out, in);
+                outmsg = resObjreg.getResmessage();
                 //only sends invite in case register is sent successfully
-                if (regiseRes == 1) {
-                    Integer inviteRes = sendStream(ALGBo.INVITE, echoSocket, test, sentmsgInv, recvjtextinvite, callId, out, in);
-                } //todo add errors  
+                if (resObjreg.getRescode() == 1) {
+                    ResultObj resObjinv = sendStream(ALGBo.INVITE, echoSocket, test, sentmsgInv, recvjtextinvite, callId, out, in);
+                    outmsg = resObjinv.getResmessage();
+                }
+                setresultmessage(outmsg);
                 echoSocket.close();
                 out.close();
                 in.close();
@@ -228,9 +234,10 @@ public class ClientController {
         return null;
     }
 
-    public Integer sendStream(String SipMethod, Socket echoSocket, Test test, JTextArea sentmsgJtext, JTextArea recvJtext, String callId, PrintWriter out, BufferedReader in) throws IOException {
+    public ResultObj sendStream(String SipMethod, Socket echoSocket, Test test, JTextArea sentmsgJtext, JTextArea recvJtext, String callId, PrintWriter out, BufferedReader in) throws IOException {
         String outmsg = null;
         Integer resCode = 0;
+         ResultObj resObj = new ResultObj();
         //String callIdSent = new StringBuilder().append("11256979-ca11b60c@").append(iplocal).toString();
         Integer portdest = test.getPortDest();
         Integer portsrc = test.getPortscr();
@@ -245,46 +252,48 @@ public class ClientController {
             }
             String msgRecv = null;
             //execute the send/receive as Callable task in order to handle the excpetion in case of a timeout
-            
-             SendRcvCallable sendRcvTask = new SendRcvCallable(msgToSend, in, out);
-             Future<String> future = executor.submit(sendRcvTask);
-            
-             try {
-            msgRecv = future.get(ALGBo.TCP_TIMEOUT, TimeUnit.MILLISECONDS);
-            //msgRecv = handleSendReceiveTcp(msgToSend, in, out);
-            System.out.println("all message received=[" + msgRecv + "]");
-            sentmsgJtext.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
-            sentmsgJtext.setCaretPosition(0);
-            recvJtext.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
-            recvJtext.setCaretPosition(0);
-            if (msgToSend.equalsIgnoreCase(msgRecv)) {
-                outmsg = ALGBo.MSG_SipALGNotFound;
 
-            } else {
+            SendRcvCallable sendRcvTask = new SendRcvCallable(msgToSend, in, out);
+            Future<String> future = executor.submit(sendRcvTask);
+
+            try {
+                msgRecv = future.get(ALGBo.TCP_TIMEOUT, TimeUnit.MILLISECONDS);
+                //msgRecv = handleSendReceiveTcp(msgToSend, in, out);
+                System.out.println("all message received=[" + msgRecv + "]");
+                sentmsgJtext.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
+                sentmsgJtext.setCaretPosition(0);
+                recvJtext.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
+                recvJtext.setCaretPosition(0);
+                if (msgToSend.equalsIgnoreCase(msgRecv)) {
+                    outmsg = ALGBo.MSG_SipALGNotFound;
+
+                } else {
                 // check the caller-ID
-                //retreive received caller Id
-                outmsg = algBo.algcheck(msgRecv, callId);
+                    //retreive received caller Id
+                    outmsg = algBo.algcheck(msgRecv, callId);
+                }
+                //setresultmessage(outmsg);
+                //echoSocket.close();
+                resCode = 1;
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (TimeoutException ex) {
+                //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
+                outmsg = ALGBo.MSG_FIREWALLISSUE;
+                //setresultmessage(outmsg);
+                setJtextRegisterTxt(msgToSend, sentmsgJtext);
+                //set the out putmessage or issue message to the received text area
+                setJtextRegisterTxt(outmsg, recvJtext);
+                //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            setresultmessage(outmsg);
-            //echoSocket.close();
-            resCode = 1;
-              } catch (InterruptedException ex) {
-             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (ExecutionException ex) {
-             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (TimeoutException ex) {
-             //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
-             outmsg = ALGBo.MSG_FIREWALLISSUE;
-             setresultmessage(outmsg);
-             setJtextRegisterTxt(msgToSend, sentmsgJtext);
-             //set the out putmessage or issue message to the received text area
-             setJtextRegisterTxt(outmsg, recvJtext);
-             //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-             }
         } catch (IOException ex) {
             System.err.println("sendStream Error:" + ex.getLocalizedMessage());
         }
-        return resCode;
+         resObj.setRescode(resCode);
+        resObj.setResmessage(outmsg);
+        return resObj;
     }
 
     public String handleSendReceiveTcp(String msgToSend, BufferedReader in, PrintWriter out) throws IOException {
@@ -307,11 +316,11 @@ public class ClientController {
         return strbuilder.toString();
     }
 
-    public Integer sendRegisterDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, String callId) throws IOException {
+    public ResultObj sendRegisterDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, String callId) throws IOException {
         String outmsg = null;
         byte abyteReg[] = null;
         Integer resCode = 0;
-
+        ResultObj resObj = new ResultObj();
         //DatagramSocket datagramsocket = null;
         Integer portdest = test.getPortDest();
         Integer portsrc = test.getPortscr();
@@ -354,7 +363,7 @@ public class ClientController {
                 //retreive received caller Id
                 outmsg = algBo.algcheck(recvMsg, callId);
             }
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
             recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
             recvjtextregister.setCaretPosition(0);
             //close the socket
@@ -363,19 +372,22 @@ public class ClientController {
         } catch (SocketTimeoutException sockettimeoutexception) {
             recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(algBo.MSG_FIREWALLISSUE).toString());
             outmsg = algBo.MSG_FIREWALLISSUE;
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {
             System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
             outmsg = algBo.MSG_FIREWALLISSUE;
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
         }
-        return resCode;
+        resObj.setRescode(resCode);
+        resObj.setResmessage(outmsg);
+        return resObj;
     }
 
-    public Integer sendInviteDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId) {
+    public ResultObj sendInviteDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId) {
         String outmsg;
         Integer resCode = 0;
+        ResultObj resObj = new ResultObj();
         //DatagramSocket datagramsocket = null;
         Integer portdest = test.getPortDest();
         Integer portsrc = test.getPortscr();
@@ -414,7 +426,7 @@ public class ClientController {
                 //retreive received caller Id
                 outmsg = algBo.algcheck(recvMsg, callId);
             }
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
             recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
             recvjtextinvite.setCaretPosition(0);
             resCode = 1;
@@ -422,14 +434,16 @@ public class ClientController {
         } catch (SocketTimeoutException sockettimeoutexception) {
             recvjtextinvite.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(ALGBo.MSG_FIREWALLISSUE).toString());
             outmsg = ALGBo.MSG_FIREWALLISSUE;
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {
             System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
             outmsg = exception.getLocalizedMessage();
-            setresultmessage(outmsg);
+            //setresultmessage(outmsg);
         }
-        return resCode;
+        resObj.setRescode(resCode);
+        resObj.setResmessage(outmsg);
+        return resObj;
     }
 
     public void setJtextRegisterTxt(String outmsg, JTextArea sentmsgReg, JTextArea recvjtextregister) {
@@ -452,6 +466,29 @@ public class ClientController {
         String labelText = String.format("<html><div style=\"width:%dpx;\"><p align=\"center\">%s</p></div><html>", 200, outmessage);
         AlgJPanel.resultmsgjlabel.setText(labelText);
         AlgJPanel.resultmsgjlabel.setBackground(Color.red);
+    }
+
+    public class ResultObj {
+
+        Integer rescode;
+        String resmessage;
+
+        public Integer getRescode() {
+            return rescode;
+        }
+
+        public void setRescode(Integer rescode) {
+            this.rescode = rescode;
+        }
+
+        public String getResmessage() {
+            return resmessage;
+        }
+
+        public void setResmessage(String resmessage) {
+            this.resmessage = resmessage;
+        }
+
     }
 
 }

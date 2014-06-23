@@ -9,18 +9,24 @@ import algBo.ALGBo;
 import algController.ClientController;
 import algVo.Test;
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 
 /**
  *
  * @author salim
  */
-public class AlgJPanel extends javax.swing.JPanel {
+public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
+    private TaskL task;
     /**
      * Creates new form AlgJPanel
      */
@@ -49,7 +55,7 @@ public class AlgJPanel extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         resultmsgjlabel = new javax.swing.JLabel();
-        runALGtest = new javax.swing.JButton();
+        runALGButton = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -105,6 +111,7 @@ public class AlgJPanel extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         reset = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -122,10 +129,10 @@ public class AlgJPanel extends javax.swing.JPanel {
         resultmsgjlabel.setToolTipText("");
         resultmsgjlabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(211, 27, 27)));
 
-        runALGtest.setText("Run Test");
-        runALGtest.addActionListener(new java.awt.event.ActionListener() {
+        runALGButton.setText("Run Test");
+        runALGButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                runALGtestActionPerformed(evt);
+                runALGButtonActionPerformed(evt);
             }
         });
 
@@ -435,22 +442,30 @@ public class AlgJPanel extends javax.swing.JPanel {
             }
         });
 
+        jProgressBar1.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(runALGtest)
-                        .addGap(95, 95, 95)
-                        .addComponent(reset)
-                        .addGap(84, 84, 84))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(140, 140, 140)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(runALGButton)
+                                .addGap(95, 95, 95)
+                                .addComponent(reset)
+                                .addGap(84, 84, 84))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(140, 140, 140))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -462,11 +477,13 @@ public class AlgJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(runALGtest)
+                            .addComponent(runALGButton)
                             .addComponent(reset)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1)
                 .addGap(39, 39, 39))
@@ -475,53 +492,42 @@ public class AlgJPanel extends javax.swing.JPanel {
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void runALGtestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGtestActionPerformed
-       
+    private void runALGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGButtonActionPerformed
+
 //call reset and clean text fields:
-        reset.doClick();
+        runALGButton.setEnabled(false);
+        reset.setEnabled(false);
 //method-1: sending Datagrame directly to the server
 //        ALgDetect alg = new ALgDetect();
 //        String res = alg.algDetect();
 //        resultmsg.setText(res);
-        resultmsgjlabel.setText(ALGBo.INPROGRESS);
-        //udp
-        if (jRadioButton1.isSelected()) {
-            sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
-        } //tcp
-        else if (jRadioButton2.isSelected()) {
-            sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
-        } //udp
-        else if (jRadioButton3.isSelected()) {
-            sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
-        } //tcp
-        else if (jRadioButton4.isSelected()) {
-            sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
-        }
-    }//GEN-LAST:event_runALGtestActionPerformed
+        task = new TaskL();
+        task.addPropertyChangeListener(this);
+        task.execute();
+        //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
+        jProgressBar1.setValue(0);
+
+//        resultmsgjlabel.setText(ALGBo.INPROGRESS);
+//        //udp
+//        if (jRadioButton1.isSelected()) {
+//            sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
+//        } //tcp
+//        else if (jRadioButton2.isSelected()) {
+//            sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
+//        } //udp
+//        else if (jRadioButton3.isSelected()) {
+//            sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
+//        } //tcp
+//        else if (jRadioButton4.isSelected()) {
+//            sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
+//        }
+    }//GEN-LAST:event_runALGButtonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
 //     removed to avoid aobject already in used exception while doing reset
+        jProgressBar1.setValue(0);
         resultmsgjlabel.setText(ALGBo.INPROGRESS);
         System.out.println("resetActionPerformed...");
-//        if (getSipClientController() != null) {
-//             System.out.println("resetActionPerformed...getSipClientController is null");
-//            try {
-//                String res = sipClientController.reset();
-//                if(res.equalsIgnoreCase(ALGBo.RESET_OK)){
-//                    resultmsgjlabel.setText(ALGBo.RESET_OK);
-//                    sipClientController = null;
-//                }else{
-//                    resultmsgjlabel.setText("Reset failed: "+res);
-//                    System.out.println("Reset failed! "+res);
-//                           
-//                    //TODO: clean well the Sip points
-//                    //resultmsgjlabel.setText("Reset failed! "+res);
-//                }   
-//            } catch (Exception ex1) {
-//                JOptionPane.showMessageDialog(this, ex1.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-        //resultmsgjlabel.setText("OK");
         resultmsgjlabel.setBackground(Color.white);
         //clean the text areas:
         comb1SentMsgREG.setText("Sent message:");
@@ -616,6 +622,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6ALHHelp;
+    public javax.swing.JProgressBar jProgressBar1;
     public static javax.swing.JRadioButton jRadioButton1;
     public static javax.swing.JRadioButton jRadioButton2;
     public static javax.swing.JRadioButton jRadioButton3;
@@ -649,7 +656,7 @@ public class AlgJPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
-    public static javax.swing.JButton runALGtest;
+    public static javax.swing.JButton runALGButton;
     // End of variables declaration//GEN-END:variables
 
     public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
@@ -745,5 +752,67 @@ public class AlgJPanel extends javax.swing.JPanel {
         }
         jRadioButton4.setText(testD);
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        //System.out.println("propertyChange invoked..");
+        if ("progress" == evt.getPropertyName()) {
+            int progress = (Integer) evt.getNewValue();
+            //System.out.println("propertyChange: progress=" + progress);
+            //this is where we update the UI progress Bar
+            jProgressBar1.setValue(progress);
+//            taskOutput.append(String.format(
+//                    "Completed %d%% of task.\n", task.getProgress()));
+        }
+    }
+
+    class TaskL extends SwingWorker<Void, Void> {
+        /*
+         * Main task. Executed in background thread.
+        */
+
+        @Override
+        public Void doInBackground() {
+            int progress = 0;
+            //Initialize progress property. 
+            setProgress(0);
+            resultmsgjlabel.setText(ALGBo.INPROGRESS);
+            //udp
+            if (jRadioButton1.isSelected()) {
+                setProgress(50);
+                sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
+            } //tcp
+            else if (jRadioButton2.isSelected()) {
+                setProgress(50);
+                sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
+            } //udp
+            else if (jRadioButton3.isSelected()) {
+                setProgress(50);
+                sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
+            } //tcp
+            else if (jRadioButton4.isSelected()) {
+                setProgress(50);
+                sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
+            }
+            progress = 100;
+            setProgress(Math.min(progress, 100));
+            return null;
+        }
+
+
+        /*
+         * Executed in event dispatching thread
+         When the background task is complete, the task's done method resets the progress bar:
+         */
+        @Override
+        public void done() {
+            //System.out.println("Swing worker :: task is Done............");
+            Toolkit.getDefaultToolkit().beep();
+            runALGButton.setEnabled(true);
+            reset.setEnabled(true);
+            setCursor(null); //turn off the wait cursor
+            //taskOutput.append("Done!\n");
+        }
+    }//end of swing worker task Class
 
 }

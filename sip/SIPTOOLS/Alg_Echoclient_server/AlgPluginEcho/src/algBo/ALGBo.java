@@ -83,6 +83,8 @@ public class ALGBo {
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
     public static final String MSG_SipALGNotFound = "No ALG Detected";
+     public static final String MSG_SipALGNotFound_Reg = "Register: No ALG Detected, INVITE: In Progress..";
+      public static final String MSG_SipALGNotFound_Inv = "Invite: No ALG Detected";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
 
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";

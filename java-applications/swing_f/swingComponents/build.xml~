@@ -10,9 +10,6 @@
 <project name="swingComponents" default="default" basedir=".">
     <description>Builds, tests, and runs the project swingComponents.</description>
     <import file="nbproject/build-impl.xml"/>
- <target name="-post-jar">
-            <copy file="${src.dir}/index.html" todir="${dist.jar.dir}"/>
-        </target>  
     <!--
 
     There exist several targets which are by default empty and which can be 
