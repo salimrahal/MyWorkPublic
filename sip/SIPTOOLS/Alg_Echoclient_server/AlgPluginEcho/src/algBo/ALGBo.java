@@ -95,6 +95,7 @@ public class ALGBo {
     //the time a tcp connection will wait before it throws an exception: firewall: ...
     public static final Integer TCP_TIMEOUT = 20000;////millisecond
     public static final Integer UDP_TIMEOUT = 7000;//millisecond
+    public static final long UDP_SLEEPTIME = 500;//millisecond
     
 
     Test test1;

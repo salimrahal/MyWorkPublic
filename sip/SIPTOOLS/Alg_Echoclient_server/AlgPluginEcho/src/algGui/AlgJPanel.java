@@ -166,7 +166,6 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jTabbedPane1Reg.addTab("Invite", jScrollPane1);
 
         comb1RcvMsgREG.setColumns(20);
-        comb1RcvMsgREG.setLineWrap(true);
         comb1RcvMsgREG.setRows(5);
         comb1RcvMsgREG.setText("Received message:");
         jScrollPane10.setViewportView(comb1RcvMsgREG);

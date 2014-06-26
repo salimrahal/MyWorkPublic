@@ -28,9 +28,9 @@ public class AlgEchoServer {
         //for remote test
         String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
         //for local host test
-        //String localIp = "127.0.1.1";
+         localIp = "127.0.1.1";
 
-        Integer defaultport = 5060;
+        Integer defaultport = 5092;
         String portStr;
         if (args.length == 0) {
             System.out.println("The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
