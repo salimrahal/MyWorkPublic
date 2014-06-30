@@ -194,14 +194,13 @@ public class ClientController {
             try {
                 //attemping to connect to the server
                 System.out.println("Process Request: Attemping to connect to host " + serverHostname + " on port " + portDest + "/TCP.");
-                
+
                 //build both message
                 msgToSendReg = algBo.buildRegisterSIPMessage(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
-                msgToSendInv = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP",  test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
+                msgToSendInv = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
 
-               //create socket and connect to the server
+                //create socket and connect to the server
                 echoSocket = new Socket();
-
                 echoSocket.connect(new InetSocketAddress(serverHostname, portDest), ALGBo.TCP_TIMEOUT);
                 System.out.println("Process Request: connected.");
                 out = new PrintWriter(echoSocket.getOutputStream(), true);
@@ -231,6 +230,7 @@ public class ClientController {
                 //"processRequests: Couldn't get I/O for "
                 //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
                 System.err.println("Process Request:socketTimeout" + outmsg);
+                //post the result to the register and invite text fields and result msg output
                 setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSendReg, sentmsgReg, recvjtextregister);
                 setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
@@ -302,6 +302,8 @@ public class ClientController {
                 sentmsgJtext.setCaretPosition(0);
                 recvJtext.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
                 recvJtext.setCaretPosition(0);
+                //test alg detected
+                //msgRecv = msgRecv + "unknowncharacter";
                 if (msgToSend.equalsIgnoreCase(msgRecv)) {
                     outmsg = ALGBo.MSG_SipALGNotFound;
 
@@ -327,6 +329,7 @@ public class ClientController {
                 //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
                 // add text to invite only for view
                 System.out.println("sendStream TimeoutException ..before filling invite text area..");
+                //it fill the sent/rcv invite response in case of Register called, no need to set such text field in case of invite, because it's already set above
                 if (SipMethod.equalsIgnoreCase(ALGBo.REGISTER)) {
                     setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
                 }
@@ -339,70 +342,7 @@ public class ClientController {
         return resObj;
     }
 
-    public ResultObj sendStreamInvite(String SipMethod, Socket echoSocket, Test test, JTextArea sentmsgJtext, JTextArea recvJtext, String callId, PrintWriter out, BufferedReader in) throws IOException {
-        String outmsg = null;
-        Integer resCode = 0;
-        ResultObj resObj = new ResultObj();
-        //String callIdSent = new StringBuilder().append("11256979-ca11b60c@").append(iplocal).toString();
-        Integer portdest = test.getPortDest();
-        Integer portsrc = test.getPortscr();
-        String agentName = algBo.getAgentname();
-
-        try {
-            String msgToSend;
-            if (SipMethod.equalsIgnoreCase(ALGBo.REGISTER)) {
-                msgToSend = algBo.buildRegisterSIPMessage(ipServer, iplocal, "TCP", portsrc, portdest, callId, agentName);
-            } else {
-                msgToSend = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP", portsrc, portdest, callId, agentName);
-            }
-            String msgRecv = null;
-            //execute the send/receive as Callable task in order to handle the excpetion in case of a timeout
-
-            SendRcvCallable sendRcvTask = new SendRcvCallable(msgToSend, in, out);
-            Future<String> future = executor.submit(sendRcvTask);
-
-            try {
-                msgRecv = future.get(ALGBo.TCP_TIMEOUT, TimeUnit.MILLISECONDS);
-                //msgRecv = handleSendReceiveTcp(msgToSend, in, out);
-                System.out.println("all message received=[" + msgRecv + "]");
-                sentmsgJtext.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
-                sentmsgJtext.setCaretPosition(0);
-                recvJtext.setText(new StringBuilder().append("New Packet Received:").append(newline).append(msgRecv).toString());
-                recvJtext.setCaretPosition(0);
-                if (msgToSend.equalsIgnoreCase(msgRecv)) {
-                    outmsg = ALGBo.MSG_SipALGNotFound;
-
-                } else {
-                    // check the caller-ID
-                    //retreive received caller Id
-                    outmsg = algBo.algcheck(msgRecv, callId);
-                }
-                //setresultmessage(outmsg);
-                //echoSocket.close();
-                resCode = 1;
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ExecutionException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (TimeoutException ex) {
-                //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
-                outmsg = ALGBo.MSG_FIREWALLISSUE;
-                //setresultmessage(outmsg);
-                setJtextRegisterTxt(msgToSend, sentmsgJtext);
-                //set the out putmessage or issue message to the received text area
-                setJtextRegisterTxt(outmsg, recvJtext);
-                //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-                //TODO add text to invite only for view
-                msgToSend = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP", portsrc, portdest, callId, agentName);
-            }
-        } catch (IOException ex) {
-            System.err.println("sendStream Error:" + ex.getLocalizedMessage());
-        }
-        resObj.setRescode(resCode);
-        resObj.setResmessage(outmsg);
-        return resObj;
-    }
-
+    @Deprecated
     public String handleSendReceiveTcp(String msgToSend, BufferedReader in, PrintWriter out) throws IOException {
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
@@ -528,6 +468,8 @@ public class ClientController {
             String recvMsg = new String(datagrampacketRec.getData(), 0, datagrampacketRec.getLength());
             byte recMsgByte[] = recvMsg.getBytes();
             System.out.println("sendInvite received INVITE message = [" + recvMsg + "]");
+            //test alg detected
+            //recvMsg = recvMsg + "kdkdkd";
             if (recvMsg.equals(inviteMsg)) {
                 outmsg = algBo.MSG_SipALGNotFound;
             } else {
