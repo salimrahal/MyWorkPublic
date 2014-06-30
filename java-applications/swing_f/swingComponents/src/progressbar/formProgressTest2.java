@@ -10,10 +10,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
@@ -23,12 +26,11 @@ import javax.swing.event.ChangeListener;
  *
  * @author salim
  */
-public class formProgress extends javax.swing.JFrame implements PropertyChangeListener {
-
+public class formProgressTest2 extends javax.swing.JFrame implements PropertyChangeListener {
     /**
      * Creates new form formProgress
      */
-    public formProgress() {
+    public formProgressTest2() {
         initComponents();
     }
 
@@ -115,32 +117,13 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
 
     private void startjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startjButtonActionPerformed
         //run the progress bar
-    /*
-        resetJbutton.doClick();
-        int num = Integer.valueOf(value_int.getText());
-        jProgressBar1.setValue(num);
-       */
-        int numbersToFind = 5;
-           System.out.println("formProgress Current thread["+Thread.currentThread().getName()+"]");
-        PrimeNumbersTask task = new PrimeNumbersTask(resTextField, numbersToFind, jProgressBar1);
+    jProgressBar1.setIndeterminate(true);
+    startjButton.setEnabled(false);
+        //Instances of javax.swing.SwingWorker are not reusuable, so
+        //we create new instances as needed.
+        TaskL task = new TaskL();
         task.addPropertyChangeListener(this);
         task.execute();
-        try {
-            System.out.println("getting results:" + task.get());
-        } catch (InterruptedException interruptedException) {
-        } catch (ExecutionException executionException) {
-        }
-
-        /*
-        for (int i = 0; i < 100; i++) {
-            jProgressBar1.setValue(i++);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(formProgress.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }*/
-
 
     }//GEN-LAST:event_startjButtonActionPerformed
 
@@ -165,20 +148,20 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formProgress.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formProgressTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formProgress.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formProgressTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formProgress.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formProgressTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formProgress.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formProgressTest2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new formProgress().setVisible(true);
+                new formProgressTest2().setVisible(true);
             }
         });
     }
@@ -194,7 +177,7 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("propertyChange invoked");
     }
 
 
@@ -211,104 +194,31 @@ public class formProgress extends javax.swing.JFrame implements PropertyChangeLi
 //    }
     
     /*****************SwingWorker***********************/
-class PrimeNumbersTask extends
-         SwingWorker<List<Integer>, Integer>  {
-    
-    JTextField textfield;
-     JProgressBar progressbar;
-    private int numbersToFind; 
-    private List<Integer> numbers = new ArrayList<Integer>(); 
-    private int number = 0; 
-    private final int myLimit; 
-    private int myLimitCounter; 
-    boolean enough = false; 
-    
-     PrimeNumbersTask(JTextField textfield, int numbersToFind,JProgressBar progressbar) {
-         System.out.println("PrimeNumbersTask calling constructor");
-         this.textfield = textfield; 
-         this.progressbar = progressbar;
-        this.numbersToFind = numbersToFind; 
-        this.myLimit = numbersToFind; 
-                /* change listener for progress bar*/
-        //jProgressBar1.addChangeListener(new BoundedChangeListener());
-     }
+   class TaskL extends SwingWorker<Void, Void> {
+        /*
+         * Main task. Executed in background thread.
+         */
+        @Override
+        public Void doInBackground() {
+            Random random = new Random();
+            int progress = 0;
+            //Initialize progress property.
+            setProgress(0);
+            //Sleep for at least one second to simulate "startup".
+            try {
+                Thread.sleep(1000 + random.nextInt(2000));
+            } catch (InterruptedException ignore) {}
+            while (progress < 100) {
+                //Sleep for up to one second.
+                try {
+                    Thread.sleep(random.nextInt(1000));
+                } catch (InterruptedException ignore) {}
+                //Make random progress.
+                progress += random.nextInt(10);
+                setProgress(Math.min(progress, 100));
+            }
+            return null;
+        }
 
-
-     @Override
-     public List<Integer> doInBackground() {
-         System.out.println("PrimeNumbersTask Current thread["+Thread.currentThread().getName()+"]");
-          int progress = 0;
-             System.out.println("PrimeNumbersTask calling doInBackground()");
-         while (! enough && ! isCancelled()) {
-                 number = nextPrimeNumber();
-                 //send the data chunk tp the process(List<>), in order to push them immediately
-                 progress = number;
-                 progressbar.setValue(number);
-                 System.out.println("PrimeNumbersTask calling doInBackground(): progress="+progress);
-                 //publish(number);
-                 setProgress(100 * numbers.size() / numbersToFind);
-             }
-         return numbers;
-     }
-     
-    @Override
-     public void done() {
-              System.out.println("PrimeNumbersTask done.");
-     }
-
-     @Override
-     protected void process(List<Integer> chunks) {
-            System.out.println("PrimeNumbersTask calling process()");
-         for (int number : chunks) {
-             textfield.setText(String.valueOf(number));//  textArea.append(number + "\n");
-         }
-     }
-     
-      //in my case next natural number 
-    private int nextPrimeNumber() { 
-         System.out.println("PrimeNumbersTask calling nextPrimeNumber()");
-        //end condition 
-        if (++myLimitCounter >= myLimit) { 
-            enough = true; 
-        } 
-        try { 
-            Thread.sleep(1000); 
-        } catch (InterruptedException ex) { 
-            // 
-        } 
-        return (++number); 
-    }
-    
-      /**
-     * Invoked when task's progress property changes.
-     */
-    public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("propertyChange invoked..");
-        if ("progress" == evt.getPropertyName()) {
-            int progress = (Integer) evt.getNewValue();
-               System.out.println("propertyChange: progress="+progress);
-               progressbar.setValue(progress);
-           
-        } 
-    }
- }
-
-/*
-Unsused
-the below model doesn't update the UI in parallele with a background model,
-but it detects the property changes
-*/
-class BoundedChangeListener implements ChangeListener {
-  public void stateChanged(ChangeEvent changeEvent) {
-    Object source = changeEvent.getSource();
-    if (source instanceof JProgressBar) {
-      JProgressBar theJProgressBar = (JProgressBar) source;
-      System.out.println("ProgressBar changed: " + theJProgressBar.getValue());
-      theJProgressBar.setValue(theJProgressBar.getValue());//sr
-    } else {
-      System.out.println("Something changed: " + source);
-    }
-  }
 }
-
 }

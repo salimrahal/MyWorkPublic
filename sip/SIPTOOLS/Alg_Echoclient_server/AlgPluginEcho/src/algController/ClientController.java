@@ -226,7 +226,7 @@ public class ClientController {
                 outmsg = ALGBo.MSG_FIREWALLISSUE;
                 //"processRequests: Couldn't get I/O for "
                 //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-                System.err.println(outmsg);
+                System.err.println("Process Request:socketTimeout"+outmsg);
                 setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSendReg, sentmsgReg, recvjtextregister);
                 setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
@@ -235,7 +235,7 @@ public class ClientController {
                 outmsg = iOException.getLocalizedMessage();
                 //"processRequests: Couldn't get I/O for "
                 //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-                System.err.println(outmsg);
+                System.err.println("Process Request:iOException"+outmsg);
                 setresultmessage(outmsg);
                 //setJtextRegisterSentRcvTxt(outmsg,msgToSendReg, sentmsgReg, recvjtextregister);
                 //setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
@@ -321,7 +321,9 @@ public class ClientController {
             } catch (ExecutionException ex) {
                 Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (TimeoutException ex) {
+                System.err.println("sendStream TimeoutException Error:" + ex.getLocalizedMessage());
                 //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
+                System.out.println("");
                 outmsg = ALGBo.MSG_FIREWALLISSUE;
                 //setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSend, sentmsgJtext, recvJtext);
