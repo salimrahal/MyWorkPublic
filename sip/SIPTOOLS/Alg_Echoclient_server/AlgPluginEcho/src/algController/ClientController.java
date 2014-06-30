@@ -100,7 +100,6 @@ public class ClientController {
          read properties from the BO
          */
         extlocal = algBo.getSipIdLocal();
-        iplocal = algBo.getIplocal();
         //get server configs
         ipServer = algBo.getIpServer();
 
@@ -148,7 +147,9 @@ public class ClientController {
     public String processRequests(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
         DatagramSocket datagramsocket = null;
         counter++;
-        //result message no effect on the UI 
+        //get the local IP for every process request
+        iplocal = algBo.getIplocal();
+//result message no effect on the UI 
         setresultmessage(ALGBo.INPROGRESS);
         String outmsg = null;
         Integer portSrc = test.getPortscr();
@@ -230,14 +231,14 @@ public class ClientController {
                 setJtextRegisterSentRcvTxt(outmsg, msgToSendReg, sentmsgReg, recvjtextregister);
                 setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
             } catch (IOException iOException) {
-                //handling firewall issue of TCP
-                outmsg = ALGBo.MSG_FIREWALLISSUE;
+                //handling network unreachable
+                outmsg = iOException.getLocalizedMessage();
                 //"processRequests: Couldn't get I/O for "
                 //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
                 System.err.println(outmsg);
                 setresultmessage(outmsg);
-                setJtextRegisterSentRcvTxt(outmsg,msgToSendReg, sentmsgReg, recvjtextregister);
-                setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
+                //setJtextRegisterSentRcvTxt(outmsg,msgToSendReg, sentmsgReg, recvjtextregister);
+                //setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
             } finally {
                 if (echoSocket != null) {
                     echoSocket.close();
@@ -443,7 +444,7 @@ public class ClientController {
             abyteReg = registerMsg.getBytes();
 
             //construct a packet that recieve data on the destination Addr and port specified by the constructor
-            System.out.println("sendRegisterStateful inetaddress1=" + inetaddress1.getHostAddress() + "- counter=" + counter);
+            System.out.println("sendRegisterStateful Destination IP(server)=" + inetaddress1.getHostAddress() + "- counter=" + counter);
             datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
             System.out.println("sendRegisterStateful sending REGISTER packet..");
             datagramsocket.send(datagrampacket);
@@ -483,8 +484,8 @@ public class ClientController {
             //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {
-            System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());
-            outmsg = algBo.MSG_FIREWALLISSUE;
+            System.out.println("sendRegister excpetion:" + exception.getLocalizedMessage());//Network is unreachable
+            outmsg = exception.getLocalizedMessage();
             //setresultmessage(outmsg);
         }
         resObj.setRescode(resCode);

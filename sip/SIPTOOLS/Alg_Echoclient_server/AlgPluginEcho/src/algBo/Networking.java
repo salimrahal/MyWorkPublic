@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Networking {
 
-public static final String LOOPBACK = "127.0.0.1";
+public static final String LOOPBACK = "127.0.0.1";//127.0.1.1
     /*
     Desc: it will get the first valid IP address, whether it's a SiteLocal Ip or other type of IP
     */
