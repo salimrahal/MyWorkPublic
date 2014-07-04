@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function hasGetUserMedia() {
+                return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia || navigator.msGetUserMedia);
+            }
+               if (hasGetUserMedia()) {
+                    // Good to go!
+                      alert(' Good to go!');
+                } else {
+                    alert('getUserMedia() is not supported in your browser');
+
+                }
+        </script>
+    </head>
+
+    <body>
+        <div>
+
+         
+        </div>
+    </body>
+</html>

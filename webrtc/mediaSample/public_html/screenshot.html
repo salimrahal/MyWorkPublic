@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+
+++++++++++++++++++Taking screenshots++++++++++++++
+
+The <canvas> API's ctx.drawImage(video, 0, 0) method makes it trivial to draw <video> frames to <canvas>.
+Of course, now that we have video input via getUserMedia(),
+it's just as easy to create a photo booth application with realtime video:
+================================WORKING================
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+
+            <video autoplay > </video>
+            <img src = "" >
+            <canvas style = "display:none;" ></canvas>
+            <script>
+
+//getting usermedia cross browser method
+                navigator.getUserMedia = navigator.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia;
+
+                var errorCallback = function(e) {
+                    console.log('Reeeejected!', e);
+                };
+
+                var video = document.querySelector('video');
+                var canvas = document.querySelector('canvas');
+                var ctx = canvas.getContext('2d');
+                var localMediaStream = null;
+
+                function snapshot() {
+                    if (localMediaStream) {
+                        ctx.drawImage(video, 0, 0);
+                        // "image/webp" works in Chrome.
+                        // Other browsers will fall back to image/png.
+                        document.querySelector('img').src = canvas.toDataURL('image/webp');
+                    }
+                }
+
+                video.addEventListener('click', snapshot, false);
+
+                // Not showing vendor prefixes or code that works cross-browser.
+                navigator.getUserMedia({video: true}, function(stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    localMediaStream = stream;
+                }, errorCallback);
+            </script>
+        </div>
+    </body>
+</html>
