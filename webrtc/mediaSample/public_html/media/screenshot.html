@@ -21,10 +21,17 @@ it's just as easy to create a photo booth application with realtime video:
         <div>
 
             <video autoplay > </video>
-            <img src = "" >
+            <img width="600" height="400" src = "" >
             <canvas style = "display:none;" ></canvas>
             <script>
-
+                var vgaConstraints = {
+                    video: {
+                        mandatory: {
+                            maxWidth: 640,
+                            maxHeight: 360
+                        }
+                    }
+                };
 //getting usermedia cross browser method
                 navigator.getUserMedia = navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
@@ -52,6 +59,7 @@ it's just as easy to create a photo booth application with realtime video:
                 video.addEventListener('click', snapshot, false);
 
                 // Not showing vendor prefixes or code that works cross-browser.
+                //{video: true}
                 navigator.getUserMedia({video: true}, function(stream) {
                     video.src = window.URL.createObjectURL(stream);
                     localMediaStream = stream;
