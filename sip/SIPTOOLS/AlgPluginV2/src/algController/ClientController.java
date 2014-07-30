@@ -319,7 +319,7 @@ public class ClientController implements SipListener {
         request.addHeader(allowHead);
         SupportedHeader suppHead = this.headerFactory.createSupportedHeader("replaces");
         request.addHeader(suppHead);
-
+         
         //request = this.messageFactory.createRequest(ALGBo.getSimpleSIPMessage());
         System.out.println(request.toString());
         return request;
