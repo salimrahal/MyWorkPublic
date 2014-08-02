@@ -45,7 +45,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * </test>
  * </configuration>
  */
-public class ConfHandler extends DefaultHandler {
+public class CHr extends DefaultHandler {
 
     ConfVO confVO = null;
     //var unsed, no content to retrieve

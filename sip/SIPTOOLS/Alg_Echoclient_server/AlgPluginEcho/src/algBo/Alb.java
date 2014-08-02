@@ -5,8 +5,8 @@
  */
 package algBo;
 
-import static algBo.Networking.getLocalIpAddress;
-import algBo.config.SAXParserConf;
+import static algBo.Ntg.getLocalIpAddress;
+import algBo.config.Spf;
 import algVo.Test;
 import algVo.config.ConfVO;
 import java.io.BufferedReader;
@@ -28,26 +28,23 @@ import org.xml.sax.SAXException;
  */
    //TODO: build the confVO
 //TODO: get the Hashmap of combinations
-public class ALGBo {
+public class Alb {
 
-    //config file name
-    public static final String CONFIG_FILE_NAME = "config.xml";
-    //combination id: 1, 2, 3, 4
+    public static final String C_N = "config.xml";
+    public static final String C_D = "siptoolsconfig";
+
     static public final Integer Comb1Id = 1;
     static public final Integer Comb2Id = 2;
     static public final Integer Comb3Id = 3;
     static public final Integer Comb4Id = 4;
 
-    /*considering we have 4 port source and four port dest,
-     and I should read them from the config file
-     */
-    //udp
+  
     public Integer portsrc1 ;//UDP 5060 for remote test
-    //tcp
+  
     public Integer portsrc2 ;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
-    //udp
+    
     public Integer portsrc3 ;//UDP 5060 for remote test
-    //tcp
+   
     public Integer portsrc4 ;
     
     //currently the server is running on the same port
@@ -61,25 +58,23 @@ public class ALGBo {
     public String transport3;
     public String transport4;
 
-    /* TODO: config file extraction BO
-     In V2 prtocol/port combination should be dynamic and read from a configuration file
-     */
+
     public String agentname ;
     public String iplocal;
     //String ipServer = "127.0.1.1";//local test
     String ipServer;//remote test
     String sipIdLocal ;
 
-    public static final String REGISTER = "REGISTER";
-    public static final String INVITE = "INVITE";
+    public static final String RG = "REGISTER";
+    public static final String IV = "INVITE";
 
     //messages
-    public static final String RESET_OK = "OK";
-    public static final String INPROGRESS = "in progress..";
+    public static final String R_K = "OK";
+    public static final String I_P = "in progress..";
     //No Packet Received - SIP ALG / Firewall issue
-    public static final String MSG_SERVERNOTRESPONDING_ISSUE = "The server is not responding";
+    public static final String M_I = "The server is not responding";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
-    public static final String MSG_FIREWALLISSUE = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
+    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
     public static final String MSG_SipALGNotFound = "No ALG Detected";
@@ -88,14 +83,13 @@ public class ALGBo {
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
 
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
-    static SAXParserConf saxparserconf;
+    static Spf saxparserconf;
     /*CALLID_PREFIX: one callid in invite and register message
      */
-    public static final String CALLID_PREFIX = "11256979-ca11b60c";
-    //the time a tcp connection will wait before it throws an exception: firewall: ...
-    public static final Integer TCP_TIMEOUT = 20000;////millisecond
-    public static final Integer UDP_TIMEOUT = 7000;//millisecond
-    public static final long UDP_SLEEPTIME = 500;//millisecond
+    public static final String C_P = "11256979-ca11b60c";
+    public static final Integer T_T = 20000;////millisecond
+    public static final Integer U_T = 7000;//millisecond
+    public static final long U_E = 500;//millisecond
     
 
     Test test1;
@@ -103,22 +97,22 @@ public class ALGBo {
     Test test3;
     Test test4;
 
-    public ALGBo() {
+    public Alb() {
     }
 
-    //parse the xml to ConfVO Singleton Instance
-    public void performConfigParsing(String configUri){
-        System.out.println("performConfigParsing::configUri = "+configUri);//file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/dist/config.xml
+    
+    public void pc(String configUri){
+       
           //extract the config file to confVO
-        saxparserconf = new SAXParserConf();
+        saxparserconf = new Spf();
         try {
             saxparserconf.parseConfVO(configUri);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Alb.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Alb.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ALGBo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Alb.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -164,10 +158,8 @@ public class ALGBo {
         }
     }
 
-    /*
-     its checks whether A callerid is changed or not otherwise it will indicates a warning
-     */
-    public String algcheck(String recvMsg, String callIdSent) {
+
+    public String ak(String recvMsg, String callIdSent) {
         String callIdRecv;
         String resMsg;
         Integer callidindex = recvMsg.indexOf("Call-ID: ");
@@ -183,7 +175,7 @@ public class ALGBo {
     }
 
 
-    public void retrieveParamFromConfVo() {
+    public void rpfv() {
         ConfVO conVO = ConfVO.getInstance();
         this.agentname = conVO.getAgentname();
         this.ipServer = conVO.getIpServer();
@@ -218,12 +210,7 @@ public class ALGBo {
             }
         }
     }
-     /*It retrive the port numbers from below URI:
-     URI: Contact: <sip:ALGDetector@93.185.239.118:5062;transport=udp>
-     From: <sip:ALGDetector@209.208.79.151:5062>;tag=-1997789931
-     To: <sip:ALGDetector@209.208.79.151:5060>
-     Via: SIP/2.0/UDP 93.185.239.118:5062;branch=z9hG4bK-508490564
-     */
+
     /**
      *
      * @param uri
@@ -376,7 +363,7 @@ public class ALGBo {
         this.sipIdLocal = extlocal;
     }
 
-    public String buildRegisterSIPMessage(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
+    public String brm(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
         String registerMsg = "";
         registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
                 .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/").append(transport).append(" ").append(ipLocalparam).append(":")
@@ -391,7 +378,7 @@ public class ALGBo {
         return registerMsg;
     }
 
-    public String buildInviteSIPMessage(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+    public String bim(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
         String inviteMsgInner = (new StringBuilder()).append("v=0\r\no=- 54899656 54899656 IN IP4 ").append(ipLocalparam).append("\r\ns=-\r\nc=IN IP4 ").
                 append(ipLocalparam).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
         int contentLength = inviteMsgInner.getBytes().length;

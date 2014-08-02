@@ -20,52 +20,34 @@ import org.xml.sax.SAXException;
  *
  * @author salim
  */
-public class SAXParserConf {
+public class Spf {
 
-    ConfHandler handler;
+    CHr handler;
     SAXParserFactory parserFactor;
 
-    public SAXParserConf() {
-        handler = new ConfHandler();
+    public Spf() {
+        handler = new CHr();
         parserFactor = SAXParserFactory.newInstance();
 
     }
 
-    /*
-     * It pareses from XML to POJO the confVO
-     */
     public void parseConfVO(String confUri) throws ParserConfigurationException, SAXException, IOException {
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
-        ConfHandler handler = new ConfHandler();
-       
-        //TODO read and parse the config
-        //File f = new File("./config.xml");
+        CHr handler = new CHr();
         File f = new File(confUri);
-          
-        //System.out.println("config exists?" + f.exists()+"- before parsing");
         parser.parse(confUri, handler);
-        //System.out.println("after parsing the uri="+confUri);
-        //parser.parse(ClassLoader.getSystemResourceAsStream("algBo/config/config.xml"), handler);
-        
-       
-        
-        /*property file
-         * 1- deve the POJO property file
-         * 2- deve the prop handler
-         * 3- retreive the prop Pojo
-         */
-        //Printing the list of employees obtained from XML
         ConfVO confvo = handler.confVO;
         List<Test> testL = handler.getTestList();
-        for(Test t:testL)
+        for (Test t : testL) {
             System.out.println("t:" + t.toString());
-        System.out.println("parseConfVO:" + confvo.toString());
+        }
+        // System.out.println("parseConfVO:" + confvo.toString());
     }
 
     public static void main(String[] args) throws Exception {
-        SAXParserConf saxparserconf = new SAXParserConf();
+        Spf saxparserconf = new Spf();
         //saxparserconf.parseConfVO();
     }
 }

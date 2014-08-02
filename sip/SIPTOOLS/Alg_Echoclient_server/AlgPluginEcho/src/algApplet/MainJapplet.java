@@ -3,8 +3,10 @@ package algApplet;
 /*
  */ 
 
-import algBo.ALGBo;
-import algController.ClientController;
+
+
+import algBo.Alb;
+import algcr.Cc;
 import algGui.AlgJPanel;
 import java.net.URL;
 import java.text.ParseException;
@@ -25,15 +27,23 @@ public class MainJapplet extends JApplet {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {                   
                     try {
-                        createGUI();
+                        crg();
                        
-                        //TODO parse the XML config to class VO by passing URI
-                        ALGBo algBo = new ALGBo();
-                        //ALGBo.readFile( algBo.CONFIG_FILE_NAME,getCodeBase());
-                        //the Confi URI: configUri = http://siptools.safirasoft.com/alg/config.xml
-                        String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
+                        //parse the XML config to class VO by passing URI
+                        Alb alb = new Alb();
+                        
+                        //get the host name
+                        String hostname = getCodeBase().getHost();
+                        if(hostname == null || hostname.isEmpty()){
+                            hostname = "localhost";
+                        }
+                        //append http
+                        hostname = "http://"+hostname;
+                        //build the config url: http://localhost/siptoolsconfig/config.xml
+                        String configUri = new StringBuilder().append(hostname).append("/").append(alb.C_D).append("/").append(alb.C_N).toString();
+                        //String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
                         //retrieve the config values and assign the proper values to ALGBo properties
-                        algBo.performConfigParsing(configUri);
+                        alb.pc(configUri);
                     } catch (Exception ex) {
                         Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -49,7 +59,7 @@ public class MainJapplet extends JApplet {
         System.out.println("Final cleanup ....destroy...");
         super.destroy(); //To change body of generated methods, choose Tools | Templates.
          //System.exit(0);
-         ClientController sipClient = AlgJPanel.getSipClientController();
+         Cc sipClient = AlgJPanel.getCc();
          if(sipClient!=null){//Do something
             try {
 //                  System.out.println("destroy...sipClient not null..");
@@ -70,7 +80,7 @@ public class MainJapplet extends JApplet {
      * Create the GUI. For thread safety, this method should be invoked from the
      * event-dispatching thread.
      */
-    private void createGUI() throws Exception {
+    private void crg() throws Exception {
  //           try {
                 //
         algJpanel = new AlgJPanel(); 

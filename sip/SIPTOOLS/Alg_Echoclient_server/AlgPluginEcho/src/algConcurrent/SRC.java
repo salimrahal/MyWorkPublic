@@ -18,12 +18,12 @@ import java.util.concurrent.Callable;
  * this task handle the tcp send and received message, it should be surrounded with timeout exception in 
  * case the ReadLine blocks
  */
-public class SendRcvCallable implements Callable<String> {
+public class SRC implements Callable<String> {
 String msgToSend;
 BufferedReader in; 
 PrintWriter out;
 
-    public SendRcvCallable(String msgToSend, BufferedReader in, PrintWriter out) {
+    public SRC(String msgToSend, BufferedReader in, PrintWriter out) {
         this.msgToSend = msgToSend;
         this.in = in;
         this.out = out;

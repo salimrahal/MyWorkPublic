@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
  *
  * @author salim
  */
-public class Networking {
+public class Ntg {
 
 public static final String LOOPBACK = "127.0.0.1";//127.0.1.1
     /*
     Desc: it will get the first valid IP address, whether it's a SiteLocal Ip or other type of IP
     */
 public static String getLocalIpAddress() throws SocketException{
-    IPAddressValidator validator = new IPAddressValidator();
+    Iav validator = new Iav();
             String localIp = LOOPBACK;
             //getting all network interfaces
             for(Enumeration enumeration = NetworkInterface.getNetworkInterfaces(); enumeration.hasMoreElements();)

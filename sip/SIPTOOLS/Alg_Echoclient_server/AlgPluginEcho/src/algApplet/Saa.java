@@ -22,12 +22,12 @@ import java.util.Enumeration;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class SipAlgApplet extends Applet
+public class Saa extends Applet
     implements ActionListener
 {
  //my server
 String serverIp = "209.208.79.151";
-    public SipAlgApplet()
+    public Saa()
     {
         introStr = "SIP ALG Detector";
         detect = new Button("Detect");

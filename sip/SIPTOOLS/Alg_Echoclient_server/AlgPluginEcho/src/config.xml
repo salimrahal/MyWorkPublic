@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>  
+<!-- Moved to http://hostname/siptoolsconfig/--> 
 <configuration>
     <!-- for local test: ipServer = "127.0.1.1" 209.208.79.151 -->
-    <sipServer ip="209.208.79.151"/>
+    <sipServer ip="74.117.31.73"/>
     <sipIdLocal sipid="ALGdetector"/>
     <agentname agentname="CISCO spa504g"/>
     <!-- test with id=1 is equivalent to test A in the plugin GUI -->   

@@ -28,7 +28,7 @@ import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
-public class IPAddressValidator{
+public class Iav{
  
     private Pattern pattern;
     private Matcher matcher;
@@ -39,7 +39,7 @@ public class IPAddressValidator{
 		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
  
-    public IPAddressValidator(){
+    public Iav(){
 	  pattern = Pattern.compile(IPADDRESS_PATTERN);
     }
  
@@ -54,7 +54,7 @@ public class IPAddressValidator{
     }
     
     public static void main(String[] args){
-     IPAddressValidator validator = new IPAddressValidator();
+     Iav validator = new Iav();
         System.out.println(validator.validate("127.0.0.1"));
     }
 }

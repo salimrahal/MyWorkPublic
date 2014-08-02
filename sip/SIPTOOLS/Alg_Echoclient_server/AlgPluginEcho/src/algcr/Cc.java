@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package algController;
+package algcr;
 
-import algBo.ALGBo;
-import static algBo.ALGBo.UDP_SLEEPTIME;
-import algConcurrent.SendRcvCallable;
+import algBo.Alb;
+import static algBo.Alb.U_E;
+import algConcurrent.SRC;
 import algGui.AlgJPanel;
 import algVo.Test;
 import java.awt.Color;
@@ -39,17 +39,13 @@ import javax.swing.JTextArea;
  *
  * @author salim
  */
-public class ClientController {
+public class Cc {
 //BO
 
-    ALGBo algBo;
+    Alb algBo;
     int counter = 0;
 
     Properties properties;          // Other properties.
-    //Extract the config File
-    //ConfVO confVO = ConfBO.retrieveConfigurations("./conf/properties.xml");
-    // ConfVO confVO = ConfVO.getInstance();
-    // Objects keeping local configuration.
     String iplocal = null;
     String hostnameLocal;
     Integer portSrc1;
@@ -86,21 +82,13 @@ public class ClientController {
     //use to execute tcp send/rcv message callable method
     ExecutorService executor;
 
-    /*
-     ClientController: it instanciated an ALGBo and retrieved fron Singleton ConfVo the properties and assign it to BO 
-     , then to the controller correspondant properties 
-     */
-    public ClientController() throws SocketException {
-        algBo = new ALGBo();
-        /*
-         Retrieve confi values from singleton to the algBo properties
-         */
-        algBo.retrieveParamFromConfVo();
-        /*
-         read properties from the BO
-         */
+   
+    public Cc() throws SocketException {
+        algBo = new Alb();
+
+        algBo.rpfv();
+
         extlocal = algBo.getSipIdLocal();
-        //get server configs
         ipServer = algBo.getIpServer();
 
         portSrc1 = algBo.getPortsrc1();
@@ -123,11 +111,11 @@ public class ClientController {
 
     }
 
-    public ALGBo getAlgBo() {
+    public Alb getAlgBo() {
         return algBo;
     }
 
-    public void setAlgBo(ALGBo algBo) {
+    public void setAlgBo(Alb algBo) {
         this.algBo = algBo;
     }
 
@@ -144,38 +132,34 @@ public class ClientController {
         this.iplocal = iplocal;
     }
 
-    public String processRequests(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
+    public String prreq(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
         DatagramSocket datagramsocket = null;
         counter++;
-        //get the local IP for every process request
+     
         iplocal = algBo.getIplocal();
-//result message no effect on the UI 
-        setresultmessage(ALGBo.INPROGRESS);
+
+        setresultmessage(Alb.I_P);
         String outmsg = null;
         Integer portSrc = test.getPortscr();
         Integer portDest = test.getPortDest();
-        //this callID is unique for both register and invite
-        String callId = new StringBuilder().append(ALGBo.CALLID_PREFIX).append("@").append(iplocal).toString();
+      
+        String callId = new StringBuilder().append(Alb.C_P).append("@").append(iplocal).toString();
         if (test.getTransport().equalsIgnoreCase("udp")) {
             try {
                 datagramsocket = new DatagramSocket(portSrc);
-                ResultObj resObjreg = sendRegisterDatagram(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
+                ResultObj resObjreg = sRD(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
                 outmsg = resObjreg.getResmessage();
-                //after send/receive the register successfully then send the invite
-                //if (resObjreg.getRescode() == 1) {
-
-                //sleep 500 ms before send the invite
-                Thread.currentThread().sleep(UDP_SLEEPTIME);
-                ResultObj resObjinv = sendInviteDatagram(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
+                Thread.currentThread().sleep(U_E);
+                ResultObj resObjinv = sID(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
                 outmsg = resObjinv.getResmessage();
                 //}
                 setresultmessage(outmsg);
             } catch (SocketException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
                 outmsg = "Unknown Socket Error";
                 setresultmessage(outmsg);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
                 outmsg = ex.getLocalizedMessage();
                 setresultmessage(outmsg);
             } finally {
@@ -183,7 +167,7 @@ public class ClientController {
                     datagramsocket.close();
                 }
             }
-        }//end of udp
+        }
         else if (test.getTransport().equalsIgnoreCase("tcp")) {
             String serverHostname = ipServer;
             Socket echoSocket = null;
@@ -192,27 +176,27 @@ public class ClientController {
             PrintWriter out = null;
             BufferedReader in = null;
             try {
-                //attemping to connect to the server
+               
                 System.out.println("Process Request: Attemping to connect to host " + serverHostname + " on port " + portDest + "/TCP.");
 
-                //build both message
-                msgToSendReg = algBo.buildRegisterSIPMessage(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
-                msgToSendInv = algBo.buildInviteSIPMessage(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
+                
+                msgToSendReg = algBo.brm(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
+                msgToSendInv = algBo.bim(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
 
-                //create socket and connect to the server
+               
                 echoSocket = new Socket();
-                echoSocket.connect(new InetSocketAddress(serverHostname, portDest), ALGBo.TCP_TIMEOUT);
+                echoSocket.connect(new InetSocketAddress(serverHostname, portDest), Alb.T_T);
                 System.out.println("Process Request: connected.");
                 out = new PrintWriter(echoSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(
                         echoSocket.getInputStream()));
 
-                //send the tcp stream
-                ResultObj resObjreg = sendStream(ALGBo.REGISTER, echoSocket, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
+              
+                ResultObj resObjreg = sS(Alb.RG, echoSocket, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                 outmsg = resObjreg.getResmessage();
-                //only sends invite in case register is sent successfully
+              
                 if (resObjreg.getRescode() == 1) {
-                    ResultObj resObjinv = sendStream(ALGBo.INVITE, echoSocket, test, sentmsgInv, recvjtextinvite, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
+                    ResultObj resObjinv = sS(Alb.IV, echoSocket, test, sentmsgInv, recvjtextinvite, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                     outmsg = resObjinv.getResmessage();
                 }
                 setresultmessage(outmsg);
@@ -225,12 +209,10 @@ public class ClientController {
                 setresultmessage(outmsg);
 
             } catch (SocketTimeoutException socketTimeout) {
-                //handling firewall issue of TCP
-                outmsg = ALGBo.MSG_FIREWALLISSUE;
-                //"processRequests: Couldn't get I/O for "
-                //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
+               
+                outmsg = Alb.M_U;
                 System.err.println("Process Request:socketTimeout" + outmsg);
-                //post the result to the register and invite text fields and result msg output
+                
                 setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSendReg, sentmsgReg, recvjtextregister);
                 setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
@@ -268,7 +250,7 @@ public class ClientController {
      * @return
      * @throws IOException
      */
-    public ResultObj sendStream(String SipMethod, Socket echoSocket, Test test, JTextArea sentmsgJtext, JTextArea recvJtext, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId, PrintWriter out, BufferedReader in, String msgToSendReg, String msgToSendInv) throws IOException {
+    public ResultObj sS(String SipMethod, Socket echoSocket, Test test, JTextArea sentmsgJtext, JTextArea recvJtext, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId, PrintWriter out, BufferedReader in, String msgToSendReg, String msgToSendInv) throws IOException {
         String outmsg = null;
         Integer resCode = 0;
         ResultObj resObj = new ResultObj();
@@ -281,7 +263,7 @@ public class ClientController {
             //message used for the return
             resObj.setMessageTosendInv(msgToSendInv);
 
-            if (SipMethod.equalsIgnoreCase(ALGBo.REGISTER)) {
+            if (SipMethod.equalsIgnoreCase(Alb.RG)) {
                 msgToSend = msgToSendReg;
 
             } else {
@@ -291,11 +273,11 @@ public class ClientController {
             String msgRecv = null;
             //execute the send/receive as Callable task in order to handle the excpetion in case of a timeout
 
-            SendRcvCallable sendRcvTask = new SendRcvCallable(msgToSend, in, out);
+            SRC sendRcvTask = new SRC(msgToSend, in, out);
             Future<String> future = executor.submit(sendRcvTask);
 
             try {
-                msgRecv = future.get(ALGBo.TCP_TIMEOUT, TimeUnit.MILLISECONDS);
+                msgRecv = future.get(Alb.T_T, TimeUnit.MILLISECONDS);
                 //msgRecv = handleSendReceiveTcp(msgToSend, in, out);
                 System.out.println("all message received=[" + msgRecv + "]");
                 sentmsgJtext.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(msgToSend).toString());
@@ -305,32 +287,32 @@ public class ClientController {
                 //test alg detected
                 //msgRecv = msgRecv + "unknowncharacter";
                 if (msgToSend.equalsIgnoreCase(msgRecv)) {
-                    outmsg = ALGBo.MSG_SipALGNotFound;
+                    outmsg = Alb.MSG_SipALGNotFound;
 
                 } else {
                     // check the caller-ID
                     //retreive received caller Id
-                    outmsg = algBo.algcheck(msgRecv, callId);
+                    outmsg = algBo.ak(msgRecv, callId);
                 }
                 //setresultmessage(outmsg);
                 //echoSocket.close();
                 resCode = 1;
             } catch (InterruptedException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ExecutionException ex) {
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
             } catch (TimeoutException ex) {
                 System.err.println("sendStream TimeoutException Error:" + ex.getLocalizedMessage());
                 //outmsg = ALGBo.MSG_SERVERNOTRESPONDING_ISSUE;
                 System.out.println("");
-                outmsg = ALGBo.MSG_FIREWALLISSUE;
+                outmsg = Alb.M_U;
                 //setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSend, sentmsgJtext, recvJtext);
                 //Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
                 // add text to invite only for view
                 System.out.println("sendStream TimeoutException ..before filling invite text area..");
                 //it fill the sent/rcv invite response in case of Register called, no need to set such text field in case of invite, because it's already set above
-                if (SipMethod.equalsIgnoreCase(ALGBo.REGISTER)) {
+                if (SipMethod.equalsIgnoreCase(Alb.RG)) {
                     setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
                 }
             }
@@ -363,7 +345,7 @@ public class ClientController {
         return strbuilder.toString();
     }
 
-    public ResultObj sendRegisterDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, String callId) throws IOException {
+    public ResultObj sRD(DatagramSocket datagramsocket, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, String callId) throws IOException {
         String outmsg = null;
         byte abyteReg[] = null;
         Integer resCode = 0;
@@ -380,35 +362,35 @@ public class ClientController {
             //datagramsocket = new DatagramSocket(test.getPortscr());
             //-------------------------send/receive the register---------------------------//
             String registerMsg = "";
-            registerMsg = algBo.buildRegisterSIPMessage(ipServer, iplocal, "UDP", portsrc, portdest, callId, agentName);
+            registerMsg = algBo.brm(ipServer, iplocal, "UDP", portsrc, portdest, callId, agentName);
             abyteReg = registerMsg.getBytes();
 
-            //construct a packet that recieve data on the destination Addr and port specified by the constructor
-            System.out.println("sendRegisterStateful Destination IP(server)=" + inetaddress1.getHostAddress() + "- counter=" + counter);
+          
+           
             datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
-            System.out.println("sendRegisterStateful sending REGISTER packet..");
+           
             datagramsocket.send(datagrampacket);
-            System.out.println("sendRegisterStateful REGISTER packet sent");
+            
             //int k = datagramsocket.getLocalPort();
             sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
             //set the caret to the top always
             sentmsgReg.setCaretPosition(0);
 
             byte abyteBuff[] = new byte[1024];
-            datagramsocket.setSoTimeout(ALGBo.UDP_TIMEOUT);
+            datagramsocket.setSoTimeout(Alb.U_T);
             //Constructs a DatagramPacket for receiving packets of length length.
             DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
-            System.out.println("sendRegisterStateful waiting REGISTER for response..");
+           
             datagramsocket.receive(datagrampacketRecReg);
             String recvMsg = new String(datagrampacketRecReg.getData(), 0, datagrampacketRecReg.getLength());
             byte recMsgByte[] = recvMsg.getBytes();
-            System.out.println("sendRegister REGISTER received message = [" + recvMsg + "]");
+           
             if (recvMsg.equals(registerMsg)) {
                 outmsg = algBo.MSG_SipALGNotFound;
             } else {
                 // check the caller-ID
                 //retreive received caller Id
-                outmsg = algBo.algcheck(recvMsg, callId);
+                outmsg = algBo.ak(recvMsg, callId);
             }
             //setresultmessage(outmsg);
             recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
@@ -417,10 +399,10 @@ public class ClientController {
             //datagramsocket.close();
             resCode = 1;
         } catch (SocketTimeoutException sockettimeoutexception) {
-            recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(algBo.MSG_FIREWALLISSUE).toString());
+            recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(algBo.M_U).toString());
             recvjtextregister.setCaretPosition(0);
             //TODO?? add to invite text field the sent and received 
-            outmsg = algBo.MSG_FIREWALLISSUE;
+            outmsg = algBo.M_U;
             //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {
@@ -433,7 +415,7 @@ public class ClientController {
         return resObj;
     }
 
-    public ResultObj sendInviteDatagram(DatagramSocket datagramsocket, Test test, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId) {
+    public ResultObj sID(DatagramSocket datagramsocket, Test test, JTextArea sentmsgInv, JTextArea recvjtextinvite, String callId) {
         String outmsg;
         Integer resCode = 0;
         ResultObj resObj = new ResultObj();
@@ -443,7 +425,7 @@ public class ClientController {
         String agentName = algBo.getAgentname();
         try {
             //datagramsocket = new DatagramSocket(test.getPortscr());
-            String inviteMsg = algBo.buildInviteSIPMessage(ipServer, iplocal, "UDP", portsrc, portdest, callId, agentName);
+            String inviteMsg = algBo.bim(ipServer, iplocal, "UDP", portsrc, portdest, callId, agentName);
             byte[] abyteInv = inviteMsg.getBytes();
             InetAddress inetaddress1 = null;
             //inetaddress1 = InetAddress.getByAddress(abyte1);
@@ -460,7 +442,7 @@ public class ClientController {
             sentmsgInv.setCaretPosition(0);
 
             byte abyteBuff[] = new byte[1024];
-            datagramsocket.setSoTimeout(ALGBo.UDP_TIMEOUT);
+            datagramsocket.setSoTimeout(Alb.U_T);
             //Constructs a DatagramPacket for receiving packets of length length.
             DatagramPacket datagrampacketRec = new DatagramPacket(abyteBuff, abyteBuff.length);
             System.out.println("sendInvite waiting for INVITE response..");
@@ -475,7 +457,7 @@ public class ClientController {
             } else {
                 // check the caller-ID
                 //retreive received caller Id
-                outmsg = algBo.algcheck(recvMsg, callId);
+                outmsg = algBo.ak(recvMsg, callId);
             }
             //setresultmessage(outmsg);
             recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
@@ -483,8 +465,8 @@ public class ClientController {
             resCode = 1;
             //datagramsocket.close();
         } catch (SocketTimeoutException sockettimeoutexception) {
-            recvjtextinvite.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(ALGBo.MSG_FIREWALLISSUE).toString());
-            outmsg = ALGBo.MSG_FIREWALLISSUE;
+            recvjtextinvite.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(Alb.M_U).toString());
+            outmsg = Alb.M_U;
             //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
         } catch (IOException exception) {

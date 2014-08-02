@@ -5,8 +5,8 @@
  */
 package algGui;
 
-import algBo.ALGBo;
-import algController.ClientController;
+import algBo.Alb;
+import algcr.Cc;
 import algVo.Test;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -26,18 +26,18 @@ import javax.swing.SwingWorker;
  */
 public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
-    private TaskL task;
+    private TL tk;
     /**
      * Creates new form AlgJPanel
      */
-    private static ClientController sipClientController;
+    private static Cc cc;
 
-    public static ClientController getSipClientController() {
-        return sipClientController;
+    public static Cc getCc() {
+        return cc;
     }
 
-    public static void setSipClientController(ClientController sipClientControllerparam) {
-        sipClientController = sipClientControllerparam;
+    public static void setCc(Cc ccparam) {
+        cc = ccparam;
     }
 
     public AlgJPanel() throws Exception {
@@ -493,39 +493,22 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private void runALGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGButtonActionPerformed
 
-//call reset and clean text fields:
+
         runALGButton.setEnabled(false);
         reset.setEnabled(false);
-//method-1: sending Datagrame directly to the server
-//        ALgDetect alg = new ALgDetect();
-//        String res = alg.algDetect();
-//        resultmsg.setText(res);
-        task = new TaskL();
-        task.addPropertyChangeListener(this);
-        task.execute();
+
+        tk = new TL();
+        tk.addPropertyChangeListener(this);
+        tk.execute();
         //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
         jProgressBar1.setValue(0);
 
-//        resultmsgjlabel.setText(ALGBo.INPROGRESS);
-//        //udp
-//        if (jRadioButton1.isSelected()) {
-//            sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
-//        } //tcp
-//        else if (jRadioButton2.isSelected()) {
-//            sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
-//        } //udp
-//        else if (jRadioButton3.isSelected()) {
-//            sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
-//        } //tcp
-//        else if (jRadioButton4.isSelected()) {
-//            sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
-//        }
     }//GEN-LAST:event_runALGButtonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
 //     removed to avoid aobject already in used exception while doing reset
         jProgressBar1.setValue(0);
-        resultmsgjlabel.setText(ALGBo.INPROGRESS);
+        resultmsgjlabel.setText(Alb.I_P);
         System.out.println("resetActionPerformed...");
         resultmsgjlabel.setBackground(Color.white);
         //clean the text areas:
@@ -548,18 +531,17 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         comb4SentMsgINV.setText("Sent message:");
         comb4RcvMsgREG.setText("Received message:");
         comb4RcvMsgINV.setText("Received message:");
-        resultmsgjlabel.setText(ALGBo.RESET_OK);
+        resultmsgjlabel.setText(Alb.R_K);
 
     }//GEN-LAST:event_resetActionPerformed
 //creating the SIP stack and Listening point upon formAncestoradded Event occured
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
         // TODO add your handling code here:
-        System.out.println("Event AncestorAdded...");
 
-        if (getSipClientController() == null) {
-            System.out.println("formAncestorAdded: Sip Listener null..initialise the stack");
+        if (getCc() == null) {
+           
             try {
-                sipClientController = new ClientController();
+                cc = new Cc();
 //                sipClientController.createSipStack();
 //                sipClientController.createSipFrameWork();
             } catch (Exception ex) {
@@ -658,61 +640,45 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public static javax.swing.JButton runALGButton;
     // End of variables declaration//GEN-END:variables
 
-    public void sendrequests(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, ClientController sipClientController) {
+    public void sr(Integer combSeq, JTextArea sentmsgReg, JTextArea sentmsgInv, Cc cc) {
         Test comb = null;
         JTextArea recvjtextregister = null;
         JTextArea recvjtextinvite = null;
 
-        ALGBo algBo = sipClientController.getAlgBo();
+        Alb alb = cc.getAlgBo();
         if (combSeq == 1) {
-            comb = algBo.getTestfromCombId(1);
+            comb = alb.getTestfromCombId(1);
             recvjtextregister = comb1RcvMsgREG;
             recvjtextinvite = comb1RcvMsgINV;
         } else if (combSeq == 2) {
-            comb = algBo.getTestfromCombId(2);
+            comb = alb.getTestfromCombId(2);
             recvjtextregister = comb2RcvMsgREG;
             recvjtextinvite = comb2RcvMsgINV;
         } else if (combSeq == 3) {
-            comb = algBo.getTestfromCombId(3);
+            comb = alb.getTestfromCombId(3);
             recvjtextregister = comb3RcvMsgREG;
             recvjtextinvite = comb3RcvMsgINV;
         } else if (combSeq == 4) {
-            comb = algBo.getTestfromCombId(4);
+            comb = alb.getTestfromCombId(4);
             recvjtextregister = comb4RcvMsgREG;
             recvjtextinvite = comb4RcvMsgINV;
         }
 
         try {
-            sipClientController.processRequests(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+            cc.prreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
 
-//           sipClientController.sendRegister(comb, sentmsgReg, recvjtextregister);
-//           sipClientController.sendInvite(comb, sentmsgInv, recvjtextinvite);
-//
-//        //filling the output log after sending the messeges
-//        //REG
-//        sentmsgReg.setText(resReg);
-//        //set the caret to the top always
-//        sentmsgReg.setCaretPosition(0);
-//        //INV
-//        sentmsgInv.setText(resInv);
-//        //set the caret to the top always
-//        sentmsgInv.setCaretPosition(0);
         } catch (IOException ex) {
             Logger.getLogger(AlgJPanel.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    /*
-     update jradio buttoms labels
-     */
     public static void updateTestLabels() {
         //update the test parameters 
         String testA;
-        //assign default value
-        //testA = "Transport: UDP Source Port: 5060 Destination Port: 5060";
+        
         testA = "No Parameters have been found!";
-        ALGBo algBo = getSipClientController().getAlgBo();
+        Alb algBo = getCc().getAlgBo();
         if (algBo.getPortsrc1() != null && algBo.getTransport1() != null && algBo.getPortdest1() != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("Transport: ").append(algBo.getTransport1()).append(" Source Port: ").append(algBo.getPortsrc1()).append(" Destination Port: ").append(algBo.getPortdest1());
@@ -721,7 +687,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jRadioButton1.setText(testA);
 
         String testB;
-        //assign default value
+       
         testB = "No Parameters have been found!";
         if (algBo.getPortsrc2() != null && algBo.getTransport2() != null && algBo.getPortdest2() != null) {
             StringBuilder sb = new StringBuilder();
@@ -765,7 +731,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
     }
 
-    class TaskL extends SwingWorker<Void, Void> {
+    class TL extends SwingWorker<Void, Void> {
         /*
          * Main task. Executed in background thread.
         */
@@ -775,23 +741,23 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
             int progress = 0;
             //Initialize progress property. 
             setProgress(0);
-            resultmsgjlabel.setText(ALGBo.INPROGRESS);
+            resultmsgjlabel.setText(Alb.I_P);
             //udp
             if (jRadioButton1.isSelected()) {
                 setProgress(50);
-                sendrequests(1, comb1SentMsgREG, comb1SentMsgINV, sipClientController);
+                sr(1, comb1SentMsgREG, comb1SentMsgINV, cc);
             } //tcp
             else if (jRadioButton2.isSelected()) {
                 setProgress(50);
-                sendrequests(2, comb2SentMsgREG, comb2SentMsgINV, sipClientController);
+                sr(2, comb2SentMsgREG, comb2SentMsgINV, cc);
             } //udp
             else if (jRadioButton3.isSelected()) {
                 setProgress(50);
-                sendrequests(3, comb3SentMsgREG, comb3SentMsgINV, sipClientController);
+                sr(3, comb3SentMsgREG, comb3SentMsgINV, cc);
             } //tcp
             else if (jRadioButton4.isSelected()) {
                 setProgress(50);
-                sendrequests(4, comb4SentMsgREG, comb4SentMsgINV, sipClientController);
+                sr(4, comb4SentMsgREG, comb4SentMsgINV, cc);
             }
             progress = 100;
             setProgress(Math.min(progress, 100));
