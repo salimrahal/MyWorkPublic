@@ -39,11 +39,9 @@ public class MainJapplet extends JApplet {
                         }
                         //append http
                         hostname = "http://"+hostname;
-                        //build the config url: http://localhost/siptoolsconfig/config.xml
-                        String configUri = new StringBuilder().append(hostname).append("/").append(alb.C_D).append("/").append(alb.C_N).toString();
                         //String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
                         //retrieve the config values and assign the proper values to ALGBo properties
-                        alb.pc(configUri);
+                        alb.pc(alb.getCU(hostname));
                     } catch (Exception ex) {
                         Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);
                     }

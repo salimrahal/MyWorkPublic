@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-<!-- Moved to http://hostname/siptoolsconfig/--> 
+<!-- Moved to anothe dir then the project--> 
 <configuration>
     <!-- for local test: ipServer = "127.0.1.1" 209.208.79.151 -->
     <sipServer ip="74.117.31.73"/>

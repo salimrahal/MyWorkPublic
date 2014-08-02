@@ -38,32 +38,30 @@ public class Alb {
     static public final Integer Comb3Id = 3;
     static public final Integer Comb4Id = 4;
 
-  
-    public Integer portsrc1 ;//UDP 5060 for remote test
-  
-    public Integer portsrc2 ;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
-    
-    public Integer portsrc3 ;//UDP 5060 for remote test
-   
-    public Integer portsrc4 ;
-    
-    //currently the server is running on the same port
-    public Integer portdest1 ;
-    public Integer portdest2 ;
-    public Integer portdest3 ;
-    public Integer portdest4 ;
+    public Integer portsrc1;//UDP 5060 for remote test
 
-    public String transport1 ;
+    public Integer portsrc2;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
+
+    public Integer portsrc3;//UDP 5060 for remote test
+
+    public Integer portsrc4;
+
+    //currently the server is running on the same port
+    public Integer portdest1;
+    public Integer portdest2;
+    public Integer portdest3;
+    public Integer portdest4;
+
+    public String transport1;
     public String transport2;
     public String transport3;
     public String transport4;
 
-
-    public String agentname ;
+    public String agentname;
     public String iplocal;
     //String ipServer = "127.0.1.1";//local test
     String ipServer;//remote test
-    String sipIdLocal ;
+    String sipIdLocal;
 
     public static final String RG = "REGISTER";
     public static final String IV = "INVITE";
@@ -78,8 +76,8 @@ public class Alb {
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
     public static final String MSG_SipALGNotFound = "No ALG Detected";
-     public static final String MSG_SipALGNotFound_Reg = "Register: No ALG Detected, INVITE: In Progress..";
-      public static final String MSG_SipALGNotFound_Inv = "Invite: No ALG Detected";
+    public static final String MSG_SipALGNotFound_Reg = "Register: No ALG Detected, INVITE: In Progress..";
+    public static final String MSG_SipALGNotFound_Inv = "Invite: No ALG Detected";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
 
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
@@ -90,7 +88,6 @@ public class Alb {
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final long U_E = 500;//millisecond
-    
 
     Test test1;
     Test test2;
@@ -100,10 +97,16 @@ public class Alb {
     public Alb() {
     }
 
-    
-    public void pc(String configUri){
-       
-          //extract the config file to confVO
+    public String getCU(String hst) {
+        //build the config url: http://localhost/siptoolsconfig/config.xml
+        String configUri = new StringBuilder().append(hst).append("/").append(C_D).append("/").append(C_N).toString();
+        return configUri;
+
+    }
+
+    public void pc(String configUri) {
+
+        //extract the config file to confVO
         saxparserconf = new Spf();
         try {
             saxparserconf.parseConfVO(configUri);
@@ -116,6 +119,7 @@ public class Alb {
         }
 
     }
+
     public Test getTestfromCombId(int id) {
         Test resT = null;
         switch (id) {
@@ -158,7 +162,6 @@ public class Alb {
         }
     }
 
-
     public String ak(String recvMsg, String callIdSent) {
         String callIdRecv;
         String resMsg;
@@ -173,7 +176,6 @@ public class Alb {
         }
         return resMsg;
     }
-
 
     public void rpfv() {
         ConfVO conVO = ConfVO.getInstance();
@@ -363,7 +365,7 @@ public class Alb {
         this.sipIdLocal = extlocal;
     }
 
-    public String brm(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
+    public String brm(String ipServer, String ipLocalparam, String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
         String registerMsg = "";
         registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
                 .append(portdest).append(" SIP/2.0\r\nVia: SIP/2.0/").append(transport).append(" ").append(ipLocalparam).append(":")
@@ -378,7 +380,7 @@ public class Alb {
         return registerMsg;
     }
 
-    public String bim(String ipServer, String ipLocalparam,String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
+    public String bim(String ipServer, String ipLocalparam, String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) throws SocketException {
         String inviteMsgInner = (new StringBuilder()).append("v=0\r\no=- 54899656 54899656 IN IP4 ").append(ipLocalparam).append("\r\ns=-\r\nc=IN IP4 ").
                 append(ipLocalparam).append("\r\nt=0 0\r\nm=audio 16482 RTP/AVP 0 8 18 100 101\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:18 G729a/8000\r\na=rtpmap:100 NSE/8000\r\na=fmtp:100 192-193\r\na=rtpmap:101 telephone-event/8000\r\na=fmtp:101 0-15\r\na=ptime:30\r\na=sendrecv\r\n").toString();
         int contentLength = inviteMsgInner.getBytes().length;
