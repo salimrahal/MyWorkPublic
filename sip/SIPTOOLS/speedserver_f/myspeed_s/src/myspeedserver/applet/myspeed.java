@@ -107,6 +107,7 @@ public class myspeed extends JApplet
   private Rectangle RF;
   private Rectangle SF;
   private int JD = 0;
+  //thread called by doStartMySpeed
   private Thread OF;
   private Thread PE;
   private int KD = -1;
@@ -177,8 +178,8 @@ public class myspeed extends JApplet
       {
         selectTab(TX("voip"));
       }
-    }
-  }
+    }//end else
+  }//end action performed
 
   public String appNameVer(boolean paramBoolean)
   {
@@ -284,6 +285,9 @@ public class myspeed extends JApplet
     return null;
   }
 
+  /*
+  sr load plugins: myspeed
+  */
   private void loadPlugins()
   {
     String str = this.AD ? this.QE : this.RE;
@@ -970,6 +974,7 @@ public class myspeed extends JApplet
     }
   }
 
+  //sr called by speedtest thread
   private void doRunThread()
   {
     try
@@ -980,8 +985,9 @@ public class myspeed extends JApplet
       this.DD = 0L;
       for (int i = 0; (this.SE != null) && (i < this.SE.length); i++)
         this.SE[i].notifyTestBegin();
+      //sr get ticket or check the server if busy or not
       doGetTicket();
-      i = (this.LE != null) && (this.LE.startsWith(TX("MAX"))) ? 1 : 0;
+      int i = (this.LE != null) && (this.LE.startsWith(TX("MAX"))) ? 1 : 0;//sr int i
       int j;
       Object localObject1;
       if ((this.MF > 0) || (i != 0))
@@ -1024,7 +1030,7 @@ public class myspeed extends JApplet
         if ((str != null) && (!str.trim().equals("")))
           delaySelectTab(TX("summary").equals(str) ? TX("summ") : str);
         doRepaint();
-      }
+      }//end if i=0
       else
       {
         addError(new ErrorCode(33554434, "The maximum number of tests for this interval has been reached. Please try later."));
@@ -1040,7 +1046,7 @@ public class myspeed extends JApplet
     {
       runEpitaph();
     }
-  }
+  }//end of doRunThread
 
   private void runEpitaph()
   {
@@ -1294,6 +1300,7 @@ public class myspeed extends JApplet
       doStartMySpeed(true);
   }
 
+  //sr: start myspeed test
   public void doStartMySpeed(boolean paramBoolean)
   {
     int i = this.OF == null ? 1 : 0;
