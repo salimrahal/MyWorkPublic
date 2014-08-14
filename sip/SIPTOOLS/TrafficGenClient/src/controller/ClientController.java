@@ -6,7 +6,7 @@
 
 package controller;
 
-import algBo.Networking;
+import bo.Networking;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

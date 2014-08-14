@@ -6,7 +6,7 @@
 
 package trafficgenclient;
 
-import algBo.Networking;
+import bo.Networking;
 import controller.ClientController;
 import java.io.IOException;
 import java.net.DatagramPacket;
