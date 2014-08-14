@@ -5,8 +5,8 @@
  */
 package algechoserver;
 
-import bo.EchoServerDatagram;
-import bo.EchoServerTcp;
+import algechoserver.bo.EchoServerDatagram;
+import algechoserver.bo.EchoServerTcp;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -28,7 +28,7 @@ public class AlgEchoServer {
         //for remote test
         String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
         //for local host test
-         localIp = "127.0.1.1";
+         localIp = "127.0.0.1";
 
         Integer defaultport = 5092;
         String portStr;

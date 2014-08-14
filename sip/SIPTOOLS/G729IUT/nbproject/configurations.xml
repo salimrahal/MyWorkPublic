@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="94">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="c_code" displayName="c_code" projectFiles="true">
+        <itemPath>c_code/ACELP_CO.C</itemPath>
+        <itemPath>c_code/BASIC_OP.C</itemPath>
+        <itemPath>c_code/BASIC_OP.H</itemPath>
+        <itemPath>c_code/BITS.C</itemPath>
+        <itemPath>c_code/CODER.C</itemPath>
+        <itemPath>c_code/CODER.MAK</itemPath>
+        <itemPath>c_code/COD_LD8K.C</itemPath>
+        <itemPath>c_code/DECODER.C</itemPath>
+        <itemPath>c_code/DECODER.MAK</itemPath>
+        <itemPath>c_code/DEC_GAIN.C</itemPath>
+        <itemPath>c_code/DEC_LAG3.C</itemPath>
+        <itemPath>c_code/DEC_LD8K.C</itemPath>
+        <itemPath>c_code/DE_ACELP.C</itemPath>
+        <itemPath>c_code/DSPFUNC.C</itemPath>
+        <itemPath>c_code/FILTER.C</itemPath>
+        <itemPath>c_code/GAINPRED.C</itemPath>
+        <itemPath>c_code/LD8K.H</itemPath>
+        <itemPath>c_code/LPC.C</itemPath>
+        <itemPath>c_code/LPCFUNC.C</itemPath>
+        <itemPath>c_code/LSPDEC.C</itemPath>
+        <itemPath>c_code/LSPGETQ.C</itemPath>
+        <itemPath>c_code/OPER_32B.C</itemPath>
+        <itemPath>c_code/OPER_32B.H</itemPath>
+        <itemPath>c_code/PITCH.C</itemPath>
+        <itemPath>c_code/POST_PRO.C</itemPath>
+        <itemPath>c_code/PRED_LT3.C</itemPath>
+        <itemPath>c_code/PRE_PROC.C</itemPath>
+        <itemPath>c_code/PST.C</itemPath>
+        <itemPath>c_code/PWF.C</itemPath>
+        <itemPath>c_code/P_PARITY.C</itemPath>
+        <itemPath>c_code/QUA_GAIN.C</itemPath>
+        <itemPath>c_code/QUA_LSP.C</itemPath>
+        <itemPath>c_code/README.txt</itemPath>
+        <itemPath>c_code/TAB_LD8K.C</itemPath>
+        <itemPath>c_code/TAB_LD8K.H</itemPath>
+        <itemPath>c_code/TYPEDEF.H</itemPath>
+        <itemPath>c_code/UTIL.C</itemPath>
+      </logicalFolder>
+      <logicalFolder name="test_vectors"
+                     displayName="test_vectors"
+                     projectFiles="true">
+        <itemPath>test_vectors/ALGTHM.BIT</itemPath>
+        <itemPath>test_vectors/ALGTHM.IN</itemPath>
+        <itemPath>test_vectors/ALGTHM.PST</itemPath>
+        <itemPath>test_vectors/ERASURE.BIT</itemPath>
+        <itemPath>test_vectors/ERASURE.PST</itemPath>
+        <itemPath>test_vectors/FIXED.BIT</itemPath>
+        <itemPath>test_vectors/FIXED.IN</itemPath>
+        <itemPath>test_vectors/FIXED.PST</itemPath>
+        <itemPath>test_vectors/LSP.BIT</itemPath>
+        <itemPath>test_vectors/LSP.IN</itemPath>
+        <itemPath>test_vectors/LSP.PST</itemPath>
+        <itemPath>test_vectors/OVERFLOW.BIT</itemPath>
+        <itemPath>test_vectors/OVERFLOW.PST</itemPath>
+        <itemPath>test_vectors/PARITY.BIT</itemPath>
+        <itemPath>test_vectors/PARITY.PST</itemPath>
+        <itemPath>test_vectors/PITCH.BIT</itemPath>
+        <itemPath>test_vectors/PITCH.IN</itemPath>
+        <itemPath>test_vectors/PITCH.PST</itemPath>
+        <itemPath>test_vectors/READMETV.txt</itemPath>
+        <itemPath>test_vectors/SPEECH.BIT</itemPath>
+        <itemPath>test_vectors/SPEECH.IN</itemPath>
+        <itemPath>test_vectors/SPEECH.PST</itemPath>
+        <itemPath>test_vectors/TAME.BIT</itemPath>
+        <itemPath>test_vectors/TAME.IN</itemPath>
+        <itemPath>test_vectors/TAME.PST</itemPath>
+        <itemPath>test_vectors/TEST.BAT</itemPath>
+      </logicalFolder>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>c_code</Elem>
+    <Elem>test_vectors</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+      </compileType>
+      <item path="c_code/ACELP_CO.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/BASIC_OP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/BASIC_OP.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/BITS.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/CODER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/CODER.MAK" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/COD_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DECODER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DECODER.MAK" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/DEC_GAIN.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DEC_LAG3.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DEC_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DE_ACELP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DSPFUNC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/FILTER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/GAINPRED.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LD8K.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/LPC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LPCFUNC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LSPDEC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LSPGETQ.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/OPER_32B.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/OPER_32B.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/PITCH.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/POST_PRO.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PRED_LT3.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PRE_PROC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PST.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PWF.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/P_PARITY.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/QUA_GAIN.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/QUA_LSP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/README.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/TAB_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/TAB_LD8K.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/TYPEDEF.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/UTIL.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ERASURE.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ERASURE.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/OVERFLOW.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/OVERFLOW.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PARITY.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PARITY.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/READMETV.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TEST.BAT" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="c_code/ACELP_CO.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/BASIC_OP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/BASIC_OP.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/BITS.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/CODER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/CODER.MAK" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/COD_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DECODER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DECODER.MAK" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/DEC_GAIN.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DEC_LAG3.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DEC_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DE_ACELP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/DSPFUNC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/FILTER.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/GAINPRED.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LD8K.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/LPC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LPCFUNC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LSPDEC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/LSPGETQ.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/OPER_32B.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/OPER_32B.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/PITCH.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/POST_PRO.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PRED_LT3.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PRE_PROC.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PST.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/PWF.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/P_PARITY.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/QUA_GAIN.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/QUA_LSP.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/README.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/TAB_LD8K.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="c_code/TAB_LD8K.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/TYPEDEF.H" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="c_code/UTIL.C" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ALGTHM.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ERASURE.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/ERASURE.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/FIXED.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/LSP.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/OVERFLOW.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/OVERFLOW.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PARITY.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PARITY.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/PITCH.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/READMETV.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/SPEECH.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.BIT" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.IN" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TAME.PST" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test_vectors/TEST.BAT" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

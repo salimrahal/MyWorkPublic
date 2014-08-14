@@ -28,6 +28,8 @@ public class MainJapplet extends JApplet {
                     try {
                      crg();
                        
+                        final String  cstr = getParameter("cust");   
+                        System.out.println("cust nme:"+ cstr);
                         //parse the XML config to class VO by passing URI
                         //Alb alb = new Alb();
                         

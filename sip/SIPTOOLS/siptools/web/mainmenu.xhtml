@@ -38,10 +38,8 @@
             <div id="top">
                 <ui:insert name="left"> 
                     <h:form target="_blank">
-<!--            <h:commandButton  action="secure/sipserver" rendered="#{p:ifGranted('admin')}" value="Manage the SIP Server" />-->
                         <h:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
                         <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
-                        <h:commandButton  action="firewalldetector" value="Run Firewall Test Detector"></h:commandButton> 
                         <h:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
 
 
