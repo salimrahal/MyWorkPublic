@@ -19,5 +19,9 @@ public class Test {
         byte bte2 = (byte)0x55;// 85
        
         System.out.println("bb="+bte2);
+        
+        byte[] buff = new byte[50];
+        byte[][] tmp = {buff};
+        System.out.println(tmp[1]);
     }
 }

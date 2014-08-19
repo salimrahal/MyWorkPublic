@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trafficServer.bo;
+package sipserver.bo;
 
-import algechoserver.bo.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,9 +21,8 @@ import java.util.logging.Logger;
 /**
  *
  * @author salim
- * trafficThread datagram
  */
-public class TrfThreadDgm implements Runnable{
+public class EchoServerDatagram implements Runnable{
 
     DatagramSocket socket = null;
     BufferedReader in = null;
@@ -32,15 +30,13 @@ public class TrfThreadDgm implements Runnable{
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";
     //// poolsize=30; unsused
-    Integer port;
     Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
 
 
-    public TrfThreadDgm(String localIp, Integer port) throws SocketException, UnknownHostException {
-        this.port = port;
+    public EchoServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
         address = InetAddress.getByName(localIp);
         socket = new DatagramSocket(port, address);
-        System.out.println("Traffic DatagramServer: listening on port: " + port + "/ Ip: " + localIp+" / use a cached pool");   
+        System.out.println("Sip Echo DatagramServer: listening on port " + port + "/ Ip " + localIp+" / use a cached pool");   
     }
     
        @Override
@@ -48,7 +44,7 @@ public class TrfThreadDgm implements Runnable{
         try {
             processrequests();
         } catch (SocketException | UnknownHostException ex) {
-            System.out.println("Traffic DatagramServer:: Error: couldn't run the serverUdp:"+ex.getLocalizedMessage()); 
+            System.out.println("Sip DatagramServer: Error: couldn't run the serverUdp:"+ex.getLocalizedMessage()); 
         }
     }
 
@@ -56,12 +52,12 @@ public class TrfThreadDgm implements Runnable{
         int i = 0;
         String subStr;
         ExecutorService poolservice = Executors.newCachedThreadPool();
-        System.out.println("Traffic DatagramServer:(UDP Server) starts..port:"+ this.port);
+        System.out.println("Sip DatagramServer(UDP Server) starts..");
         //buffer to receive incoming data
         byte[] buf = new byte[1024];//65536
         try {
 
-            System.out.println("Traffic DatagramServer:: waiting to receive packets....port:"+ this.port);
+            System.out.println("Sip DatagramServer: waiting to receive packets");
             //communication loop
             while (true) {
                 //create udp packet
@@ -81,12 +77,12 @@ public class TrfThreadDgm implements Runnable{
                     int portInco = incomingPacket.getPort();
                     
                     //create the thread(Runnable) that sends the message                  
-                    ClientTrfDgmConnection clientConn = new ClientTrfDgmConnection(socket, recvMsg, addressInco, portInco, i);
+                    ClientDatagramConnection clientConn = new ClientDatagramConnection(socket, recvMsg, addressInco, portInco, i);
                     //and this task to a pool, so clientConnection thread will be started
                     poolservice.execute(clientConn);
                     i++;
                 } else {
-                    System.out.println("Traffic DatagramServer::unknown client, disregard the packet");
+                    System.out.println("Sip DatagramServer:unknown client, disregard the packet");
                 }
 
             }//end of while

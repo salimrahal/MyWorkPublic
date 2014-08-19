@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trafficServer.bo;
+package sipserver.bo.trf;
 
-import algechoserver.bo.*;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -45,18 +44,20 @@ public class ClientTrfDgmConnection implements Runnable {
     private synchronized void sendbackpacket() {
         DatagramPacket incomingPacketLocal;
         String threadName = Thread.currentThread().getName();
-        System.out.println("threadName ["+
-                threadName + "] is going to handle packet num "+clientID);
+        System.out.println("threadName ["
+                + threadName + "] is going to handle packet num " + clientID);
         byte[] buf;
         try {
-           
+
             //System.out.println("["+ threadName + "] received packet clientID:" + clientID + "\n" + recvMsg);
             buf = recvMsg.getBytes();
-            
+
             incomingPacketLocal = new DatagramPacket(buf, buf.length, address, port);
+           // retreive the rtppkt identifiers:
+           
             //send the packet back to the client
             socket.send(incomingPacketLocal);
-            System.out.println("["+new Date()+"]\n - ["+ threadName + "] packet: clientID:" + clientID+" is sent.");
+            System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
 
         } catch (IOException ex) {
             Logger.getLogger(ClientTrfDgmConnection.class.getName()).log(Level.SEVERE, null, ex);

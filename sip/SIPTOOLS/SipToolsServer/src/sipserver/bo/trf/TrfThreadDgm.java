@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algechoserver.bo;
+package sipserver.bo.trf;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +21,9 @@ import java.util.logging.Logger;
 /**
  *
  * @author salim
+ * trafficThread datagram
  */
-public class EchoServerDatagram implements Runnable{
+public class TrfThreadDgm implements Runnable{
 
     DatagramSocket socket = null;
     BufferedReader in = null;
@@ -30,13 +31,15 @@ public class EchoServerDatagram implements Runnable{
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";
     //// poolsize=30; unsused
+    Integer port;
     Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
 
 
-    public EchoServerDatagram(String localIp, Integer port) throws SocketException, UnknownHostException {
+    public TrfThreadDgm(String localIp, Integer port) throws SocketException, UnknownHostException {
+        this.port = port;
         address = InetAddress.getByName(localIp);
         socket = new DatagramSocket(port, address);
-        System.out.println("Sip Echo DatagramServer: listening on port " + port + "/ Ip " + localIp+" / use a cached pool");   
+        System.out.println("Traffic DatagramServer: listening on port: " + port + "/ Ip: " + localIp+" / use a cached pool");   
     }
     
        @Override
@@ -44,7 +47,7 @@ public class EchoServerDatagram implements Runnable{
         try {
             processrequests();
         } catch (SocketException | UnknownHostException ex) {
-            System.out.println("Sip DatagramServer: Error: couldn't run the serverUdp:"+ex.getLocalizedMessage()); 
+            System.out.println("Traffic DatagramServer:: Error: couldn't run the serverUdp:"+ex.getLocalizedMessage()); 
         }
     }
 
@@ -52,38 +55,35 @@ public class EchoServerDatagram implements Runnable{
         int i = 0;
         String subStr;
         ExecutorService poolservice = Executors.newCachedThreadPool();
-        System.out.println("Sip DatagramServer(UDP Server) starts..");
+        System.out.println("Traffic DatagramServer:(UDP Server) starts..port:"+ this.port);
         //buffer to receive incoming data
-        byte[] buf = new byte[1024];//65536
+        byte[] buf = new byte[1500];//65536
         try {
 
-            System.out.println("Sip DatagramServer: waiting to receive packets");
+            System.out.println("Traffic DatagramServer:: waiting to receive packets....port:"+ this.port);
             //communication loop
             while (true) {
                 //create udp packet
                 DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
                 // receive request
                 socket.receive(incomingPacket);
+                System.out.println("incomingPacket.getData().length="+incomingPacket.getData().length);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
                 System.out.println("["+new Date()+"]\n received packet clientID:" + i + "\n" + recvMsg);
                 //check the message type to ensure it's: register or invite, drop the sip spam
                 subStr = recvMsg.substring(0, 8);//check the first line or method type
-                    
-                //only echo the register and invite message
-                if (subStr.contains(registerKey)||subStr.contains(inviteKey)) {
+                
                     // send the response to the client at "address" and "port"
                     InetAddress addressInco = incomingPacket.getAddress();
                     int portInco = incomingPacket.getPort();
                     
                     //create the thread(Runnable) that sends the message                  
-                    ClientDatagramConnection clientConn = new ClientDatagramConnection(socket, recvMsg, addressInco, portInco, i);
+                    ClientTrfDgmConnection clientConn = new ClientTrfDgmConnection(socket, recvMsg, addressInco, portInco, i);
                     //and this task to a pool, so clientConnection thread will be started
                     poolservice.execute(clientConn);
                     i++;
-                } else {
-                    System.out.println("Sip DatagramServer:unknown client, disregard the packet");
-                }
+                
 
             }//end of while
         }//end try

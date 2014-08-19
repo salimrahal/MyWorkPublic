@@ -5,12 +5,13 @@
  */
 package siptoolServer;
 
-import algechoserver.bo.EchoServerDatagram;
-import algechoserver.bo.EchoServerTcp;
+import sipserver.bo.EchoServerDatagram;
+import sipserver.bo.EchoServerTcp;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import network.Networking;
-import trafficServer.bo.TrfThreadDgm;
+import sipserver.bo.trf.TrfThreadDgm;
+import sipserver.bo.trf.TrfThreadTcp;
 
 /**
  *
@@ -26,7 +27,7 @@ public class MainServer {
         //for remote test or on production
         String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
         //for local host test
-        localIp = "127.0.1.1";
+        localIp = "127.0.0.1";
 
         /**
          * ***********ALG Echo Server*********************
@@ -81,8 +82,14 @@ public class MainServer {
                 + portArr[0] + ", " + portArr[1] + ", " + portArr[2] + ", " + portArr[3] + ", " + portArr[4]);
         //launching traffic UDP server
         for (Integer port : portArr) {
-            TrfThreadDgm trfthread = new TrfThreadDgm(localIp, port);
-            Thread serverTrfThread = new Thread(trfthread);
+            TrfThreadDgm trfthreadUdp = new TrfThreadDgm(localIp, port);
+            Thread serverTrfThread = new Thread(trfthreadUdp);
+            serverTrfThread.start();
+        }
+         //launching traffic tcp server
+        for (Integer port : portArr) {
+            TrfThreadTcp trfthreadTcp = new TrfThreadTcp(port);
+            Thread serverTrfThread = new Thread(trfthreadTcp);
             serverTrfThread.start();
         }
     }
