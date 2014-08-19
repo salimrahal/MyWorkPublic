@@ -62,7 +62,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBox1" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="timelengthjComboBox" min="-2" pref="56" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -87,7 +87,7 @@
                   <Component id="codecComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="timelengthjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -172,7 +172,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="VoIP test statistics&#xa;--------------------&#xa;Jitter: you --&gt; server: 109.9 ms&#xa;Jitter: server --&gt; you: 19.5 ms&#xa;Packet loss: you --&gt; server: 56.6 %&#xa;Packet loss: server --&gt; you: 19.6 %&#xa;Packet discards: 50.2 %"/>
+            <Property name="text" type="java.lang.String" value="VoIP test statistics&#xa;--------------------&#xa;Jitter: you --&gt; server: peak: 109.9 ms; average: 80 ms&#xa;Jitter: server --&gt; you: peak: 19 ms; average: 17 ms&#xa;Packet loss: you --&gt; server: 56.6 %&#xa;Packet loss: server --&gt; you: 19.6 %&#xa;Latency: you --&gt; server: peak: 10 ms; average: 8 ms&#xa;Latency: server --&gt; you:  peak: 15 ms; average: 9 ms"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -203,7 +203,7 @@
         <Property name="text" type="java.lang.String" value="Time for the test (secs):"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="timelengthjComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

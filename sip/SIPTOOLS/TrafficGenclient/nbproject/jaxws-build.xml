@@ -33,5 +33,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/CalculatorWSService"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/org/me/calculator"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-CalculatorWSService"/>
+    <target name="wsimport-client-Pivot" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Pivot"/>
+        <property name="wsdl-Pivot" location="xml-resources/web-service-references/Pivot/wsdl/siptools.nexogy.com_8080/SipToolsApp/Pivot.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Pivot" destdir="${build.generated.dir}/jax-wsCache/Pivot" wsdl="${wsdl-Pivot}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://siptools.nexogy.com:8080/SipToolsApp/Pivot?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Pivot}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Pivot"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Pivot">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Pivot" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Pivot"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/safirasoft"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-CalculatorWSService, wsimport-client-Pivot"/>
 </project>

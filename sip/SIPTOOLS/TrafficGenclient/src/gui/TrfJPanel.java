@@ -5,11 +5,19 @@
  */
 package gui;
 
+import bo.TrfGenBo;
+import bo.WSBo;
+import com.safirasoft.IOException_Exception;
+import com.safirasoft.ParserConfigurationException_Exception;
+import com.safirasoft.PrtStstVoList;
+import com.safirasoft.SAXException_Exception;
+import controller.Cc;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,11 +33,21 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private TL tk;
 
+    private static Cc cc;
+
     public String custnm;
 
     public TrfJPanel(String custnm) throws Exception {
         initComponents();
         this.custnm = custnm;
+    }
+
+    public static Cc getCc() {
+        return cc;
+    }
+
+    public static void setCc(Cc cc) {
+        TrfJPanel.cc = cc;
     }
 
     /**
@@ -52,7 +70,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         codecComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        timelengthjComboBox = new javax.swing.JComboBox();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -93,7 +111,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         testStatTextArea.setEditable(false);
         testStatTextArea.setColumns(20);
         testStatTextArea.setRows(5);
-        testStatTextArea.setText("VoIP test statistics\n--------------------\nJitter: you --> server: 109.9 ms\nJitter: server --> you: 19.5 ms\nPacket loss: you --> server: 56.6 %\nPacket loss: server --> you: 19.6 %\nPacket discards: 50.2 %");
+        testStatTextArea.setText("VoIP test statistics\n--------------------\nJitter: you --> server: peak: 109.9 ms; average: 80 ms\nJitter: server --> you: peak: 19 ms; average: 17 ms\nPacket loss: you --> server: 56.6 %\nPacket loss: server --> you: 19.6 %\nLatency: you --> server: peak: 10 ms; average: 8 ms\nLatency: server --> you:  peak: 15 ms; average: 9 ms");
         jScrollPane1.setViewportView(testStatTextArea);
 
         codecComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "G.711 (87.2 Kbps)", "G.722 (80 kbps)", "G.729 (31.2 Kbps)", "ILBC (27.7 kbps)", "SILK (178,5 kbps) " }));
@@ -102,7 +120,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jLabel2.setText("Time for the test (secs):");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "120" }));
+        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "120" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,7 +155,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -154,7 +172,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                     .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(runTestButton)
@@ -183,16 +201,16 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
 
     }//GEN-LAST:event_resetActionPerformed
-//creating the SIP stack and Listening point upon formAncestoradded Event occured
+
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
 
+        cc = new Cc();
     }//GEN-LAST:event_formAncestorAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox codecComboBox1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
@@ -202,9 +220,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runTestButton;
     public javax.swing.JTextArea testStatTextArea;
+    private javax.swing.JComboBox timelengthjComboBox;
     // End of variables declaration//GEN-END:variables
 
-      @Override
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         //System.out.println("propertyChange invoked..");
         if ("progress" == evt.getPropertyName()) {
@@ -224,22 +243,16 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         @Override
         public Void doInBackground() {
+
             int progress = 0;
-            //Initialize progress property. 
+            //Initialize progress property.
             setProgress(0);
-            //TODO: implement business code
             setProgress(50);
-            //1- call webservice to check for free port
-            /**/
-            int k = add(10, 20);
-            System.out.println("result from ws:" + k);
-            /**/
-            //2- retreive parameters
-            
-            
+
             progress = 100;
             setProgress(Math.min(progress, 100));
             return null;
+
         }
 
 
@@ -257,17 +270,34 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             //taskOutput.append("Done!\n");
         }
     }//end of swing worker task Class
-    
-     /*
-    calling ws
-    */  
 
-    private static int add(int i, int j) {
-        org.me.calculator.CalculatorWSService service = new org.me.calculator.CalculatorWSService();
-        org.me.calculator.CalculatorWS port = service.getCalculatorWSPort();
-        return port.add(i, j);
+    public void launchtest() throws IOException {
+        try {
+            //1- call webservice to check for frprt and srip
+                /**/
+            String frPort = WSBo.getFrPort();
+            System.out.println("frport= " + frPort);
+            if (frPort == null) {
+                resultmsgjlabel.setText(bo.TrfGenBo.PRT_B);
+            } else {
+                //sr ip
+                String srip = null;
+                WSBo.getServerip();
+                TrfGenBo.setSrIp(srip);
+                System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
+                /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
+                //2- retreive parameters
+                String codec = TrfGenBo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
+                System.out.println(codec);
+                String timeLength = timelengthjComboBox.getSelectedItem().toString();
+                System.out.println("timelength=" + timeLength);
+                
+                cc.sendParamToServer(frPort, codec, timeLength, custnm);
+            };
+
+            //TODO: call the methode that sends above param to the server
+        } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
+            Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-
-
 }
