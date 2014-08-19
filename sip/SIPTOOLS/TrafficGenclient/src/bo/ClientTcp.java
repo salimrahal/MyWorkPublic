@@ -28,7 +28,7 @@ public class ClientTcp {
         BufferedReader in;
         PrintWriter out;
         out = new PrintWriter(socket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(
+        in = new BufferedReader(new InputStreamReader( 
                 socket.getInputStream()));
         
     }
