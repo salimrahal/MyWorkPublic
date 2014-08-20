@@ -53,5 +53,7 @@ public static String getLocalIpAddress() throws SocketException{
 }
     public static void main(String[] args) throws UnknownHostException, SocketException {
        getLocalIpAddress();
+       String s ="66d2b2fc-6f54-49cf-a495-e158ebb814c7";
+        System.out.println(s.getBytes().length);//36 bytes
     }
 }

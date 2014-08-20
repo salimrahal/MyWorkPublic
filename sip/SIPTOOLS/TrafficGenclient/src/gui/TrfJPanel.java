@@ -19,6 +19,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import javax.swing.SwingWorker;
 public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
     private TL tk;
-
+    TrfGenBo trfBo;
     private static Cc cc;
 
     public String custnm;
@@ -40,6 +41,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public TrfJPanel(String custnm) throws Exception {
         initComponents();
         this.custnm = custnm;
+        trfBo = new TrfGenBo();
     }
 
     public static Cc getCc() {
@@ -71,6 +73,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         timelengthjComboBox = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -111,7 +114,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         testStatTextArea.setEditable(false);
         testStatTextArea.setColumns(20);
         testStatTextArea.setRows(5);
-        testStatTextArea.setText("VoIP test statistics\n--------------------\nJitter: you --> server: peak: 109.9 ms; average: 80 ms\nJitter: server --> you: peak: 19 ms; average: 17 ms\nPacket loss: you --> server: 56.6 %\nPacket loss: server --> you: 19.6 %\nLatency: you --> server: peak: 10 ms; average: 8 ms\nLatency: server --> you:  peak: 15 ms; average: 9 ms");
+        testStatTextArea.setText("\nJitter: you --> server: peak: 109.9 ms; average: 80 ms\nJitter: server --> you: peak: 19 ms; average: 17 ms\n\nLatency: you --> server: peak: 10 ms; average: 8 ms\nLatency: server --> you:  peak: 15 ms; average: 9 ms\n\nPacket loss: you --> server: 56.6 %\nPacket loss: server --> you: 19.6 %\n");
         jScrollPane1.setViewportView(testStatTextArea);
 
         codecComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "G.711 (87.2 Kbps)", "G.722 (80 kbps)", "G.729 (31.2 Kbps)", "ILBC (27.7 kbps)", "SILK (178,5 kbps) " }));
@@ -122,64 +125,67 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "120" }));
 
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setText("VoIP test statistics");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 223, Short.MAX_VALUE)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(126, 126, 126))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(117, 117, 117)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(runTestButton)
-                                .addGap(72, 72, 72)
+                                .addGap(28, 28, 28)
                                 .addComponent(reset))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(306, 306, 306)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(runTestButton)
-                    .addComponent(reset))
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(runTestButton)
+                            .addComponent(reset))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(5, 5, 5)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -214,6 +220,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel3;
     public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton reset;
@@ -248,7 +255,11 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             //Initialize progress property.
             setProgress(0);
             setProgress(50);
-
+            try {
+                launchtest();
+            } catch (IOException ex) {
+                Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             progress = 100;
             setProgress(Math.min(progress, 100));
             return null;
@@ -278,21 +289,23 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             String frPort = WSBo.getFrPort();
             System.out.println("frport= " + frPort);
             if (frPort == null) {
-                resultmsgjlabel.setText(bo.TrfGenBo.PRT_B);
+                resultmsgjlabel.setText(bo.TrfGenBo.M_PRT_B);
             } else {
                 //sr ip
                 String srip = null;
-                WSBo.getServerip();
+                srip = WSBo.getServerip();
+                srip = "127.0.0.1";//local test
                 TrfGenBo.setSrIp(srip);
                 System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
                 /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
-                //2- retreive parameters
+                //2- generate the ran of the test
+                String uuid = trfBo.generateUUID();
+//3- retreive parameters
                 String codec = TrfGenBo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
                 System.out.println(codec);
                 String timeLength = timelengthjComboBox.getSelectedItem().toString();
                 System.out.println("timelength=" + timeLength);
-                
-                cc.sendParamToServer(frPort, codec, timeLength, custnm);
+                cc.sendParamToServer(frPort, codec, timeLength, custnm, srip, uuid);
             };
 
             //TODO: call the methode that sends above param to the server

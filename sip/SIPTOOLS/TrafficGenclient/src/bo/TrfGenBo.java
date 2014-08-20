@@ -6,6 +6,8 @@
 package bo;
 
 import java.io.IOException;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  *
@@ -13,14 +15,21 @@ import java.io.IOException;
  */
 public class TrfGenBo {
 
-    public static final String PRT_B = "No PORT is available for test!!!";
+    public static final String M_PRT_B = "No PORT is available for test!!!";
+    public static final String M_I = "The server is not responding";
+    public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
+    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
+
     public static final String CODEC_G711 = "g711";
     public static final String CODEC_G722 = "g722";
     public static final String CODEC_G729 = "g729";
     public static final String CODEC_ILBC = "ILBC";
     public static final String CODEC_SILK = "SILK";
 
+    public static final Integer T_T = 20000;////millisecond
+
     public static String srIp;
+
     public enum Codec {
 
         G711, G722, G729, ILBC, SILK
@@ -55,5 +64,17 @@ public class TrfGenBo {
 
         }
         return codec;
+    }
+
+    public String generaterandomnumber() {
+        Random rnd = new Random();
+        Integer num = rnd.nextInt(1000000000);
+        return String.valueOf(num);
+    }
+
+    public String generateUUID() {
+        //generate random UUIDs
+        UUID uuid = UUID.randomUUID();
+        return String.valueOf(uuid);
     }
 }
