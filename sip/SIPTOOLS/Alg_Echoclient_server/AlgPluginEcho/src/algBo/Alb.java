@@ -66,7 +66,7 @@ public class Alb {
     public static final String RG = "REGISTER";
     public static final String IV = "INVITE";
 
-    //messages
+    //messages 
     public static final String R_K = "OK";
     public static final String I_P = "in progress..";
     //No Packet Received - SIP ALG / Firewall issue
