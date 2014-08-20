@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sipserver.bo.trf;
+package sipserver.trf;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author salim
+ * handling traffic
  */
 public class ClientTrfDgmConnection implements Runnable {
 

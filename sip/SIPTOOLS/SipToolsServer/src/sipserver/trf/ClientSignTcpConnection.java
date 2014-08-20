@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sipserver.bo.trf;
+package sipserver.trf;
 
-import sipserver.bo.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,37 +13,41 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sipserver.bo.*;
+import sipserver.trf.bean.Param;
 
 /**
  *
  * @author salim
+ * for signalization: receiving params
  */
-public class ClientTrfTcpConnection implements Runnable {
+public class ClientSignTcpConnection implements Runnable {
 
     Socket clientSocket;
     String codedkey = "codec";
-    String inviteKey = "INVITE";
-    String optionKey = "OPTIONS";//to be dropped
+    String tstidkey = "tstid";//only to be accepted
     private Integer clientID;
+    TrfBo trbo;
 
-    public ClientTrfTcpConnection(Socket clientSocket, Integer clientID) {
+    public ClientSignTcpConnection(Socket clientSocket, Integer clientID) {
         this.clientSocket = clientSocket;
         this.clientID = clientID;
+         trbo = new TrfBo();
     }
 
     @Override
     public void run() {
-        sendbackStream();
+        rcvparams();
     }//end run
 
-    private synchronized void sendbackStream() {
+    private synchronized void rcvparams() {
         boolean recognizedClient = true;
         PrintWriter out = null;
         BufferedReader in = null;
         String threadName = Thread.currentThread().getName();
         try {
 
-            System.out.println("Sip ServerTcp: threadName ["
+            System.out.println("traffic TCPServer: threadName ["
                     + threadName + "] is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
@@ -54,32 +57,26 @@ public class ClientTrfTcpConnection implements Runnable {
             int i = 0;
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
-                // if the first line contains OPTIONS then break and dont re-send the message
+               
                 if (firstLine) {
-                    if (inputLine.contains(optionKey)) {
-                        recognizedClient = false;
-                        System.out.println("Sip ServerTcp: Unrecognized Client, breaking:" + inputLine);
+                    if (inputLine.contains(tstidkey)) {
+                        recognizedClient = true;
+                        System.out.println("traffic TCPServer:receiving:" + inputLine);
+                        //extract the parameters from the client and save them to bean 
+                        Param param = trbo.savingParamsTobean(inputLine);
                         break;
                     }
                     firstLine = false;
                 }
-                //CLIENT_CALLID_HEADER Disregarded :check for the call ID whether recognized or not: disregard all unknown invite and register
-//                if (inputLine.contains(AlgEchoServer.CLIENT_CALLID_HEADER)) {
-//                    if (!inputLine.contains(AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
-//                        recognizedClient = false;
-//                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
-//                        break;
-//                    }
-//                }
-                //if recognized client send back the message
-                    //System.out.println("Sip ServerTcp: send back:" + inputLine);
-                    out.println(inputLine);
+                //if recognized client accept the parameters
+                    System.out.println("traffic ServerTcp: send back:" + inputLine);
+                    
                 i++;
             }//end of while     
-            System.out.println("Sip ServerTcp: reading/writing message is finished . The loop is ended on line number:"+i);
+            System.out.println("traffic ServerTcp: reading/writing message is finished . The loop is ended on line number:"+i);
 
         } catch (IOException ex) {
-            Logger.getLogger(ClientTrfTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (out != null) {
                 out.close();
@@ -88,7 +85,7 @@ public class ClientTrfTcpConnection implements Runnable {
                 try {
                     in.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(ClientTrfTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (clientSocket != null) {
@@ -96,13 +93,13 @@ public class ClientTrfTcpConnection implements Runnable {
                     clientSocket.close();
                     // System.out.println("Client connection(clientSocket) is closed");
                 } catch (IOException ex) {
-                    Logger.getLogger(ClientTrfTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
         }
         if(recognizedClient){
-                System.out.println("Sip ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
+                System.out.println("traffic ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
             }
         
             

@@ -10,8 +10,8 @@ import sipserver.bo.EchoServerTcp;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import network.Networking;
-import sipserver.bo.trf.TrfThreadDgm;
-import sipserver.bo.trf.TrfThreadTcp;
+import sipserver.trf.TrfThreadDgm;
+import sipserver.trf.TrfThreadTcp;
 
 /**
  *

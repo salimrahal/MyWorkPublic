@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sipserver.bo.trf;
+package sipserver.trf;
 
 import sipserver.bo.*;
 import java.io.IOException;
@@ -45,9 +45,9 @@ public class TrfThreadTcp implements Runnable {
             try {
                 // a "blocking" call which waits until a connection is requested
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Traffic TCPServer:: Connection successful\n creating new thread for the clientId=" + i);
+                System.out.println("Traffic TCPServer: Connection successful\n creating new thread for the clientId=" + i);
                 //create the thread(Runnable) that echo the receievd message, it should disregard the "OPTIONS" spam
-                ClientTrfTcpConnection clientcpConn = new ClientTrfTcpConnection(clientSocket, i);
+                ClientSignTcpConnection clientcpConn = new ClientSignTcpConnection(clientSocket, i);
                 //and this task to a pool, so clientConnection thread will be started
                 poolservice.execute(clientcpConn);
                 //sendbackStream(clientSocket, i);    
