@@ -56,7 +56,7 @@ public class Pivot {
 
     /**
      * Web service operation
-     * UNUSED
+     * called by Sip tool server jar
      */
     @WebMethod(operationName = "getConfLoc")
     public String getConfLoc() {
