@@ -1,4 +1,6 @@
 ALG detector tool, use datagrame and socket Java API. 
 
 - it has a config.xml where it retrieves the configuration from the server side:
-http://siptools.safirasoft.com/alg/config.xml
+Host/siptoolsconfig/config.xml
+
+http://siptools.safirasoft.com/siptoolsconfig/config.xml
