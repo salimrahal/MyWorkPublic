@@ -8,7 +8,7 @@ public class Client {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		/******Effective Java 
-		 * The builder’s setter methods return the builder itself so
+		 * The builders setter methods return the builder itself so
 		that invocations can be chained
 		The Builder pattern simulates named optional parameters
 

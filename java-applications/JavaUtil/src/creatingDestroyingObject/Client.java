@@ -67,9 +67,9 @@ public class Client {
 		
 		/**Memory Leaks discussion
 		 * Another common source of memory leaks is caches. Once you put an
-object reference into a cache, it’s easy to forget that it’s there and leave it in the
+object reference into a cache, its easy to forget that its there and leave it in the
 cache long after it becomes irrelevant. There are several solutions to this problem.
-If you’re lucky enough to implement a cache for which an entry is relevant exactly
+If youre lucky enough to implement a cache for which an entry is relevant exactly
 so long as there are references to its key outside of the cache, represent the cache
 as a WeakHashMap; entries will be removed automatically after they become obsolete.
 Remember that WeakHashMap is useful only if the desired lifetime of cache

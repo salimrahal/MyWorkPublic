@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://safirasoft.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://safirasoft.com/">
+
+<xs:element name="IOException" type="tns:IOException"/>
+
+<xs:element name="ParserConfigurationException" type="tns:ParserConfigurationException"/>
+
+<xs:element name="SAXException" type="tns:SAXException"/>
+
+<xs:element name="getConfLoc" type="tns:getConfLoc"/>
+
+<xs:element name="getConfLocResponse" type="tns:getConfLocResponse"/>
+
+<xs:element name="getPrtSts" type="tns:getPrtSts"/>
+
+<xs:element name="getPrtStsResponse" type="tns:getPrtStsResponse"/>
+
+<xs:element name="getcodecs" type="tns:getcodecs"/>
+
+<xs:element name="getcodecsResponse" type="tns:getcodecsResponse"/>
+
+<xs:element name="hello" type="tns:hello"/>
+
+<xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:complexType name="getConfLoc">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getConfLocResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getPrtSts">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getPrtStsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:prtStstVoList" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="prtStstVoList">
+<xs:sequence>
+<xs:element name="prtstsL" type="tns:prtStsVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="serverIp" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="prtStsVo">
+<xs:sequence>
+<xs:element name="prtNum" type="xs:string" minOccurs="0"/>
+<xs:element name="sts" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ParserConfigurationException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="SAXException">
+<xs:sequence>
+<xs:element name="exception" type="tns:exception" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="exception">
+<xs:complexContent>
+<xs:extension base="tns:throwable">
+<xs:sequence/>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="throwable">
+<xs:sequence>
+<xs:element name="stackTrace" type="tns:stackTraceElement" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="stackTraceElement" final="extension restriction">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getcodecs">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getcodecsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:codecVoList" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="codecVoList">
+<xs:sequence>
+<xs:element name="codecList" type="tns:codecVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="codecVo">
+<xs:sequence>
+<xs:element name="codec" type="xs:string" minOccurs="0"/>
+<xs:element name="enabled" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
