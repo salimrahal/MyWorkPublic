@@ -32,18 +32,30 @@ public class Spf {
 
     }
 
+    @Deprecated
     public void parseConfVOPrtSts(String confUri) throws ParserConfigurationException, SAXException, IOException {
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
         CHr handler = new CHr();
         File f = new File(confUri);
+      
         parser.parse(confUri, handler);
         ConfVO confvo = handler.confVO;
         List<PrtStsVo> prtstsL = handler.getPrtStsList();
         for (PrtStsVo t : prtstsL) {
             System.out.println("t:" + t.toString());
         }
+        // System.out.println("parseConfVO:" + confvo.toString());
+    }
+    
+     public void parseConfVOPrtSig(String confUri) throws ParserConfigurationException, SAXException, IOException {
+
+        SAXParserFactory parserFactor = SAXParserFactory.newInstance();
+        SAXParser parser = parserFactor.newSAXParser();
+        PortSigHandler handler = new PortSigHandler();
+        File f = new File(confUri);
+        parser.parse(confUri, handler);
         // System.out.println("parseConfVO:" + confvo.toString());
     }
     

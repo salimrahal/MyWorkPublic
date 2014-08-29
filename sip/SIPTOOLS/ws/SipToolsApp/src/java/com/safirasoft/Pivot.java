@@ -5,6 +5,7 @@
  */
 package com.safirasoft;
 
+import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import vo.CodecVo;
 import vo.CodecVoList;
+import vo.PrtMiscVo;
 import vo.PrtStsVo;
 import vo.PrtStstVoList;
 
@@ -45,14 +47,18 @@ public class Pivot {
     */
     @WebMethod(operationName = "getPrtSts")
     public PrtStstVoList getPrtSts() throws ParserConfigurationException, SAXException, IOException {
-
+/*
+        TODO: ws should extract port/status from DB instead of xml file
+        */
         ConfVO confVo = ConfVO.getInstance();
-        saxparserconf.parseConfVOPrtSts(confVo.getLoc());
+        saxparserconf.parseConfVOPrtSts(confVo.getInitialLoc());
         List<PrtStsVo> prtstsL = confVo.getPrtStsList();
         PrtStstVoList pl = new PrtStstVoList(prtstsL);
         pl.setServerIp(confVo.getIpServer());
         return pl;
     }
+    
+    
 
     /**
      * Web service operation
@@ -61,7 +67,7 @@ public class Pivot {
     @WebMethod(operationName = "getConfLoc")
     public String getConfLoc() {
         ConfVO confVo = ConfVO.getInstance();
-        return confVo.getLoc();
+        return confVo.getInitialLoc();
     }
 
     /**
@@ -70,10 +76,23 @@ public class Pivot {
     @WebMethod(operationName = "getcodecs")
     public CodecVoList getcodecs() throws ParserConfigurationException, SAXException, IOException {
         ConfVO confVo = ConfVO.getInstance();
-        saxparserconf.parseConfVOCodec(confVo.getLoc());
+        saxparserconf.parseConfVOCodec(confVo.getInitialLoc());
         List<CodecVo> codecVoL = confVo.getCodecList();
         CodecVoList cl = new CodecVoList(codecVoL);
         return cl;
+    }
+
+    /**
+     * Web service operation
+     * 1- it gets 2 free port from Db
+       2- signaling port from the xml
+       3- Ip server
+*/
+    @WebMethod(operationName = "getMiscPorts")
+    public PrtMiscVo getMiscPorts() throws ParserConfigurationException, SAXException, IOException {
+        bo.Logic logic = new Logic();
+        PrtMiscVo prtMisc = logic.renderPortMiscVo("f");
+        return prtMisc;
     }
 
 }

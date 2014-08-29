@@ -19,13 +19,23 @@ public class ConfVO {
     String sipIdLocal;
     List<PrtStsVo> prtStsList;
     List<CodecVo> codecList;
-    //String loc = "/home/salim/public_html/siptoolsconfig/config.xml";
+     Integer portSig;//for signaling
+    //String initialLoc = "/home/salim/public_html/siptoolsconfig/config.xml";//local host test
     String initialLoc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml";
     private static final ConfVO INSTANCE = new ConfVO();
 
     private ConfVO() {
     }
 
+    public Integer getPortSig() {
+        return portSig;
+    }
+
+    public void setPortSig(Integer portSig) {
+        this.portSig = portSig;
+    }
+
+    
     public List<CodecVo> getCodecList() {
         return codecList;
     }
@@ -33,14 +43,15 @@ public class ConfVO {
     public void setCodecList(List<CodecVo> codecList) {
         this.codecList = codecList;
     }
-    
-    public String getLoc() {
+
+    public String getInitialLoc() {
         return initialLoc;
     }
 
-    public void setLoc(String location) {
-        this.initialLoc = location;
+    public void setInitialLoc(String initialLoc) {
+        this.initialLoc = initialLoc;
     }
+   
 
     public List<PrtStsVo> getPrtStsList() {
         return prtStsList;
