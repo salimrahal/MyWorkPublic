@@ -1,0 +1,16 @@
+Server description:
+-------------------
+1- Alg echo server
+
+2- udp traffic generator server
+
+Deployement: 
+--------------
+Step to produce before deployement remotely:
+
+a- change config location from localhot to remote server: ConfVO.java
+
+Config file: /var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml
+
+b- localIp should read from the interface instead of 127.0.0.1: MainServer.java
+

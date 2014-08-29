@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  *
  * @author salim ServerTcp : Echo TCP Server
  */
-public class TrfThreadTcp implements Runnable {
+public class TrfRunnableTcpSig implements Runnable {
 
     ServerSocket serverSocket = null;
     InetAddress address;
@@ -25,7 +25,7 @@ public class TrfThreadTcp implements Runnable {
     //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
 
     //insert the constructor
-    public TrfThreadTcp(Integer port) {
+    public TrfRunnableTcpSig(Integer port) {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Traffic TCPServer: listening on port " + port + " /using cachedThreadPoo");
@@ -45,7 +45,7 @@ public class TrfThreadTcp implements Runnable {
             try {
                 // a "blocking" call which waits until a connection is requested
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Traffic TCPServer: Connection successful\n creating new thread for the clientId=" + i);
+                System.out.println("Traffic TCPServer:[port="+this.serverSocket.getLocalPort()+"] Connection successful\n creating new thread for the clientId=" + i);
                 //create the thread(Runnable) that echo the receievd message, it should disregard the "OPTIONS" spam
                 ClientSignTcpConnection clientcpConn = new ClientSignTcpConnection(clientSocket, i);
                 //and this task to a pool, so clientConnection thread will be started

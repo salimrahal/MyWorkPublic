@@ -48,7 +48,7 @@ public class ClientSignTcpConnection implements Runnable {
         try {
 
             System.out.println("traffic TCPServer: threadName ["
-                    + threadName + "] is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
+                    + threadName + "]clientSocket listening on:"+clientSocket.getPort()+" is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
             in = new BufferedReader(
@@ -75,6 +75,10 @@ public class ClientSignTcpConnection implements Runnable {
             }//end of while     
             System.out.println("traffic ServerTcp: reading/writing message is finished . The loop is ended on line number:"+i);
 
+            /*run the processor:
+                    1- launch datagram threads for Port_trf and Port_latency
+                    2- handle call sequence by using Callable of futur interface
+                    */
         } catch (IOException ex) {
             Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

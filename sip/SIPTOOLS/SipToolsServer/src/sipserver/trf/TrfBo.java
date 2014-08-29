@@ -81,8 +81,10 @@ public class TrfBo {
         return port.getConfLoc();
     }
     
-    public int computeLatency(){
+    /*
+    
+    */
+    public synchronized int  computeLatency(){
         return 0;
-        
     }
 }

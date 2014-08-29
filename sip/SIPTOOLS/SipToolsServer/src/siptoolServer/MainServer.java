@@ -5,13 +5,19 @@
  */
 package siptoolServer;
 
+import java.io.IOException;
 import sipserver.bo.EchoServerDatagram;
 import sipserver.bo.EchoServerTcp;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
 import network.Networking;
+import org.xml.sax.SAXException;
+import sipserver.trf.TrafficServer;
 import sipserver.trf.TrfThreadDgm;
-import sipserver.trf.TrfThreadTcp;
+import sipserver.trf.TrfRunnableTcpSig;
 
 /**
  *
@@ -46,22 +52,18 @@ public class MainServer {
 
         }
 
-        /**
-         * *********** Traffic Server It listens on five ports, accepts
-         * traffic(upload) from multiple clients, and generates download traffic
-         * depending on the codec or pps
-           *********************
-         */
-        Integer[] portArr;
-        Integer port1 = 5094;
-        Integer port2 = 5095;
-        Integer port3 = 5096;
-        Integer port4 = 5097;
-        Integer port5 = 5098;
-
-        portArr = new Integer[]{port1, port2, port3, port4, port5};
-        
-        launchingTrafficServer(localIp, portArr);
+        try {
+            /*
+            ************ Launch traffic server**************
+            */
+            TrafficServer.launchingTrafficServer();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(MainServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(MainServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void launchingEchoServer(String localIp, Integer port) throws SocketException, UnknownHostException {
@@ -75,23 +77,6 @@ public class MainServer {
         Thread serverTcpThread = new Thread(serverTcp);
         serverTcpThread.start();
 
-    }
-
-    public static void launchingTrafficServer(String localIp, Integer[] portArr) throws SocketException, UnknownHostException {
-       System.out.println("Launching Traffic server...on ports: "
-                + portArr[0] + ", " + portArr[1] + ", " + portArr[2] + ", " + portArr[3] + ", " + portArr[4]);
-        //launching traffic UDP server
-        for (Integer port : portArr) {
-            TrfThreadDgm trfthreadUdp = new TrfThreadDgm(localIp, port);
-            Thread serverTrfThread = new Thread(trfthreadUdp);
-            serverTrfThread.start();
-        }
-         //launching traffic tcp server
-        for (Integer port : portArr) {
-            TrfThreadTcp trfthreadTcp = new TrfThreadTcp(port);
-            Thread serverTrfThread = new Thread(trfthreadTcp);
-            serverTrfThread.start();
-        }
     }
 
 }
