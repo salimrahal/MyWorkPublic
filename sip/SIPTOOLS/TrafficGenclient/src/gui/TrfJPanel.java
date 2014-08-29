@@ -299,7 +299,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
                 /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
                 //2- generate the ran of the test
-                String uuid = trfBo.generateUUID();
+                String uuid = trfBo.generateUUID();//size 36
+                
 //3- retreive parameters
                 String codec = TrfGenBo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
                 System.out.println(codec);

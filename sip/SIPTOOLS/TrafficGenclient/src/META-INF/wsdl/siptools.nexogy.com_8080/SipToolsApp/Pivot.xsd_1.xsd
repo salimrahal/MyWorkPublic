@@ -10,6 +10,10 @@
 
 <xs:element name="getConfLocResponse" type="tns:getConfLocResponse"/>
 
+<xs:element name="getMiscPorts" type="tns:getMiscPorts"/>
+
+<xs:element name="getMiscPortsResponse" type="tns:getMiscPortsResponse"/>
+
 <xs:element name="getPrtSts" type="tns:getPrtSts"/>
 
 <xs:element name="getPrtStsResponse" type="tns:getPrtStsResponse"/>
@@ -32,27 +36,22 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getPrtSts">
+<xs:complexType name="getMiscPorts">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="getPrtStsResponse">
+<xs:complexType name="getMiscPortsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:prtStstVoList" minOccurs="0"/>
+<xs:element name="return" type="tns:prtMiscVo" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="prtStstVoList">
+<xs:complexType name="prtMiscVo">
 <xs:sequence>
-<xs:element name="prtstsL" type="tns:prtStsVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="prtLatNum" type="xs:string" minOccurs="0"/>
+<xs:element name="prtSigNum" type="xs:string" minOccurs="0"/>
+<xs:element name="prtTrfNum" type="xs:string" minOccurs="0"/>
 <xs:element name="serverIp" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="prtStsVo">
-<xs:sequence>
-<xs:element name="prtNum" type="xs:string" minOccurs="0"/>
-<xs:element name="sts" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -90,6 +89,30 @@
 <xs:complexType name="IOException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getPrtSts">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getPrtStsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:prtStstVoList" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="prtStstVoList">
+<xs:sequence>
+<xs:element name="prtstsL" type="tns:prtStsVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="serverIp" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="prtStsVo">
+<xs:sequence>
+<xs:element name="prtNum" type="xs:string" minOccurs="0"/>
+<xs:element name="sts" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
