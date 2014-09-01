@@ -6,25 +6,15 @@
 package gui;
 
 import bo.TrfGenBo;
-import bo.WSBo;
-import com.safirasoft.IOException_Exception;
-import com.safirasoft.ParserConfigurationException_Exception;
-import com.safirasoft.PrtStstVoList;
-import com.safirasoft.SAXException_Exception;
 import controller.Cc;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
+import vp.vo.CdcVo;
 
 /**
  *
@@ -249,7 +239,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
          */
 
         @Override
-        public Void doInBackground() {
+        public Void doInBackground() throws Exception {
 
             int progress = 0;
             //Initialize progress property.
@@ -282,36 +272,13 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
     }//end of swing worker task Class
 
-    public void launchtest() throws IOException {
-        try {
-            //1- call webservice to check for frprt and srip
-                /**/
-            String frPort = WSBo.getFrPort();
-            System.out.println("frport= " + frPort);
-            if (frPort == null) {
-                resultmsgjlabel.setText(bo.TrfGenBo.M_PRT_B);
-            } else {
-                //sr ip
-                String srip = null;
-                srip = WSBo.getServerip();
-                srip = "127.0.0.1";//local test
-                TrfGenBo.setSrIp(srip);
-                System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
-                /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
-                //2- generate the ran of the test
-                String uuid = trfBo.generateUUID();//size 36
-                
-//3- retreive parameters
-                String codec = TrfGenBo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
-                System.out.println(codec);
-                String timeLength = timelengthjComboBox.getSelectedItem().toString();
-                System.out.println("timelength=" + timeLength);
-                cc.sendParamToServer(frPort, codec, timeLength, custnm, srip, uuid);
-            };
-
-            //TODO: call the methode that sends above param to the server
-        } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
-            Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public String launchtest() throws IOException, Exception {
+        String codec = CdcVo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
+        //System.out.println(codec);
+        String timeLength = timelengthjComboBox.getSelectedItem().toString();
+        //System.out.println("timelength=" + timeLength);
+        cc.launchtest(codec, timeLength, custnm);
+        return null;
     }
+
 }

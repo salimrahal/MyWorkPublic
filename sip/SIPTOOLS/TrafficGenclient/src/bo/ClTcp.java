@@ -24,26 +24,32 @@ import java.net.UnknownHostException;
 public class ClTcp {
     /*
      TODO: 
-     - get the parameters from the UI: port, codec, timelength, customer name
-     - connect to the TCP server 
-     - send the above param to the server
+     - get the parameters from the UI: portSig, portlat, porttrf, codec, timelength, customer name
+     - connect to the TCP server thru portSig
+     - send the params to the server:  portlat, porttrf, codec, timelength, customer name, testUuid
      */
 
-    public void sendParamToServer(String port, String codec, String timelength, String custname, String svip, String tstid) throws IOException, Exception {
-        Socket socket = null;
+    String portSig, portlat, porttrf;
+    Socket socket = null;
+
+    public ClTcp(String portSig) {
+        this.portSig = portSig;
+        socket = new Socket();
+    }
+
+    public void sendParamToServer(String portlat, String porttrf, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
         BufferedReader in;
         PrintWriter out;
         String outmsg;
 
         try {
-            socket = new Socket();
-            socket.connect(new InetSocketAddress(svip, Integer.parseInt(port)), TrfGenBo.T_T);
+            socket.connect(new InetSocketAddress(svip, Integer.parseInt(portSig)), TrfGenBo.T_T);
             System.out.println("Process Request: connected.");
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
 
-            sendParam(in, out, codec, timelength, custname, tstid);
+            sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrf);
         } catch (UnknownHostException e) {
             outmsg = "sendStream: Don't know about host: " + svip;
             System.err.println(outmsg);
@@ -68,9 +74,9 @@ public class ClTcp {
 
     }
 
-    public String sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid) throws Exception {
+    public String sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrf) throws Exception {
         System.out.println("send param..");
-        String msgToSend = generateQueryParam(codec, timelength, custname, tstid);
+        String msgToSend = generateQueryParam(portlat, porttrf, codec, timelength, custname, tstid);
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
         String msgRecv;
@@ -92,10 +98,12 @@ public class ClTcp {
         return strbuilder.toString();
     }
 
-    public String generateQueryParam(String codec, String timelength, String custname, String tstid) {
+    public String generateQueryParam(String portlat, String porttrf, String codec, String timelength, String custname, String tstid) {
         StringBuilder strbuilder = new StringBuilder();
         strbuilder.append("tstid=").append(tstid).append(";codec=").append(codec).append(";timelength=").
-                append(timelength).append(";custname=").append(custname);
+                append(timelength).append(";custname=").append(custname).
+                append(";portlat=").append(portlat).
+                append(";porttrf=").append(porttrf);
         String msgToSend = strbuilder.toString();
         return msgToSend;
     }
