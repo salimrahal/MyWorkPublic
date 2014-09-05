@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 X-COMMENT: Main-Class will be added automatically by build
 Codebase: *
-Application-Name: ALG detector Echo
-
+Application-Name: ALG detector
+permissions: all-permissions
