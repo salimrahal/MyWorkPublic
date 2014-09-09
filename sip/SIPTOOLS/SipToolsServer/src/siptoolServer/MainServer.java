@@ -16,8 +16,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import network.Networking;
 import org.xml.sax.SAXException;
 import sipserver.trf.TrafficServer;
-import sipserver.trf.TrfThreadDgm;
-import sipserver.trf.TrfRunnableTcpSig;
 
 /**
  *

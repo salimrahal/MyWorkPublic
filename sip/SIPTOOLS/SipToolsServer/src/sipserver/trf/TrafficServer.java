@@ -39,27 +39,27 @@ public class TrafficServer {
             Spf saxparserconf = new Spf();
             saxparserconf.parseConfVOPrt(ConfVO.getInstance().getInitialLoc());
             Integer portSig = ConfVO.getInstance().getPortSig();
-            TrfRunnableTcpSig trfthreadTcp = new TrfRunnableTcpSig(portSig);
+            SigProcessor trfthreadTcp = new SigProcessor(portSig);
             Thread serverTrfThread = new Thread(trfthreadTcp);
             serverTrfThread.start();
     }
 
-    @Deprecated
-    private static void launchingThreadsTrafficServer(String localIp, List<Integer> portL) throws SocketException, UnknownHostException {
-        System.out.println("Launching Traffic server...on ports: "+Arrays.toString(portL.toArray()));
-              
-        //launching traffic UDP server
-        for (Integer port : portL) {
-            TrfThreadDgm trfthreadUdp = new TrfThreadDgm(localIp, port);
-            Thread serverTrfThread = new Thread(trfthreadUdp);
-            serverTrfThread.start();
-        }
-        //launching traffic tcp server
-        for (Integer port : portL) {
-            TrfRunnableTcpSig trfthreadTcp = new TrfRunnableTcpSig(port);
-            Thread serverTrfThread = new Thread(trfthreadTcp);
-            serverTrfThread.start();
-        }
-    }
+//    @Deprecated
+//    private static void launchingThreadsTrafficServer(String localIp, List<Integer> portL) throws SocketException, UnknownHostException {
+//        System.out.println("Launching Traffic server...on ports: "+Arrays.toString(portL.toArray()));
+//              
+//        //launching traffic UDP server
+//        for (Integer port : portL) {
+//            TrfThreadDgm trfthreadUdp = new TrfThreadDgm(localIp, port);
+//            Thread serverTrfThread = new Thread(trfthreadUdp);
+//            serverTrfThread.start();
+//        }
+//        //launching traffic tcp server
+//        for (Integer port : portL) {
+//            TrfRunnableTcpSig trfthreadTcp = new TrfRunnableTcpSig(port);
+//            Thread serverTrfThread = new Thread(trfthreadTcp);
+//            serverTrfThread.start();
+//        }
+//    }
 
 }

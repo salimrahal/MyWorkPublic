@@ -9,17 +9,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sipserver.bo.*;
 import sipserver.trf.bean.Param;
+import sipserver.trf.dao.TrfDao;
 
 /**
  *
- * @author salim
- * for signalization: receiving params
+ * @author salim for signalization: 
+ * receiving params
+ * lauching the sockets for traffic and latency
+ * handle the test for server side
+ * 
  */
 public class ClientSignTcpConnection implements Runnable {
 
@@ -28,19 +34,31 @@ public class ClientSignTcpConnection implements Runnable {
     String tstidkey = "tstid";//only to be accepted
     private Integer clientID;
     TrfBo trbo;
+    TrfDao trfdao;
 
     public ClientSignTcpConnection(Socket clientSocket, Integer clientID) {
         this.clientSocket = clientSocket;
         this.clientID = clientID;
-         trbo = new TrfBo();
+        trbo = new TrfBo();
+        trfdao = new TrfDao();
     }
 
     @Override
     public void run() {
-        rcvparams();
-    }//end run
+        try {
+            processconnection();
+        } catch (Exception ex) {
+            Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-    private synchronized void rcvparams() {
+    /**
+     * processconnection:: - it receives params from the server - it launches
+     * the traffic and latency threads
+     *
+     * @throws Exception
+     */
+    private synchronized void processconnection() throws Exception {
         boolean recognizedClient = true;
         PrintWriter out = null;
         BufferedReader in = null;
@@ -48,7 +66,7 @@ public class ClientSignTcpConnection implements Runnable {
         try {
 
             System.out.println("traffic TCPServer: threadName ["
-                    + threadName + "]clientSocket listening on:"+clientSocket.getPort()+" is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
+                    + threadName + "]clientSocket listening on:" + clientSocket.getPort() + " is going to handle TCP connection num " + clientID + ". Waiting to inputs..");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
             in = new BufferedReader(
@@ -57,28 +75,35 @@ public class ClientSignTcpConnection implements Runnable {
             int i = 0;
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
-               
+
                 if (firstLine) {
                     if (inputLine.contains(tstidkey)) {
                         recognizedClient = true;
                         System.out.println("traffic TCPServer:receiving:" + inputLine);
                         //extract the parameters from the client and save them to bean 
-                        Param param = trbo.savingParamsTobean(inputLine);
+                        Param param = trbo.savingParamsTobean(inputLine, clientSocket.getInetAddress().getHostAddress());
+                        int[] ports = new int[2];
+                        ports[0] = Integer.valueOf(param.getPortrf());
+                        ports[1] = Integer.valueOf(param.getPortlat());
+                        //update the port status in DB f->b
+                        boolean portReserved = trfdao.updatePortStatus(ports, "b");
+                        if (portReserved) {
+                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
+                             out.write("ACK");
+                           launchListeningPoints(param);
+                           
+                        }
                         break;
                     }
                     firstLine = false;
                 }
-                //if recognized client accept the parameters
-                    System.out.println("traffic ServerTcp: send back:" + inputLine);
-                    
                 i++;
-            }//end of while     
-            System.out.println("traffic ServerTcp: reading/writing message is finished . The loop is ended on line number:"+i);
-
+            }//end of while    
+            System.out.println("traffic ServerTcp: reading/writing message is finished . The loop is ended on line number:" + i);
             /*run the processor:
-                    1- launch datagram threads for Port_trf and Port_latency
-                    2- handle call sequence by using Callable of futur interface
-                    */
+             1- launch datagram threads for Port_trf and Port_latency
+             2- handle call sequence by using Callable of futur interface
+             */
         } catch (IOException ex) {
             Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -102,12 +127,23 @@ public class ClientSignTcpConnection implements Runnable {
             }
 
         }
-        if(recognizedClient){
-                System.out.println("traffic ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". ALL SIP message is sent back and the connection is closed.");
-            }
-        
-            
-
+        if (recognizedClient) {
+            System.out.println("traffic ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". Connection to client is closed.");
+        }
     }//end of method
+
+    /*
+      launchListeningPoints():
+      launch the listening Dgms socket which listen on portTrf and portLat
+      start receiving paquets
+      sending paquets
+     */
+    public void launchListeningPoints(Param param) throws UnknownHostException, IOException {
+        InetAddress inetaddressDest = clientSocket.getInetAddress();
+        //handling traffic packets test, this thread listen on Port_traffic
+        TrfDgmRunnable trfDgmRunnable = new TrfDgmRunnable(param, inetaddressDest, Integer.valueOf(param.getPortrf()), clientID);
+        Thread trfDgmThread = new Thread(trfDgmRunnable);
+        trfDgmThread.start();
+    }
 
 }

@@ -15,9 +15,9 @@ import java.util.concurrent.Executors;
 
 /**
  *
- * @author salim ServerTcp : Echo TCP Server
+ * @author salim ServerTcp : Sig TCP Server
  */
-public class TrfRunnableTcpSig implements Runnable {
+public class SigProcessor implements Runnable {
 
     ServerSocket serverSocket = null;
     InetAddress address;
@@ -25,7 +25,7 @@ public class TrfRunnableTcpSig implements Runnable {
     //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
 
     //insert the constructor
-    public TrfRunnableTcpSig(Integer port) {
+    public SigProcessor(Integer port) {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Traffic TCPServer: listening on port " + port + " /using cachedThreadPoo");

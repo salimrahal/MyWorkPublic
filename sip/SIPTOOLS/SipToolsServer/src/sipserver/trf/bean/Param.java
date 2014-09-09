@@ -12,10 +12,44 @@ package sipserver.trf.bean;
  * handles parameters from the client
  */
 public class Param {
-    //tstid=66d2b2fc-6f54-49cf-a495-e158ebb814c7;codec=g711;timelength=15;custname=custnamefromAppletclass
+    //traffic TCPServer:receiving:tstid=8c0514f3-621e-493d-9a71-c1b836c95dab;codec=SILK;
+    //timelength=120;custname=custnamefromAppletclass;portlat=5095;porttrf=5108
 
     private String timelength;
+    private String tstid;
+    private String codec;
+    
+    private String custname;
+    String clientIp;
+    String portlat;
+    String portrf;
 
+    public String getClientIp() {
+        return clientIp;
+    }
+
+    public void setClientIp(String clientIp) {
+        this.clientIp = clientIp;
+    }
+
+    public String getPortlat() {
+        return portlat;
+    }
+
+    public void setPortlat(String portlat) {
+        this.portlat = portlat;
+    }
+
+    public String getPortrf() {
+        return portrf;
+    }
+
+    public void setPortrf(String portrf) {
+        this.portrf = portrf;
+    }
+    
+    
+    
     public String getTimelength() {
         return timelength;
     }
@@ -25,7 +59,6 @@ public class Param {
     }
 
     
-    private String tstid;
 
     public String getTstid() {
         return tstid;
@@ -35,7 +68,7 @@ public class Param {
         this.tstid = tstid;
     }
 
-    private String codec;
+
 
     public String getCodec() {
         return codec;
@@ -45,7 +78,6 @@ public class Param {
         this.codec = codec;
     }
 
-    private String custname;
 
     public String getCustname() {
         return custname;
@@ -57,7 +89,9 @@ public class Param {
 
     @Override
     public String toString() {
-        return "Param{" + "timelength=" + timelength + ", tstid=" + tstid + ", codec=" + codec + ", custname=" + custname + '}';
+        return "Param{" + "timelength=" + timelength + ", tstid=" + tstid + ", codec=" + codec + ", custname=" + custname + ", clientIp=" + clientIp + ", portlat=" + portlat + ", portrf=" + portrf + '}';
     }
+
+   
     
 }
