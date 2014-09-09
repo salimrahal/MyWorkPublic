@@ -35,4 +35,9 @@ public class JtrVo {
         this.avg = avg;
     }
 
+    @Override
+    public String toString() {
+        return "JtrVo{" + "peak=" + peak + ", avg=" + avg + '}';
+    }
+
 }

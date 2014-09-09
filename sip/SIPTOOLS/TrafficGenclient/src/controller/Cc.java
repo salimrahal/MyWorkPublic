@@ -5,6 +5,7 @@
  */
 package controller;
 
+import bean.Param;
 import bo.ClTcp;
 import bo.TrfGenBo;
 import bo.WSBo;
@@ -15,6 +16,8 @@ import com.safirasoft.SAXException_Exception;
 import gui.TrfJPanel;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,8 +43,8 @@ public class Cc {
             String portlat = miscPortObj.getPrtLatNum();
             String porttrf = miscPortObj.getPrtTrfNum();
             String portSig = miscPortObj.getPrtSigNum();
-
-            System.out.println("miscPortObj= " + miscPortObj);
+            //portlat = "null";
+            System.out.println("ws results= miscPortObj= prtSig="+miscPortObj.getPrtSigNum()+";prttrf="+miscPortObj.getPrtTrfNum()+";prtlat="+miscPortObj.getPrtLatNum());
             if (portlat.equalsIgnoreCase("null") || porttrf.equalsIgnoreCase("null")) {
                 resultmsgjlabel.setText(bo.TrfGenBo.M_PRT_B);
             } else {
@@ -55,9 +58,23 @@ public class Cc {
                 //2- generate the ran of the test
                 String testUuid = trfBo.generateUUID();//size 36
 
-//3- retreive parameters
+//3- send parameters
                 cltcp = new ClTcp(portSig);
-                cltcp.sendParamToServer(portlat, porttrf, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                boolean success = cltcp.sendParamToServer(portlat, porttrf, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                if(success){
+                    Param param = new Param();
+                    param.setTimelength(timeLengthParam);
+                    param.setCodec(codecparam);
+                    param.setPortlat(portlat);
+                    param.setPortrf(porttrf);
+                    param.setTstid(testUuid);
+                    param.setCustname(custnmparam);
+                    System.out.println("launchtest::success, begin of sending packets");
+                    //launch up packet lost test: sending packets
+                    InetAddress inetAddrDest = InetAddress.getByName(srip);
+                }else{
+                    System.out.println("Error:launchtest::success: Failed!");
+                }
             }//end of else
 
             //TODO: call the methode that sends above param to the server

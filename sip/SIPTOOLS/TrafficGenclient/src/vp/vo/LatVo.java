@@ -13,12 +13,24 @@ package vp.vo;
 public class LatVo {
     int peak;
     int avg;
+    long[] latArr;
 
     public LatVo(int peak, int avg) {
         this.peak = peak;
         this.avg = avg;
     }
 
+    public long[] getLatArr() {
+        return latArr;
+    }
+
+    public void setLatArr(long[] latArr) {
+        this.latArr = latArr;
+    }
+
+
+    
+    
     public int getPeak() {
         return peak;
     }
@@ -33,6 +45,11 @@ public class LatVo {
 
     public void setAvg(int avg) {
         this.avg = avg;
+    }
+
+    @Override
+    public String toString() {
+        return "LatVo{" + "peak=" + peak + ", avg=" + avg + '}';
     }
     
 }

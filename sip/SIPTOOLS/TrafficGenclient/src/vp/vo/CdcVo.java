@@ -67,7 +67,14 @@ public class CdcVo {
         }
 
         return payload;
-
+    }
+    
+       public static int computePeriodBetweenPkt(int pps) {
+        int period = 0;
+        //160pps --> period = 6.25 ms
+         //500pps --> period = 2 ms
+        period = 1000/pps;
+        return period;
     }
     /*
      pps table
@@ -96,4 +103,23 @@ public class CdcVo {
         return pps;
     }
 
+    public String getCodec() {
+        return codec;
+    }
+
+    public void setCodec(String codec) {
+        this.codec = codec;
+    }
+
+    public int getPps() {
+        return pps;
+    }
+
+    public void setPps(int pps) {
+        this.pps = pps;
+    }
+    
+    public static void main(String[] args){
+        System.out.println("computePeriodBetweenPkt(160)="+computePeriodBetweenPkt(160)); //returns 6ms
+    }
 }

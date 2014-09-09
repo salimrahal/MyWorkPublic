@@ -15,13 +15,13 @@ import java.util.UUID;
  */
 public class TrfGenBo {
 
-    public static final String M_PRT_B = "No PORT is available for test!!!";
+    public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
 
-
     public static final Integer T_T = 20000;////millisecond
+    public static final Integer U_T = 7000;//millisecond
 
     public static String srIp;
 
@@ -33,7 +33,6 @@ public class TrfGenBo {
         TrfGenBo.srIp = srIp;
     }
 
-   
     public String generaterandomnumber() {
         Random rnd = new Random();
         Integer num = rnd.nextInt(1000000000);

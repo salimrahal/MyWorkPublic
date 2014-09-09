@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vp.vo;
 
 import java.util.Date;
@@ -13,11 +12,14 @@ import java.util.Date;
  * @author salim
  */
 public class PktVo {
-   int id;
-   Date timeArrival;
 
-    public PktVo(int id, Date timeArrival) {
+    int id;
+    Date timeSent;
+    Date timeArrival;
+
+    public PktVo(int id, Date timeSent, Date timeArrival) {
         this.id = id;
+        this.timeSent = timeSent;
         this.timeArrival = timeArrival;
     }
 
@@ -36,6 +38,18 @@ public class PktVo {
     public void setTimeArrival(Date timeArrival) {
         this.timeArrival = timeArrival;
     }
-   
-   
+
+    public Date getTimeSent() {
+        return timeSent;
+    }
+
+    public void setTimeSent(Date timeSent) {
+        this.timeSent = timeSent;
+    }
+
+    @Override
+    public String toString() {
+        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + '}';
+    }
+
 }

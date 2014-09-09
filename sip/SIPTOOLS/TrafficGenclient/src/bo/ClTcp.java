@@ -23,24 +23,26 @@ import java.net.UnknownHostException;
  */
 public class ClTcp {
     /*
-     TODO: 
      - get the parameters from the UI: portSig, portlat, porttrf, codec, timelength, customer name
      - connect to the TCP server thru portSig
      - send the params to the server:  portlat, porttrf, codec, timelength, customer name, testUuid
+     - rcv a confirmation message ACK to start the test and sending packets
      */
 
     String portSig, portlat, porttrf;
     Socket socket = null;
-
+    private static final String ACK = "ACK";
+    
     public ClTcp(String portSig) {
         this.portSig = portSig;
         socket = new Socket();
     }
 
-    public void sendParamToServer(String portlat, String porttrf, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
+    public boolean sendParamToServer(String portlat, String porttrf, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
         BufferedReader in;
         PrintWriter out;
         String outmsg;
+        boolean success = false;
 
         try {
             socket.connect(new InetSocketAddress(svip, Integer.parseInt(portSig)), TrfGenBo.T_T);
@@ -49,7 +51,7 @@ public class ClTcp {
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
 
-            sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrf);
+            success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrf);
         } catch (UnknownHostException e) {
             outmsg = "sendStream: Don't know about host: " + svip;
             System.err.println(outmsg);
@@ -71,10 +73,15 @@ public class ClTcp {
                 socket.close();
             }
         }
-
+        return success;
     }
 
-    public String sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrf) throws Exception {
+    /*
+    send param to the server and receive an ACK
+    returns true is an ACK is received
+    */
+    public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrf) throws Exception {
+        boolean ack = false;
         System.out.println("send param..");
         String msgToSend = generateQueryParam(portlat, porttrf, codec, timelength, custname, tstid);
         StringReader msgreader = new StringReader(msgToSend);
@@ -91,11 +98,14 @@ public class ClTcp {
             msgRecv = in.readLine();
             if (firstLine) {
                 System.out.println("echo: " + msgRecv);
+                if(msgRecv.equalsIgnoreCase(ACK)){
+                    ack = true;
+                }
                 firstLine = false;
             }
-            strbuilder.append(msgRecv).append("\r\n");
+            //strbuilder.append(msgRecv).append("\r\n");
         }
-        return strbuilder.toString();
+        return ack;
     }
 
     public String generateQueryParam(String portlat, String porttrf, String codec, String timelength, String custname, String tstid) {
