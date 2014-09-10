@@ -71,8 +71,8 @@ public class CdcVo {
     
        public static int computePeriodBetweenPkt(int pps) {
         int period = 0;
-        //160pps --> period = 6.25 ms
-         //500pps --> period = 2 ms
+      //80pps --> 12.5 ms
+        //50pps --> 20 ms
         period = 1000/pps;
         return period;
     }
@@ -120,6 +120,6 @@ public class CdcVo {
     }
     
     public static void main(String[] args){
-        System.out.println("computePeriodBetweenPkt(160)="+computePeriodBetweenPkt(160)); //returns 6ms
+        System.out.println("computePeriodBetweenPkt(160)="+computePeriodBetweenPkt(80)); //returns 6ms
     }
 }

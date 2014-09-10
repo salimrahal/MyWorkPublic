@@ -28,19 +28,21 @@ public class VpMethds {
      */
     public static synchronized int computePktLossByCodec(List<PktVo> pktL, CdcVo cdcvo, int testlength) {
         int pktLoss = -1;
-        int pktLossPerc;
+        int pktLossPerc = 0;
         int pps = cdcvo.getPps();
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
-        System.out.println("computePktLoss::expected-Rcv-Pkt-Num" + expectedPktNum);
         int effectivePktNum = pktL.size();
-        System.out.println("computePktLoss::effective-Rcv-Pkt-Num" + effectivePktNum);
+        System.out.println("computePktLoss::expected-Rcv-Pkt-Num=" + expectedPktNum+"/received-pkt-num="+effectivePktNum);
+        
+        if(effectivePktNum < expectedPktNum){
         pktLoss = expectedPktNum - effectivePktNum;
         //int res = 100 * 100 / 3;
         //double res2 = 40/50f;
         System.out.println("pkloss(pkt) = " + pktLoss);
         float pktLossPercDouble =(float) 100 * pktLoss / expectedPktNum ;
         pktLossPerc = (int) pktLossPercDouble;
+        }
         return pktLossPerc;
     }
     

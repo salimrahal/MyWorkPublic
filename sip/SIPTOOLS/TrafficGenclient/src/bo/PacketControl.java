@@ -28,12 +28,12 @@ class PacketControl {
             }
         };
         /*
-        public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-        command - the task to execute
-        initialDelay - the time to delay first execution
-        period - the period between successive executions
-        unit - the time unit of the initialDelay and period parameters
-        */
+         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+         command - the task to execute
+         initialDelay - the time to delay first execution
+         period - the period between successive executions
+         unit - the time unit of the initialDelay and period parameters
+         */
         final ScheduledFuture<?> beeperHandle
                 = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
         scheduler.schedule(new Runnable() {
@@ -42,47 +42,49 @@ class PacketControl {
             }
         }, 60 * 60, SECONDS);
     }
-    
-        public void beepForAnGivenTime(int periodbetweenPkt, int timeLength ) {
-            System.out.println("start time= "+new Date());
-           
-        final Runnable beeper = new Runnable() {
-             int count = 0;
+
+    public void sndPktForAnGivenTime(int periodbetweenPkt, int timeLength) {
+        System.out.println("start time= " + new Date());
+
+        final Runnable sndr = new Runnable() {
+            int count = 0;
+
             public void run() {
-                
-                System.out.println("send packet.."+count);
+
+                System.out.println("send packet.." + count);
                 count++;
             }
         };
         /*
-        public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-        command - the task to execute
-        initialDelay - the time to delay first execution
-        period - the period between successive executions
-        unit - the time unit of the initialDelay and period parameters
-        */
-        final ScheduledFuture<?> beeperHandle
-                = scheduler.scheduleAtFixedRate(beeper, 0, periodbetweenPkt, MILLISECONDS);
+         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+         command - the task to execute
+         initialDelay - the time to delay first execution
+         period - the period between successive executions
+         unit - the time unit of the initialDelay and period parameters
+         */
+        final ScheduledFuture<?> sndrHandle
+                = scheduler.scheduleAtFixedRate(sndr, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
-                beeperHandle.cancel(true);
-                System.out.println("end time= "+new Date());
+                sndrHandle.cancel(true);
+                System.out.println("end time= " + new Date());
             }
         }, timeLength, SECONDS);
-            
+
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         PacketControl bc = new PacketControl();
         //bc.beepForAnHour();
         /*
-        total sent = pps * timelength
-        example: 50pps * 1 sec = 50 pkt
-        50pps * 15 = 750 pkt : tested
-        50pps * 120 = 6000 pkt: tested
-        */
+         total sent = pps * timelength
+         example: 50pps * 1 sec = 50 pkt
+         50pps * 15 = 750 pkt : tested
+         50pps * 120 = 6000 pkt: tested
+         500pps
+         */
         int timelength = 15;//sec
-        int periodbtwPkt = 20;//ms
-        bc.beepForAnGivenTime(periodbtwPkt, timelength);
+        int periodbtwPkt = 12;//ms
+        bc.sndPktForAnGivenTime(12, timelength);
     }
 }
