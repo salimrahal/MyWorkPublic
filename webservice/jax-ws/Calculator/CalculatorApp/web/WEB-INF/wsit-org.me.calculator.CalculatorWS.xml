@@ -14,7 +14,6 @@
         </operation>
     </portType>
     <binding name="CalculatorWSPortBinding" type="tns:CalculatorWS">
-        <wsp:PolicyReference URI="#CalculatorWSPortBindingPolicy"/>
         <operation name="add">
             <input/>
             <output/>
@@ -23,12 +22,4 @@
     <service name="CalculatorWSService">
         <port name="CalculatorWSPort" binding="tns:CalculatorWSPortBinding"/>
     </service>
-    <wsp:Policy wsu:Id="CalculatorWSPortBindingPolicy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <wsam:Addressing wsp:Optional="false"/>
-                <wsrm:RMAssertion/>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
 </definitions>

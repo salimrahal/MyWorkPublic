@@ -31,7 +31,7 @@ public class MainServer {
         //for remote test or on production
         String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
         //for local host test
-        localIp = "127.0.0.1";
+        //localIp = "127.0.0.1";
 
         /**
          * ***********ALG Echo Server*********************

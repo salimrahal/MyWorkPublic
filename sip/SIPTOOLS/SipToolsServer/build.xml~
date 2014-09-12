@@ -10,7 +10,9 @@
 <project name="SipToolServer" default="default" basedir=".">
     <description>Builds, tests, and runs the project SipToolServer.</description>
     <import file="nbproject/build-impl.xml"/>
-
+    <target name="-pre-jar">
+<copy file="lib/mysql-connector-java-5.1.32-bin.jar" todir="${dist.jar.dir}"/>
+</target>
     <!--
 
     There exist several targets which are by default empty and which can be 

@@ -42,6 +42,14 @@ public class CdcVo {
         }
         return codec;
     }
+
+    public static int computePeriodBetweenPkt(int pps) {
+        int period = 0;
+        //80pps --> 12.5 ms
+        //50pps --> 20 ms
+        period = 1000 / pps;
+        return period;
+    }
     /*
      get byte array by codec
      */
@@ -77,19 +85,19 @@ public class CdcVo {
         int pps = -1;
         switch (codec) {
             case CODEC_G711:
-               pps = 50;
+                pps = 50;
                 break;
             case CODEC_G722:
-                 pps = 50;
+                pps = 50;
                 break;
             case CODEC_G729:
-                 pps = 50;
+                pps = 50;
                 break;
             case CODEC_ILBC:
                 pps = 33;
                 break;
             case CODEC_SILK:
-                  pps = 80;
+                pps = 80;
                 break;
         }
 

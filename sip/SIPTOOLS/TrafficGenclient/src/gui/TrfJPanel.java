@@ -5,7 +5,7 @@
  */
 package gui;
 
-import bo.TrfGenBo;
+import bo.TrfBo;
 import controller.Cc;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -23,7 +23,7 @@ import vp.vo.CdcVo;
 public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
     private TL tk;
-    TrfGenBo trfBo;
+    TrfBo trfBo;
     private static Cc cc;
 
     public String custnm;
@@ -31,7 +31,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public TrfJPanel(String custnm) throws Exception {
         initComponents();
         this.custnm = custnm;
-        trfBo = new TrfGenBo();
+        trfBo = new TrfBo();
     }
 
     public static Cc getCc() {

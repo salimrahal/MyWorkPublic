@@ -45,7 +45,7 @@ public class ClTcp {
         boolean success = false;
 
         try {
-            socket.connect(new InetSocketAddress(svip, Integer.parseInt(portSig)), TrfGenBo.T_T);
+            socket.connect(new InetSocketAddress(svip, Integer.parseInt(portSig)), TrfBo.T_T);
             System.out.println("Process Request: connected.");
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
@@ -57,7 +57,7 @@ public class ClTcp {
             System.err.println(outmsg);
             setresultmessage(outmsg);
         } catch (SocketTimeoutException socketTimeout) {
-            outmsg = TrfGenBo.M_U;
+            outmsg = TrfBo.M_U;
             System.err.println("Process Request:socketTimeout" + outmsg);
 
             setresultmessage(outmsg);

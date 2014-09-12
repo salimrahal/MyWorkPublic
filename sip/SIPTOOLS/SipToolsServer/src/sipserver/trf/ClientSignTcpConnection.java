@@ -62,6 +62,8 @@ public class ClientSignTcpConnection implements Runnable {
         boolean recognizedClient = true;
         PrintWriter out = null;
         BufferedReader in = null;
+        int porttrf;
+        int portlat;
         String threadName = Thread.currentThread().getName();
         try {
 
@@ -82,16 +84,20 @@ public class ClientSignTcpConnection implements Runnable {
                         System.out.println("traffic TCPServer:receiving:" + inputLine);
                         //extract the parameters from the client and save them to bean 
                         Param param = trbo.savingParamsTobean(inputLine, clientSocket.getInetAddress().getHostAddress());
+                        porttrf = Integer.valueOf(param.getPortrf());
+                        portlat = Integer.valueOf(param.getPortlat());
                         int[] ports = new int[2];
-                        ports[0] = Integer.valueOf(param.getPortrf());
-                        ports[1] = Integer.valueOf(param.getPortlat());
+                        ports[0] = porttrf;
+                        ports[1] = portlat;
                         //update the port status in DB f->b
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
                         if (portReserved) {
                              //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
-                             out.write("ACK");
-                           launchListeningPoints(param);
-                           
+                            out.write("ACK");
+                            launchTrafficListeningPoint(param);
+                            System.out.println("");
+                            System.out.println("traffic TCPServer: releasing porttrf result:"+trfdao.updateOnePortStatus(porttrf, "f"));
+                            //todo lauching latency test here
                         }
                         break;
                     }
@@ -138,12 +144,13 @@ public class ClientSignTcpConnection implements Runnable {
       start receiving paquets
       sending paquets
      */
-    public void launchListeningPoints(Param param) throws UnknownHostException, IOException {
+    public void launchTrafficListeningPoint(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
         //handling traffic packets test, this thread listen on Port_traffic
-        TrfDgmRunnable trfDgmRunnable = new TrfDgmRunnable(param, inetaddressDest, Integer.valueOf(param.getPortrf()), clientID);
+        TrfDgmRunnable trfDgmRunnable = new TrfDgmRunnable(param, inetaddressDest, clientID);
         Thread trfDgmThread = new Thread(trfDgmRunnable);
         trfDgmThread.start();
+        trfDgmThread.join();
     }
 
 }

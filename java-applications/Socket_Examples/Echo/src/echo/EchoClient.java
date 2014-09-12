@@ -18,7 +18,7 @@ public class EchoClient {
 
         //String serverHostname = new String ("127.0.0.1");
         String serverHostname = new String("127.0.0.1");
-        Integer port = 5060;//old port: 10007
+        Integer port = 10007;
         if (args.length > 0) {
             serverHostname = args[0];
         }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bo;
+package sipserver.trf;
 
 /**
  *
@@ -21,7 +21,7 @@ import java.util.concurrent.ScheduledFuture;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import vp.vo.CdcVo;
+import sipserver.trf.vp.vo.CdcVo;
 
 class PacketControl {
 
@@ -62,8 +62,8 @@ class PacketControl {
     }
 
     public void sndPktForAnGivenTime(String codec, int timeLength) {
-        System.out.println("start time= " + new Date());
-         System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
+        System.out.println("sndPktForAnGivenTime::start time= " + new Date());
+        System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndr = new Sndr(codec);

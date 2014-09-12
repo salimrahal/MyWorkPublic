@@ -18,8 +18,8 @@ public class ConfVO {
     String sipIdLocal;
     List<PrtVo> prtList;
     Integer portSig;//for signaling
-    String initialLoc = "/home/salim/public_html/siptoolsconfig/config.xml";//local host test
-    //String initialLoc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml";
+    //String initialLoc = "/home/salim/public_html/siptoolsconfig/config.xml";//local host test
+    String initialLoc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml";
     private static final ConfVO INSTANCE = new ConfVO();
 
     private ConfVO() {

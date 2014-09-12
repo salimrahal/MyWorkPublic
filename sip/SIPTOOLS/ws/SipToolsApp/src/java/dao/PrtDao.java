@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dao;
 
 import java.sql.Connection;
@@ -21,23 +20,28 @@ import vo.PrtMiscVo;
  * @author salim
  */
 public class PrtDao {
-    
-    public PrtMiscVo retrievePorts(String status) throws NamingException, SQLException{ 
+
+    private String y = "user";
+    private String k1 = "*";
+
+    public PrtMiscVo retrievePorts(String status) throws NamingException, SQLException {
+        String x1 = "traffic";
+        String x = gety(x1);
+        String k = getz(x, k1);
         PrtMiscVo prtvo = new PrtMiscVo();
-        Connection conn = getUdptrafficDBRef().getConnection("root", "root");
-        String query = "Select portNum from Ports where status = '"+status+"' limit 2";
-        PreparedStatement pr = conn.prepareStatement(query);
-        ResultSet rs = pr.executeQuery();
-        
-        boolean first = true;
-        
-        while(rs.next()){
-            if(first){
-                prtvo.setPrtTrfNum(rs.getString(1));
-            first = false;
-            }else{
-                prtvo.setPrtLatNum(rs.getString(1)); 
-            }      
+        try (Connection conn = getUdptrafficDBRef().getConnection(x, k)) {
+            String query = "Select portNum from Ports where status = '" + status + "' limit 2";
+            PreparedStatement pr = conn.prepareStatement(query);
+            ResultSet rs = pr.executeQuery();
+            boolean first = true;
+            while (rs.next()) {
+                if (first) {
+                    prtvo.setPrtTrfNum(rs.getString(1));
+                    first = false;
+                } else {
+                    prtvo.setPrtLatNum(rs.getString(1));
+                }
+            }
         }
         return prtvo;
     }
@@ -45,5 +49,15 @@ public class PrtDao {
     private DataSource getUdptrafficDBRef() throws NamingException {
         Context c = new InitialContext();
         return (DataSource) c.lookup("java:comp/env/udptrafficDBRef");
+    }
+
+    public String gety(String f1) {
+        String sb = f1 + y;
+        return sb;
+    }
+
+    public String getz(String k, String l) {
+        String sb = k + l;
+        return sb;
     }
 }

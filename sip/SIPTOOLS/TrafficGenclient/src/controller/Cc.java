@@ -7,7 +7,8 @@ package controller;
 
 import bean.Param;
 import bo.ClTcp;
-import bo.TrfGenBo;
+import bo.TrfDgmRunnable;
+import bo.TrfBo;
 import bo.WSBo;
 import com.safirasoft.IOException_Exception;
 import com.safirasoft.ParserConfigurationException_Exception;
@@ -16,8 +17,8 @@ import com.safirasoft.SAXException_Exception;
 import gui.TrfJPanel;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,15 +29,16 @@ import java.util.logging.Logger;
 public class Cc {
 
     ClTcp cltcp;
-    TrfGenBo trfBo;
+    TrfBo trfBo;
 
     public Cc() {
 
-        trfBo = new TrfGenBo();
+        trfBo = new TrfBo();
     }
 
     public void launchtest(String codecparam, String timeLengthParam, String custnmparam) throws IOException, Exception {
         try {
+            resultmsgjlabel.setText("test begins..");
             //1- call webservice to check for portLat, prtTrf, portSig and srip
                 /**/
             PrtMiscVo miscPortObj = WSBo.getMiscPorts();
@@ -44,15 +46,14 @@ public class Cc {
             String porttrf = miscPortObj.getPrtTrfNum();
             String portSig = miscPortObj.getPrtSigNum();
             //portlat = "null";
-            System.out.println("ws results= miscPortObj= prtSig="+miscPortObj.getPrtSigNum()+";prttrf="+miscPortObj.getPrtTrfNum()+";prtlat="+miscPortObj.getPrtLatNum());
+            System.out.println("ws results= miscPortObj= prtSig=" + miscPortObj.getPrtSigNum() + ";prttrf=" + miscPortObj.getPrtTrfNum() + ";prtlat=" + miscPortObj.getPrtLatNum());
             if (portlat.equalsIgnoreCase("null") || porttrf.equalsIgnoreCase("null")) {
-                resultmsgjlabel.setText(bo.TrfGenBo.M_PRT_B);
+                resultmsgjlabel.setText(bo.TrfBo.M_PRT_B);
             } else {
                 //sr ip
                 String srip = null;
                 srip = miscPortObj.getServerIp();
-                srip = "127.0.0.1";//local test
-                TrfGenBo.setSrIp(srip);
+                TrfBo.setSrIp(srip);
                 System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
                 /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
                 //2- generate the ran of the test
@@ -61,7 +62,7 @@ public class Cc {
 //3- send parameters
                 cltcp = new ClTcp(portSig);
                 boolean success = cltcp.sendParamToServer(portlat, porttrf, codecparam, timeLengthParam, custnmparam, srip, testUuid);
-                if(success){
+                if (success) {
                     Param param = new Param();
                     param.setTimelength(timeLengthParam);
                     param.setCodec(codecparam);
@@ -70,9 +71,10 @@ public class Cc {
                     param.setTstid(testUuid);
                     param.setCustname(custnmparam);
                     System.out.println("launchtest::success, begin of sending packets");
-                    //launch up packet lost test: sending packets
+                    //4- launch up packet lost test: sending packets
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
-                }else{
+                    launchTrafficListeningPoint(param, inetAddrDest);
+                } else {
                     System.out.println("Error:launchtest::success: Failed!");
                 }
             }//end of else
@@ -81,6 +83,13 @@ public class Cc {
         } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
             Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void launchTrafficListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+        TrfDgmRunnable trfDgmInOut = new TrfDgmRunnable(param, addressDest, 0);
+        Thread trfDgmInOutThread = new Thread(trfDgmInOut);
+        trfDgmInOutThread.start();
+        trfDgmInOutThread.join();
     }
 
 }

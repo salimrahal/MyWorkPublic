@@ -7,6 +7,7 @@ package sipserver.trf;
 
 import org.omg.CORBA.TRANSACTION_MODE;
 import sipserver.trf.bean.Param;
+import sipserver.trf.dao.TrfDao;
 
 /**
  *
@@ -20,12 +21,28 @@ public class TrfBo {
     public static final String B = "user";
     public static final String C = "password";
     public static final Integer T_T = 20000;////millisecond
-    public static final Integer U_T = 7000;//millisecond
+    public static final Integer U_T = 20000;//millisecond
+    public static final Integer Packet_Max_Delay = 20000;//millisecond
+    TrfDao trfdao;
+
+    public TrfBo() {
+        trfdao = new TrfDao();
+    }
+
+    public boolean releasePort(String portparam) throws Exception {
+        System.out.println("releasePort:" + portparam);
+        boolean portreleased = false;
+        //release the port  
+        int port = Integer.valueOf(portparam);
+        //update the port status in DB f->b
+        portreleased = trfdao.updateOnePortStatus(port, "f");
+        return portreleased;
+    }
+
     /*
      a- it splits the params
      b- save them to param singleton bean
      */
-
     public Param savingParamsTobean(String paramquery, String clientIp) {
         Param param = new Param();
         //traffic TCPServer:receiving:tstid=8c0514f3-621e-493d-9a71-c1b836c95dab;codec=SILK;

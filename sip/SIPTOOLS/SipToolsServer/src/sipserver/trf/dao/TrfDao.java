@@ -20,7 +20,9 @@ import sipserver.trf.bean.Param;
  */
 public class TrfDao {
 
-    public synchronized Connection getConnection(String x) throws ClassNotFoundException, SQLException {
+    private String y  = "user";
+
+    public synchronized Connection getC(String x) throws ClassNotFoundException, SQLException {
         Connection connect = null;
         // this will load the MySQL driver, each DB has its own driver
         Class.forName("com.mysql.jdbc.Driver");
@@ -46,87 +48,78 @@ public class TrfDao {
      */
     public synchronized boolean updatePortStatus(int[] portNumArr, String sts) throws Exception {
         boolean res = false;
-        String x = "trafficuser";
+        String x1 = "traffic";
+        String x = gety(x1);
         Statement statement = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Connection connect = null;
-        connect = getConnection(x);
+//        Connection connect = null;
+//        connect = getC(x);
         StringBuilder sb = new StringBuilder("update Ports set status = \"");
         sb.append(sts).append("\"");
         sb.append("where portNum =").append(portNumArr[0]).append(" or portNum = ").append(portNumArr[1]);
         String query = sb.toString();
 
-        try {
-
+       try(Connection connect = getC(x)){
+           
             // statements allow to issue SQL queries to the database
             statement = connect.createStatement();
 
             // preparedStatements can use variables and are more efficient
             preparedStatement = connect
                     .prepareStatement(query);
-           
+
             //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
-            if(i==2){
+            if (i == 2) {
                 res = true;
-            }else{
+            } else {
                 res = false;
-                System.out.println("Error: updatePortStatus:"+query+" returns zero, no row updated!");
+                System.out.println("Error: updatePortStatus:" + query + " returns zero, no row updated!");
             }
-            System.out.println("update return="+i);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-            if (resultSet != null) {
-                resultSet.close();
-            }
+            System.out.println("update return=" + i);
+       }
 
-            if (connect != null) {
-                connect.close();
-            }
-        }
+       
+        
         return res;
     }
 
-    public synchronized void updateOnePortStatus(int portNum, String sts) throws Exception {
-        String x = "trafficuser";
+    public String gety(String f1){
+        String sb = f1 + y;
+        return sb;
+    }
+    public synchronized boolean updateOnePortStatus(int portNum, String sts) throws Exception {
+         String x1 = "traffic";
+        String x = gety(x1);
+        boolean res = false;
         Statement statement = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Connection connect = null;
-        connect = getConnection(x);
-
-        try {
+//        Connection connect = null;
+//        connect = getC(x);
+        String query = "update Ports set status = ? where portNum = ?";
+         try(Connection connect = getC(x)){
 
             // statements allow to issue SQL queries to the database
             statement = connect.createStatement();
 
             // preparedStatements can use variables and are more efficient
-            preparedStatement = connect
-                    .prepareStatement("update Ports set status = ? where portNum = ?");
+            preparedStatement = connect.prepareStatement(query);
             // "myuser, webpage, datum, summary, COMMENTS from FEEDBACK.COMMENTS");
             // parameters start with 1
             preparedStatement.setString(1, sts);
             preparedStatement.setInt(2, portNum);
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (statement != null) {
-                statement.close();
+           //i is the number of row updated, if 2 row is updated then returns: 2
+            int i = preparedStatement.executeUpdate();
+            if (i == 1) {
+                res = true;
+            } else {
+                res = false;
+                System.out.println("Error: updatePortStatus:" + query + " returns zero, no row updated!");
             }
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        }
+        } 
+        return res;
     }
     /*
      it insert the log record for a specific client

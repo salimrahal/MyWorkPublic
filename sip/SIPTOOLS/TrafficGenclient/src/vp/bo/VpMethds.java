@@ -26,25 +26,24 @@ public class VpMethds {
      * @param testlength: in second
      * @return
      */
-    public static synchronized int computePktLossByCodec(List<PktVo> pktL, CdcVo cdcvo, int testlength) {
+    public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
         int pktLoss = -1;
-        int pktLossPerc = 0;
-        int pps = cdcvo.getPps();
+        float pktLossPerc = 0;
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
-        int effectivePktNum = pktL.size();
-        System.out.println("computePktLoss::expected-Rcv-Pkt-Num=" + expectedPktNum+"/received-pkt-num="+effectivePktNum);
-        
-        if(effectivePktNum < expectedPktNum){
-        pktLoss = expectedPktNum - effectivePktNum;
-        //int res = 100 * 100 / 3;
-        //double res2 = 40/50f;
-        System.out.println("pkloss(pkt) = " + pktLoss);
-        float pktLossPercDouble =(float) 100 * pktLoss / expectedPktNum ;
-        pktLossPerc = (int) pktLossPercDouble;
+        int effectivePktNum = receivedPkt;
+        System.out.println("computePktLoss::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
+
+        if (effectivePktNum < expectedPktNum) {
+            pktLoss = expectedPktNum - effectivePktNum;
+            //int res = 100 * 100 / 3;
+            //double res2 = 40/50f;
+            System.out.println("pkloss = " + pktLoss +" pkt");
+            pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
         }
         return pktLossPerc;
     }
+
     
      public static synchronized int computePktLossByCodec(int pktCount, CdcVo cdcvo, int testlength) {
         int pktLoss = -1;
@@ -199,14 +198,14 @@ public class VpMethds {
 //***************Packet lost test****************************/
         System.out.println("packet lost test...........");
         int testlength = 10;
-        CdcVo cd = new CdcVo();
-        cd.setPps(CdcVo.returnPPSbyCodec("g729"));
+        int pps = CdcVo.returnPPSbyCodec("g729");
         List<PktVo> l2 = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             l2.add(pk1);
         }
+        int pktLsize = l2.size();
         System.out.println("");
 
-        System.out.println("Pkt loss %=" + computePktLossByCodec(l2, cd, testlength)+"%");
+        System.out.println("Pkt loss %=" + computePktLossByCodec(pktLsize, pps, testlength) + "%");
     }
 }
