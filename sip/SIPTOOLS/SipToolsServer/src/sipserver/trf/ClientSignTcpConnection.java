@@ -150,7 +150,7 @@ public class ClientSignTcpConnection implements Runnable {
         TrfDgmRunnable trfDgmRunnable = new TrfDgmRunnable(param, inetaddressDest, clientID);
         Thread trfDgmThread = new Thread(trfDgmRunnable);
         trfDgmThread.start();
-        trfDgmThread.join();
+        //trfDgmThread.join();
     }
 
 }

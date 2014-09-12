@@ -89,7 +89,7 @@ public class Cc {
         TrfDgmRunnable trfDgmInOut = new TrfDgmRunnable(param, addressDest, 0);
         Thread trfDgmInOutThread = new Thread(trfDgmInOut);
         trfDgmInOutThread.start();
-        trfDgmInOutThread.join();
+        //trfDgmInOutThread.join();
     }
 
 }

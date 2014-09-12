@@ -101,7 +101,7 @@ public class TrfDgmRunnable implements Runnable {
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
 
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:receivingPkts::" + se.getStackTrace());
+            System.out.println("Error:receivingPkts::" + se.getLocalizedMessage());
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
         }
