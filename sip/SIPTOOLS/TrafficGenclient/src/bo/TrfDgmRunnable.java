@@ -101,7 +101,7 @@ public class TrfDgmRunnable implements Runnable {
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
 
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:receivingPkts::" + se.getLocalizedMessage());
+            System.out.println("Error:receivingPkts::" + se.getMessage());
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,6 +112,8 @@ public class TrfDgmRunnable implements Runnable {
         packetlostdown = VpMethds.computePktLossByCodec(count, pps, testlength);
         System.out.println("packetlossDown=" + packetlostdown);
         System.out.println("receivingPkts:finish receiving function.");
+        System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
+        dgmsocket.close();
         return packetlostdown;
     }
 

@@ -70,7 +70,6 @@ public class TrfDgmRunnable implements Runnable {
         } else {
             System.out.println("TrfDgmRunnable:handleClienttraffic: could not proceed with sending pkts, something is wrong with receiving pkts![packetlossup=-1]");
         }
-      
     }
 
     public void sendingPkts(String codec, int timelength) throws IOException, InterruptedException {

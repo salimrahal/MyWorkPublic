@@ -63,7 +63,7 @@ class PacketControl {
 
     public void sndPktForAnGivenTime(String codec, int timeLength) {
         System.out.println("sndPktForAnGivenTime::start time= " + new Date());
-        System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
+        System.out.println("sndPktForAnGivenTime: sending to host=" + addressDest.getHostAddress() + "/portdest=" + portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndr = new Sndr(codec);
@@ -79,13 +79,18 @@ class PacketControl {
             public void run() {
                 sndrHandle.cancel(true);
                 System.out.println("end time= " + new Date());
+                System.out.println("PacketControl:sndPktForAnGivenTime: closing the DG socket.. ");
+                dgmsocket.close();
+                System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
             }
         }, timeLength, SECONDS);
-    }
+    }//end of sndPktForAnGivenTime function
 
     class Sndr implements Runnable {
+
         String codec;
         byte[] buf = null;
+
         public Sndr(String codec) {
             this.codec = codec;
             buf = CdcVo.returnPayloadybyCodec(codec);
@@ -93,7 +98,7 @@ class PacketControl {
 
         public void run() {
             try {
-                System.out.println("send packet.." + count); 
+                System.out.println("send packet.." + count);
                 outgoingPacketLocal = new DatagramPacket(buf, buf.length, addressDest, portDest);
                 //send the packet back to the client
                 dgmsocket.send(outgoingPacketLocal);

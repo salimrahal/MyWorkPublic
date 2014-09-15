@@ -277,6 +277,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         //System.out.println(codec);
         String timeLength = timelengthjComboBox.getSelectedItem().toString();
         //System.out.println("timelength=" + timeLength);
+        runTestButton.setEnabled(false);
+        reset.setEnabled(false);
         cc.launchtest(codec, timeLength, custnm);
         return null;
     }

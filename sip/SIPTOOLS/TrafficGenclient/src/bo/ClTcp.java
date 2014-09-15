@@ -32,15 +32,15 @@ public class ClTcp {
     String portSig, portlat, porttrf;
     Socket socket = null;
     private static final String ACK = "ACK";
-    
+
     public ClTcp(String portSig) {
         this.portSig = portSig;
         socket = new Socket();
     }
 
     public boolean sendParamToServer(String portlat, String porttrf, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
-        BufferedReader in;
-        PrintWriter out;
+        BufferedReader in = null;
+        PrintWriter out = null;
         String outmsg;
         boolean success = false;
 
@@ -70,6 +70,8 @@ public class ClTcp {
             setresultmessage(outmsg);
         } finally {
             if (socket != null) {
+                out.close();
+                in.close();
                 socket.close();
             }
         }
@@ -77,9 +79,9 @@ public class ClTcp {
     }
 
     /*
-    send param to the server and receive an ACK
-    returns true is an ACK is received
-    */
+     send param to the server and receive an ACK
+     returns true is an ACK is received
+     */
     public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrf) throws Exception {
         boolean ack = false;
         System.out.println("send param..");
@@ -98,7 +100,7 @@ public class ClTcp {
             msgRecv = in.readLine();
             if (firstLine) {
                 System.out.println("echo: " + msgRecv);
-                if(msgRecv.equalsIgnoreCase(ACK)){
+                if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
                 }
                 firstLine = false;

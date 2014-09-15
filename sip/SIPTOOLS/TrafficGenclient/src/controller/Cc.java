@@ -71,15 +71,14 @@ public class Cc {
                     param.setTstid(testUuid);
                     param.setCustname(custnmparam);
                     System.out.println("launchtest::success, begin of sending packets");
-                    //4- launch up packet lost test: sending packets
+                    //4- launch up packet lost test: sending/receiving packets
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
                     launchTrafficListeningPoint(param, inetAddrDest);
+                    //5- launch lat&jitter test up/down
                 } else {
                     System.out.println("Error:launchtest::success: Failed!");
                 }
             }//end of else
-
-            //TODO: call the methode that sends above param to the server
         } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
             Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,6 +89,10 @@ public class Cc {
         Thread trfDgmInOutThread = new Thread(trfDgmInOut);
         trfDgmInOutThread.start();
         //trfDgmInOutThread.join();
+    }
+    
+     public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+       //TODO
     }
 
 }
