@@ -22,7 +22,8 @@ public class TrfBo {
 
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
-     public static final Integer Packet_Max_Delay = 20000;//millisecond
+     public static final Integer Packet_Max_Delay = 50000;//millisecond
+      public static final Integer D_T = 30000;//millisecond
 
     public static String srIp;
 

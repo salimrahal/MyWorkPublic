@@ -45,7 +45,7 @@ public class ClientSignTcpConnection implements Runnable {
 
     @Override
     public void run() {
-        try {
+        try { 
             processconnection();
         } catch (Exception ex) {
             Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,7 +96,6 @@ public class ClientSignTcpConnection implements Runnable {
                             out.write("ACK");
                             launchTrafficListeningPoint(param);
                             System.out.println("");
-                            System.out.println("traffic TCPServer: releasing porttrf result:"+trfdao.updateOnePortStatus(porttrf, "f"));
                             //todo lauching latency test here
                         }
                         break;

@@ -58,18 +58,33 @@ public class TrfDgmRunnable implements Runnable {
 
     private synchronized void handleClienttraffic() throws IOException, InterruptedException {
         String codec = param.getCodec();
+        float packetlostdown;
         int timelength = Integer.valueOf(param.getTimelength());
 
-        sendingPkts(codec, timelength);
-        float packetlostdown = receivingPkts(codec, timelength);
+        boolean res = sendingPkts(codec, timelength);
+        if (res) {
+            packetlostdown = receivingPkts(codec, timelength);
+            dgmsocket.close();
+        }
     }
 
-    public void sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
+    /**
+     * It just send the packets through a thread
+     * 
+     * @param codec
+     * @param timelength
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    public boolean sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
+        boolean res = false;
         System.out.println("sendingPkts:start sending[" + new Date() + "]\n -thread name= [" + Thread.currentThread().getName());
         PacketControl bc = new PacketControl(dgmsocket, addressDest, portDest);
         //bc.beepForAnHour();
-        bc.sndPktForAnGivenTime(codec, timelength);
+        res = bc.sndPktForAnGivenTime(codec, timelength);
         System.out.println("sendingPkts:finish sending.");
+        return res;
     }
 
     /*
@@ -88,18 +103,18 @@ public class TrfDgmRunnable implements Runnable {
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
         try {
+            //dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
             dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
 
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
-                System.out.println("received pkt: count=" + count);
                 if (count == expectedPktNum) {
                     morepacket = false;
                 }
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-
+            System.out.println("received pkt: total received count=" + count);
         } catch (SocketTimeoutException se) {
             System.out.println("Error:receivingPkts::" + se.getMessage());
         } catch (IOException ex) {
@@ -113,7 +128,6 @@ public class TrfDgmRunnable implements Runnable {
         System.out.println("packetlossDown=" + packetlostdown);
         System.out.println("receivingPkts:finish receiving function.");
         System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
-        dgmsocket.close();
         return packetlostdown;
     }
 

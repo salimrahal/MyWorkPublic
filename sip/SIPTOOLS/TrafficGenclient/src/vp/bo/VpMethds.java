@@ -5,6 +5,7 @@
  */
 package vp.bo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ public class VpMethds {
 
     /**
      *
+     * @param receivedPkt
      * @param pktL: packet received
      * @param cdcvo
      * @param testlength: in second
@@ -32,19 +34,32 @@ public class VpMethds {
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         int effectivePktNum = receivedPkt;
-        System.out.println("computePktLoss::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
+        System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
 
         if (effectivePktNum < expectedPktNum) {
             pktLoss = expectedPktNum - effectivePktNum;
             //int res = 100 * 100 / 3;
             //double res2 = 40/50f;
-            System.out.println("pkloss = " + pktLoss +" pkt");
+            System.out.println("pkloss1 = " + pktLoss +" pkt");
             pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
+            pktLossPerc = formatNumberFl(pktLossPerc);
         }
         return pktLossPerc;
     }
-
     
+     /*
+    format a number from x.xxxxx --> x.xx
+    */
+        public static float formatNumberFl(float r) {
+        int decimalPlaces = 2;
+        BigDecimal bd = new BigDecimal(r);
+// setScale is immutable
+        bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
+        r = bd.floatValue();
+        return r;
+    }
+    
+        @Deprecated
      public static synchronized int computePktLossByCodec(int pktCount, CdcVo cdcvo, int testlength) {
         int pktLoss = -1;
         int pktLossPerc;
@@ -197,8 +212,8 @@ public class VpMethds {
 
 //***************Packet lost test****************************/
         System.out.println("packet lost test...........");
-        int testlength = 10;
-        int pps = CdcVo.returnPPSbyCodec("g729");
+        int testlength = 15;
+        int pps = CdcVo.returnPPSbyCodec("g711");
         List<PktVo> l2 = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             l2.add(pk1);
@@ -206,6 +221,6 @@ public class VpMethds {
         int pktLsize = l2.size();
         System.out.println("");
 
-        System.out.println("Pkt loss %=" + computePktLossByCodec(pktLsize, pps, testlength) + "%");
+        System.out.println("Pkt loss %=" + computePktLossByCodec(749, pps, testlength) + "%");
     }
 }

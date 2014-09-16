@@ -5,6 +5,7 @@
  */
 package sipserver.trf;
 
+import java.math.BigDecimal;
 import org.omg.CORBA.TRANSACTION_MODE;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;

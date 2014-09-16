@@ -88,7 +88,9 @@ public class Cc {
         TrfDgmRunnable trfDgmInOut = new TrfDgmRunnable(param, addressDest, 0);
         Thread trfDgmInOutThread = new Thread(trfDgmInOut);
         trfDgmInOutThread.start();
-        //trfDgmInOutThread.join();
+        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
+        System.out.println(Thread.currentThread().getName()+" / before join..");
+        trfDgmInOutThread.join();
     }
     
      public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {

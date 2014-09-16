@@ -61,7 +61,8 @@ class PacketControl {
         }, 60 * 60, SECONDS);
     }
 
-    public void sndPktForAnGivenTime(String codec, int timeLength) {
+    public boolean sndPktForAnGivenTime(String codec, int timeLength) {
+        boolean res = false;
         System.out.println("start time= " + new Date());
          System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
@@ -77,10 +78,12 @@ class PacketControl {
         final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndr, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
-                sndrHandle.cancel(true);
-                System.out.println("end time= " + new Date());
+                boolean res = sndrHandle.cancel(true);
+                System.out.println("task is finished and cancled="+res+"--- total packet sent ="+count);
             }
         }, timeLength, SECONDS);
+        res = true;
+        return res;
     }
 
     class Sndr implements Runnable {
@@ -93,7 +96,6 @@ class PacketControl {
 
         public void run() {
             try {
-                System.out.println("send packet.." + count); 
                 outgoingPacketLocal = new DatagramPacket(buf, buf.length, addressDest, portDest);
                 //send the packet back to the client
                 dgmsocket.send(outgoingPacketLocal);

@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledFuture;
 import static java.util.concurrent.TimeUnit.*;
 import org.omg.CORBA.DATA_CONVERSION;
 
-class BeeperControl {
+class BeeperControlRunnable implements Runnable {
 
     private final ScheduledExecutorService scheduler
             = Executors.newScheduledThreadPool(1);
@@ -45,7 +45,6 @@ class BeeperControl {
     }
 
     public void beepForAnGivenTime(int periodbetweenPkt, int timeLength) {
-        System.out.println("start time= " + new Date());
 
         final Runnable beeper = new Runnable() {
             int count = 0;
@@ -76,8 +75,17 @@ class BeeperControl {
 
     }
 
-    public static void main(String[] args) {
-        BeeperControl bc = new BeeperControl();
+    @Override
+    public void run() {
+        int timelength = 15;//sec
+        int periodbtwPkt = 20;//ms
+        System.out.println(Thread.currentThread().getName() + " is Started");
+        beepForAnGivenTime(periodbtwPkt, timelength);
+        System.out.println(Thread.currentThread().getName() + " is Completed");
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        BeeperControlRunnable bc = new BeeperControlRunnable();
         //bc.beepForAnHour();
         /*
          total sent = pps * timelength
@@ -85,10 +93,11 @@ class BeeperControl {
          50pps * 15 = 750 pkt : tested
          50pps * 120 = 6000 pkt: tested
          */
-        int timelength = 15;//sec
-        int periodbtwPkt = 20;//ms
-           System.out.println(Thread.currentThread().getName() + " is Started");
-        bc.beepForAnGivenTime(periodbtwPkt, timelength);
-           System.out.println(Thread.currentThread().getName() + " is Completed");
+        System.out.println(Thread.currentThread().getName() + " is Started");
+        Thread beeperThread = new Thread(bc);
+        beeperThread.start();
+        beeperThread.join();
+        System.out.println(Thread.currentThread().getName() + " is Completed");
     }
+
 }

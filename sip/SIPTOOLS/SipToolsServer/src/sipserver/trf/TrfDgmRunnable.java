@@ -32,7 +32,7 @@ public class TrfDgmRunnable implements Runnable {
     private DatagramSocket dgmsocket;
     //private DatagramPacket incomingPacket;
     InetAddress addressDest;
-    Integer port;
+    Integer portTrf;
     Integer portDest;
     Param param;
     TrfDao trfdao;
@@ -42,16 +42,18 @@ public class TrfDgmRunnable implements Runnable {
 //this.incomingPacket = incomingPacket;
         this.clientID = clientID;
         this.addressDest = addressDest;
-        this.port = Integer.valueOf(param.getPortrf());
+        this.portTrf = Integer.valueOf(param.getPortrf());
         this.portDest = Integer.valueOf(param.getPortrf());
-        dgmsocket = new DatagramSocket(this.port);
+        dgmsocket = new DatagramSocket(this.portTrf);
 
     }
 
     @Override
     public void run() {
         try {
+            System.out.println("TrfDgmRunnable::thread name=" + Thread.currentThread().getName() + " is Started");
             handleClienttraffic();
+            System.out.println("TrfDgmRunnable::thread name=" + Thread.currentThread().getName() + " is completed");
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -66,17 +68,29 @@ public class TrfDgmRunnable implements Runnable {
         int timelength = Integer.valueOf(param.getTimelength());
         float packetlossup = receivingPkts(codec, timelength);
         if (packetlossup != -1) {
+            //it sends the packet
+            // close the connection or socket
             sendingPkts(codec, timelength);
         } else {
             System.out.println("TrfDgmRunnable:handleClienttraffic: could not proceed with sending pkts, something is wrong with receiving pkts![packetlossup=-1]");
         }
     }
 
+    /**
+     *  1- it sends the packet
+        2- close the connection or socket
+     * @param codec
+     * @param timelength
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public void sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
-        System.out.println("sendingPkts:start sending[" + new Date() + "]\n -thread name= [" + Thread.currentThread().getName());
+        System.out.println("sendingPkts:start..");
         PacketControl bc = new PacketControl(dgmsocket, addressDest, portDest);
-        //bc.beepForAnHour();
-        bc.sndPktForAnGivenTime(codec, timelength);
+        /*1- it sends back packets to client
+         2- then release the port traffic
+         */
+        bc.sndPktForAnGivenTime(codec, timelength, this.portTrf);
         System.out.println("sendingPkts:finish sending.");
 
     }
@@ -97,20 +111,20 @@ public class TrfDgmRunnable implements Runnable {
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
         try {
+            //dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
             dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
 
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
-                System.out.println("received pkt: count=" + count);
                 if (count == expectedPktNum) {
                     morepacket = false;
                 }
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-
+            System.out.println("receivingPkts: total received count=" + count);
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:receivingPkts::" + se.getStackTrace());
+            System.out.println("Error:receivingPkts::" + se.getMessage());
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
         }

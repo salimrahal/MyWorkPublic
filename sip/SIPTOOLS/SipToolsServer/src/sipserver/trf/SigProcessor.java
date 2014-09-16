@@ -67,7 +67,9 @@ public class SigProcessor implements Runnable {
     @Override
     public void run() {
         try {
+             System.out.println(Thread.currentThread().getName() + " is Started");
             processrequests();
+             System.out.println(Thread.currentThread().getName() + " is completed");
         } catch (IOException ex) {
             System.out.println("Sip ServerTcp: Error: couldn;t run the ServerTcp:" + ex.getLocalizedMessage());
         }
