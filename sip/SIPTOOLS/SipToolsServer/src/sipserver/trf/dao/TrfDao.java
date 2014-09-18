@@ -96,7 +96,7 @@ public class TrfDao {
         ResultSet resultSet = null;
 //        Connection connect = null;
 //        connect = getC(x);
-        String query = "update Ports set status = ? where portNum = ?";
+        String query = "update Ports set status = '"+sts+"' where portNum ="+portNum;
          try(Connection connect = getC(x)){
 
             // statements allow to issue SQL queries to the database
@@ -104,10 +104,7 @@ public class TrfDao {
 
             // preparedStatements can use variables and are more efficient
             preparedStatement = connect.prepareStatement(query);
-            // "myuser, webpage, datum, summary, COMMENTS from FEEDBACK.COMMENTS");
-            // parameters start with 1
-            preparedStatement.setString(1, sts);
-            preparedStatement.setInt(2, portNum);
+           
            //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
             if (i == 1) {

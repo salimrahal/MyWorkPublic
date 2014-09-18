@@ -5,7 +5,9 @@
  */
 package bo;
 
+import static bo.Networking.getLocalIpAddress;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.Random;
 import java.util.UUID;
 
@@ -22,10 +24,13 @@ public class TrfBo {
 
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
-     public static final Integer Packet_Max_Delay = 50000;//millisecond
-      public static final Integer D_T = 30000;//millisecond
+    public static final Integer T_P = 50000;//millisecond
+    public static final Integer D_T = 30000;//millisecond
+    public static final Integer D_S = 1000;//millisecond
+    public static final Integer D_P = 2;//sec
 
     public static String srIp;
+    String iplocal;
 
     public static String getSrIp() {
         return srIp;
@@ -45,5 +50,13 @@ public class TrfBo {
         //generate random UUIDs
         UUID uuid = UUID.randomUUID();
         return String.valueOf(uuid);
+    }
+    
+    /*
+    usused
+    */
+      public String getIplocal() throws SocketException {
+        iplocal = getLocalIpAddress();
+        return iplocal;
     }
 }

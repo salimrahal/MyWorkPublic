@@ -29,16 +29,13 @@ public class TrfDgmRunnableIn implements Runnable {
     //private int bytesToReceive;
     private DatagramSocket dgmsocket;
     //private DatagramPacket incomingPacket;
-    InetAddress addressDest;
     Integer portsrc;
     Param param;
     TrfDao trfdao;
 
-    public TrfDgmRunnableIn(Param param, InetAddress addressDest, int clientID) throws IOException {
+    public TrfDgmRunnableIn(Param param, int clientID) throws IOException {
         this.param = param;
-//this.incomingPacket = incomingPacket;
         this.clientID = clientID;
-        this.addressDest = addressDest;
         //portsrc could be any port
         this.portsrc = Integer.valueOf(param.getPortrfClientU());
         dgmsocket = new DatagramSocket(this.portsrc);
@@ -68,7 +65,7 @@ public class TrfDgmRunnableIn implements Runnable {
     /*
      it counts only the received packets
      */
-    public float receivingPkts(String codec, int testlength) {
+    public float receivingPkts(String codec, int testlength) throws IOException {
         System.out.println("receivingPkts:starts receiving..");
         DatagramPacket incomingPacketLocal = null;
         float packetlossup = -1;
@@ -105,6 +102,17 @@ public class TrfDgmRunnableIn implements Runnable {
         packetlossup = VpMethds.computePktLossByCodec(count, pps, testlength);
         System.out.println("packetlossup=" + packetlossup + "%");
         System.out.println("receivingPkts:finish packetlossup function.");
+        
+        InetAddress addressInco = incomingPacketLocal.getAddress();
+        int portInco = incomingPacketLocal.getPort();
+        System.out.println("TrfDgmRunnableIn: incoming address="+addressInco.getHostAddress()+"/protInco="+portInco);
+        //Todo send back the packets using the dest address above
+         //run the thread that sends the traffic
+//        int portsrcOut = Integer.valueOf(param.getPortrfClientD());
+//        
+//        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, addressInco, portsrcOut,portInco, clientID);
+//        Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
+//        trfDgmThreadOut.start();
         return packetlossup;
     }
 

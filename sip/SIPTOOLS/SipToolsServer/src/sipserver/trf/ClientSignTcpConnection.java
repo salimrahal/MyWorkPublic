@@ -95,9 +95,10 @@ public class ClientSignTcpConnection implements Runnable {
                         //update the port status in DB f->b
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
                         if (portReserved) {
-                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
-                            out.write("ACK");
-                            launchTrafficListeningPoint(param);
+                            //launch receive and send threads
+                            launchTrafficTest(param);
+                            //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
+                            out.write("ACK");  
                             System.out.println("");
                             //todo lauching latency test here
                         }
@@ -145,20 +146,23 @@ public class ClientSignTcpConnection implements Runnable {
       start receiving paquets
       sending paquets
      */
-    public void launchTrafficListeningPoint(Param param) throws UnknownHostException, IOException, InterruptedException {
+    public void launchTrafficTest(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
         
         //run the thread that receives the traffic and computes the pktloss up
-        TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, inetaddressDest, clientID);
+        TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, clientID);
         Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
-        trfDgmThreadIn.start();
+        //trfDgmThreadIn.start();
         
         //run the thread that sends the traffic
-        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, clientID);
+        int portsrc = Integer.valueOf(param.getPortrfClientD());
+        int portdest = Integer.valueOf(param.getPortrfClientD());
+        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrc,portdest, clientID);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
          
       
     }
+    
 
 }

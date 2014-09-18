@@ -41,7 +41,11 @@ public class Cc {
         try {
             resultmsgjlabel.setText("test begins..");
             //1- call webservice to check for portLat, prtTrf, portSig and srip
-                /**/
+                /*TODO:
+            - handle the case where we have a firewall and couldn't connect to web service
+            - use a timeout
+            */
+            System.out.println("calling ws and waiting for reply....");
             PrtMiscVo miscPortObj = WSBo.getMiscPorts();
             String portlat = miscPortObj.getPrtLatNum();
             String porttrfU = miscPortObj.getPrtTrfNumUp();
@@ -64,6 +68,7 @@ public class Cc {
 //3- send parameters
                 cltcp = new ClTcp(portSig);
                 boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                //Thread.currentThread().wait(TrfBo.D_S);
                 if (success) {
                     Param param = new Param();
                     param.setTimelength(timeLengthParam);
@@ -76,7 +81,7 @@ public class Cc {
                     System.out.println("launchtest::success, begin of sending packets");
                     //4- launch up packet lost test: sending/receiving packets
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
-                    launchTrafficListeningPoint(param, inetAddrDest);
+                    launchTrafficTest(param, inetAddrDest);
                     //5- launch lat&jitter test up/down
                 } else {
                     System.out.println("Error:launchtest::success: Failed!");
@@ -87,16 +92,19 @@ public class Cc {
         }
     }
 
-    public void launchTrafficListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+    public void launchTrafficTest(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+        
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
         //trfDgmUThread.start();
         
-        TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param, addressDest, 0);
+        int portsrc = Integer.valueOf(param.getPortrfD());
+        int portdest = Integer.valueOf(param.getPortrfD());
+        TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param, addressDest, portsrc, portdest, 0);
         Thread trfDgmDThread = new Thread(trfDgmD);
         trfDgmDThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
-        System.out.println(Thread.currentThread().getName() + " / before join..");
+        //System.out.println(Thread.currentThread().getName() + " / before join..");
         //no need to join for now
         //trfDgmUThread.join();
         //trfDgmDThread.join();

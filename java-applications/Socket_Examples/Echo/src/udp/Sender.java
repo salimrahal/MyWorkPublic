@@ -21,7 +21,10 @@ import java.net.UnknownHostException;
 public class Sender {
     
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException{
-        DatagramSocket ds = new DatagramSocket(6000);
+        
+        int srcport = 6000;
+        int destport = 5108;
+        DatagramSocket ds = new DatagramSocket(srcport);
         byte[] buf = new byte[1024];
         String msg = "hiiiiiiiiiiiiiiiii";
         buf = msg.getBytes();
@@ -29,14 +32,16 @@ public class Sender {
         //inetaddress1 = InetAddress.getByAddress(abyte1);
          String destAddress = "127.0.0.1";
          inetaddressDest = InetAddress.getByName(destAddress);
-         int destport = 5108;
+       
         inetaddressDest = InetAddress.getByName(destAddress);
         DatagramPacket dp = new DatagramPacket(buf, buf.length, inetaddressDest, destport);
         System.out.println("sending to packet to host"+destAddress);
-        for(int i = 0; i<1000000; i++){
+        for(int i = 0; i<10000; i++){
             System.out.println("sending"+i);
                 ds.send(dp);
         }
+        
+        
     
     }
     

@@ -31,13 +31,13 @@ class PacketControl {
     InetAddress addressDest;
     Integer portDest;
     DatagramPacket outgoingPacketLocal = null;
-        TrfDao trfdao;
+    TrfDao trfdao;
 
     public PacketControl(DatagramSocket dgmsocket, InetAddress addressDest, Integer portDest) {
         this.dgmsocket = dgmsocket;
         this.addressDest = addressDest;
         this.portDest = portDest;
-         this.trfdao = new TrfDao();
+        this.trfdao = new TrfDao();
     }
 
     private final ScheduledExecutorService scheduler
@@ -80,13 +80,13 @@ class PacketControl {
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
-                System.out.println("task is finished and cancled="+res+"--- total packet sent ="+count);
+                System.out.println("sending is finished / cancled= " + res + "--- total packet sent =" + count);
                 System.out.println("PacketControl:sndPktForAnGivenTime: closing the DG socket.. ");
                 dgmsocket.close();
                 System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
                 try {
                     //to do realese Ports
-                    System.out.println("traffic TCPServer: releasing porttrf result:"+trfdao.updateOnePortStatus(portTrf, "f"));
+                    System.out.println("traffic TCPServer: releasing porttrf result:" + trfdao.updateOnePortStatus(portTrf, "f"));
                 } catch (Exception ex) {
                     Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -105,13 +105,12 @@ class PacketControl {
         }
 
         public void run() {
-            try {
-              
+            try {               
                 //System.out.println("send packet.." + count);
                 outgoingPacketLocal = new DatagramPacket(buf, buf.length, addressDest, portDest);
                 //send the packet back to the client
                 dgmsocket.send(outgoingPacketLocal);
-                count++;   
+                count++;
             } catch (IOException ex) {
                 Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
             }

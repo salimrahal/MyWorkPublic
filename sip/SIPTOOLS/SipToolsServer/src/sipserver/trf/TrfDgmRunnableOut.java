@@ -10,45 +10,37 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketTimeoutException;
-import java.util.Date;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
-import sipserver.trf.vp.bo.VpMethds;
 import sipserver.trf.vp.vo.CdcVo;
 
 /**
  *
- * @author salim 
- *  This thread used to recieve the traffic using the port ip of the client
- * handling traffic
- * a- responsible for receiving and counting the
- * packet lost 
- * b- save the result into the DB: client name, clientpublicIP,
- * uppacketLost, starttime 
- * c- release the used for: update Ports table and set
+ * @author salim This thread used to recieve the traffic using the port ip of
+ * the client handling traffic a- responsible for receiving and counting the
+ * packet lost b- save the result into the DB: client name, clientpublicIP,
+ * uppacketLost, starttime c- release the used for: update Ports table and set
  * the used port to free
  */
 public class TrfDgmRunnableOut implements Runnable {
 
     private int clientID;
-    //private int bytesToReceive;
     private DatagramSocket dgmsocket;
-    //private DatagramPacket incomingPacket;
     InetAddress addressDest;
     Integer portsrc;
     Integer portDest;
     Param param;
     TrfDao trfdao;
 
-    public TrfDgmRunnableOut(Param param, InetAddress addressDest, int clientID) throws IOException {
+    public TrfDgmRunnableOut(Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
         this.param = param;
-//this.incomingPacket = incomingPacket;
         this.clientID = clientID;
         this.addressDest = addressDest;
-        this.portsrc = Integer.valueOf(param.getPortrfClientD());
-        this.portDest = Integer.valueOf(param.getPortrfClientD());
+        this.portsrc = portsrc;
+        this.portDest = portDest;
         dgmsocket = new DatagramSocket(this.portsrc);
 
     }
@@ -71,9 +63,43 @@ public class TrfDgmRunnableOut implements Runnable {
     private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-            //it sends the packet
-        // close the connection or socket
-        sendingPkts(codec, timelength);
+        /*todo:
+         1- receive the flag packet from the client
+         2- extract the addressInco and portInco
+         3- pass them to the sendpacket function
+         */
+        byte[] buf = new byte[8];
+        DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
+        System.out.println("TrfDgmRunnableOut:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+        try {
+            dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
+            dgmsocket.receive(incomingPacketLocal);
+            System.out.println("TrfDgmRunnableOut:handleClienttraffic:receives a flag packet ");
+            InetAddress inetAddrInco = incomingPacketLocal.getAddress();
+            int portInco = incomingPacketLocal.getPort();
+            //it sends the packets
+            // close the connection or socket
+            //sendingPkts(codec, timelength);
+             DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
+             System.out.println("TrfDgmRunnableOut:handleClienttraffic:sending back the flag packet");       
+             dgmsocket.send(outgoingPacketLocal);
+             
+            sendingPktsV2(codec, timelength, inetAddrInco, portInco);
+        } catch (SocketTimeoutException se) {
+            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void sendingPktsV2(String codec, int timelength, InetAddress inetAddrInco, int portInco) throws IOException, InterruptedException {
+        System.out.println("sendingPktsV2:start..");
+        PacketControl bc = new PacketControl(dgmsocket, inetAddrInco, portInco);
+        /*1- it sends back packets to client
+         2- then release the port traffic
+         */
+        bc.sndPktForAnGivenTime(codec, timelength, this.portsrc);
     }
 
     /**
@@ -91,7 +117,22 @@ public class TrfDgmRunnableOut implements Runnable {
          2- then release the port traffic
          */
         bc.sndPktForAnGivenTime(codec, timelength, this.portsrc);
-        System.out.println("sendingPkts:finish sending.");
+    }
 
+    /*
+     for test
+     */
+    public static void main(String[] args) throws UnknownHostException, IOException {
+        String destAddress = "127.0.0.1";
+        Param param2 = new Param();
+        param2.setCodec(CdcVo.CODEC_G729);
+        param2.setTimelength("15");
+        int portsrc = 6000;
+        int portdest = 5108;
+        InetAddress inetaddressDest = InetAddress.getByName(destAddress);
+        //run the thread that sends the traffic
+        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param2, inetaddressDest, portsrc, portdest, 0);
+        Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
+        trfDgmThreadOut.start();
     }
 }
