@@ -29,17 +29,25 @@ public class PrtDao {
         String x = gety(x1);
         String k = getz(x, k1);
         PrtMiscVo prtvo = new PrtMiscVo();
+        String[] portArr ;
+        String res = null;
         try (Connection conn = getUdptrafficDBRef().getConnection(x, k)) {
-            String query = "Select portNum from Ports where status = '" + status + "' limit 2";
+            String query = "select group_concat(portNum) as ports "
+                    + "from (select * from Ports where status = '" + status + "' limit 3) as portsTable";// 
             PreparedStatement pr = conn.prepareStatement(query);
             ResultSet rs = pr.executeQuery();
-            boolean first = true;
             while (rs.next()) {
-                if (first) {
-                    prtvo.setPrtTrfNum(rs.getString(1));
-                    first = false;
+                res = rs.getString("ports");//res = 5108,5095,5096
+            }
+            if (res != null) {
+                portArr = res.split(",");
+                if (portArr.length == 3) {
+                    prtvo.setPrtTrfNumUp(portArr[0]);
+                    prtvo.setPrtTrfNumDown(portArr[1]);
+                    prtvo.setPrtLatNum(portArr[2]);
                 } else {
-                    prtvo.setPrtLatNum(rs.getString(1));
+                    //return an empty results because 3 ports are mandatories
+                    System.out.println("retrievePorts: insufficient free ports");
                 }
             }
         }
@@ -59,5 +67,11 @@ public class PrtDao {
     public String getz(String k, String l) {
         String sb = k + l;
         return sb;
+    }
+
+    public static void main(String[] args) {
+        String x = "5108,5095,5096";
+        String[] arr = x.split(",");
+        System.out.println("arr=" + arr.length + "/" + arr);
     }
 }

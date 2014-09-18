@@ -57,7 +57,8 @@ public class TrfDao {
 //        connect = getC(x);
         StringBuilder sb = new StringBuilder("update Ports set status = \"");
         sb.append(sts).append("\"");
-        sb.append("where portNum =").append(portNumArr[0]).append(" or portNum = ").append(portNumArr[1]);
+        sb.append("where portNum =").append(portNumArr[0]).append(" or portNum = ").append(portNumArr[1]).
+                append(" or portNum = ").append(portNumArr[2]);
         String query = sb.toString();
 
        try(Connection connect = getC(x)){
@@ -71,7 +72,7 @@ public class TrfDao {
 
             //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
-            if (i == 2) {
+            if (i == 3) {
                 res = true;
             } else {
                 res = false;
@@ -79,9 +80,6 @@ public class TrfDao {
             }
             System.out.println("update return=" + i);
        }
-
-       
-        
         return res;
     }
 

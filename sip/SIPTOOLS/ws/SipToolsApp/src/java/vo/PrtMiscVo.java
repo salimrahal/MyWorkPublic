@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vo;
 
 /**
@@ -11,9 +10,11 @@ package vo;
  * @author salim
  */
 public class PrtMiscVo {
-     String prtTrfNum = "null";
-     String prtLatNum = "null";
-     String prtSigNum = "null";
+
+    String prtTrfNumUp = "null";
+    String prtTrfNumDown = "null";
+    String prtLatNum = "null";
+    String prtSigNum = "null";
     String serverIp;
 
     public String getServerIp() {
@@ -22,16 +23,6 @@ public class PrtMiscVo {
 
     public void setServerIp(String serverIp) {
         this.serverIp = serverIp;
-    }
-
-    
-    
-    public String getPrtTrfNum() {
-        return prtTrfNum;
-    }
-
-    public void setPrtTrfNum(String prtTrfNum) {
-        this.prtTrfNum = prtTrfNum;
     }
 
     public String getPrtLatNum() {
@@ -50,11 +41,27 @@ public class PrtMiscVo {
         this.prtSigNum = prtSigNum;
     }
 
+    public String getPrtTrfNumUp() {
+        return prtTrfNumUp;
+    }
+
+    public void setPrtTrfNumUp(String prtTrfNumUp) {
+        this.prtTrfNumUp = prtTrfNumUp;
+    }
+
+    public String getPrtTrfNumDown() {
+        return prtTrfNumDown;
+    }
+
+    public void setPrtTrfNumDown(String prtTrfNumDown) {
+        this.prtTrfNumDown = prtTrfNumDown;
+    }
+
     @Override
     public String toString() {
-        return "PrtMiscVo{" + "prtTrfNum=" + prtTrfNum + ", prtLatNum=" + prtLatNum + ", prtSigNum=" + prtSigNum + ", serverIp=" + serverIp + '}';
+        return "PrtMiscVo{" + "prtTrfNumUp=" + prtTrfNumUp + ", prtTrfNumDown=" + prtTrfNumDown + ", prtLatNum=" + prtLatNum + ", prtSigNum=" + prtSigNum + ", serverIp=" + serverIp + '}';
     }
-     
+
    
-     
+
 }

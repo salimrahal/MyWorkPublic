@@ -22,7 +22,8 @@ public class Param {
     private String custname;
     String clientIp;
     String portlat;
-    String portrf;
+    String portrfU;
+    String portrfD;
 
     public String getClientIp() {
         return clientIp;
@@ -40,13 +41,22 @@ public class Param {
         this.portlat = portlat;
     }
 
-    public String getPortrf() {
-        return portrf;
+    public String getPortrfU() {
+        return portrfU;
     }
 
-    public void setPortrf(String portrf) {
-        this.portrf = portrf;
+    public void setPortrfU(String portrfU) {
+        this.portrfU = portrfU;
     }
+
+    public String getPortrfD() {
+        return portrfD;
+    }
+
+    public void setPortrfD(String portrfD) {
+        this.portrfD = portrfD;
+    }
+
     
     
     
@@ -89,9 +99,9 @@ public class Param {
 
     @Override
     public String toString() {
-        return "Param{" + "timelength=" + timelength + ", tstid=" + tstid + ", codec=" + codec + ", custname=" + custname + ", clientIp=" + clientIp + ", portlat=" + portlat + ", portrf=" + portrf + '}';
+        return "Param{" + "timelength=" + timelength + ", tstid=" + tstid + ", codec=" + codec + ", custname=" + custname + ", clientIp=" + clientIp + ", portlat=" + portlat + ", portrfU=" + portrfU + ", portrfD=" + portrfD + '}';
     }
 
-   
+    
     
 }

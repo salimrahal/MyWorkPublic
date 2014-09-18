@@ -7,8 +7,9 @@ package controller;
 
 import bean.Param;
 import bo.ClTcp;
-import bo.TrfDgmRunnable;
 import bo.TrfBo;
+import bo.TrfDgmRunnableD;
+import bo.TrfDgmRunnableU;
 import bo.WSBo;
 import com.safirasoft.IOException_Exception;
 import com.safirasoft.ParserConfigurationException_Exception;
@@ -43,11 +44,12 @@ public class Cc {
                 /**/
             PrtMiscVo miscPortObj = WSBo.getMiscPorts();
             String portlat = miscPortObj.getPrtLatNum();
-            String porttrf = miscPortObj.getPrtTrfNum();
+            String porttrfU = miscPortObj.getPrtTrfNumUp();
+            String porttrfD = miscPortObj.getPrtTrfNumDown();
             String portSig = miscPortObj.getPrtSigNum();
             //portlat = "null";
-            System.out.println("ws results= miscPortObj= prtSig=" + miscPortObj.getPrtSigNum() + ";prttrf=" + miscPortObj.getPrtTrfNum() + ";prtlat=" + miscPortObj.getPrtLatNum());
-            if (portlat.equalsIgnoreCase("null") || porttrf.equalsIgnoreCase("null")) {
+            System.out.println("ws results= miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
+            if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
                 resultmsgjlabel.setText(bo.TrfBo.M_PRT_B);
             } else {
                 //sr ip
@@ -61,13 +63,14 @@ public class Cc {
 
 //3- send parameters
                 cltcp = new ClTcp(portSig);
-                boolean success = cltcp.sendParamToServer(portlat, porttrf, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
                 if (success) {
                     Param param = new Param();
                     param.setTimelength(timeLengthParam);
                     param.setCodec(codecparam);
                     param.setPortlat(portlat);
-                    param.setPortrf(porttrf);
+                    param.setPortrfU(porttrfU);
+                    param.setPortrfD(String.valueOf(porttrfD));//for test
                     param.setTstid(testUuid);
                     param.setCustname(custnmparam);
                     System.out.println("launchtest::success, begin of sending packets");
@@ -85,16 +88,22 @@ public class Cc {
     }
 
     public void launchTrafficListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        TrfDgmRunnable trfDgmInOut = new TrfDgmRunnable(param, addressDest, 0);
-        Thread trfDgmInOutThread = new Thread(trfDgmInOut);
-        trfDgmInOutThread.start();
+        TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
+        Thread trfDgmUThread = new Thread(trfDgmU);
+        //trfDgmUThread.start();
+        
+        TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param, addressDest, 0);
+        Thread trfDgmDThread = new Thread(trfDgmD);
+        trfDgmDThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
-        System.out.println(Thread.currentThread().getName()+" / before join..");
-        trfDgmInOutThread.join();
+        System.out.println(Thread.currentThread().getName() + " / before join..");
+        //no need to join for now
+        //trfDgmUThread.join();
+        //trfDgmDThread.join();
     }
-    
-     public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-       //TODO
+
+    public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+        //TODO
     }
 
 }

@@ -41,19 +41,19 @@ class BeeperControlRunnable implements Runnable {
             public void run() {
                 beeperHandle.cancel(true);
             }
-        }, 60 * 60, SECONDS);
+        }, 60*60, SECONDS);
     }
 
     public void beepForAnGivenTime(int periodbetweenPkt, int timeLength) {
-
+ System.out.println(Thread.currentThread().getName() + " is Started"+new Date());
         final Runnable beeper = new Runnable() {
             int count = 0;
 
             public void run() {
-                System.out.println(Thread.currentThread().getName() + " is Started");
+               // System.out.println(Thread.currentThread().getName() + " is Started");
                 System.out.println("send packet.." + count);
                 count++;
-                System.out.println(Thread.currentThread().getName() + " is completed");
+                //System.out.println(Thread.currentThread().getName() + " is completed");
             }
         };
         /*
@@ -67,9 +67,9 @@ class BeeperControlRunnable implements Runnable {
                 = scheduler.scheduleAtFixedRate(beeper, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
-                System.out.println(Thread.currentThread().getName() + " is Started");
+               
                 beeperHandle.cancel(true);
-                System.out.println(Thread.currentThread().getName() + " is completed");
+                 System.out.println("Cancel tasks"+Thread.currentThread().getName() + " is Completed"+new Date());
             }
         }, timeLength, SECONDS);
 
@@ -77,11 +77,12 @@ class BeeperControlRunnable implements Runnable {
 
     @Override
     public void run() {
-        int timelength = 15;//sec
+        int timelength = 120;//sec
         int periodbtwPkt = 20;//ms
-        System.out.println(Thread.currentThread().getName() + " is Started");
+        
+       
         beepForAnGivenTime(periodbtwPkt, timelength);
-        System.out.println(Thread.currentThread().getName() + " is Completed");
+      
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -93,11 +94,11 @@ class BeeperControlRunnable implements Runnable {
          50pps * 15 = 750 pkt : tested
          50pps * 120 = 6000 pkt: tested
          */
-        System.out.println(Thread.currentThread().getName() + " is Started");
+       // System.out.println(Thread.currentThread().getName() + " is Started");
         Thread beeperThread = new Thread(bc);
         beeperThread.start();
         beeperThread.join();
-        System.out.println(Thread.currentThread().getName() + " is Completed");
+        //System.out.println(Thread.currentThread().getName() + " is Completed");
     }
 
 }

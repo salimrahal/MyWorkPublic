@@ -38,7 +38,7 @@ public class ClTcp {
         socket = new Socket();
     }
 
-    public boolean sendParamToServer(String portlat, String porttrf, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
+    public boolean sendParamToServer(String portlat, String porttrfU,String porttrfD, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
         BufferedReader in = null;
         PrintWriter out = null;
         String outmsg;
@@ -51,7 +51,7 @@ public class ClTcp {
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
 
-            success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrf);
+            success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
         } catch (UnknownHostException e) {
             outmsg = "sendStream: Don't know about host: " + svip;
             System.err.println(outmsg);
@@ -82,10 +82,10 @@ public class ClTcp {
      send param to the server and receive an ACK
      returns true is an ACK is received
      */
-    public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrf) throws Exception {
+    public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;
         System.out.println("send param..");
-        String msgToSend = generateQueryParam(portlat, porttrf, codec, timelength, custname, tstid);
+        String msgToSend = generateQueryParam(portlat, porttrfU,porttrfD, codec, timelength, custname, tstid);
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
         String msgRecv;
@@ -110,12 +110,13 @@ public class ClTcp {
         return ack;
     }
 
-    public String generateQueryParam(String portlat, String porttrf, String codec, String timelength, String custname, String tstid) {
+    public String generateQueryParam(String portlat, String porttrfu,String porttrfd, String codec, String timelength, String custname, String tstid) {
         StringBuilder strbuilder = new StringBuilder();
         strbuilder.append("tstid=").append(tstid).append(";codec=").append(codec).append(";timelength=").
                 append(timelength).append(";custname=").append(custname).
                 append(";portlat=").append(portlat).
-                append(";porttrf=").append(porttrf);
+                append(";porttrfu=").append(porttrfu).
+                append(";porttrfd=").append(porttrfd);
         String msgToSend = strbuilder.toString();
         return msgToSend;
     }

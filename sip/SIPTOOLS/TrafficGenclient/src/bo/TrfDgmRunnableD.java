@@ -24,25 +24,26 @@ import vp.vo.CdcVo;
  * uppacketLost, starttime c- release the used for: update Ports table and set
  * the used port to free
  */
-public class TrfDgmRunnable implements Runnable {
+public class TrfDgmRunnableD implements Runnable {
 
     private int clientID;
     //private int bytesToReceive;
     private DatagramSocket dgmsocket;
-    //private DatagramPacket incomingPacket;
     InetAddress addressDest;
     Integer port;
-    Integer portDest;
     Param param;
 
-    public TrfDgmRunnable(Param param, InetAddress addressDest, int clientID) throws IOException {
+    public TrfDgmRunnableD(Param param, InetAddress addressDest, int clientID) throws IOException {
         this.param = param;
-//this.incomingPacket = incomingPacket;
         this.clientID = clientID;
         this.addressDest = addressDest;
-        this.port = Integer.valueOf(param.getPortrf());
-        this.portDest = Integer.valueOf(param.getPortrf());
-        dgmsocket = new DatagramSocket(this.port);
+        this.port = Integer.valueOf(param.getPortrfD());
+        //for test
+         String destAddress = "127.0.0.1";
+         //for test
+         InetAddress inetaddressDest = InetAddress.getByName(destAddress);
+        //dgmsocket = new DatagramSocket(this.port, inetaddressDest);
+         dgmsocket = new DatagramSocket(this.port);
     }
 
     @Override
@@ -50,9 +51,9 @@ public class TrfDgmRunnable implements Runnable {
         try {
             handleClienttraffic();
         } catch (IOException ex) {
-            Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -60,33 +61,9 @@ public class TrfDgmRunnable implements Runnable {
         String codec = param.getCodec();
         float packetlostdown;
         int timelength = Integer.valueOf(param.getTimelength());
-
-        boolean res = sendingPkts(codec, timelength);
-        if (res) {
             packetlostdown = receivingPkts(codec, timelength);
             dgmsocket.close();
-        }
     }
-
-    /**
-     * It just send the packets through a thread
-     * 
-     * @param codec
-     * @param timelength
-     * @return
-     * @throws IOException
-     * @throws InterruptedException 
-     */
-    public boolean sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
-        boolean res = false;
-        System.out.println("sendingPkts:start sending[" + new Date() + "]\n -thread name= [" + Thread.currentThread().getName());
-        PacketControl bc = new PacketControl(dgmsocket, addressDest, portDest);
-        //bc.beepForAnHour();
-        res = bc.sndPktForAnGivenTime(codec, timelength);
-        System.out.println("sendingPkts:finish sending.");
-        return res;
-    }
-
     /*
      it counts only the received packets
      */
@@ -104,6 +81,7 @@ public class TrfDgmRunnable implements Runnable {
         int count = 0;
         try {
             //dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
+            System.out.println("receivingPkts:: listening on address="+dgmsocket.getLocalAddress().getHostAddress()+";port="+dgmsocket.getLocalPort());
             dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
 
             do {
@@ -118,7 +96,7 @@ public class TrfDgmRunnable implements Runnable {
         } catch (SocketTimeoutException se) {
             System.out.println("Error:receivingPkts::" + se.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(TrfDgmRunnable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*
          computes the packet lost/down 

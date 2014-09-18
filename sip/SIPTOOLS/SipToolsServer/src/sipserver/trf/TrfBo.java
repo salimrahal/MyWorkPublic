@@ -68,8 +68,11 @@ public class TrfBo {
                 case "portlat":
                     param.setPortlat(keyval[1]);
                     break;
-                case "porttrf":
-                    param.setPortrf(keyval[1]);
+                case "porttrfu":
+                    param.setPortrfClientU(keyval[1]);
+                    break;
+                case "porttrfd":
+                    param.setPortrfClientD(keyval[1]);
                     break;
 
             }

@@ -62,7 +62,8 @@ public class ClientSignTcpConnection implements Runnable {
         boolean recognizedClient = true;
         PrintWriter out = null;
         BufferedReader in = null;
-        int porttrf;
+        int porttrfClientup;
+        int porttrfClientdown;
         int portlat;
         String threadName = Thread.currentThread().getName();
         try {
@@ -84,11 +85,13 @@ public class ClientSignTcpConnection implements Runnable {
                         System.out.println("traffic TCPServer:receiving:" + inputLine);
                         //extract the parameters from the client and save them to bean 
                         Param param = trbo.savingParamsTobean(inputLine, clientSocket.getInetAddress().getHostAddress());
-                        porttrf = Integer.valueOf(param.getPortrf());
+                        porttrfClientup = Integer.valueOf(param.getPortrfClientU());
+                        porttrfClientdown = Integer.valueOf(param.getPortrfClientD());
                         portlat = Integer.valueOf(param.getPortlat());
-                        int[] ports = new int[2];
-                        ports[0] = porttrf;
+                        int[] ports = new int[3];
+                        ports[0] = porttrfClientup;
                         ports[1] = portlat;
+                        ports[2] = porttrfClientdown;
                         //update the port status in DB f->b
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
                         if (portReserved) {
@@ -135,8 +138,7 @@ public class ClientSignTcpConnection implements Runnable {
         if (recognizedClient) {
             System.out.println("traffic ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". Connection to client is closed.");
         }
-    }//end of method
-
+    }
     /*
       launchListeningPoints():
       launch the listening Dgms socket which listen on portTrf and portLat
@@ -145,11 +147,18 @@ public class ClientSignTcpConnection implements Runnable {
      */
     public void launchTrafficListeningPoint(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
-        //handling traffic packets test, this thread listen on Port_traffic
-        TrfDgmRunnable trfDgmRunnable = new TrfDgmRunnable(param, inetaddressDest, clientID);
-        Thread trfDgmThread = new Thread(trfDgmRunnable);
-        trfDgmThread.start();
-        //trfDgmThread.join();
+        
+        //run the thread that receives the traffic and computes the pktloss up
+        TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, inetaddressDest, clientID);
+        Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
+        trfDgmThreadIn.start();
+        
+        //run the thread that sends the traffic
+        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, clientID);
+        Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
+        trfDgmThreadOut.start();
+         
+      
     }
 
 }
