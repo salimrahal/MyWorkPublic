@@ -93,11 +93,11 @@ public class Cc {
     }
 
     public void launchTrafficTest(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        
+        /* */
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
-        //trfDgmUThread.start();
-        
+        trfDgmUThread.start();
+       
         int portsrc = Integer.valueOf(param.getPortrfD());
         int portdest = Integer.valueOf(param.getPortrfD());
         TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param, addressDest, portsrc, portdest, 0);
@@ -106,8 +106,8 @@ public class Cc {
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
         //System.out.println(Thread.currentThread().getName() + " / before join..");
         //no need to join for now
-        //trfDgmUThread.join();
-        //trfDgmDThread.join();
+        trfDgmUThread.join();
+        trfDgmDThread.join();
     }
 
     public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {

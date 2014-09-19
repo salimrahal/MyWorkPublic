@@ -43,18 +43,17 @@ public class TrfDgmRunnableD implements Runnable {
         this.portsrc = portsrc;
         this.portDest = portdest;
         trfBo = new TrfBo();
-        //for test
-        //String destAddress = "127.0.0.1";
-        //for test
-        //InetAddress inetaddresssrc = InetAddress.getByName(trfBo.getIplocal());
         dgmsocket = new DatagramSocket(this.portsrc);
-        //dgmsocket = new DatagramSocket(this.portsrc);
     }
 
     @Override
     public void run() {
         try {
-            handleClienttraffic();
+            //if packetlostdown is < 0 then didn't completed
+            float packetlostdown = handleClienttraffic();
+            /*
+             todo: save the result into the DB
+             */
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -63,7 +62,7 @@ public class TrfDgmRunnableD implements Runnable {
 
     }
 
-    private synchronized void handleClienttraffic() throws IOException, InterruptedException {
+    private synchronized float handleClienttraffic() throws IOException, InterruptedException {
         String codec = param.getCodec();
         float packetlostdown = -1;
         int timelength = Integer.valueOf(param.getTimelength());
@@ -82,23 +81,24 @@ public class TrfDgmRunnableD implements Runnable {
 
         //send a flag packet to the server before start receiving
         byte[] bufFlag = new byte[8];
+        int flagsNum = 3;
         DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
-        System.out.println("TrfDgmRunnableD::handleClienttraffic::sending flag packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        System.out.println("TrfDgmRunnableD::handleClienttraffic::sending " + flagsNum + " flags packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
         //send flag packet to server
-        dgmsocket.send(outgoingPacketFlag);
-
-       
+        for (int i = 0; i < flagsNum; i++) {
+            dgmsocket.send(outgoingPacketFlag);
+        }
         System.out.println("TrfDgmRunnableD::handleClienttraffic::waiting to recev the flag....");
         try {
             //set the timeout for the flag 
             dgmsocket.setSoTimeout(timelength * 1000);
-             //todo: register the begin time
+            //todo: register the begin time
             dgmsocket.receive(incomingPacketFlag);
             System.out.println("TrfDgmRunnableD::handleClienttraffic::flag received");
-             //increase the timeout  
+            //increase the timeout  
             dgmsocket.setSoTimeout(TrfBo.T_P);
-           
+
             long tStart = System.currentTimeMillis();
             do {
                 dgmsocket.receive(incomingPacketLocal);
@@ -108,28 +108,33 @@ public class TrfDgmRunnableD implements Runnable {
                 long tEnd = System.currentTimeMillis();
                 long tDelta = tEnd - tStart;
                 double elapsedSeconds = tDelta / 1000.0;
-                System.out.println("TrfDgmRunnableD::handleClienttraffic:time elapsed:"+elapsedSeconds+" sec");
+                System.out.println("TrfDgmRunnableD::handleClienttraffic:time elapsed:" + elapsedSeconds + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
                 if (elapsedSeconds >= timelength) {
-                    System.out.println("TrfDgmRunnableD::handleClienttraffic:elapsed time:"+elapsedSeconds+" exceeded test time:"+timelength+". finish the listening.");
+                    System.out.println("TrfDgmRunnableD::handleClienttraffic:elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength + ". finish the listening.");
                     morepacket = false;
                 }
             } while (morepacket);
-            //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-            System.out.println("received pkt: total received count=" + count);
-            /*
-             computes the packet lost/down 
-             save the result into the DB
-             */
-            packetlostdown = VpMethds.computePktLossByCodec(count, pps, timelength);
-            System.out.println("packetlossDown=" + packetlostdown);
-            System.out.println("receivingPkts:finish receiving function.");
-            System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
+            if (count > 0) {
+                System.out.println("received pkt: total received count=" + count);
+                /*
+                 computes the packet lost/down 
+                 */
+                packetlostdown = VpMethds.computePktLossByCodec(count, pps, timelength);
+                System.out.println("packetlossDown=" + packetlostdown);
+                System.out.println("receivingPkts:finish receiving function.");
+
+            } else {
+                System.out.println("TrfDgmRunnable:receivingPkts:Something goes wrong nothing is received count=" + count);
+            }
 
         } catch (SocketTimeoutException se) {
             System.out.println("Error:TrfDgmRunnableD::waiting to recev the flag:" + se.getMessage());
+        } finally {
+            System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
+            dgmsocket.close();
         }
-        dgmsocket.close();
+        return packetlostdown;
     }
 
     public static void main(String[] args) throws UnknownHostException, IOException {

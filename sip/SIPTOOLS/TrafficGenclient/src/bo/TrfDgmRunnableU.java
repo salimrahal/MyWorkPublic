@@ -53,31 +53,43 @@ public class TrfDgmRunnableU implements Runnable {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private synchronized void handleClienttraffic() throws IOException, InterruptedException {
+    private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-        boolean res = sendingPkts(codec, timelength);
+        /*todo:
+         1- receive the flag packet from the server
+         2- extract the addressInco and portInco
+         3- pass them to the sendpacket function
+         */
+            try {
+            //it sends the packets
+            // close the connection or socket
+            sendingPkts(codec, timelength);
+        } catch (SocketTimeoutException se) {
+            System.out.println("TrfDgmRunnableU::Error:receiving flag::" + se.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * It just send the packets through a thread
-     * 
+     *
      * @param codec
      * @param timelength
      * @return
      * @throws IOException
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public boolean sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
         boolean res = false;
-        System.out.println("sendingPkts:start sending[" + new Date() + "]\n -thread name= [" + Thread.currentThread().getName());
         PacketControl bc = new PacketControl(dgmsocket, addressDest, portDest);
-        //bc.beepForAnHour();
         res = bc.sndPktForAnGivenTime(codec, timelength);
-        System.out.println("sendingPkts:finish sending.");
         return res;
     }
 }

@@ -93,7 +93,6 @@ public class TrfDao {
         boolean res = false;
         Statement statement = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 //        Connection connect = null;
 //        connect = getC(x);
         String query = "update Ports set status = '"+sts+"' where portNum ="+portNum;

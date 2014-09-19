@@ -20,100 +20,158 @@ import sipserver.trf.vp.vo.CdcVo;
 
 /**
  *
- * @author salim 
- * This thread used to send down the traffic using the port down of the client
+ * @author salim This thread used to send down the traffic using the port down
+ * of the client
  */
 public class TrfDgmRunnableIn implements Runnable {
 
     private int clientID;
     //private int bytesToReceive;
     private DatagramSocket dgmsocket;
-    //private DatagramPacket incomingPacket;
+    InetAddress addressDest;
     Integer portsrc;
+    Integer portDest;
     Param param;
     TrfDao trfdao;
 
-    public TrfDgmRunnableIn(Param param, int clientID) throws IOException {
+    public TrfDgmRunnableIn(Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws IOException {
         this.param = param;
         this.clientID = clientID;
         //portsrc could be any port
-        this.portsrc = Integer.valueOf(param.getPortrfClientU());
+        this.portsrc = portsrc;
+        this.portDest = portdest;
+        this.addressDest = addressDest;
         dgmsocket = new DatagramSocket(this.portsrc);
-
+        trfdao = new TrfDao();
     }
 
     @Override
     public void run() {
-       
+
         try {
-            System.out.println("TrfDgmRunnableIn::thread name=" + Thread.currentThread().getName() + " is Started");
-            handleClienttraffic();
-            System.out.println("TrfDgmRunnableIn::thread name=" + Thread.currentThread().getName() + " is completed");
+            //if packetlostup is < 0 then didn't completed
+            float packetlostup = handleClienttraffic();
+            /*
+             release the port
+             */
+            System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
+            trfdao.updateOnePortStatus(portsrc, "f");
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
 
-    private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
-        String codec = param.getCodec();
-        int timelength = Integer.valueOf(param.getTimelength());
-        float packetlossup = receivingPkts(codec, timelength);
-    }
     /*
-     it counts only the received packets
+     it receives and computes packet loss of the incoming packets from the client as follows:
+     1- send a flag that indicates the start of this session
+     2- wait till it receives the flag back
+     3- once received so it's start to listen to the other side packets
+     4-computes the packet loss
      */
-    public float receivingPkts(String codec, int testlength) throws IOException {
-        System.out.println("receivingPkts:starts receiving..");
+    private synchronized float handleClienttraffic() throws IOException, InterruptedException, Exception {
+        String codec = param.getCodec();
+        float packetlostup = -1;
+        int timelength = Integer.valueOf(param.getTimelength());
+        /*
+         received section
+         */
         DatagramPacket incomingPacketLocal = null;
-        float packetlossup = -1;
         //still true while receiving packets
         boolean morepacket = true;
         byte[] buf = null;
         buf = CdcVo.returnPayloadybyCodec(codec);
         int pps = CdcVo.returnPPSbyCodec(codec);
-        int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
-        try {
-            //dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
-            dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
 
+        //send a flag packet to the server before start receiving
+        try {
+            //increase the timeout  
+            dgmsocket.setSoTimeout(timelength * 1000);//sometime the timeout fires before finishing the test in case where the client close his app while he is sending packets
+            //: register the begin time
+            long tStart = System.currentTimeMillis();
+            double elapsedSeconds;
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
-                if (count == expectedPktNum) {
+                System.out.println("received pktnum" + count);
+                //check the elapsed time whether is greate than test time length then break the test
+                long tEnd = System.currentTimeMillis();
+                long tDelta = tEnd - tStart;
+                elapsedSeconds = tDelta / 1000.0;
+                System.out.println("TrfDgmRunnableIn::handleClienttraffic:time elapsed:" + elapsedSeconds + " sec");
+                //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
+                if (elapsedSeconds >= timelength) {
+                    System.out.println("TrfDgmRunnableIn::handleClienttraffic:elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength + ". finish the listening.");
                     morepacket = false;
                 }
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-            System.out.println("receivingPkts: total received count=" + count);
+            if (count > 0) {
+                System.out.println("received pkt: total received count=" + count);
+                /*
+                 computes the packet lost/down 
+                 */
+                packetlostup = VpMethds.computePktLossByCodec(count, pps, timelength);
+                System.out.println("packetlossUp=" + packetlostup);
+                System.out.println("receivingPkts:finish receiving function.");
+
+            } else {
+                System.out.println("TrfDgmRunnable:receivingPkts:Something goes wrong nothing is received count=" + count);
+            }
+
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:receivingPkts::" + se.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error:TrfDgmRunnableIn::waiting to recev the flag:" + se.getMessage());
+        } finally {
+            System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
+            dgmsocket.close();
         }
-        /*
-         computes the packet lost/down 
-         save the result into the DB
-         */
-        packetlossup = VpMethds.computePktLossByCodec(count, pps, testlength);
-        System.out.println("packetlossup=" + packetlossup + "%");
-        System.out.println("receivingPkts:finish packetlossup function.");
-        
-        InetAddress addressInco = incomingPacketLocal.getAddress();
-        int portInco = incomingPacketLocal.getPort();
-        System.out.println("TrfDgmRunnableIn: incoming address="+addressInco.getHostAddress()+"/protInco="+portInco);
-        //Todo send back the packets using the dest address above
-         //run the thread that sends the traffic
-//        int portsrcOut = Integer.valueOf(param.getPortrfClientD());
-//        
-//        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, addressInco, portsrcOut,portInco, clientID);
-//        Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
-//        trfDgmThreadOut.start();
-        return packetlossup;
+        return packetlostup;
     }
 
+    /*
+     it counts only the received packets
+     */
+//    public float receivingPkts(String codec, int testlength) throws IOException {
+//        System.out.println("receivingPkts:starts receiving..");
+//        DatagramPacket incomingPacketLocal = null;
+//        float packetlossup = -1;
+//        //still true while receiving packets
+//        boolean morepacket = true;
+//        byte[] buf = null;
+//        buf = CdcVo.returnPayloadybyCodec(codec);
+//        int pps = CdcVo.returnPPSbyCodec(codec);
+//        int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
+//        incomingPacketLocal = new DatagramPacket(buf, buf.length);
+//        int count = 0;
+//        try {
+//            //dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
+//            dgmsocket.setSoTimeout(TrfBo.Packet_Max_Delay);
+//
+//            do {
+//                dgmsocket.receive(incomingPacketLocal);
+//                count++;
+//                if (count == expectedPktNum) {
+//                    morepacket = false;
+//                }
+//            } while (morepacket);
+//            //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
+//            System.out.println("receivingPkts: total received count=" + count);
+//        } catch (SocketTimeoutException se) {
+//            System.out.println("Error:receivingPkts::" + se.getMessage());
+//        } catch (IOException ex) {
+//            Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        /*
+//         computes the packet lost/down 
+//         save the result into the DB
+//         */
+//        packetlossup = VpMethds.computePktLossByCodec(count, pps, testlength);
+//        System.out.println("packetlossup=" + packetlossup + "%");
+//        System.out.println("receivingPkts:finish packetlossup function.");
+//        return packetlossup;
+//    }
 }

@@ -28,6 +28,7 @@ public class TrfBo {
     public static final Integer D_T = 30000;//millisecond
     public static final Integer D_S = 1000;//millisecond
     public static final Integer D_P = 2;//sec
+    public static final Integer P_MX_D = 20000;//ms
 
     public static String srIp;
     String iplocal;

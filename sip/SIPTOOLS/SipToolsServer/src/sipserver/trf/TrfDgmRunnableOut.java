@@ -77,14 +77,10 @@ public class TrfDgmRunnableOut implements Runnable {
             System.out.println("TrfDgmRunnableOut:handleClienttraffic:receives a flag packet ");
             InetAddress inetAddrInco = incomingPacketLocal.getAddress();
             int portInco = incomingPacketLocal.getPort();
-            //it sends the packets
-            // close the connection or socket
-            //sendingPkts(codec, timelength);
-             DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
-             System.out.println("TrfDgmRunnableOut:handleClienttraffic:sending back the flag packet");       
-             dgmsocket.send(outgoingPacketLocal);
-             
-            sendingPktsV2(codec, timelength, inetAddrInco, portInco);
+            DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
+            System.out.println("TrfDgmRunnableOut:handleClienttraffic:sending back the flag packet");
+            dgmsocket.send(outgoingPacketLocal);
+            sendingPkts(codec, timelength, addressDest, portDest);
         } catch (SocketTimeoutException se) {
             System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage());
         } catch (IOException ex) {
@@ -93,8 +89,8 @@ public class TrfDgmRunnableOut implements Runnable {
 
     }
 
-    public void sendingPktsV2(String codec, int timelength, InetAddress inetAddrInco, int portInco) throws IOException, InterruptedException {
-        System.out.println("sendingPktsV2:start..");
+    public void sendingPkts(String codec, int timelength, InetAddress inetAddrInco, int portInco) throws IOException, InterruptedException {
+        System.out.println("sending Pkts:start..");
         PacketControl bc = new PacketControl(dgmsocket, inetAddrInco, portInco);
         /*1- it sends back packets to client
          2- then release the port traffic

@@ -21,11 +21,9 @@ import sipserver.trf.dao.TrfDao;
 
 /**
  *
- * @author salim for signalization: 
- * receiving params
- * lauching the sockets for traffic and latency
- * handle the test for server side
- * 
+ * @author salim for signalization: receiving params lauching the sockets for
+ * traffic and latency handle the test for server side
+ *
  */
 public class ClientSignTcpConnection implements Runnable {
 
@@ -45,7 +43,7 @@ public class ClientSignTcpConnection implements Runnable {
 
     @Override
     public void run() {
-        try { 
+        try {
             processconnection();
         } catch (Exception ex) {
             Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +96,7 @@ public class ClientSignTcpConnection implements Runnable {
                             //launch receive and send threads
                             launchTrafficTest(param);
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
-                            out.write("ACK");  
+                            out.write("ACK");
                             System.out.println("");
                             //todo lauching latency test here
                         }
@@ -141,28 +139,30 @@ public class ClientSignTcpConnection implements Runnable {
         }
     }
     /*
-      launchListeningPoints():
-      launch the listening Dgms socket which listen on portTrf and portLat
-      start receiving paquets
-      sending paquets
+     launchListeningPoints():
+     launch the listening Dgms socket which listen on portTrf and portLat
+     start receiving paquets
+     sending paquets
      */
+
     public void launchTrafficTest(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
-        
-        //run the thread that receives the traffic and computes the pktloss up
-        TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, clientID);
-        Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
-        //trfDgmThreadIn.start();
-        
         //run the thread that sends the traffic
-        int portsrc = Integer.valueOf(param.getPortrfClientD());
-        int portdest = Integer.valueOf(param.getPortrfClientD());
-        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrc,portdest, clientID);
+        int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
+        int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
+        //run the thread that receives the traffic and computes the pktloss up
+        /**/
+        TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, inetaddressDest, portsrcInChannel, portdestInChannel, clientID);
+        Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
+        trfDgmThreadIn.start();
+
+        //run the thread that sends the traffic
+        int portsrcOutChannel = Integer.valueOf(param.getPortrfClientD());
+        int portdestOutChannel = Integer.valueOf(param.getPortrfClientD());
+        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrcOutChannel, portdestOutChannel, clientID);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
-         
-      
+
     }
-    
 
 }

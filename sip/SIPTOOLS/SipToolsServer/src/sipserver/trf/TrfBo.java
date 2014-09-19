@@ -24,6 +24,7 @@ public class TrfBo {
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 20000;//millisecond
     public static final Integer Packet_Max_Delay = 20000;//millisecond
+    public static final Integer T_P = 50000;//millisecond
     TrfDao trfdao;
 
     public TrfBo() {

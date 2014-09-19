@@ -86,7 +86,7 @@ class PacketControl {
                 System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
                 try {
                     //to do realese Ports
-                    System.out.println("traffic TCPServer: releasing porttrf result:" + trfdao.updateOnePortStatus(portTrf, "f"));
+                    System.out.println("PacketControl:sndPktForAnGivenTime: releasing porttrf Out"+portTrf+" result:" + trfdao.updateOnePortStatus(portTrf, "f"));
                 } catch (Exception ex) {
                     Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
                 }
