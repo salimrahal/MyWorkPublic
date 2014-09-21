@@ -23,8 +23,6 @@ public class VpMethds {
     /**
      *
      * @param receivedPkt
-     * @param pktL: packet received
-     * @param cdcvo
      * @param testlength: in second
      * @return
      */
@@ -40,17 +38,17 @@ public class VpMethds {
             pktLoss = expectedPktNum - effectivePktNum;
             //int res = 100 * 100 / 3;
             //double res2 = 40/50f;
-            System.out.println("pkloss1 = " + pktLoss +" pkt");
+            System.out.println("pkloss1 = " + pktLoss + " pkt");
             pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
             pktLossPerc = formatNumberFl(pktLossPerc);
         }
         return pktLossPerc;
     }
-    
-     /*
-    format a number from x.xxxxx --> x.xx
-    */
-        public static float formatNumberFl(float r) {
+
+    /*
+     format a number from x.xxxxx --> x.xx
+     */
+    public static float formatNumberFl(float r) {
         int decimalPlaces = 2;
         BigDecimal bd = new BigDecimal(r);
 // setScale is immutable
@@ -58,9 +56,9 @@ public class VpMethds {
         r = bd.floatValue();
         return r;
     }
-    
-        @Deprecated
-     public static synchronized int computePktLossByCodec(int pktCount, CdcVo cdcvo, int testlength) {
+
+    @Deprecated
+    public static synchronized int computePktLossByCodec(int pktCount, CdcVo cdcvo, int testlength) {
         int pktLoss = -1;
         int pktLossPerc;
         int pps = cdcvo.getPps();
@@ -73,7 +71,7 @@ public class VpMethds {
         //int res = 100 * 100 / 3;
         //double res2 = 40/50f;
         System.out.println("pkloss(pkt) = " + pktLoss);
-        float pktLossPercDouble =(float) 100 * pktLoss / expectedPktNum ;
+        float pktLossPercDouble = (float) 100 * pktLoss / expectedPktNum;
         pktLossPerc = (int) pktLossPercDouble;
         return pktLossPerc;
     }
@@ -116,12 +114,12 @@ public class VpMethds {
             //calculate Avg
             avg = sum / latArray.length;
             //casting results to int
-            int peakInt = (int) peak;
-            int avgInt = (int) avg;
+            int peakLat = (int) peak;
+            int avgLat = (int) avg;
             //create the LatObject results
-            latObj = new LatVo(peakInt, avgInt);
+            latObj = new LatVo(peakLat, avgLat);
             latObj.setLatArr(latArray);
-        }//end of size clause
+        }
         return latObj;
     }
 
@@ -204,7 +202,7 @@ public class VpMethds {
          */
         int pktListSize = 3;
         LatVo lat = computeLat(l, pktListSize);
-         
+
         System.out.println(lat.toString());
         JtrVo jt = computeJtr(lat);
         System.out.println(jt.toString());

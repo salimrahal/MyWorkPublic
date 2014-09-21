@@ -54,9 +54,6 @@ public class PortSigHandler extends DefaultHandler {
 //                portListVo = new ArrayList<>();
 //            }
         }
-        /*
-         TODO: complete all other properties
-         */
     }
 
     @Override

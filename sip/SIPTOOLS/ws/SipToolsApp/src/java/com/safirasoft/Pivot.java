@@ -8,8 +8,12 @@ package com.safirasoft;
 import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
+import dao.StaticVar;
+import dao.TestResDao;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -17,9 +21,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import vo.CodecVo;
 import vo.CodecVoList;
+import vo.JtrVo;
+import vo.LatVo;
 import vo.PrtMiscVo;
 import vo.PrtStsVo;
 import vo.PrtStstVoList;
+import vo.ResVo;
 
 /**
  *
@@ -29,9 +36,11 @@ import vo.PrtStstVoList;
 public class Pivot {
 
     Spf saxparserconf;
+    TestResDao tstDao;
 
     public Pivot() {
         saxparserconf = new Spf();
+        tstDao = new TestResDao();
     }
 
     /**
@@ -43,13 +52,13 @@ public class Pivot {
     }
 
     /*
-    it returns port/status and server Ip address
-    */
+     it returns port/status and server Ip address
+     */
     @WebMethod(operationName = "getPrtSts")
     public PrtStstVoList getPrtSts() throws ParserConfigurationException, SAXException, IOException {
-/*
-        TODO: ws should extract port/status from DB instead of xml file
-        */
+        /*
+         TODO: ws should extract port/status from DB instead of xml file
+         */
         ConfVO confVo = ConfVO.getInstance();
         saxparserconf.parseConfVOPrtSts(confVo.getInitialLoc());
         List<PrtStsVo> prtstsL = confVo.getPrtStsList();
@@ -57,12 +66,9 @@ public class Pivot {
         pl.setServerIp(confVo.getIpServer());
         return pl;
     }
-    
-    
 
     /**
-     * Web service operation
-     * called by Sip tool server jar
+     * Web service operation called by Sip tool server jar
      */
     @WebMethod(operationName = "getConfLoc")
     public String getConfLoc() {
@@ -83,11 +89,9 @@ public class Pivot {
     }
 
     /**
-     * Web service operation
-     * 1- it gets 2 free port from Db
-       2- signaling port from the xml
-       3- Ip server
-*/
+     * Web service operation 1- it gets 2 free port from Db 2- signaling port
+     * from the xml 3- Ip server
+     */
     @WebMethod(operationName = "getMiscPorts")
     public PrtMiscVo getMiscPorts() throws ParserConfigurationException, SAXException, IOException {
         bo.Logic logic = new Logic();
@@ -95,4 +99,64 @@ public class Pivot {
         return prtMisc;
     }
 
+    /**
+     * Web service operation
+     *
+     * @param tid
+     * @param pld
+     * @return result 1 | -1
+     */
+    @WebMethod(operationName = "savePLD")
+    public Integer savePLD(@WebParam(name = "tid") String tid, @WebParam(name = "pld") float pld) throws Exception {
+        Integer res = -1;
+        //securitycheck for the testid
+//        if (tid.length() == StaticVar.TEST_ID_SIZE) {
+            if (tstDao.updateTestPacketLostDown(tid, pld)) {
+                res = 1;
+            }
+//        } else {
+//            System.out.println("Error: savePLD:: received testId is different from the accepted length!");
+//        }
+
+        return res;
+    }
+
+    /**
+     * Web service operation: save lat, jitter down
+     */
+    @WebMethod(operationName = "svLJD")
+    public Integer svLJD(@WebParam(name = "ti") String ti, @WebParam(name = "latdwnpk") int latdwnpk, @WebParam(name = "latdwnav") int latdwnav, @WebParam(name = "jitdwpk") int jitdwpk, @WebParam(name = "jitdwav") int jitdwav) {
+        int res = -1;
+        LatVo latObj = new LatVo(latdwnpk, latdwnav);
+        JtrVo jObj = new JtrVo(jitdwpk, jitdwav);
+
+        try {
+            //securitycheck for the testid
+         //   if (ti.length() == StaticVar.TEST_ID_SIZE) {
+                if (tstDao.updateLatJitDown(ti, latObj, jObj)) {
+                    res = 1;
+                }
+//            } else {
+//                System.out.println("Error: svLJD:: received testId is different from the accepted length!");
+//            }
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+
+    /*
+    
+     */
+
+    /**
+     * Web service operation:
+     *  retrieve test result for the client and should hide the testId from the response
+     */
+    @WebMethod(operationName = "getrs")
+    public ResVo getrs(@WebParam(name = "ti") String ti) throws Exception {
+        ResVo rs = tstDao.getRes(ti);
+        return rs;
+    }
+    
 }

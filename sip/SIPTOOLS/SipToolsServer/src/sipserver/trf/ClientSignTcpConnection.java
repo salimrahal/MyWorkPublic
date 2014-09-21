@@ -92,6 +92,7 @@ public class ClientSignTcpConnection implements Runnable {
                         ports[2] = porttrfClientdown;
                         //update the port status in DB f->b
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
+                        //todo: insert test record: testId, clientIp, codec, test-length, starttime
                         if (portReserved) {
                             //launch receive and send threads
                             launchTrafficTest(param);
@@ -162,7 +163,15 @@ public class ClientSignTcpConnection implements Runnable {
         TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrcOutChannel, portdestOutChannel, clientID);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
-
     }
 
+    
+    public void launchLatTest(Param param) throws UnknownHostException, IOException, InterruptedException {
+        InetAddress inetaddressDest = clientSocket.getInetAddress();
+        //run the thread that sends the traffic
+        int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
+        int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
+        //run the thread that receives the traffic and computes the pktloss up
+    }
+    
 }

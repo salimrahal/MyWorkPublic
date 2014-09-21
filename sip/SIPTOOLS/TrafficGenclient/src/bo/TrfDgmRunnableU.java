@@ -5,7 +5,7 @@
  */
 package bo;
 
-import bean.Param;
+import bn.Param;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -61,7 +61,7 @@ public class TrfDgmRunnableU implements Runnable {
     private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-        /*todo:
+        /*
          1- receive the flag packet from the server
          2- extract the addressInco and portInco
          3- pass them to the sendpacket function

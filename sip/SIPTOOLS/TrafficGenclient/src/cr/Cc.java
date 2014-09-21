@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package cr;
 
-import bean.Param;
+import bn.Param;
 import bo.ClTcp;
 import bo.TrfBo;
 import bo.TrfDgmRunnableD;
@@ -41,9 +41,7 @@ public class Cc {
         try {
             resultmsgjlabel.setText("test begins..");
             //1- call webservice to check for portLat, prtTrf, portSig and srip
-                /*TODO:
-            - handle the case where we have a firewall and couldn't connect to web service
-            - use a timeout
+                /*TODO: handle websirvice timeout
             */
             System.out.println("calling ws and waiting for reply....");
             PrtMiscVo miscPortObj = WSBo.getMiscPorts();
@@ -62,7 +60,7 @@ public class Cc {
                 TrfBo.setSrIp(srip);
                 System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
                 /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
-                //2- generate the ran of the test
+                //2- generate the x of the test
                 String testUuid = trfBo.generateUUID();//size 36
 
 //3- send parameters
@@ -111,7 +109,9 @@ public class Cc {
     }
 
     public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        //TODO
+        //TODO latency check
+         int portsrc = Integer.valueOf(param.getPortrfD());
+        int portdest = Integer.valueOf(param.getPortrfD());
     }
 
 }

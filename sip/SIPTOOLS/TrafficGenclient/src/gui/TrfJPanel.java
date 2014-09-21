@@ -6,7 +6,7 @@
 package gui;
 
 import bo.TrfBo;
-import controller.Cc;
+import cr.Cc;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

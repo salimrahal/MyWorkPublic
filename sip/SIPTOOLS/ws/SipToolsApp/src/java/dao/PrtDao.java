@@ -5,29 +5,26 @@
  */
 package dao;
 
+import static dao.StaticVar.getUdptrafficDBRef;
+import static dao.StaticVar.gety;
+import static dao.StaticVar.getz;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
 import vo.PrtMiscVo;
-
 /**
  *
  * @author salim
  */
 public class PrtDao {
 
-    private String y = "user";
-    private String k1 = "*";
 
     public PrtMiscVo retrievePorts(String status) throws NamingException, SQLException {
         String x1 = "traffic";
         String x = gety(x1);
-        String k = getz(x, k1);
+        String k = getz(x, StaticVar.k1);
         PrtMiscVo prtvo = new PrtMiscVo();
         String[] portArr ;
         String res = null;
@@ -52,21 +49,6 @@ public class PrtDao {
             }
         }
         return prtvo;
-    }
-
-    private DataSource getUdptrafficDBRef() throws NamingException {
-        Context c = new InitialContext();
-        return (DataSource) c.lookup("java:comp/env/udptrafficDBRef");
-    }
-
-    public String gety(String f1) {
-        String sb = f1 + y;
-        return sb;
-    }
-
-    public String getz(String k, String l) {
-        String sb = k + l;
-        return sb;
     }
 
     public static void main(String[] args) {

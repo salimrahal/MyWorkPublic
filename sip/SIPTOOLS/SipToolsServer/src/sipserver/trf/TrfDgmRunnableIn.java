@@ -47,15 +47,15 @@ public class TrfDgmRunnableIn implements Runnable {
 
     @Override
     public void run() {
-
         try {
             //if packetlostup is < 0 then didn't completed
-            float packetlostup = handleClienttraffic();
+            float packetlossup = handleClienttraffic();
             /*
              release the port
              */
             System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
             trfdao.updateOnePortStatus(portsrc, "f");
+            //todo: insert test record: testId,pktLossUp
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -128,6 +128,7 @@ public class TrfDgmRunnableIn implements Runnable {
         } finally {
             System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
             dgmsocket.close();
+            //todo insert the end time of test: testId, end time
         }
         return packetlostup;
     }

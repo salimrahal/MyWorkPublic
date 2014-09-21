@@ -5,7 +5,7 @@
  */
 package bo;
 
-import bean.Param;
+import bn.Param;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -52,7 +52,7 @@ public class TrfDgmRunnableD implements Runnable {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
             /*
-             todo: save the result into the DB
+             todo: save the packetlostdown into the DB
              */
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableD.class.getName()).log(Level.SEVERE, null, ex);
