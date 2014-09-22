@@ -8,7 +8,6 @@ package com.safirasoft;
 import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
-import dao.StaticVar;
 import dao.TestResDao;
 import java.io.IOException;
 import java.util.List;
@@ -107,9 +106,10 @@ public class Pivot {
      * @return result 1 | -1
      */
     @WebMethod(operationName = "savePLD")
-    public Integer savePLD(@WebParam(name = "tid") String tid, @WebParam(name = "pld") float pld) throws Exception {
+    public Integer savePLD(@WebParam(name = "tid") String tid, @WebParam(name = "pld") float pld) {
         Integer res = -1;
-        //securitycheck for the testid
+        try {
+            //securitycheck for the testid
 //        if (tid.length() == StaticVar.TEST_ID_SIZE) {
             if (tstDao.updateTestPacketLostDown(tid, pld)) {
                 res = 1;
@@ -117,6 +117,9 @@ public class Pivot {
 //        } else {
 //            System.out.println("Error: savePLD:: received testId is different from the accepted length!");
 //        }
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return res;
     }
@@ -154,8 +157,14 @@ public class Pivot {
      *  retrieve test result for the client and should hide the testId from the response
      */
     @WebMethod(operationName = "getrs")
-    public ResVo getrs(@WebParam(name = "ti") String ti) throws Exception {
-        ResVo rs = tstDao.getRes(ti);
+    public ResVo getrs(@WebParam(name = "ti") String ti) {
+        ResVo rs = null;
+        try {
+            rs = tstDao.getRes(ti);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
     

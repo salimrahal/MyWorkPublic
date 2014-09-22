@@ -14,6 +14,7 @@ import com.safirasoft.PrtStsVo;
 import com.safirasoft.PrtStstVoList;
 import com.safirasoft.SAXException_Exception;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 /**
  *
@@ -42,10 +43,9 @@ public class WSBo {
     }
 
     public static PrtMiscVo getMiscPorts() throws SAXException_Exception, IOException_Exception, ParserConfigurationException_Exception {
+        com.safirasoft.Pivot pivotPort = null;
         com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        com.safirasoft.Pivot port = service.getPivotPort();
-        return port.getMiscPorts();
+        pivotPort = service.getPivotPort();
+        return pivotPort.getMiscPorts();
     }
-    
-
 }

@@ -78,6 +78,53 @@ public class VpMethds {
 
     /**
      * it computes peak and avg of a given pkt list it takes 3 packets and
+     * compute their latency, based on the RTT:  latency = round trip time / 2
+     *
+     *
+     * @param pktL: received packets for latency test
+     * @param pktSize = 3
+     * @return
+     */
+    public static synchronized LatVo computeLatV2(List<PktVo> pktL, int pktLSize) {
+        LatVo latObj = null;
+        if (pktL.size() == pktLSize) {
+            System.out.println("computeLatV2:pktsize=" + pktLSize);
+            long peak = -1;
+            long avg = -1;
+            long sum = 0;
+            long latInst;
+            //create array to store the latencies for every packet echoed
+            long[] latArray = new long[pktLSize];
+            int i = 0;
+
+            //loop thru packet and retreive latencies
+            for (PktVo pktObj : pktL) {
+                latInst = pktObj.getRtt()/2;
+                latArray[i] = latInst;
+                System.out.println("computLat::latency[" + i + "]=" + latArray[i]);
+                i++;
+            }
+            //computes peak/avg
+            for (int j = 0; j < latArray.length; j++) {
+                if (latArray[j] > peak) {
+                    peak = latArray[j];
+                }
+                sum = sum + latArray[j];
+            }
+            //calculate Avg
+            avg = sum / latArray.length;
+            //casting results to int
+            int peakLat = (int) peak;
+            int avgLat = (int) avg;
+            //create the LatObject results
+            latObj = new LatVo(peakLat, avgLat);
+            latObj.setLatArr(latArray);
+        }
+        return latObj;
+    }
+
+    /**
+     * it computes peak and avg of a given pkt list it takes 3 packets and
      * compute their latency timearrival latency = timesent - timearrival -
      * timeApplication processing
      *
@@ -85,7 +132,7 @@ public class VpMethds {
      * @param pktSize = 3
      * @return
      */
-    public static synchronized LatVo computeLat(List<PktVo> pktL, int pktLSize) {
+    public static synchronized LatVo computeLatV1(List<PktVo> pktL, int pktLSize) {
         LatVo latObj = null;
         if (pktL.size() == pktLSize) {
             System.out.println("computeLat:pktsize=" + pktLSize);
@@ -173,23 +220,31 @@ public class VpMethds {
         Date d1 = new Date();//sent
         Thread.currentThread().sleep(10);
         Date d2 = new Date();//received
-        PktVo pk1 = new PktVo(1, d1, d2);
+        PktVo pk1 = new PktVo(1);
+        pk1.setTimeSent(d1);
+        pk1.setTimeArrival(d2);
 
         Date d3 = new Date();
         Thread.currentThread().sleep(5);
         Date d4 = new Date();
-        PktVo pk2 = new PktVo(2, d3, d4);
+        PktVo pk2 = new PktVo(2);
+        pk1.setTimeSent(d3);
+        pk1.setTimeArrival(d4);
 
         Date d5 = new Date();
         Thread.currentThread().sleep(3);
         Date d6 = new Date();
-        PktVo pk3 = new PktVo(3, d5, d6);
+        PktVo pk3 = new PktVo(3);
+        pk1.setTimeSent(d5);
+        pk1.setTimeArrival(d6);
 
         Date d7 = new Date();
         Thread.currentThread().sleep(1);
         Date d8 = new Date();
-        PktVo pk4 = new PktVo(4, d7, d8);
-
+        PktVo pk4 = new PktVo(4);
+        pk1.setTimeSent(d7);
+        pk1.setTimeArrival(d8);
+        
         List<PktVo> l = new ArrayList<>();
         List<PktVo> lrecv = new ArrayList<>();
         l.add(pk1);
@@ -201,7 +256,7 @@ public class VpMethds {
          * *************Latendy jitter test****************
          */
         int pktListSize = 3;
-        LatVo lat = computeLat(l, pktListSize);
+        LatVo lat = computeLatV1(l, pktListSize);
 
         System.out.println(lat.toString());
         JtrVo jt = computeJtr(lat);

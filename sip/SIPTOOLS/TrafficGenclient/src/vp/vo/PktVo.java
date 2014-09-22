@@ -16,13 +16,22 @@ public class PktVo {
     int id;
     Date timeSent;
     Date timeArrival;
+    long rtt;
 
-    public PktVo(int id, Date timeSent, Date timeArrival) {
+    public PktVo(int id) {
         this.id = id;
-        this.timeSent = timeSent;
-        this.timeArrival = timeArrival;
     }
 
+    public long getRtt() {
+        return rtt;
+    }
+
+    public void setRtt(long rtt) {
+        this.rtt = rtt;
+    }
+    public void setRtt(int rtt) {
+        this.rtt = rtt;
+    }
     public int getId() {
         return id;
     }
@@ -47,9 +56,5 @@ public class PktVo {
         this.timeSent = timeSent;
     }
 
-    @Override
-    public String toString() {
-        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + '}';
-    }
-
+   
 }
