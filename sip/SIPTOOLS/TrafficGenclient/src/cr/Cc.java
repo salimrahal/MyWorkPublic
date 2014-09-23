@@ -88,8 +88,8 @@ public class Cc {
                         InetAddress inetAddrDest = InetAddress.getByName(srip);
                         launchTrafficUp(param, inetAddrDest);
                         String pkLossDown = getPktLossDown(param, inetAddrDest);
-                        System.out.println(":CC::pkLossDown=" + pkLossDown);
-                        //5- launch lat&jitter test up/down
+                        System.out.println("CC::pkLossDown=" + pkLossDown);
+                        //todo: 5- launch lat&jitter test up/down
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                     }
@@ -112,13 +112,7 @@ public class Cc {
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
         trfDgmUThread.start();
-
-//        TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param, addressDest, portsrc, portdest, 0);
-//        Thread trfDgmDThread = new Thread(trfDgmD);
-//        trfDgmDThread.start();
-        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
-        //System.out.println(Thread.currentThread().getName() + " / before join..");
-        //no need to join for now
+        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
         trfDgmUThread.join();
     }
 
@@ -130,11 +124,8 @@ public class Cc {
         TrfDmgCallableD trfDtask = new TrfDmgCallableD(param, addressDest, portsrc, portdest, 0);
         Future<String> futureTask = executor.submit(trfDtask);
         try {
-            pktLlossDown = futureTask.get(Integer.getInteger(param.getTimelength()) * 2, TimeUnit.SECONDS);
+            pktLlossDown = futureTask.get();
         } catch (ExecutionException ex) {
-            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TimeoutException ex) {
-            System.out.println("Error:CC::exception:" + ex.getMessage());
             Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
         }
         return pktLlossDown;

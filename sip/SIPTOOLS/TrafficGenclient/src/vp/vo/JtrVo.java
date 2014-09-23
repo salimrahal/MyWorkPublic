@@ -11,30 +11,32 @@ package vp.vo;
  */
 public class JtrVo {
 
-    int peak;
-    int avg;
+    float peak;
+    float avg;
 
-    public JtrVo(int peak, int avg) {
+    public JtrVo(float peak, float avg) {
         this.peak = peak;
         this.avg = avg;
     }
 
-    public int getPeak() {
+    
+    public float getPeak() {
         return peak;
     }
 
-    public void setPeak(int peak) {
+    public void setPeak(float peak) {
         this.peak = peak;
     }
 
-    public int getAvg() {
+    public float getAvg() {
         return avg;
     }
 
-    public void setAvg(int avg) {
+    public void setAvg(float avg) {
         this.avg = avg;
     }
 
+   
     @Override
     public String toString() {
         return "JtrVo{" + "peak=" + peak + ", avg=" + avg + '}';

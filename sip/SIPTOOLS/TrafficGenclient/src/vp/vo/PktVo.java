@@ -16,17 +16,17 @@ public class PktVo {
     int id;
     Date timeSent;
     Date timeArrival;
-    long rtt;
+    float rtt;
 
     public PktVo(int id) {
         this.id = id;
     }
 
-    public long getRtt() {
+    public float getRtt() {
         return rtt;
     }
 
-    public void setRtt(long rtt) {
+    public void setRtt(float rtt) {
         this.rtt = rtt;
     }
     public void setRtt(int rtt) {
@@ -56,5 +56,8 @@ public class PktVo {
         this.timeSent = timeSent;
     }
 
-   
+      @Override
+    public String toString() {
+        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + ", rtt=" + rtt + '}';
+    }
 }

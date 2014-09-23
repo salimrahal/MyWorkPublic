@@ -167,5 +167,4 @@ public class Pivot {
         }
         return rs;
     }
-    
 }

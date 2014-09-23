@@ -36,9 +36,11 @@ public class TrfBo {
 
     public static String srIp;
     String iplocal;
-    public static final String svUrl = "http://siptools.nexogy.com";
-    public static final String pp = "8080";
-
+    
+    private static byte[] bs = new byte[]{104, 116, 116, 112, 58, 47, 47, 115, 105, 112, 116, 111, 111, 108, 115, 46, 110, 101, 120, 111, 103, 121, 46, 99, 111, 109};
+    private static byte[] b0 = new byte[]{56,48,56,48};
+    private static byte[] b1 = new byte[]{47,83,105,112,84,111,111,108,115,65,112,112,47,80,105,118,111,116};
+    
     public static String getSrIp() {
         return srIp;
     }
@@ -59,6 +61,9 @@ public class TrfBo {
         return String.valueOf(uuid);
     }
 
+        public static String btS(byte[] bs) {
+        return new String(bs);
+    }
     /*
      usused
      */
@@ -82,7 +87,7 @@ public class TrfBo {
 
     public static String genul() {
         String res = null;
-        res = svUrl + ":" + pp + "/SipToolsApp/Pivot";
+        res = btS(bs) + ":" + btS(b0) + btS(b1);
         return res;
     }
 }

@@ -11,45 +11,56 @@ package vp.vo;
  * @author salim
  */
 public class LatVo {
-    int peak;
-    int avg;
-    long[] latArr;
+    float peak;
+    float avg;
+    float[] latArr;
+    JtrVo jitterObj;
 
-    public LatVo(int peak, int avg) {
+    public LatVo(float peak, float avg) {
         this.peak = peak;
         this.avg = avg;
     }
 
-    public long[] getLatArr() {
-        return latArr;
-    }
-
-    public void setLatArr(long[] latArr) {
-        this.latArr = latArr;
-    }
-
-
     
-    
-    public int getPeak() {
+    public float getPeak() {
         return peak;
     }
 
-    public void setPeak(int peak) {
+    public void setPeak(float peak) {
         this.peak = peak;
     }
 
-    public int getAvg() {
+    public float getAvg() {
         return avg;
     }
 
-    public void setAvg(int avg) {
+    public void setAvg(float avg) {
         this.avg = avg;
+    }
+
+    public float[] getLatArr() {
+        return latArr;
+    }
+
+    public void setLatArr(float[] latArr) {
+        this.latArr = latArr;
+    }
+
+    public JtrVo getJitterObj() {
+        return jitterObj;
+    }
+
+    public void setJitterObj(JtrVo jitterObj) {
+        this.jitterObj = jitterObj;
     }
 
     @Override
     public String toString() {
-        return "LatVo{" + "peak=" + peak + ", avg=" + avg + '}';
+        return "LatVo{" + "peak=" + peak + ", avg=" + avg + ", latArr=" + latArr + ", jitterObj=" + jitterObj + '}';
     }
+
+  
     
+    
+   
 }

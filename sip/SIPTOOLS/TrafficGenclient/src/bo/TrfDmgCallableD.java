@@ -55,9 +55,9 @@ public class TrfDmgCallableD implements Callable<String> {
              todo: save the packetlostdown into the DB
              */
         } catch (IOException ex) {
-            Logger.getLogger(TrfDgmRunnableD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrfDmgCallableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TrfDgmRunnableD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrfDmgCallableD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return pktLoss;
 
@@ -145,10 +145,10 @@ public class TrfDmgCallableD implements Callable<String> {
         int portsrc = 5108;
         int portDest = 1111;
         //inetAddress unsused here
-        InetAddress inetAddrDest = InetAddress.getByName("127.0.0.1");
-        TrfDgmRunnableD trfDgmD = new TrfDgmRunnableD(param2, inetAddrDest, portsrc, portDest, 0);
-        Thread trfDgmDThread = new Thread(trfDgmD);
-        trfDgmDThread.start();
+//        InetAddress inetAddrDest = InetAddress.getByName("127.0.0.1");
+//        TrfDmgCallableD trfDgmD = new TrfDgmRunnableD(param2, inetAddrDest, portsrc, portDest, 0);
+//        Thread trfDgmDThread = new Thread(trfDgmD);
+//        trfDgmDThread.start();
 
     }
 

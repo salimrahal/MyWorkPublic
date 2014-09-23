@@ -16,11 +16,21 @@ public class PktVo {
     int id;
     Date timeSent;//useful latency and jitter test
     Date timeArrival;//useful latency and jitter test
+ float rtt;
 
     public PktVo(int id) {
         this.id = id;
     }
 
+    public float getRtt() {
+        return rtt;
+    }
+
+    public void setRtt(float rtt) {
+        this.rtt = rtt;
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -47,7 +57,9 @@ public class PktVo {
 
     @Override
     public String toString() {
-        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + '}';
+        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + ", rtt=" + rtt + '}';
     }
+
+  
 
 }

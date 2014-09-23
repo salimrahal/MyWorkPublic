@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import sipserver.trf.vp.vo.CdcVo;
 import sipserver.trf.vp.vo.JtrVo;
 import sipserver.trf.vp.vo.LatVo;
 import sipserver.trf.vp.vo.PktVo;
@@ -39,17 +38,17 @@ public class VpMethds {
             pktLoss = expectedPktNum - effectivePktNum;
             //int res = 100 * 100 / 3;
             //double res2 = 40/50f;
-            System.out.println("pkloss1 = " + pktLoss +" pkt");
+            System.out.println("pkloss1 = " + pktLoss + " pkt");
             pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
             pktLossPerc = formatNumberFl(pktLossPerc);
         }
         return pktLossPerc;
     }
-    
-     /*
-    format a number from x.xxxxx --> x.xx
-    */
-        public static float formatNumberFl(float r) {
+
+    /*
+     format a number from x.xxxxx --> x.xx
+     */
+    public static float formatNumberFl(float r) {
         int decimalPlaces = 2;
         BigDecimal bd = new BigDecimal(r);
 // setScale is immutable
@@ -57,7 +56,55 @@ public class VpMethds {
         r = bd.floatValue();
         return r;
     }
-    
+
+    /**
+     * it computes peak and avg of a given pkt list it takes 3 packets and
+     * compute their latency, based on the RTT: latency = round trip time / 2
+     *
+     *
+     * @param pktL: received packets for latency test
+     * @param pktSize = 3
+     * @return
+     */
+    public static synchronized LatVo computeLatJitV2(List<PktVo> pktL) {
+        LatVo latObj = null;
+        int pktLSize = pktL.size();
+        System.out.println("computeLatV2:pktsize=" + pktLSize);
+        float peakLat = -1;
+        float avgLat = -1;
+        float sumLat = 0;
+        float latInst;
+        //create array to store the latencies for every packet echoed
+        float[] latArray = new float[pktLSize];
+        int i = 0;
+
+        //loop thru packet and retreive latencies
+        for (PktVo pktObj : pktL) {
+            latInst = pktObj.getRtt() / 2;
+            latArray[i] = latInst;
+            System.out.println("computLat::latency[" + i + "]=" + latArray[i]);
+            i++;
+        }
+        //computes lat peak/avg
+        for (int j = 0; j < latArray.length; j++) {
+            if (latArray[j] > peakLat) {
+                peakLat = latArray[j];
+            }
+            sumLat = sumLat + latArray[j];
+        }
+        //calculate Avg
+        avgLat = sumLat / latArray.length;
+            //casting results to int
+//            int peakLatInt = (int) peakLat;
+//            int avgLatInt = (int) avgLat;
+        //create the LatObject results
+        latObj = new LatVo(formatNumberFl(peakLat), formatNumberFl(avgLat));
+        latObj.setLatArr(latArray);
+        //computing jitter
+        JtrVo jtrObj = computeJtr(latObj);
+        latObj.setJitterObj(jtrObj);
+        return latObj;
+    }
 
     /**
      * it computes peak and avg of a given pkt list it takes 3 packets and
@@ -67,45 +114,25 @@ public class VpMethds {
      * @param pktL: received packets for latency test
      * @param pktSize = 3
      * @return
+     *
+     * public static synchronized LatVo computeLatV1(List<PktVo> pktL, int
+     * pktLSize) { LatVo latObj = null; if (pktL.size() == pktLSize) {
+     * System.out.println("computeLat:pktsize=" + pktLSize); long peak = -1;
+     * long avg = -1; long sum = 0; long latInst; //create array to store the
+     * latencies for every packet echoed long[] latArray = new long[pktLSize];
+     * int i = 0;
+     *
+     * //loop thru packet and retreive latencies for (PktVo pktObj : pktL) {
+     * latInst = pktObj.getTimeArrival().getTime() -
+     * pktObj.getTimeSent().getTime(); latArray[i] = latInst;
+     * System.out.println("computLat::latency[" + i + "]=" + latArray[i]); i++;
+     * } //computes peak/avg for (int j = 0; j < latArray.length; j++) { if
+     * (latArray[j] > peak) { peak = latArray[j]; } sum = sum + latArray[j]; }
+     * //calculate Avg avg = sum / latArray.length; //casting results to int int
+     * peakLat = (int) peak; int avgLat = (int) avg; //create the LatObject
+     * results latObj = new LatVo(peakLat, avgLat); latObj.setLatArr(latArray);
+     * } return latObj; }
      */
-    public static synchronized LatVo computeLat(List<PktVo> pktL, int pktLSize) {
-        LatVo latObj = null;
-        if (pktL.size() == pktLSize) {
-            System.out.println("computeLat:pktsize=" + pktLSize);
-            long peak = -1;
-            long avg = -1;
-            long sum = 0;
-            long latInst;
-            //create array to store the latencies for every packet echoed
-            long[] latArray = new long[pktLSize];
-            int i = 0;
-
-            //loop thru packet and retreive latencies
-            for (PktVo pktObj : pktL) {
-                latInst = pktObj.getTimeArrival().getTime() - pktObj.getTimeSent().getTime();
-                latArray[i] = latInst;
-                System.out.println("computLat::latency[" + i + "]=" + latArray[i]);
-                i++;
-            }
-            //computes peak/avg
-            for (int j = 0; j < latArray.length; j++) {
-                if (latArray[j] > peak) {
-                    peak = latArray[j];
-                }
-                sum = sum + latArray[j];
-            }
-            //calculate Avg
-            avg = sum / latArray.length;
-            //casting results to int
-            int peakInt = (int) peak;
-            int avgInt = (int) avg;
-            //create the LatObject results
-            latObj = new LatVo(peakInt, avgInt);
-            latObj.setLatArr(latArray);
-        }//end of size clause
-        return latObj;
-    }
-
     /**
      *
      * @param latObj
@@ -113,12 +140,12 @@ public class VpMethds {
      */
     public static synchronized JtrVo computeJtr(LatVo latObj) {
         JtrVo jtrObj = null;
-        long[] latArr = latObj.getLatArr();
-        long peak = -1;
-        long avg = -1;
-        long sum = 0;
+        float[] latArr = latObj.getLatArr();
+        float peak = -1;
+        float avg = -1;
+        float sum = 0;
         //create diff array
-        long[] diffArr = new long[latArr.length - 1];
+        float[] diffArr = new float[latArr.length - 1];
         for (int i = 0; i < latArr.length - 1; i++) {
             diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
             System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
@@ -134,9 +161,9 @@ public class VpMethds {
         //calculate Avg
         avg = sum / diffArr.length;
         //casting results to int
-        int peakInt = (int) peak;
-        int avgInt = (int) avg;
-        jtrObj = new JtrVo(peakInt, avgInt);
+//        int peakInt = (int) peak;
+//        int avgInt = (int) avg;
+        jtrObj = new JtrVo(formatNumberFl(peak), formatNumberFl(avg));
         return jtrObj;
     }
 
@@ -152,65 +179,68 @@ public class VpMethds {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-
         System.out.println("test begins..." + new Date());
         Date d1 = new Date();//sent
         Thread.currentThread().sleep(10);
         Date d2 = new Date();//received
         PktVo pk1 = new PktVo(1);
-        pk1.setTimeSent(d1);
-        pk1.setTimeSent(d2);
+        pk1.setRtt(10);
 
         Date d3 = new Date();
         Thread.currentThread().sleep(5);
         Date d4 = new Date();
         PktVo pk2 = new PktVo(2);
-        pk1.setTimeSent(d3);
-        pk1.setTimeSent(d4);
+        pk2.setRtt(20);
 
         Date d5 = new Date();
         Thread.currentThread().sleep(3);
         Date d6 = new Date();
         PktVo pk3 = new PktVo(3);
-        pk1.setTimeSent(d5);
-        pk1.setTimeSent(d6);
+        pk3.setRtt(30);
 
-        Date d7 = new Date();
         Thread.currentThread().sleep(1);
-        Date d8 = new Date();
         PktVo pk4 = new PktVo(4);
-        pk1.setTimeSent(d7);
-        pk1.setTimeSent(d8);
+        pk4.setRtt(40);
+        PktVo pk5 = new PktVo(5);
+        pk4.setRtt(50);
+        PktVo pk6 = new PktVo(6);
+        pk4.setRtt(60);
+        PktVo pk7 = new PktVo(7);
+        pk4.setRtt(70);
+        PktVo pk8 = new PktVo(8);
+        pk4.setRtt(80);
 
         List<PktVo> l = new ArrayList<>();
         List<PktVo> lrecv = new ArrayList<>();
         l.add(pk1);
         l.add(pk2);
         l.add(pk3);
-        //l.add(pk4);
+        l.add(pk4);
+         l.add(pk5);
+        l.add(pk6);
+        l.add(pk7);
+        l.add(pk8);
 
         /**
          * *************Latendy jitter test****************
-        
-        int pktListSize = 3;
-        LatVo lat = computeLat(l, pktListSize);
+         */
+        LatVo lat = computeLatJitV2(l);
 
         System.out.println(lat.toString());
-        JtrVo jt = computeJtr(lat);
+        JtrVo jt = lat.getJitterObj();
         System.out.println(jt.toString());
         System.out.println("test ends..." + new Date());
- */
-//***************Packet lost test****************************/
-        System.out.println("packet lost test...........");
-        int testlength = 10;
-        int pps = CdcVo.returnPPSbyCodec("g729");
-        List<PktVo> l2 = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            l2.add(pk1);
-        }
-        int pktLsize = l2.size();
-        System.out.println("");
 
-        System.out.println("Pkt loss %=" + computePktLossByCodec(pktLsize, pps, testlength) + "%");
+        /**
+         *************Packet lost test************************
+         * System.out.println("packet lost test..........."); int testlength =
+         * 15; int pps = CdcVo.returnPPSbyCodec("g711"); List<PktVo> l2 = new
+         * ArrayList<>(); for (int i = 0; i < 50; i++) { l2.add(pk1); } int
+         * pktLsize = l2.size(); System.out.println("");
+         *
+         * System.out.println("Pkt loss %=" + computePktLossByCodec(749, pps,
+         * testlength) + "%");
+         *
+         */
     }
 }

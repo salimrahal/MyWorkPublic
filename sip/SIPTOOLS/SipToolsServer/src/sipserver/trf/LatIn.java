@@ -10,6 +10,6 @@ package sipserver.trf;
  *
  * @author salim
  */
-public class LatD {
+public class LatIn {
     
 }
