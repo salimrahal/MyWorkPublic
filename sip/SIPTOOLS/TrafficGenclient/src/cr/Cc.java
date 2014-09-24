@@ -7,6 +7,7 @@ package cr;
 
 import bn.Param;
 import bo.ClTcp;
+import bo.LatCallable;
 import bo.TrfBo;
 import bo.TrfDgmRunnableU;
 import bo.TrfDmgCallableD;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import vp.vo.LatVo;
 
 /**
  *
@@ -86,10 +88,11 @@ public class Cc {
                         param.setCustname(custnmparam);
                         //4- launch up packet lost test: sending/receiving packets
                         InetAddress inetAddrDest = InetAddress.getByName(srip);
-                        launchTrafficUp(param, inetAddrDest);
-                        String pkLossDown = getPktLossDown(param, inetAddrDest);
-                        System.out.println("CC::pkLossDown=" + pkLossDown);
+                        //launchTrafficUp(param, inetAddrDest);
+                        //String pkLossDown = getPktLossDown(param, inetAddrDest);
+                        //System.out.println("CC::pkLossDown=" + pkLossDown);
                         //todo: 5- launch lat&jitter test up/down
+                        getlatDown(param, inetAddrDest);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                     }
@@ -131,10 +134,18 @@ public class Cc {
         return pktLlossDown;
     }
 
-    public void launchLatListeningPoint(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        //TODO latency check
-        int portsrc = Integer.valueOf(param.getPortrfD());
-        int portdest = Integer.valueOf(param.getPortrfD());
+    public LatVo getlatDown(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+        LatVo latVo = null;
+        int portsrc = Integer.valueOf(param.getPortlat());
+        int portdest = Integer.valueOf(param.getPortlat());
+         LatCallable latDtask = new LatCallable(param, addressDest, portsrc, portdest, 0);
+        Future<LatVo> futureTask = executor.submit(latDtask);
+        try {
+            latVo = futureTask.get();
+        } catch (ExecutionException ex) {
+            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return latVo;
     }
 
 }

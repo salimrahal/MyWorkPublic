@@ -13,11 +13,16 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sipserver.bo.*;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
+import sipserver.trf.vp.vo.LatVo;
 
 /**
  *
@@ -33,12 +38,14 @@ public class ClientSignTcpConnection implements Runnable {
     private Integer clientID;
     TrfBo trbo;
     TrfDao trfdao;
+    ExecutorService executor;
 
     public ClientSignTcpConnection(Socket clientSocket, Integer clientID) {
         this.clientSocket = clientSocket;
         this.clientID = clientID;
         trbo = new TrfBo();
         trfdao = new TrfDao();
+        executor = Executors.newCachedThreadPool();
     }
 
     @Override
@@ -95,7 +102,8 @@ public class ClientSignTcpConnection implements Runnable {
                         //todo: insert test record: testId, clientIp, codec, test-length, starttime
                         if (portReserved) {
                             //launch receive and send threads
-                            launchTrafficTest(param);
+                            //launchTrafficTest(param);
+                            getlatUp(param);
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
                             out.write("ACK");
                             System.out.println("");
@@ -165,7 +173,6 @@ public class ClientSignTcpConnection implements Runnable {
         trfDgmThreadOut.start();
     }
 
-    
     public void launchLatTest(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
         //run the thread that sends the traffic
@@ -173,5 +180,20 @@ public class ClientSignTcpConnection implements Runnable {
         int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
         //run the thread that receives the traffic and computes the pktloss up
     }
-    
+
+    public LatVo getlatUp(Param param) throws UnknownHostException, IOException, InterruptedException {
+        LatVo latVo = null;
+        InetAddress addressDest = clientSocket.getInetAddress();
+        int portsrc = Integer.valueOf(param.getPortlat());
+        int portdest = Integer.valueOf(param.getPortlat());
+        LatCallable latDtask = new LatCallable(param, addressDest, portsrc, portdest, 0);
+        Future<LatVo> futureTask = executor.submit(latDtask);
+        try {
+            latVo = futureTask.get();
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return latVo;
+    }
+
 }

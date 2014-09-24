@@ -51,9 +51,16 @@ public class LatCallable implements Callable<LatVo> {
 
     @Override
     public LatVo call() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LatVo latvoUp = handlelat();
+        return latvoUp;
     }
 
+    /* it excuted the below task sequetially
+     a- Send 
+     b- Listen
+     c- Send
+     d- compute latency/jitter
+     */
     private synchronized LatVo handlelat() throws IOException, InterruptedException {
         String codec = param.getCodec();
         LatVo latObj = null;
@@ -66,14 +73,14 @@ public class LatCallable implements Callable<LatVo> {
          received section
          */
         //still true while receiving packets
-        boolean morepacket = true;
+        boolean morepacketToReceive = true;
         byte[] buf;
         buf = CdcVo.returnPayloadybyCodec(codec);
 
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        System.out.println("LatCallable::handlelat::sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        System.out.println("LatCallable::handlelat:phase: a-b(send-listen):sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
-        //send flag packet to server
+        //send packet to server
         for (int i = 1; i <= packetNumToSend; i++) {
             pktObj = new PktVo(i);
             pktObj.setTimeSent(System.currentTimeMillis());
@@ -83,33 +90,36 @@ public class LatCallable implements Callable<LatVo> {
         System.out.println("LatCallable::handlelat::waiting to recev....");
         int count = 1;
         try {
-            //set the timeout for the flag 
+            //set the timeout
             dgmsocket.setSoTimeout(timelength * 1000);
-            //todo: register the begin time
-            dgmsocket.receive(incomingPacket);
-
             long tStart = System.currentTimeMillis();
             do {
                 dgmsocket.receive(incomingPacket);
                 pktObj = (PktVo) pktMap.get(count);
                 pktObj.setTimeArrival(System.currentTimeMillis());
-                //send it back to the server
-                dgmsocket.send(outgoingPacket);
                 //update the map
                 pktMap.put(count, pktObj);
                 count++;
                 System.out.println("received pktnum" + count);
+                System.out.println("LatCallable:handleLat: a-b(send-listen): Pkt:" + pktObj.toString());
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEnd = System.currentTimeMillis();
                 long tDelta = tEnd - tStart;
                 double elapsedSeconds = tDelta / 1000.0;
                 System.out.println("LatCallable::handlelat:time elapsed:" + elapsedSeconds + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
-                if (elapsedSeconds >= timelength) {
-                    System.out.println("LatCallable::handlelat:elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength + ". finish the listening.");
-                    morepacket = false;
+                if (elapsedSeconds >= timelength / 2 || count == packetNumToSend) {
+                    System.out.println("LatCallable::handlelat:a-b(send-listen):Ends:No more packet to received. elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength / 2 + ". finish the listening.");
+                    morepacketToReceive = false;
                 }
-            } while (morepacket);
+            } while (morepacketToReceive);
+
+            //Computing the other side latency by sending N packet to server
+            System.out.println("LatCallable::handlelat:phase: c(Send):Begin");
+            for (int i = 1; i <= packetNumToSend; i++) {
+                dgmsocket.send(outgoingPacket);
+            }
+
             if (count > 0) {
                 System.out.println("LatCallable received pkt: total received count=" + count);
                 /*
@@ -119,7 +129,7 @@ public class LatCallable implements Callable<LatVo> {
                  pass the pkt list to the function
                  */
                 // packetlostdown = VpMethds.computeLatJitV2();
-               
+
                 System.out.println("handlelat:finish receiving function.");
 
             } else {

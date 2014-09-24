@@ -14,9 +14,9 @@ import java.util.Date;
 public class PktVo {
 
     int id;
-    Date timeSent;//useful latency and jitter test
-    Date timeArrival;//useful latency and jitter test
- float rtt;
+    float timeSent;
+    float timeArrival;
+    float rtt;// rtt ~= timeArrival - timeSent
 
     public PktVo(int id) {
         this.id = id;
@@ -39,22 +39,23 @@ public class PktVo {
         this.id = id;
     }
 
-    public Date getTimeArrival() {
-        return timeArrival;
-    }
-
-    public void setTimeArrival(Date timeArrival) {
-        this.timeArrival = timeArrival;
-    }
-
-    public Date getTimeSent() {
+    public float getTimeSent() {
         return timeSent;
     }
 
-    public void setTimeSent(Date timeSent) {
+    public void setTimeSent(float timeSent) {
         this.timeSent = timeSent;
     }
 
+    public float getTimeArrival() {
+        return timeArrival;
+    }
+
+    public void setTimeArrival(float timeArrival) {
+        this.timeArrival = timeArrival;
+    }
+
+   
     @Override
     public String toString() {
         return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + ", rtt=" + rtt + '}';

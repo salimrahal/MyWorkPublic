@@ -105,34 +105,6 @@ public class VpMethds {
         latObj.setJitterObj(jtrObj);
         return latObj;
     }
-
-    /**
-     * it computes peak and avg of a given pkt list it takes 3 packets and
-     * compute their latency timearrival latency = timesent - timearrival -
-     * timeApplication processing
-     *
-     * @param pktL: received packets for latency test
-     * @param pktSize = 3
-     * @return
-     *
-     * public static synchronized LatVo computeLatV1(List<PktVo> pktL, int
-     * pktLSize) { LatVo latObj = null; if (pktL.size() == pktLSize) {
-     * System.out.println("computeLat:pktsize=" + pktLSize); long peak = -1;
-     * long avg = -1; long sum = 0; long latInst; //create array to store the
-     * latencies for every packet echoed long[] latArray = new long[pktLSize];
-     * int i = 0;
-     *
-     * //loop thru packet and retreive latencies for (PktVo pktObj : pktL) {
-     * latInst = pktObj.getTimeArrival().getTime() -
-     * pktObj.getTimeSent().getTime(); latArray[i] = latInst;
-     * System.out.println("computLat::latency[" + i + "]=" + latArray[i]); i++;
-     * } //computes peak/avg for (int j = 0; j < latArray.length; j++) { if
-     * (latArray[j] > peak) { peak = latArray[j]; } sum = sum + latArray[j]; }
-     * //calculate Avg avg = sum / latArray.length; //casting results to int int
-     * peakLat = (int) peak; int avgLat = (int) avg; //create the LatObject
-     * results latObj = new LatVo(peakLat, avgLat); latObj.setLatArr(latArray);
-     * } return latObj; }
-     */
     /**
      *
      * @param latObj
@@ -150,7 +122,6 @@ public class VpMethds {
             diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
             System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
         }
-
         //computes peak/avg
         for (int j = 0; j < diffArr.length; j++) {
             if (diffArr[j] > peak) {
