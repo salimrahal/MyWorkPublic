@@ -14,24 +14,14 @@ import java.util.Date;
 public class PktVo {
 
     int id;
-    float timeSent;
-    float timeArrival;
-    float rtt;// rtt ~= timeArrival - timeSent
+    long timeSent;
+    long timeArrival;
+    long rtt;// rtt ~= timeArrival - timeSent
 
     public PktVo(int id) {
         this.id = id;
     }
 
-    public float getRtt() {
-        return rtt;
-    }
-
-    public void setRtt(float rtt) {
-        this.rtt = rtt;
-    }
-    public void setRtt(int rtt) {
-        this.rtt = rtt;
-    }
     public int getId() {
         return id;
     }
@@ -40,25 +30,31 @@ public class PktVo {
         this.id = id;
     }
 
-    public float getTimeSent() {
+    public long getTimeSent() {
         return timeSent;
     }
 
-    public void setTimeSent(float timeSent) {
+    public void setTimeSent(long timeSent) {
         this.timeSent = timeSent;
     }
 
-    public float getTimeArrival() {
+    public long getTimeArrival() {
         return timeArrival;
     }
 
-    public void setTimeArrival(float timeArrival) {
+    public void setTimeArrival(long timeArrival) {
         this.timeArrival = timeArrival;
     }
 
-    
+    public long getRtt() {
+        return rtt;
+    }
 
-      @Override
+    public void setRtt(long rtt) {
+        this.rtt = rtt;
+    }
+
+    @Override
     public String toString() {
         return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + ", rtt=" + rtt + '}';
     }

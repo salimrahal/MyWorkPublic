@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vp.vo;
 
 /**
@@ -11,38 +10,38 @@ package vp.vo;
  * @author salim
  */
 public class LatVo {
-    float peak;
-    float avg;
-    float[] latArr;
+
+    long peak;
+    long avg;
+    long[] latArr;
     JtrVo jitterObj;
 
-    public LatVo(float peak, float avg) {
+    public LatVo(long peak, long avg) {
         this.peak = peak;
         this.avg = avg;
     }
 
-    
-    public float getPeak() {
+    public long getPeak() {
         return peak;
     }
 
-    public void setPeak(float peak) {
+    public void setPeak(long peak) {
         this.peak = peak;
     }
 
-    public float getAvg() {
+    public long getAvg() {
         return avg;
     }
 
-    public void setAvg(float avg) {
+    public void setAvg(long avg) {
         this.avg = avg;
     }
 
-    public float[] getLatArr() {
+    public long[] getLatArr() {
         return latArr;
     }
 
-    public void setLatArr(float[] latArr) {
+    public void setLatArr(long[] latArr) {
         this.latArr = latArr;
     }
 
@@ -59,8 +58,4 @@ public class LatVo {
         return "LatVo{" + "peak=" + peak + ", avg=" + avg + ", latArr=" + latArr + ", jitterObj=" + jitterObj + '}';
     }
 
-  
-    
-    
-   
 }

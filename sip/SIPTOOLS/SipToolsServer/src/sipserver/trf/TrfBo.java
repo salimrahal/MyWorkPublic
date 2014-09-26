@@ -5,10 +5,17 @@
  */
 package sipserver.trf;
 
-import java.math.BigDecimal;
-import org.omg.CORBA.TRANSACTION_MODE;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
+import sipserver.trf.vp.bo.VpMethds;
+import sipserver.trf.vp.vo.JtrVo;
+import sipserver.trf.vp.vo.LatVo;
+import sipserver.trf.vp.vo.PktVo;
 
 /**
  *
@@ -29,6 +36,19 @@ public class TrfBo {
 
     public TrfBo() {
         trfdao = new TrfDao();
+    }
+
+    public static List hashtoList(HashMap<Integer, PktVo> pktMap) {
+        List<PktVo> list = null;
+        if (!pktMap.isEmpty()) {
+            list = new ArrayList<>();
+            Set<Integer> enume = pktMap.keySet();
+            for (Integer key : enume) {
+                PktVo pktObj = (PktVo) pktMap.get(key);
+                list.add(pktObj);
+            }
+        }
+        return list;
     }
 
     public boolean releasePort(String portparam) throws Exception {
@@ -92,4 +112,5 @@ public class TrfBo {
         com.safirasoft.Pivot port = service.getPivotPort();
         return port.getConfLoc();
     }
+    
 }

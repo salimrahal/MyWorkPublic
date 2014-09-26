@@ -8,6 +8,7 @@ package sipserver.trf.vp.bo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import sipserver.trf.vp.vo.JtrVo;
 import sipserver.trf.vp.vo.LatVo;
@@ -26,6 +27,23 @@ public class VpMethds {
      * @param testlength: in second
      * @return
      */
+    public synchronized static void cvLat(LatVo latvo) {
+        long lpk = VpMethds.convertNTM(latvo.getPeak());
+        latvo.setPeak(lpk);
+
+        long av = VpMethds.convertNTM(latvo.getAvg());
+        latvo.setAvg(av);
+
+        JtrVo jtO = latvo.getJitterObj();
+        long jpk = VpMethds.convertNTM(jtO.getPeak());
+        jtO.setPeak(jpk);
+
+        long jav = VpMethds.convertNTM(jtO.getAvg());
+        jtO.setAvg(jav);
+
+        latvo.setJitterObj(jtO);
+    }
+
     public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
         int pktLoss = -1;
         float pktLossPerc = 0;
@@ -70,19 +88,18 @@ public class VpMethds {
         LatVo latObj = null;
         int pktLSize = pktL.size();
         System.out.println("computeLatV2:pktsize=" + pktLSize);
-        float peakLat = -1;
-        float avgLat = -1;
-        float sumLat = 0;
-        float latInst;
+        long peakLat = -1;
+        long avgLat = -1;
+        long sumLat = 0;
+        long latInst;
         //create array to store the latencies for every packet echoed
-        float[] latArray = new float[pktLSize];
+        long[] latArray = new long[pktLSize];
         int i = 0;
-
         //loop thru packet and retreive latencies
         for (PktVo pktObj : pktL) {
             latInst = pktObj.getRtt() / 2;
-            latArray[i] = latInst;
-            System.out.println("computLat::latency[" + i + "]=" + latArray[i]);
+            latArray[i] = (long) latInst;
+            System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
             i++;
         }
         //computes lat peak/avg
@@ -94,17 +111,14 @@ public class VpMethds {
         }
         //calculate Avg
         avgLat = sumLat / latArray.length;
-            //casting results to int
-//            int peakLatInt = (int) peakLat;
-//            int avgLatInt = (int) avgLat;
-        //create the LatObject results
-        latObj = new LatVo(formatNumberFl(peakLat), formatNumberFl(avgLat));
+        latObj = new LatVo(peakLat, avgLat);
         latObj.setLatArr(latArray);
         //computing jitter
         JtrVo jtrObj = computeJtr(latObj);
         latObj.setJitterObj(jtrObj);
         return latObj;
     }
+
     /**
      *
      * @param latObj
@@ -112,16 +126,17 @@ public class VpMethds {
      */
     public static synchronized JtrVo computeJtr(LatVo latObj) {
         JtrVo jtrObj = null;
-        float[] latArr = latObj.getLatArr();
-        float peak = -1;
-        float avg = -1;
-        float sum = 0;
+        long[] latArr = latObj.getLatArr();
+        long peak = -1;
+        long avg = -1;
+        long sum = 0;
         //create diff array
-        float[] diffArr = new float[latArr.length - 1];
+        long[] diffArr = new long[latArr.length - 1];
         for (int i = 0; i < latArr.length - 1; i++) {
             diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
             System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
         }
+
         //computes peak/avg
         for (int j = 0; j < diffArr.length; j++) {
             if (diffArr[j] > peak) {
@@ -131,11 +146,26 @@ public class VpMethds {
         }
         //calculate Avg
         avg = sum / diffArr.length;
-        //casting results to int
-//        int peakInt = (int) peak;
-//        int avgInt = (int) avg;
-        jtrObj = new JtrVo(formatNumberFl(peak), formatNumberFl(avg));
+        jtrObj = new JtrVo(peak, avg);
         return jtrObj;
+    }
+
+    public static long convertNTM(long nv) {
+        long ms = nv / 1000000;
+        return ms;
+    }
+
+    /*
+     remove pkt that has rtt = 0, or the packet that they are not received
+     */
+    public static List<PktVo> cll(List<PktVo> pkl) {
+        for (Iterator<PktVo> iterator = pkl.iterator(); iterator.hasNext();) {
+            PktVo value = iterator.next();
+            if (value.getRtt() == 0) {
+                iterator.remove();
+            }
+        }
+        return pkl;
     }
 
     /**
@@ -187,7 +217,7 @@ public class VpMethds {
         l.add(pk2);
         l.add(pk3);
         l.add(pk4);
-         l.add(pk5);
+        l.add(pk5);
         l.add(pk6);
         l.add(pk7);
         l.add(pk8);

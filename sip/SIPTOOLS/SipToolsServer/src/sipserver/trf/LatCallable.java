@@ -66,16 +66,18 @@ public class LatCallable implements Callable<LatVo> {
         boolean morepacketToreceive = true;
         byte[] buf;
         int countLoop1 = 1;
-
+        long tStart = 0;
+        
         buf = CdcVo.returnPayloadybyCodec(codec);
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
         System.out.println("LatCallable:handleLat::phase a-b(listen-echo) waiting for Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
         try {
-            dgmsocket.setSoTimeout(timelength * 3 * 1000);
-            long tStart = System.currentTimeMillis();
+            dgmsocket.setSoTimeout(0);
+            tStart = System.currentTimeMillis();
             do {
                 dgmsocket.receive(incomingPacket);
+                  System.out.println("LatCallable:handleLat:phase a-b(listen-echo) received pktnum" + countLoop1);
                 //Echo it back to the server
                 dgmsocket.send(outgoingPacket);
                 pktObj = new PktVo(countLoop1);
@@ -91,7 +93,7 @@ public class LatCallable implements Callable<LatVo> {
                 double elapsedSeconds = tDelta / 1000.0;
                 System.out.println("LatCallable::handlelat:phase a-b(listen-echo) time elapsed:" + elapsedSeconds + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
-                if (elapsedSeconds >= timelength/2  || countLoop1 == packetNumToSend) {
+                if (countLoop1 == packetNumToSend || elapsedSeconds >= timelength  ) {
                     System.out.println("LatCallable::handlelat:phase: a-b(listen-echo) :elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength + ". finish the listening.");
                     morepacketToreceive = false;
                 }
@@ -107,7 +109,7 @@ public class LatCallable implements Callable<LatVo> {
                 pktObj.setTimeArrival(System.currentTimeMillis());
                 countLoop2++;
                 System.out.println("phase c(listen) received pktnum" + countLoop2);
-                System.out.println("LatCallable:handleLat:phase c(listen): Pkt:"+pktObj.toString());
+                System.out.println("LatCallable:handleLat:phase c(listen): Pkt:" + pktObj.toString());
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEndLoopS = System.currentTimeMillis();
                 long tDeltaLoopS = tEndLoopS - tStartLoopS;
@@ -128,10 +130,13 @@ public class LatCallable implements Callable<LatVo> {
 //            System.out.println("LatCallable:handleLat::sending back the flag packet");
 //            dgmsocket.send(outgoingPacket);
         } catch (SocketTimeoutException se) {
-            System.out.println("LatCallable:handleLat::Error:receiving Pkt::" + se.getMessage());
+            long tEndEx = System.currentTimeMillis();
+            long tDeltaLoopE = tEndEx - tStart;
+            double elapsedSecondsEx = tDeltaLoopE / 1000.0;
+            System.out.println("LatCallable:handleLat::Error:receiving Pkt::" + se.getMessage()+".elapsed time:" + elapsedSecondsEx + "");
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             System.out.println("LatCallable:handlelat:closing the socket..");
             dgmsocket.close();
         }
@@ -140,7 +145,7 @@ public class LatCallable implements Callable<LatVo> {
 
     @Override
     public LatVo call() throws Exception {
-       LatVo latvoUp = handleLat();
+        LatVo latvoUp = handleLat();
         return latvoUp;
     }
 

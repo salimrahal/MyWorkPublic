@@ -11,28 +11,27 @@ package vp.vo;
  */
 public class JtrVo {
 
-    float peak;
-    float avg;
+    long peak;
+    long avg;
 
-    public JtrVo(float peak, float avg) {
+    public JtrVo(long peak, long avg) {
         this.peak = peak;
         this.avg = avg;
     }
 
-    
-    public float getPeak() {
+    public long getPeak() {
         return peak;
     }
 
-    public void setPeak(float peak) {
+    public void setPeak(long peak) {
         this.peak = peak;
     }
 
-    public float getAvg() {
+    public long getAvg() {
         return avg;
     }
 
-    public void setAvg(float avg) {
+    public void setAvg(long avg) {
         this.avg = avg;
     }
 

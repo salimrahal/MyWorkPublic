@@ -19,6 +19,7 @@ import com.safirasoft.SAXException_Exception;
 import gui.TrfJPanel;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -92,7 +93,7 @@ public class Cc {
                         //String pkLossDown = getPktLossDown(param, inetAddrDest);
                         //System.out.println("CC::pkLossDown=" + pkLossDown);
                         //todo: 5- launch lat&jitter test up/down
-                        getlatDown(param, inetAddrDest);
+                        launchLatDown(param, inetAddrDest);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                     }
@@ -107,6 +108,9 @@ public class Cc {
             resultmsgjlabel.setText(resmsg);
         } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
             Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ConnectException conex) {
+             resmsg = TrfBo.MSG_CONN_TO;
+            resultmsgjlabel.setText(resmsg);
         }
     }
 
@@ -134,7 +138,7 @@ public class Cc {
         return pktLlossDown;
     }
 
-    public LatVo getlatDown(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+    public LatVo launchLatDown(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         LatVo latVo = null;
         int portsrc = Integer.valueOf(param.getPortlat());
         int portdest = Integer.valueOf(param.getPortlat());
