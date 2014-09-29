@@ -63,7 +63,7 @@ public class LatRunnable implements Runnable {
         PktVo pktObj;
         LatVo latvoUp = null;
         //still true while receiving packets
-        boolean morepacketToreceive = true;
+        boolean morepacketToProcess = true;
         byte[] buf;
         int countLoop1 = 1;
         long tStart = 0;
@@ -94,15 +94,16 @@ public class LatRunnable implements Runnable {
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
                 if (countLoop1 == packetNumToSend || elapsedSeconds >= timelength) {
                     System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo) :elapsed time:" + elapsedSeconds + " /original test time:" + timelength + ". finish the listening.");
-                    morepacketToreceive = false;
+                    morepacketToProcess = false;
                 }
-            } while (morepacketToreceive);
+            } while (morepacketToProcess);
 
-            boolean morepacketToSend = true;
+            boolean morepacketToRecv = true;
             long tStartLoopS = System.nanoTime();
             int countLoop2 = 1;
             System.out.println("LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
-            dgmsocket.setSoTimeout((timelength + 2) * 1000);
+            int localtimelength = timelength / 2;
+            dgmsocket.setSoTimeout((localtimelength) * 1000);//decrease the timeout to minimum
             do {
                 dgmsocket.receive(incomingPacket);
                 if (pktMap.get(countLoop2) != null) {
@@ -115,7 +116,8 @@ public class LatRunnable implements Runnable {
                     System.out.println("LatRunnable:handleLat:phase c(listen): Pkt:" + pktObj.toString());
                     countLoop2++;
                 } else {
-                    System.out.println("phase c(listen) an WARNING! the pkt with id=" + countLoop2 + " doesnt exists in the Pkt Map, some pkt are lost.");
+                    System.out.println("phase c(listen) an WARNING! the pkt with id=" + countLoop2 + " doesnt exists in the Pkt Map, some pkt are lost. breaking the listeing loop.");
+                     morepacketToRecv = false;
                 }
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEndLoopS = System.nanoTime();
@@ -123,11 +125,11 @@ public class LatRunnable implements Runnable {
                 double elapsedSecondsLoopS = tDeltaLoopS / 1000000000.0;
                 System.out.println("LatRunnable::handlelat:phase c(listen) time elapsed:" + elapsedSecondsLoopS + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
-                if (elapsedSecondsLoopS >= timelength) {
-                    System.out.println("LatRunnable::handlelat:phase c(listen) elapsed time:" + elapsedSecondsLoopS + " exceeded test time:" + timelength / 2 + ". finish the listening.");
-                    morepacketToreceive = false;
+                if (elapsedSecondsLoopS >= localtimelength) {
+                    System.out.println("LatRunnable::handlelat:phase c(listen) elapsed time:" + elapsedSecondsLoopS + " exceeded test time/x:" + localtimelength + ". finish the listening.");
+                    morepacketToRecv = false;
                 }
-            } while (morepacketToSend);
+            } while (morepacketToRecv);
         } catch (SocketTimeoutException se) {
             long tEndEx = System.nanoTime();
             long tDeltaLoopE = tEndEx - tStart;

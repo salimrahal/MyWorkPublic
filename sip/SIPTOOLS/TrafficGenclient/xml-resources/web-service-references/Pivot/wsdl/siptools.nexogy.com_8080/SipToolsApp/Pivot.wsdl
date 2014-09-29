@@ -4,6 +4,24 @@
 <xsd:import namespace="http://safirasoft.com/" schemaLocation="http://siptools.nexogy.com:8080/SipToolsApp/Pivot?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="getrs">
+<part name="parameters" element="tns:getrs"/>
+</message>
+<message name="getrsResponse">
+<part name="parameters" element="tns:getrsResponse"/>
+</message>
+<message name="savePLD">
+<part name="parameters" element="tns:savePLD"/>
+</message>
+<message name="savePLDResponse">
+<part name="parameters" element="tns:savePLDResponse"/>
+</message>
+<message name="svLJD">
+<part name="parameters" element="tns:svLJD"/>
+</message>
+<message name="svLJDResponse">
+<part name="parameters" element="tns:svLJDResponse"/>
+</message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
 </message>
@@ -44,6 +62,18 @@
 <part name="parameters" element="tns:getMiscPortsResponse"/>
 </message>
 <portType name="Pivot">
+<operation name="getrs">
+<input wsam:Action="http://safirasoft.com/Pivot/getrsRequest" message="tns:getrs"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getrsResponse" message="tns:getrsResponse"/>
+</operation>
+<operation name="savePLD">
+<input wsam:Action="http://safirasoft.com/Pivot/savePLDRequest" message="tns:savePLD"/>
+<output wsam:Action="http://safirasoft.com/Pivot/savePLDResponse" message="tns:savePLDResponse"/>
+</operation>
+<operation name="svLJD">
+<input wsam:Action="http://safirasoft.com/Pivot/svLJDRequest" message="tns:svLJD"/>
+<output wsam:Action="http://safirasoft.com/Pivot/svLJDResponse" message="tns:svLJDResponse"/>
+</operation>
 <operation name="hello">
 <input wsam:Action="http://safirasoft.com/Pivot/helloRequest" message="tns:hello"/>
 <output wsam:Action="http://safirasoft.com/Pivot/helloResponse" message="tns:helloResponse"/>
@@ -76,6 +106,33 @@
 </portType>
 <binding name="PivotPortBinding" type="tns:Pivot">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="getrs">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="savePLD">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="svLJD">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="hello">
 <soap:operation soapAction=""/>
 <input>

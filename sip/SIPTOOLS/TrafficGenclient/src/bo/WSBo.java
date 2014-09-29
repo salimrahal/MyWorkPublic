@@ -48,4 +48,17 @@ public class WSBo {
         pivotPort = service.getPivotPort();
         return pivotPort.getMiscPorts();
     }
+
+    protected static Integer savePLD(java.lang.String tid, float pld) {
+        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+        com.safirasoft.Pivot port = service.getPivotPort();
+        return port.savePLD(tid, pld);
+    }
+
+    protected static Integer svLJD(java.lang.String ti, int latdwnpk, int latdwnav, int jitdwpk, int jitdwav) {
+        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+        com.safirasoft.Pivot port = service.getPivotPort();
+        return port.svLJD(ti, latdwnpk, latdwnav, jitdwpk, jitdwav);
+    }
+    
 }

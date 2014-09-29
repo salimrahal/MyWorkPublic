@@ -23,6 +23,14 @@ import vp.vo.PktVo;
 public class VpMethds {
 
     
+    public static int safeLongToInt(long l) {
+    int i = (int)l;
+    if ((long)i != l) {
+        throw new IllegalArgumentException(l + " cannot be cast to int without changing its value.");
+    }
+    return i;
+}
+    
     public static void cvLat(LatVo latvo) {
         long lpk = vp.bo.VpMethds.convertNTM(latvo.getPeak());
         latvo.setPeak(lpk);
@@ -202,6 +210,7 @@ public class VpMethds {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
+        System.out.println(" safeLongToInt(405)="+safeLongToInt(405));
         System.out.println("test begins..." + new Date());
         Date d1 = new Date();//sent
         Thread.currentThread().sleep(10);

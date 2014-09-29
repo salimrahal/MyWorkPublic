@@ -8,9 +8,11 @@ package cr;
 import bn.Param;
 import bo.ClTcp;
 import bo.LatCallable;
+import bo.LatRunnable;
 import bo.TrfBo;
 import bo.TrfDgmRunnableU;
 import bo.TrfDmgCallableD;
+import bo.TrfDmgRunnableD;
 import bo.WSBo;
 import com.safirasoft.IOException_Exception;
 import com.safirasoft.ParserConfigurationException_Exception;
@@ -89,11 +91,10 @@ public class Cc {
                         param.setCustname(custnmparam);
                         //4- launch up packet lost test: sending/receiving packets
                         InetAddress inetAddrDest = InetAddress.getByName(srip);
-                        //launchTrafficUp(param, inetAddrDest);
-                        //String pkLossDown = getPktLossDown(param, inetAddrDest);
-                        //System.out.println("CC::pkLossDown=" + pkLossDown);
-                        //todo: 5- launch lat&jitter test up/down
-                        launchLatDown(param, inetAddrDest);
+                        launchTrafficUp(param, inetAddrDest);
+                        lauchktLossDownRunnable(param, inetAddrDest);
+                        //launch lat&jitter test up/down
+                        launchLatDownRunnable(param, inetAddrDest);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                     }
@@ -109,47 +110,67 @@ public class Cc {
         } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
             Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ConnectException conex) {
-             resmsg = TrfBo.MSG_CONN_TO;
+            resmsg = TrfBo.MSG_CONN_TO;
             resultmsgjlabel.setText(resmsg);
         }
     }
 
     public void launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        System.out.println("launchtest::success, begin of sending packets");
+        System.out.println("launchTrafficUp::success, begin of sending packets");
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
         trfDgmUThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
-        trfDgmUThread.join();
+        //trfDgmUThread.join();
     }
 
-    public String getPktLossDown(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
-        String pktLlossDown = "";
+    public void lauchktLossDownRunnable(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
         int portsrc = Integer.valueOf(param.getPortrfD());
         int portdest = Integer.valueOf(param.getPortrfD());
-
-        TrfDmgCallableD trfDtask = new TrfDmgCallableD(param, addressDest, portsrc, portdest, 0);
-        Future<String> futureTask = executor.submit(trfDtask);
-        try {
-            pktLlossDown = futureTask.get();
-        } catch (ExecutionException ex) {
-            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return pktLlossDown;
+        TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, 0);
+        Thread trfDgmDThread = new Thread(trfDgmD);
+        trfDgmDThread.start();
     }
-
-    public LatVo launchLatDown(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        LatVo latVo = null;
+    public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         int portsrc = Integer.valueOf(param.getPortlat());
         int portdest = Integer.valueOf(param.getPortlat());
-         LatCallable latDtask = new LatCallable(param, addressDest, portsrc, portdest, 0);
-        Future<LatVo> futureTask = executor.submit(latDtask);
-        try {
-            latVo = futureTask.get();
-        } catch (ExecutionException ex) {
-            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return latVo;
+        LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
+        Thread latrunThread = new Thread(latDrun);
+        latrunThread.start();
+        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
+        //latrunThread.join();
+
     }
+  
+
+    
+//    public String getPktLossDown(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
+//        String pktLlossDown = "";
+//        int portsrc = Integer.valueOf(param.getPortrfD());
+//        int portdest = Integer.valueOf(param.getPortrfD());
+//
+//        TrfDmgCallableD trfDtask = new TrfDmgCallableD(param, addressDest, portsrc, portdest, 0);
+//        Future<String> futureTask = executor.submit(trfDtask);
+//        try {
+//            pktLlossDown = futureTask.get();
+//        } catch (ExecutionException ex) {
+//            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return pktLlossDown;
+//    }
+
+//    public LatVo launchLatDownCallable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+//        LatVo latVo = null;
+//        int portsrc = Integer.valueOf(param.getPortlat());
+//        int portdest = Integer.valueOf(param.getPortlat());
+//        LatCallable latDtask = new LatCallable(param, addressDest, portsrc, portdest, 0);
+//        Future<LatVo> futureTask = executor.submit(latDtask);
+//        try {
+//            latVo = futureTask.get();
+//        } catch (ExecutionException ex) {
+//            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return latVo;
+//    }
 
 }

@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
@@ -103,7 +104,10 @@ public class ClientSignTcpConnection implements Runnable {
                         if (portReserved) {
                             out.write("ACK");
                             //launch receive and send threads
-                            //launchTrafficTest(param);
+                            launchTrafficPktLoss(param);
+//                            launchTrafficOut(param);
+//                            String pktlossup = getPktLossUp(param);
+//                            System.out.println("traffic TCPServer pktlossup="+pktlossup);
                             //lauching latency test
                             launchLatUp(param);
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
@@ -153,7 +157,7 @@ public class ClientSignTcpConnection implements Runnable {
      sending paquets
      */
 
-    public void launchTrafficTest(Param param) throws UnknownHostException, IOException, InterruptedException {
+    public void launchTrafficPktLoss(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress inetaddressDest = clientSocket.getInetAddress();
         //run the thread that sends the traffic
         int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
@@ -171,6 +175,34 @@ public class ClientSignTcpConnection implements Runnable {
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
     }
+
+//    public void launchTrafficOut(Param param) throws UnknownHostException, IOException, InterruptedException {
+//        InetAddress inetaddressDest = clientSocket.getInetAddress();
+//        //run the thread that sends the traffic
+//        int portsrcOutChannel = Integer.valueOf(param.getPortrfClientD());
+//        int portdestOutChannel = Integer.valueOf(param.getPortrfClientD());
+//        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrcOutChannel, portdestOutChannel, clientID);
+//        Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
+//        trfDgmThreadOut.start();
+//    }
+
+//    public String getPktLossUp(Param param) throws SocketException, InterruptedException, IOException {
+//        String pktLlossDown = null;
+//        InetAddress inetaddressDest = clientSocket.getInetAddress();
+//        //run the thread that sends the traffic
+//        int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
+//        int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
+//        //run the thread that receives the traffic and computes the pktloss up
+//
+//        TrfDgmCallableIn trfDtask = new TrfDgmCallableIn(param, inetaddressDest, portsrcInChannel, portdestInChannel, clientID);
+//        Future<String> futureTask = executor.submit(trfDtask);
+//        try {
+//            pktLlossDown = futureTask.get();
+//        } catch (ExecutionException ex) {
+//            Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return pktLlossDown;
+//    }
 
     public void launchLatUp(Param param) throws UnknownHostException, IOException, InterruptedException {
         InetAddress addressDest = clientSocket.getInetAddress();

@@ -22,9 +22,21 @@
 
 <xs:element name="getcodecsResponse" type="tns:getcodecsResponse"/>
 
+<xs:element name="getrs" type="tns:getrs"/>
+
+<xs:element name="getrsResponse" type="tns:getrsResponse"/>
+
 <xs:element name="hello" type="tns:hello"/>
 
 <xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:element name="savePLD" type="tns:savePLD"/>
+
+<xs:element name="savePLDResponse" type="tns:savePLDResponse"/>
+
+<xs:element name="svLJD" type="tns:svLJD"/>
+
+<xs:element name="svLJDResponse" type="tns:svLJDResponse"/>
 
 <xs:complexType name="getConfLoc">
 <xs:sequence/>
@@ -33,6 +45,39 @@
 <xs:complexType name="getConfLocResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getrs">
+<xs:sequence>
+<xs:element name="ti" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getrsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:resVo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="resVo">
+<xs:sequence>
+<xs:element name="cdc" type="xs:string" minOccurs="0"/>
+<xs:element name="cnme" type="xs:string" minOccurs="0"/>
+<xs:element name="dojtav" type="xs:int"/>
+<xs:element name="dojtpeak" type="xs:int"/>
+<xs:element name="dolatav" type="xs:int"/>
+<xs:element name="dolatpeak" type="xs:int"/>
+<xs:element name="dopkloss" type="xs:float"/>
+<xs:element name="etime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="puip" type="xs:string" minOccurs="0"/>
+<xs:element name="stime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="tlth" type="xs:int"/>
+<xs:element name="upjtav" type="xs:int"/>
+<xs:element name="upjtpeak" type="xs:int"/>
+<xs:element name="uplatav" type="xs:int"/>
+<xs:element name="uplatpeak" type="xs:int"/>
+<xs:element name="uppkloss" type="xs:float"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -93,6 +138,22 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="svLJD">
+<xs:sequence>
+<xs:element name="ti" type="xs:string" minOccurs="0"/>
+<xs:element name="latdwnpk" type="xs:int"/>
+<xs:element name="latdwnav" type="xs:int"/>
+<xs:element name="jitdwpk" type="xs:int"/>
+<xs:element name="jitdwav" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svLJDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getPrtSts">
 <xs:sequence/>
 </xs:complexType>
@@ -149,6 +210,19 @@
 <xs:complexType name="helloResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="savePLD">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="pld" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="savePLDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>
