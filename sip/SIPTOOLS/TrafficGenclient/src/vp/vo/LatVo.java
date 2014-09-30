@@ -10,9 +10,8 @@ package vp.vo;
  * @author salim
  */
 public class LatVo {
-
-    long peak;
-    long avg;
+    long peak = -1;
+    long avg = -1;
     long[] latArr;
     JtrVo jitterObj;
 

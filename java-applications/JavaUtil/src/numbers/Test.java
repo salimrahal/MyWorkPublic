@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 public class Test {
 
     public static void main(String[] args) {
-		
+	
+           int localtimelength = 120 + 120/3;
+           System.out.println("localtimelength "+localtimelength);
         //formatNumberFl((float) 5.1234);//
          formatNumberFl((float) 0.12999999523162842);
        /*

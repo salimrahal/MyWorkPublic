@@ -48,6 +48,7 @@ public class TrfDgmRunnableU implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("TrfDgmRunnableU:: Priority="+Thread.currentThread().getPriority());
             handleClienttraffic();
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);

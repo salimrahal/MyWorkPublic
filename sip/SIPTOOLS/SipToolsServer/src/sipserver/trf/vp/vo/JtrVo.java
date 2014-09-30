@@ -11,8 +11,8 @@ package sipserver.trf.vp.vo;
  */
 public class JtrVo {
 
-       long peak;
-    long avg;
+    long peak = -1;
+    long avg = -1;
 
     public JtrVo(long peak, long avg) {
         this.peak = peak;
@@ -34,7 +34,7 @@ public class JtrVo {
     public void setAvg(long avg) {
         this.avg = avg;
     }
-   
+
     @Override
     public String toString() {
         return "JtrVo{" + "peak=" + peak + ", avg=" + avg + '}';

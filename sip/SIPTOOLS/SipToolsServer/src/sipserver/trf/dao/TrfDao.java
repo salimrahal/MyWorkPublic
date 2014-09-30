@@ -8,9 +8,7 @@ package sipserver.trf.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Date;
 import sipserver.trf.TrfBo;
 import sipserver.trf.bean.Param;
@@ -30,18 +28,10 @@ public class TrfDao {
         // this will load the MySQL driver, each DB has its own driver
         Class.forName("com.mysql.jdbc.Driver");
         String sb = "jdbc:mysql://localhost/" + TrfBo.A + "?" + TrfBo.B + "=" + x + "&" + TrfBo.C + "=" + x + "*";
-
         // setup the connection with the DB.
         connect = DriverManager
                 .getConnection(sb);
         return connect;
-    }
-
-    /*
-     this method should be access by only one thread
-     */
-    public static synchronized void saveClientInfoToDB(Param param) {
-
     }
 
     /* it updates only two ports 
@@ -108,22 +98,14 @@ public class TrfDao {
         }
         return res;
     }
-    /*
-     it insert the log record for a specific client
-     */
 
-    public static synchronized void insertTest() {
-
-    }
-
-    public synchronized boolean addNewTest(String testId, String clientname, String clientIp, String codec, String testlength, Date starttime) throws Exception {
+    public synchronized boolean createNewTest(String testId, String clientname, String clientIp, String codec, String testlength) throws Exception {
         String x1 = "traffic";
         String x = gety(x1);
         boolean res = false;
         PreparedStatement preparedStatement = null;
         String query = "insert into test_result(uid, customerName, publicIp, codec, testLength, startTime)"
-                + " values(\"" + testId + "\",\"" + clientname + "\",\"" + clientIp + "\",\"" + codec + "\",\"" + testlength + "\","
-                + "\"" + new java.sql.Date(starttime.getTime()) + "\")";
+                + " values(\"" + testId + "\",\"" + clientname + "\",\"" + clientIp + "\",\"" + codec + "\",\"" + testlength + "\", NOW())";
         try (Connection connect = getC(x)) {
 
             // preparedStatements can use variables and are more efficient
@@ -213,7 +195,28 @@ public class TrfDao {
         }
         return res;
     }
+ public synchronized boolean updateTestEndTime(String testId) throws Exception {
+        String x1 = "traffic";
+        String x = gety(x1);
+        boolean res = false;
+        PreparedStatement preparedStatement = null;
+        String query = "update test_result set endTime = NOW() where uid = \"" + testId + "\"";
+        try (Connection connect = getC(x)) {
 
+            // preparedStatements can use variables and are more efficient
+            preparedStatement = connect.prepareStatement(query);
+
+            //i is the number of row updated, if 2 row is updated then returns: 2
+            int i = preparedStatement.executeUpdate();
+            if (i == 1) {
+                res = true;
+            } else {
+                res = false;
+                System.out.println("Error: Query:" + query + " returns zero, no row added!");
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) throws Exception {
         int[] ports = new int[2];
         ports[0] = 5095;

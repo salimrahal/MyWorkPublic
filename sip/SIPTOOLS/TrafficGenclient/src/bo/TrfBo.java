@@ -27,6 +27,9 @@ import vp.vo.PktVo;
  */
 public class TrfBo {
 
+    public static final String M_PR = "in progress..";
+    public static final String M_FIN = "finished";
+    
     public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";
     public static final String M_NC = "Could not connect to the server! ";

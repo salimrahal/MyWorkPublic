@@ -85,8 +85,8 @@ class PacketControl {
                 dgmsocket.close();
                 System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
                 try {
-                    //to do realese Ports
-                    System.out.println("PacketControl:sndPktForAnGivenTime: releasing porttrf Out"+portTrf+" result:" + trfdao.updateOnePortStatus(portTrf, "f"));
+                    //realese Ports
+                    System.out.println("PacketControl:sndPktForAnGivenTime: releasing porttrf Out " + portTrf + " result:" + trfdao.updateOnePortStatus(portTrf, "f"));
                 } catch (Exception ex) {
                     Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -105,7 +105,7 @@ class PacketControl {
         }
 
         public void run() {
-            try {               
+            try {
                 //System.out.println("send packet.." + count);
                 outgoingPacketLocal = new DatagramPacket(buf, buf.length, addressDest, portDest);
                 //send the packet back to the client

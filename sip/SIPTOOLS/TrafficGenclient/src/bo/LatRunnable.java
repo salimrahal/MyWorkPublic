@@ -54,15 +54,16 @@ public class LatRunnable implements Runnable {
 
     @Override
     public void run() {
+          System.out.println("LatRunnable:: Priority="+Thread.currentThread().getPriority());
         try {
-            LatVo latvoUp = handlelat();
-            System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
-            int latpk =VpMethds.safeLongToInt(latvoUp.getPeak());
-            int latavg = VpMethds.safeLongToInt(latvoUp.getAvg());;
-            int jtpk = VpMethds.safeLongToInt(latvoUp.getJitterObj().getPeak());
-            int jtavg = VpMethds.safeLongToInt(latvoUp.getJitterObj().getAvg());
+            LatVo latvoDown = handlelat();         
+            System.out.println("LatRunnable: saving latvoDown to DB..");
+            int latpk =VpMethds.safeLongToInt(latvoDown.getPeak());
+            int latavg = VpMethds.safeLongToInt(latvoDown.getAvg());
+            int jtpk = VpMethds.safeLongToInt(latvoDown.getJitterObj().getPeak());
+            int jtavg = VpMethds.safeLongToInt(latvoDown.getJitterObj().getAvg());
             WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg );
-            System.out.println("TrfDmgRunnableD: finish ws call");
+            System.out.println("LatRunnable: finish ws call");
         } catch (IOException ex) {
             Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -101,7 +102,7 @@ public class LatRunnable implements Runnable {
             dgmsocket.send(outgoingPacket);
             pktMap.put(i, pktObj);
         }
-        System.out.println("LatRunnable::handlelat::waiting to recev....");
+        System.out.println("LatRunnable::handlelat::phase: a-b(send-listen):waiting to recev....");
         int count = 1;
         try {
             //set the timeout
@@ -130,20 +131,13 @@ public class LatRunnable implements Runnable {
                     morepacketToReceive = false;
                 }
             } while (morepacketToReceive);
-            //Computing the other side latency by sending N packet to server
-            System.out.println("LatRunnable::handlelat:phase: c(Send):Begin");
-            for (int i = 1; i <= packetNumToSend; i++) {
-                dgmsocket.send(outgoingPacket);
-            }
-
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:LatRunnable::waiting to recev the packets:" + se.getMessage());
+            System.out.println("LatRunnable::handlelat:a-b(send-listen)" + se.getMessage());
         } finally {
             if (count > 0) {
                 System.out.println("LatRunnable received pkt: total received count=" + count);
-
                 System.out.println("handlelat:finish receiving function.");
-
+                sendPkt(outgoingPacket);
             } else {
                 System.out.println("LatRunnable:handlelat:Something goes wrong nothing is received count=" + count);
             }
@@ -153,11 +147,23 @@ public class LatRunnable implements Runnable {
             pktL = VpMethds.cll(pktL);
             latvoDown = VpMethds.computeLatJitV2(pktL);
             VpMethds.cvLat(latvoDown);
-            System.out.println("LatRunnable:handlelat:Result:"+latvoDown.toString());
+            if(latvoDown==null) {
+                 System.out.println("LatRunnable:handlelat:Result:latency is null!");
+            } else {
+                System.out.println("LatRunnable:handlelat:Result:"+latvoDown.toString());
+            }
             System.out.println("LatRunnable:handlelat:closing the socket..");
             dgmsocket.close();
         }
         return latvoDown;
+    }
+    
+    private void sendPkt(DatagramPacket outgoingPacket) throws IOException{
+         //Computing the other side latency by sending N packet to server
+            System.out.println("LatRunnable::handlelat:phase: c(Send):Begin");
+            for (int i = 1; i <= packetNumToSend; i++) {
+                dgmsocket.send(outgoingPacket);
+            }
     }
 
 }

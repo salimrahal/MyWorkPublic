@@ -8,7 +8,7 @@ package com.safirasoft;
 import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
-import dao.TestResDao;
+import dao.TestDao;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,11 +35,11 @@ import vo.ResVo;
 public class Pivot {
 
     Spf saxparserconf;
-    TestResDao tstDao;
+    TestDao tstDao;
 
     public Pivot() {
         saxparserconf = new Spf();
-        tstDao = new TestResDao();
+        tstDao = new TestDao();
     }
 
     /**
@@ -132,7 +132,6 @@ public class Pivot {
         int res = -1;
         LatVo latObj = new LatVo(latdwnpk, latdwnav);
         JtrVo jObj = new JtrVo(jitdwpk, jitdwav);
-
         try {
             //securitycheck for the testid
          //   if (ti.length() == StaticVar.TEST_ID_SIZE) {

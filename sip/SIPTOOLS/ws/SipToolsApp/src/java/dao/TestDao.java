@@ -20,7 +20,7 @@ import vo.ResVo;
  *
  * @author salim
  */
-public class TestResDao {
+public class TestDao {
 
     String x1 = "traffic";
 
@@ -71,7 +71,7 @@ public class TestResDao {
         }
         return res;
     }
-
+//http://stackoverflow.com/questions/7875196/mysql-datetime-not-returning-time
     public ResVo getRes(String testId) throws Exception {
         String x = gety(x1);
         String k = getz(x, StaticVar.k1);
@@ -91,7 +91,7 @@ public class TestResDao {
             rs = preparedStatement.executeQuery();
             if (rs.first()) {
                 res = new ResVo(rs.getString("customerName"), rs.getString("publicIp"), rs.getString("codec"), rs.getInt("testLength"));
-                res.setStime(rs.getDate("startTime"));
+                res.setStime(new java.util.Date(rs.getTime("startTime").getTime()));
                 res.setEtime(rs.getDate("endTime"));
                 res.setUppkloss(rs.getFloat("uploadPacketLost"));
                 res.setUplatpeak(rs.getInt("uploadLatencyPeak"));

@@ -42,11 +42,12 @@ public class TrfDgmRunnableOut implements Runnable {
         this.portsrc = portsrc;
         this.portDest = portDest;
         dgmsocket = new DatagramSocket(this.portsrc);
-
+        this.trfdao = new TrfDao();
     }
 
     @Override
     public void run() {
+        System.out.println("TrfDgmRunnableOut:: Priority=" + Thread.currentThread().getPriority());
         try {
             System.out.println("TrfDgmRunnableOut::thread name=" + Thread.currentThread().getName() + " is Started");
             handleClienttraffic();
@@ -85,6 +86,7 @@ public class TrfDgmRunnableOut implements Runnable {
             System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage());
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
         }
 
     }

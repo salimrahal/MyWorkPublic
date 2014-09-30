@@ -22,31 +22,35 @@ import vp.vo.PktVo;
  */
 public class VpMethds {
 
-    
     public static int safeLongToInt(long l) {
-    int i = (int)l;
-    if ((long)i != l) {
-        throw new IllegalArgumentException(l + " cannot be cast to int without changing its value.");
+        int i = (int) l;
+        if ((long) i != l) {
+            throw new IllegalArgumentException(l + " cannot be cast to int without changing its value.");
+        }
+        return i;
     }
-    return i;
-}
-    
+
     public static void cvLat(LatVo latvo) {
-        long lpk = vp.bo.VpMethds.convertNTM(latvo.getPeak());
-        latvo.setPeak(lpk);
-        
-        long av = vp.bo.VpMethds.convertNTM(latvo.getAvg());
-        latvo.setAvg(av);
-        
-        JtrVo jtO = latvo.getJitterObj();
-        long jpk = vp.bo.VpMethds.convertNTM(jtO.getPeak());
-        jtO.setPeak(jpk);
-        
-        long jav = vp.bo.VpMethds.convertNTM(jtO.getAvg());
-        jtO.setAvg(jav);
-        
-        latvo.setJitterObj(jtO);
+        if (latvo != null) {
+            long lpk = vp.bo.VpMethds.convertNTM(latvo.getPeak());
+            latvo.setPeak(lpk);
+
+            long av = vp.bo.VpMethds.convertNTM(latvo.getAvg());
+            latvo.setAvg(av);
+
+            JtrVo jtO = latvo.getJitterObj();
+            long jpk = vp.bo.VpMethds.convertNTM(jtO.getPeak());
+            jtO.setPeak(jpk);
+
+            long jav = vp.bo.VpMethds.convertNTM(jtO.getAvg());
+            jtO.setAvg(jav);
+
+            latvo.setJitterObj(jtO);
+        } else {
+            System.out.println("Error: VpMethds.cvLat(): latency Obj is null !");
+        }
     }
+
     /**
      *
      * @param receivedPkt
@@ -120,35 +124,39 @@ public class VpMethds {
         long avgLat = -1;
         long sumLat = 0;
         long latInst;
-        //create array to store the latencies for every packet echoed
-        long[] latArray = new long[pktLSize];
-        int i = 0;
+        if (pktLSize > 1) {
+            //create array to store the latencies for every packet echoed
+            long[] latArray = new long[pktLSize];
+            int i = 0;
 
-        //loop thru packet and retreive latencies
-        for (PktVo pktObj : pktL) {
-            latInst = pktObj.getRtt() / 2;
-            latArray[i] = (long) latInst;
-            System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
-            i++;
-        }
-        //computes lat peak/avg
-        for (int j = 0; j < latArray.length; j++) {
-            if (latArray[j] > peakLat) {
-                peakLat = latArray[j];
+            //loop thru packet and retreive latencies
+            for (PktVo pktObj : pktL) {
+                latInst = pktObj.getRtt() / 2;
+                latArray[i] = (long) latInst;
+                System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
+                i++;
             }
-            sumLat = sumLat + latArray[j];
-        }
-        //calculate Avg
-        avgLat = sumLat / latArray.length;
+            //computes lat peak/avg
+            for (int j = 0; j < latArray.length; j++) {
+                if (latArray[j] > peakLat) {
+                    peakLat = latArray[j];
+                }
+                sumLat = sumLat + latArray[j];
+            }
+            //calculate Avg
+            avgLat = sumLat / latArray.length;
             //casting results to int
 //            int peakLatInt = (int) peakLat;
 //            int avgLatInt = (int) avgLat;
-        //create the LatObject results
-        latObj = new LatVo(peakLat, avgLat);
-        latObj.setLatArr(latArray);
-        //computing jitter
-        JtrVo jtrObj = computeJtr(latObj);
-        latObj.setJitterObj(jtrObj);
+            //create the LatObject results
+            latObj = new LatVo(peakLat, avgLat);
+            latObj.setLatArr(latArray);
+            //computing jitter
+            JtrVo jtrObj = computeJtr(latObj);
+            latObj.setJitterObj(jtrObj);
+        } else {
+            System.out.println("Error: VpMethds.computeLatJitV2(): pktL Array length is " + pktLSize);
+        }
         return latObj;
     }
 
@@ -163,23 +171,28 @@ public class VpMethds {
         long peak = -1;
         long avg = -1;
         long sum = 0;
-        //create diff array
-        long[] diffArr = new long[latArr.length - 1];
-        for (int i = 0; i < latArr.length - 1; i++) {
-            diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
-            System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
-        }
-
-        //computes peak/avg
-        for (int j = 0; j < diffArr.length; j++) {
-            if (diffArr[j] > peak) {
-                peak = diffArr[j];
+        int arrL = latArr.length;
+        if (arrL > 1) {
+            //create diff array
+            long[] diffArr = new long[arrL - 1];
+            for (int i = 0; i < arrL - 1; i++) {
+                diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
+                System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
             }
-            sum = sum + diffArr[j];
+
+            //computes peak/avg
+            for (int j = 0; j < diffArr.length; j++) {
+                if (diffArr[j] > peak) {
+                    peak = diffArr[j];
+                }
+                sum = sum + diffArr[j];
+            }
+            //calculate Avg
+            avg = sum / diffArr.length;
+            jtrObj = new JtrVo(peak, avg);
+        } else {
+            System.out.println("Error: VpMethds.computeJtr(): Latency Array length is " + arrL);
         }
-        //calculate Avg
-        avg = sum / diffArr.length;
-        jtrObj = new JtrVo(peak, avg);
         return jtrObj;
     }
 
@@ -210,7 +223,7 @@ public class VpMethds {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-        System.out.println(" safeLongToInt(405)="+safeLongToInt(405));
+        System.out.println(" safeLongToInt(405)=" + safeLongToInt(405));
         System.out.println("test begins..." + new Date());
         Date d1 = new Date();//sent
         Thread.currentThread().sleep(10);

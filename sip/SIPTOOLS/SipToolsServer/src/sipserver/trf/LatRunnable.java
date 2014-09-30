@@ -48,6 +48,22 @@ public class LatRunnable implements Runnable {
         this.portsrc = portsrc;
         this.portDest = portDest;
         dgmsocket = new DatagramSocket(this.portsrc);
+        trfdao = new TrfDao();
+    }
+     @Override
+    public void run() {
+             System.out.println("LatRunnable:: Priority="+Thread.currentThread().getPriority());
+        try {
+            LatVo latvoUp = handleLat();
+            //set the used port to free
+            trfdao.updateOnePortStatus(portsrc, "f");
+            //update the DB with Lat and jitter results
+            trfdao.updateLatJitUp(param.getTstid(), latvoUp, latvoUp.getJitterObj());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /* it excuted the below task sequetially 
@@ -102,8 +118,11 @@ public class LatRunnable implements Runnable {
             long tStartLoopS = System.nanoTime();
             int countLoop2 = 1;
             System.out.println("LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
-            int localtimelength = timelength / 2;
-            dgmsocket.setSoTimeout((localtimelength) * 1000);//decrease the timeout to minimum
+            /*increase timeout: this is a multthreaded App, increasing this value may prevent a timeout exception 
+            in case the JVM will prioritize another thread to be executed first, such as packet lost test.
+            */
+                    int localtimelength = timelength + timelength/3;
+            dgmsocket.setSoTimeout((localtimelength) * 1000);//
             do {
                 dgmsocket.receive(incomingPacket);
                 if (pktMap.get(countLoop2) != null) {
@@ -152,14 +171,5 @@ public class LatRunnable implements Runnable {
         return latvoUp;
     }
 
-    @Override
-    public void run() {
-        try {
-            handleLat();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 }

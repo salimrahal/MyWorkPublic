@@ -7,11 +7,9 @@ package cr;
 
 import bn.Param;
 import bo.ClTcp;
-import bo.LatCallable;
 import bo.LatRunnable;
 import bo.TrfBo;
 import bo.TrfDgmRunnableU;
-import bo.TrfDmgCallableD;
 import bo.TrfDmgRunnableD;
 import bo.WSBo;
 import com.safirasoft.IOException_Exception;
@@ -25,15 +23,10 @@ import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import vp.vo.LatVo;
 
 /**
  *
@@ -53,7 +46,7 @@ public class Cc {
     }
 
     public void launchtest(String codecparam, String timeLengthParam, String custnmparam) throws IOException, Exception {
-        String resmsg = "in progress..";
+        String resmsg = TrfBo.M_PR;
         try {
             resultmsgjlabel.setText(resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
@@ -89,10 +82,11 @@ public class Cc {
                         param.setPortrfD(String.valueOf(porttrfD));//for test
                         param.setTstid(testUuid);
                         param.setCustname(custnmparam);
+                        InetAddress inetAddrDest = InetAddress.getByName(srip);                        
+
                         //4- launch up packet lost test: sending/receiving packets
-                        InetAddress inetAddrDest = InetAddress.getByName(srip);
-                        launchTrafficUp(param, inetAddrDest);
-                        lauchktLossDownRunnable(param, inetAddrDest);
+                        Thread thUp = launchTrafficUp(param, inetAddrDest);
+                        Thread thDown = lauchktLossDownRunnable(param, inetAddrDest);
                         //launch lat&jitter test up/down
                         launchLatDownRunnable(param, inetAddrDest);
                     } else {
@@ -113,29 +107,33 @@ public class Cc {
             resmsg = TrfBo.MSG_CONN_TO;
             resultmsgjlabel.setText(resmsg);
         }
+        resultmsgjlabel.setText(TrfBo.M_FIN);
     }
 
-    public void launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+    public Thread launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         System.out.println("launchTrafficUp::success, begin of sending packets");
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
         trfDgmUThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
-        //trfDgmUThread.join();
+       return trfDgmUThread;
     }
 
-    public void lauchktLossDownRunnable(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
+    public Thread lauchktLossDownRunnable(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
         int portsrc = Integer.valueOf(param.getPortrfD());
         int portdest = Integer.valueOf(param.getPortrfD());
         TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, 0);
         Thread trfDgmDThread = new Thread(trfDgmD);
         trfDgmDThread.start();
+        //trfDgmDThread.join();
+        return trfDgmDThread;
     }
     public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         int portsrc = Integer.valueOf(param.getPortlat());
         int portdest = Integer.valueOf(param.getPortlat());
         LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
         Thread latrunThread = new Thread(latDrun);
+        latrunThread.setPriority(8);
         latrunThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
         //latrunThread.join();

@@ -47,15 +47,10 @@ public class TrfDgmRunnableIn implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("TrfDgmRunnableIn:: Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostup is < 0 then didn't completed
             float packetlossup = handleClienttraffic();
-            /*
-             release the port
-             */
-            System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
-            trfdao.updateOnePortStatus(portsrc, "f");
-            //todo: insert test record: testId,pktLossUp
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -73,6 +68,7 @@ public class TrfDgmRunnableIn implements Runnable {
      */
     private synchronized float handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
+        String testid = param.getTstid();
         float packetlostup = -1;
         int timelength = Integer.valueOf(param.getTimelength());
         /*
@@ -97,7 +93,7 @@ public class TrfDgmRunnableIn implements Runnable {
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
-                System.out.println("TrfDgmRunnableIn: received pktnum" + count);
+                //System.out.println("TrfDgmRunnableIn: received pktnum" + count);
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEnd = System.currentTimeMillis();
                 long tDelta = tEnd - tStart;
@@ -128,7 +124,13 @@ public class TrfDgmRunnableIn implements Runnable {
         } finally {
             System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
             dgmsocket.close();
-            //todo insert the end time of test: testId, end time
+            //release the port
+            System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
+            trfdao.updateOnePortStatus(portsrc, "f");
+            //insert test record: testId,pktLossUp
+            trfdao.updateTestPacketLostUp(testid, packetlostup);//todo insert the end time of test: testId, end time
+            System.out.println("TrfDgmRunnable:receivingPkts:inserting the endtime of test: testId, end time]..");
+            trfdao.updateTestEndTime(testid);
         }
         return packetlostup;
     }

@@ -103,11 +103,10 @@ public class ClientSignTcpConnection implements Runnable {
                         //todo: insert test record: testId, clientIp, codec, test-length, starttime
                         if (portReserved) {
                             out.write("ACK");
+                            //record the test
+                            trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
                             //launch receive and send threads
                             launchTrafficPktLoss(param);
-//                            launchTrafficOut(param);
-//                            String pktlossup = getPktLossUp(param);
-//                            System.out.println("traffic TCPServer pktlossup="+pktlossup);
                             //lauching latency test
                             launchLatUp(param);
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
@@ -151,9 +150,9 @@ public class ClientSignTcpConnection implements Runnable {
         }
     }
     /*
-     launchListeningPoints():
-     launch the listening Dgms socket which listen on portTrf and portLat
-     start receiving paquets
+     launchTrafficPktLoss():
+     launch the listening Dgms socket which listen on portTrf
+     start receiving paquets and computes paquet loss
      sending paquets
      */
 
@@ -174,6 +173,22 @@ public class ClientSignTcpConnection implements Runnable {
         TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrcOutChannel, portdestOutChannel, clientID);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
+        
+        //join
+        //trfDgmThreadIn.join();
+        //trfDgmThreadOut.join();
+    }
+    /*
+    launch latency test thread
+    */
+        public void launchLatUp(Param param) throws UnknownHostException, IOException, InterruptedException {
+        InetAddress addressDest = clientSocket.getInetAddress();
+        int portsrc = Integer.valueOf(param.getPortlat());
+        int portdest = Integer.valueOf(param.getPortlat());
+        LatRunnable lat = new LatRunnable(param, addressDest, portsrc, portdest, 0);
+        Thread latTh = new Thread(lat);
+        //latTh.setPriority(6);
+        latTh.start();
     }
 
 //    public void launchTrafficOut(Param param) throws UnknownHostException, IOException, InterruptedException {
@@ -203,14 +218,5 @@ public class ClientSignTcpConnection implements Runnable {
 //        }
 //        return pktLlossDown;
 //    }
-
-    public void launchLatUp(Param param) throws UnknownHostException, IOException, InterruptedException {
-        InetAddress addressDest = clientSocket.getInetAddress();
-        int portsrc = Integer.valueOf(param.getPortlat());
-        int portdest = Integer.valueOf(param.getPortlat());
-        LatRunnable lat = new LatRunnable(param, addressDest, portsrc, portdest, 0);
-        Thread latTh = new Thread(lat);
-        latTh.start();
-    }
 
 }

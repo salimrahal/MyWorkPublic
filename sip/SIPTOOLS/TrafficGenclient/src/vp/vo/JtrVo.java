@@ -11,8 +11,8 @@ package vp.vo;
  */
 public class JtrVo {
 
-    long peak;
-    long avg;
+    long peak = -1;
+    long avg = -1;
 
     public JtrVo(long peak, long avg) {
         this.peak = peak;
