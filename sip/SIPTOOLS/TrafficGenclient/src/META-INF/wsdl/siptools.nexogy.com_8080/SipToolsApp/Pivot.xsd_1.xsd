@@ -69,15 +69,15 @@
 <xs:element name="dolatav" type="xs:int"/>
 <xs:element name="dolatpeak" type="xs:int"/>
 <xs:element name="dopkloss" type="xs:float"/>
-<xs:element name="etime" type="xs:dateTime" minOccurs="0"/>
 <xs:element name="puip" type="xs:string" minOccurs="0"/>
-<xs:element name="stime" type="xs:dateTime" minOccurs="0"/>
 <xs:element name="tlth" type="xs:int"/>
 <xs:element name="upjtav" type="xs:int"/>
 <xs:element name="upjtpeak" type="xs:int"/>
 <xs:element name="uplatav" type="xs:int"/>
 <xs:element name="uplatpeak" type="xs:int"/>
 <xs:element name="uppkloss" type="xs:float"/>
+<xs:element name="eDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="sDate" type="xs:dateTime" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

@@ -72,6 +72,7 @@ public class TestDao {
         return res;
     }
 //http://stackoverflow.com/questions/7875196/mysql-datetime-not-returning-time
+
     public ResVo getRes(String testId) throws Exception {
         String x = gety(x1);
         String k = getz(x, StaticVar.k1);
@@ -91,8 +92,8 @@ public class TestDao {
             rs = preparedStatement.executeQuery();
             if (rs.first()) {
                 res = new ResVo(rs.getString("customerName"), rs.getString("publicIp"), rs.getString("codec"), rs.getInt("testLength"));
-                res.setStime(new java.util.Date(rs.getTime("startTime").getTime()));
-                res.setEtime(rs.getDate("endTime"));
+                res.setsDate(new java.util.Date(rs.getTimestamp("startTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
+                res.seteDate(new java.util.Date(rs.getTimestamp("endTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
                 res.setUppkloss(rs.getFloat("uploadPacketLost"));
                 res.setUplatpeak(rs.getInt("uploadLatencyPeak"));
                 res.setUplatav(rs.getInt("uploadLatencyAvg"));
@@ -103,8 +104,8 @@ public class TestDao {
                 res.setDolatav(rs.getInt("downloadLatencyAvg"));
                 res.setDojtpeak(rs.getInt("downloadJitterPeak"));
                 res.setDojtav(rs.getInt("downloadJitterAvg"));
-            }else{
-                   System.out.println("Error: getRes:: Query:" + query + ", test_id has no record!");
+            } else {
+                System.out.println("Error: getRes:: Query:" + query + ", test_id has no record!");
             }
         }
         return res;

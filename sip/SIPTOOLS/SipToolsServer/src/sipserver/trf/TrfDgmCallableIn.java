@@ -110,7 +110,6 @@ public class TrfDgmCallableIn implements Callable<String> {
         } finally {
             System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
             dgmsocket.close();
-            //todo insert the end time of test: testId, end time
         }
         return packetlostup;
     }
@@ -128,7 +127,6 @@ public class TrfDgmCallableIn implements Callable<String> {
              */
             System.out.println("TrfDgmCallableIn::releasing port:" + portsrc);
             trfdao.updateOnePortStatus(portsrc, "f");
-            //todo: insert test record: testId,pktLossUp
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmCallableIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

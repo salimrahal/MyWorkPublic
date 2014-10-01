@@ -54,6 +54,7 @@ public class TrfDmgRunnableD implements Runnable {
             System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
             WSBo.savePLD(param.getTstid(), packetlostdown);
             System.out.println("TrfDmgRunnableD: finish ws call");
+            //todo call an outside function to retreive the final results
         } catch (IOException ex) {
             Logger.getLogger(TrfDmgRunnableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {

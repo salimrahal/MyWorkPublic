@@ -12,6 +12,7 @@ import bo.TrfBo;
 import bo.TrfDgmRunnableU;
 import bo.TrfDmgRunnableD;
 import bo.WSBo;
+import bo.WsBoRes;
 import com.safirasoft.IOException_Exception;
 import com.safirasoft.ParserConfigurationException_Exception;
 import com.safirasoft.PrtMiscVo;
@@ -56,7 +57,7 @@ public class Cc {
                 String porttrfD = miscPortObj.getPrtTrfNumDown();
                 String portSig = miscPortObj.getPrtSigNum();
                 //portlat = "null";
-                System.out.println("ws results= miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
+                System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
                     resultmsgjlabel.setText(bo.TrfBo.M_PRT_B);
                 } else {
@@ -84,11 +85,19 @@ public class Cc {
                         param.setCustname(custnmparam);
                         InetAddress inetAddrDest = InetAddress.getByName(srip);                        
 
+                        
+                        //launch lat&jitter test up/down
+                        launchLatDownRunnable(param, inetAddrDest);
                         //4- launch up packet lost test: sending/receiving packets
                         Thread thUp = launchTrafficUp(param, inetAddrDest);
                         Thread thDown = lauchktLossDownRunnable(param, inetAddrDest);
-                        //launch lat&jitter test up/down
-                        launchLatDownRunnable(param, inetAddrDest);
+                        //System.out.println("lauchktLossDownRunnable join() started");
+                        //thDown.join();
+                       // System.out.println("Thread:"+Thread.currentThread().getName()+" waiting..");
+                        int timelength = 1000*Integer.valueOf(param.getTimelength());
+                        //Thread.currentThread().wait(timelength);
+                       // System.out.println("Thread:"+Thread.currentThread().getName()+" finish wait");
+                      WsBoRes.getRs(testUuid);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                     }
@@ -136,8 +145,7 @@ public class Cc {
         latrunThread.setPriority(8);
         latrunThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
-        //latrunThread.join();
-
+        latrunThread.join();
     }
   
 

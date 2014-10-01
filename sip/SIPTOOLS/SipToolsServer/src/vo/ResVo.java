@@ -175,4 +175,11 @@ public class ResVo {
         this.eDate = eDate;
     }
 
+    @Override
+    public String toString() {
+        return "ResVo{" + "cnme=" + cnme + ", puip=" + puip + ", cdc=" + cdc + ", tlth=" + tlth + ", sDate=" + sDate + ", eDate=" + eDate + ", uppkloss=" + uppkloss + ", uplatpeak=" + uplatpeak + ", uplatav=" + uplatav + ", upjtpeak=" + upjtpeak + ", upjtav=" + upjtav + ", dopkloss=" + dopkloss + ", dolatpeak=" + dolatpeak + ", dolatav=" + dolatav + ", dojtpeak=" + dojtpeak + ", dojtav=" + dojtav + '}';
+    }
+
+  
+
 }

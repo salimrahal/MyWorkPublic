@@ -100,7 +100,6 @@ public class ClientSignTcpConnection implements Runnable {
                         ports[2] = porttrfClientdown;
                         //update the port status in DB f->b
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
-                        //todo: insert test record: testId, clientIp, codec, test-length, starttime
                         if (portReserved) {
                             out.write("ACK");
                             //record the test

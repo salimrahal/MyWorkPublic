@@ -83,12 +83,12 @@ public class TrfDgmRunnableOut implements Runnable {
             dgmsocket.send(outgoingPacketLocal);
             sendingPkts(codec, timelength, addressDest, portDest);
         } catch (SocketTimeoutException se) {
-            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage());
+            //release the port here in case there is a time out exception
+            boolean released = trfdao.updateOnePortStatus(this.portsrc, "f");
+            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage()+"/releasing the port="+released);
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
         }
-
     }
 
     public void sendingPkts(String codec, int timelength, InetAddress inetAddrInco, int portInco) throws IOException, InterruptedException {

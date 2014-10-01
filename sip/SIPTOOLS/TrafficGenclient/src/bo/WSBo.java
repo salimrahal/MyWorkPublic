@@ -12,7 +12,9 @@ import com.safirasoft.ParserConfigurationException_Exception;
 import com.safirasoft.PrtMiscVo;
 import com.safirasoft.PrtStsVo;
 import com.safirasoft.PrtStstVoList;
+import com.safirasoft.ResVo;
 import com.safirasoft.SAXException_Exception;
+import com.sun.org.apache.xml.internal.utils.ThreadControllerWrapper;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -59,6 +61,5 @@ public class WSBo {
         com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
         com.safirasoft.Pivot port = service.getPivotPort();
         return port.svLJD(ti, latdwnpk, latdwnav, jitdwpk, jitdwav);
-    }
-    
+    }  
 }
