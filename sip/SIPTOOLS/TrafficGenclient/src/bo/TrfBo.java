@@ -6,6 +6,7 @@
 package bo;
 
 import static bo.Networking.getLocalIpAddress;
+import com.safirasoft.ResVo;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
@@ -28,8 +29,8 @@ import vp.vo.PktVo;
 public class TrfBo {
 
     public static final String M_PR = "in progress..";
-    public static final String M_FIN = "finished";
-    
+    public static final String M_FIN = "completed";
+
     public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";
     public static final String M_NC = "Could not connect to the server! ";
@@ -53,6 +54,7 @@ public class TrfBo {
     private static byte[] bs = new byte[]{104, 116, 116, 112, 58, 47, 47, 115, 105, 112, 116, 111, 111, 108, 115, 46, 110, 101, 120, 111, 103, 121, 46, 99, 111, 109};
     private static byte[] b0 = new byte[]{56, 48, 56, 48};
     private static byte[] b1 = new byte[]{47, 83, 105, 112, 84, 111, 111, 108, 115, 65, 112, 112, 47, 80, 105, 118, 111, 116};
+    private final static String newline = "\r\n";
 
     public List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
@@ -118,5 +120,30 @@ public class TrfBo {
         String res = null;
         res = btS(bs) + ":" + btS(b0) + btS(b1);
         return res;
+    }
+
+    /*
+     Jitter: you --> server: peak: 109.9 ms; average: 80 ms
+     Jitter: server --> you: peak: 19 ms; average: 17 ms
+
+     Latency: you --> server: peak: 10 ms; average: 8 ms
+     Latency: server --> you:  peak: 15 ms; average: 9 ms
+
+     Packet loss: you --> server: 56.6 %
+     Packet loss: server --> you: 19.6 %
+ 
+     */
+    public void renderResults(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your Public IP address: ").append(resvo.getPuip()).append(newline);
+        sb.append(newline);
+        sb.append("Packet loss: you --> server: ").append(resvo.getUppkloss()).append("%").append(newline);
+        sb.append("Packet loss: server --> you: ").append(resvo.getDopkloss()).append("%").append(newline);
+        sb.append("Jitter: you --> server: Peak: ").append(resvo.getUpjtpeak()).append("ms; average: ").append(resvo.getUpjtav()).append("ms").append(newline);
+        sb.append("Jitter: server --> you: Peak: ").append(resvo.getDojtpeak()).append("ms; average: ").append(resvo.getDojtav()).append("ms").append(newline);
+        sb.append("Latency: you --> server: Peak: ").append(resvo.getUplatpeak()).append("ms; average: ").append(resvo.getUplatav()).append("ms").append(newline);
+        sb.append("Latency: server --> you: Peak: ").append(resvo.getDolatpeak()).append("ms; average: ").append(resvo.getDolatav()).append("ms").append(newline);
+
+        testStatTextArea.setText(sb.toString());
     }
 }

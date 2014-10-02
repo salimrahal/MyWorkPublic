@@ -29,42 +29,44 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="runTestButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="reset" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel1" min="-2" pref="61" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="codecComboBox1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="timelengthjComboBox" min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="resultmsgjlabel" min="-2" pref="354" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jProgressBar1" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace pref="92" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel26" min="-2" pref="77" max="-2" attributes="0"/>
+                                  <Component id="resultmsgjlabel" min="-2" pref="342" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="264" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
-                      <Component id="jLabel26" min="-2" pref="77" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="runTestButton" min="-2" pref="112" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="reset" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,25 +79,29 @@
                   <Group type="102" attributes="0">
                       <Component id="resultmsgjlabel" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codecComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="timelengthjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="codecComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="timelengthjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="runTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="285" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="174" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="285" max="-2" attributes="0"/>
+              <EmptySpace pref="173" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -170,8 +176,11 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#xa;Jitter: you --&gt; server: peak: 109.9 ms; average: 80 ms&#xa;Jitter: server --&gt; you: peak: 19 ms; average: 17 ms&#xa;&#xa;Latency: you --&gt; server: peak: 10 ms; average: 8 ms&#xa;Latency: server --&gt; you:  peak: 15 ms; average: 9 ms&#xa;&#xa;Packet loss: you --&gt; server: 56.6 %&#xa;Packet loss: server --&gt; you: 19.6 %&#xa;"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Ubuntu" size="15" style="0"/>
+            </Property>
+            <Property name="rows" type="int" value="10"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

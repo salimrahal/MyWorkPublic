@@ -6,6 +6,7 @@
 package bo;
 
 import bn.Param;
+import com.safirasoft.ResVo;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -33,28 +34,33 @@ public class TrfDmgRunnableD implements Runnable {
     Integer portDest;
     Param param;
     TrfBo trfBo;
+    WsRes wsres;
 
-    public TrfDmgRunnableD(Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws SocketException {
+    public TrfDmgRunnableD(Param param, InetAddress addressDest, int portsrc, int portdest,WsRes wsres, int clientID) throws SocketException {
         this.param = param;
         this.clientID = clientID;
         this.addressDest = addressDest;
         this.portsrc = portsrc;
         this.portDest = portdest;
-        trfBo = new TrfBo();
         dgmsocket = new DatagramSocket(this.portsrc);
+        trfBo = new TrfBo();
+        this.wsres = wsres;
     }
 
     @Override
     public void run() {
         String pktLoss = null;
-             System.out.println("TrfDmgRunnableD:: Priority="+Thread.currentThread().getPriority());
+        System.out.println("TrfDmgRunnableD:: Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
             System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
             WSBo.savePLD(param.getTstid(), packetlostdown);
-            System.out.println("TrfDmgRunnableD: finish ws call");
-            //todo call an outside function to retreive the final results
+            System.out.println("TrfDmgRunnableD: finish ws call: saving pkt loss down");
+            // call an outside function to retreive the final results
+             System.out.println("TrfDmgRunnableD: call ws: final results");
+            ResVo resVo = wsres.retreiveResbyWS(param.getTstid());
+            wsres.putRes(resVo);
         } catch (IOException ex) {
             Logger.getLogger(TrfDmgRunnableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {

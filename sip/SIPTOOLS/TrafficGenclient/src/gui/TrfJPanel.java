@@ -6,6 +6,7 @@
 package gui;
 
 import bo.TrfBo;
+import com.safirasoft.ResVo;
 import cr.Cc;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -103,8 +104,9 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         testStatTextArea.setEditable(false);
         testStatTextArea.setColumns(20);
-        testStatTextArea.setRows(5);
-        testStatTextArea.setText("\nJitter: you --> server: peak: 109.9 ms; average: 80 ms\nJitter: server --> you: peak: 19 ms; average: 17 ms\n\nLatency: you --> server: peak: 10 ms; average: 8 ms\nLatency: server --> you:  peak: 15 ms; average: 9 ms\n\nPacket loss: you --> server: 56.6 %\nPacket loss: server --> you: 19.6 %\n");
+        testStatTextArea.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        testStatTextArea.setRows(10);
+        testStatTextArea.setToolTipText("");
         jScrollPane1.setViewportView(testStatTextArea);
 
         codecComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "G.711 (87.2 Kbps)", "G.722 (80 kbps)", "G.729 (31.2 Kbps)", "ILBC (27.7 kbps)", "SILK (178,5 kbps) " }));
@@ -123,34 +125,35 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(runTestButton)
-                                .addGap(28, 28, 28)
-                                .addComponent(reset))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(6, 6, 6)
                                 .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(reset))
+                        .addGap(240, 240, 240))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,21 +164,23 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(runTestButton)
-                            .addComponent(reset))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(5, 5, 5)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(reset)))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -191,11 +196,12 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         tk.execute();
         //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
         jProgressBar1.setValue(0);
+        testStatTextArea.setText(TrfBo.M_PR);
     }//GEN-LAST:event_runTestButtonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-
-
+        testStatTextArea.setText("");
+        resultmsgjlabel.setText("");
     }//GEN-LAST:event_resetActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
@@ -279,7 +285,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         //System.out.println("timelength=" + timeLength);
         runTestButton.setEnabled(false);
         reset.setEnabled(false);
-        cc.launchtest(codec, timeLength, custnm);
+        ResVo resvo = cc.launchtest(codec, timeLength, custnm);
+        if (resvo != null) {
+            trfBo.renderResults(testStatTextArea, resvo);
+        }
         return null;
     }
 
