@@ -50,9 +50,10 @@ public class LatRunnable implements Runnable {
         dgmsocket = new DatagramSocket(this.portsrc);
         trfdao = new TrfDao();
     }
-     @Override
+
+    @Override
     public void run() {
-             System.out.println("LatRunnable:: Priority="+Thread.currentThread().getPriority());
+        System.out.println("LatRunnable:: Priority=" + Thread.currentThread().getPriority());
         try {
             LatVo latvoUp = handleLat();
             //set the used port to free
@@ -119,9 +120,9 @@ public class LatRunnable implements Runnable {
             int countLoop2 = 1;
             System.out.println("LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
             /*increase timeout: this is a multthreaded App, increasing this value may prevent a timeout exception 
-            in case the JVM will prioritize another thread to be executed first, such as packet lost test.
-            */
-                    int localtimelength = timelength + timelength/3;
+             in case the JVM will prioritize another thread to be executed first, such as packet lost test.
+             */
+            int localtimelength = timelength + timelength / 3;
             dgmsocket.setSoTimeout((localtimelength) * 1000);//
             do {
                 dgmsocket.receive(incomingPacket);
@@ -136,7 +137,7 @@ public class LatRunnable implements Runnable {
                     countLoop2++;
                 } else {
                     System.out.println("phase c(listen) an WARNING! the pkt with id=" + countLoop2 + " doesnt exists in the Pkt Map, some pkt are lost. breaking the listeing loop.");
-                     morepacketToRecv = false;
+                    morepacketToRecv = false;
                 }
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEndLoopS = System.nanoTime();
@@ -164,12 +165,15 @@ public class LatRunnable implements Runnable {
             latvoUp = VpMethds.computeLatJitV2(pktL);
             //concer to ms the results
             VpMethds.cvLat(latvoUp);
-            System.out.println("LatRunnable:handlelat:Result:" + latvoUp.toString());
+            if (latvoUp == null) {
+                System.out.println("LatRunnable:handlelat:Result:latency is null!");
+            } else {
+                System.out.println("LatRunnable:handlelat:Result:" + latvoUp.toString());
+            }
             System.out.println("LatRunnable:handlelat:closing the socket..");
             dgmsocket.close();
         }
         return latvoUp;
     }
 
-   
 }

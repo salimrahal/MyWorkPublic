@@ -15,6 +15,7 @@ public class LatVo {
     long[] latArr;
     JtrVo jitterObj;
 
+    
     public LatVo(long peak, long avg) {
         this.peak = peak;
         this.avg = avg;
