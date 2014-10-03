@@ -106,7 +106,12 @@ public class TrfDgmRunnableIn implements Runnable {
                 }
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-            if (count > 0) {
+           
+
+        } catch (SocketTimeoutException se) {
+            System.out.println("Error:TrfDgmRunnableIn::waiting to recev the flag:" + se.getMessage());
+        } finally {
+             if (count > 0) {
                 System.out.println("received pkt: total received count=" + count);
                 /*
                  computes the packet lost/down 
@@ -114,14 +119,9 @@ public class TrfDgmRunnableIn implements Runnable {
                 packetlostup = VpMethds.computePktLossByCodec(count, pps, timelength);
                 System.out.println("packetlossUp=" + packetlostup);
                 System.out.println("receivingPkts:finish receiving function.");
-
             } else {
                 System.out.println("TrfDgmRunnable:receivingPkts:Something goes wrong nothing is received count=" + count);
             }
-
-        } catch (SocketTimeoutException se) {
-            System.out.println("Error:TrfDgmRunnableIn::waiting to recev the flag:" + se.getMessage());
-        } finally {
             System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
             dgmsocket.close();
             //release the port

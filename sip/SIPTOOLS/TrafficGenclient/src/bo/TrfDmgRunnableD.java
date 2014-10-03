@@ -99,7 +99,7 @@ public class TrfDmgRunnableD implements Runnable {
         try {
             //set the timeout for the flag 
             dgmsocket.setSoTimeout(timelength * 1000);
-            //todo: register the begin time
+            //register the begin time
             dgmsocket.receive(incomingPacketFlag);
             System.out.println("TrfDmgRunnableD::handleClienttraffic::flag received");
             //increase the timeout  
@@ -121,7 +121,10 @@ public class TrfDmgRunnableD implements Runnable {
                     morepacket = false;
                 }
             } while (morepacket);
-            if (count > 0) {
+        } catch (SocketTimeoutException se) {
+            System.out.println("Error:TrfDmgRunnableD::waiting to recev the flag:" + se.getMessage());
+        } finally {
+             if (count > 0) {
                 System.out.println("received pkt: total received count=" + count);
                 /*
                  computes the packet lost/down 
@@ -133,10 +136,6 @@ public class TrfDmgRunnableD implements Runnable {
             } else {
                 System.out.println("TrfDmgRunnableD:receivingPkts:Something goes wrong nothing is received count=" + count);
             }
-
-        } catch (SocketTimeoutException se) {
-            System.out.println("Error:TrfDmgRunnableD::waiting to recev the flag:" + se.getMessage());
-        } finally {
             System.out.println("TrfDmgRunnableD:receivingPkts:closing the socket..");
             dgmsocket.close();
         }

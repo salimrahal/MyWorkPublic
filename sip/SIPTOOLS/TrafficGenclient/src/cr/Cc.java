@@ -61,7 +61,7 @@ public class Cc {
                 //portlat = "null";
                 System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
-                    resultmsgjlabel.setText(bo.TrfBo.M_PRT_B);
+                    trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
                 } else {
                     //sr ip
                     String srip = null;
@@ -98,26 +98,27 @@ public class Cc {
                         //Thread.currentThread().wait(timelength);
                         // System.out.println("Thread:"+Thread.currentThread().getName()+" finish wait");
 
-                       resvo = wsres.getRes();
+                        resvo = wsres.getRes();
+                        resultmsgjlabel.setText(TrfBo.M_FIN);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
+                        trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB);
                     }
                 }//end of else
-            }//end of if
+            }//end of if ws ok
             else {
                 resmsg = TrfBo.M_NC;
-                resultmsgjlabel.setText(resmsg);
+                trfBo.setresultmessage(resultmsgjlabel, resmsg);
             }
         } catch (UnknownHostException ex) {
             resmsg = TrfBo.M_NC;
-            resultmsgjlabel.setText(resmsg);
+            trfBo.setresultmessage(resultmsgjlabel, resmsg);
         } catch (ParserConfigurationException_Exception | IOException_Exception | SAXException_Exception ex) {
             Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ConnectException conex) {
             resmsg = TrfBo.MSG_CONN_TO;
-            resultmsgjlabel.setText(resmsg);
+            trfBo.setresultmessage(resultmsgjlabel, resmsg);
         }
-        resultmsgjlabel.setText(TrfBo.M_FIN);
         return resvo;
     }
 

@@ -48,11 +48,8 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace pref="92" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel26" min="-2" pref="77" max="-2" attributes="0"/>
-                                  <Component id="resultmsgjlabel" min="-2" pref="342" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace pref="284" max="32767" attributes="0"/>
+                              <Component id="resultmsgjlabel" min="-2" pref="342" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -67,6 +64,11 @@
                       <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
+              <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -146,7 +148,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Ubuntu" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="VoIP test"/>
+        <Property name="text" type="java.lang.String" value="VoIP test - Traffic generator"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="reset">
@@ -214,11 +216,10 @@
     <Component class="javax.swing.JComboBox" name="timelengthjComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="3">
             <StringItem index="0" value="15"/>
             <StringItem index="1" value="30"/>
             <StringItem index="2" value="60"/>
-            <StringItem index="3" value="120"/>
           </StringArray>
         </Property>
       </Properties>

@@ -91,7 +91,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jLabel26.setBackground(new java.awt.Color(230, 137, 45));
         jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
-        jLabel26.setText("VoIP test");
+        jLabel26.setText("VoIP test - Traffic generator");
 
         reset.setText("Reset");
         reset.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jLabel2.setText("Time for the test (secs):");
 
-        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "120" }));
+        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60" }));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("VoIP test statistics");
@@ -142,10 +142,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                 .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                                .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,6 +152,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                             .addComponent(jLabel3)
                             .addComponent(reset))
                         .addGap(240, 240, 240))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(202, 202, 202)
+                .addComponent(jLabel26)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,6 +290,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         ResVo resvo = cc.launchtest(codec, timeLength, custnm);
         if (resvo != null) {
             trfBo.renderResults(testStatTextArea, resvo);
+            if (trfBo.isES(resvo)) {
+                trfBo.setresultmessage(resultmsgjlabel, TrfBo.M_U_T);
+            }
+
         }
         return null;
     }
