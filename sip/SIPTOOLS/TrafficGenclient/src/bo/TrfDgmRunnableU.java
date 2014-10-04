@@ -48,7 +48,7 @@ public class TrfDgmRunnableU implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("TrfDgmRunnableU:: Priority="+Thread.currentThread().getPriority());
+            System.out.println("TrfDgmRunnableU:: Priority=" + Thread.currentThread().getPriority());
             handleClienttraffic();
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,19 +62,35 @@ public class TrfDgmRunnableU implements Runnable {
     private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-        /*
-         1- receive the flag packet from the server
+        /* 1- receive the flag packet from the client
          2- extract the addressInco and portInco
          3- pass them to the sendpacket function
          */
-            try {
+        byte[] buf = new byte[8];
+        DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
+        System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+
+        try {
+            dgmsocket.setSoTimeout(TrfBo.P_MX_D);
+            dgmsocket.receive(incomingPacketLocal);
+            System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
+            InetAddress inetAddrInco = incomingPacketLocal.getAddress();
+            int portInco = incomingPacketLocal.getPort();
+            DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
+            System.out.println("TrfDgmRunnableU:handleClienttraffic:sending back the flag packet");
+            dgmsocket.send(outgoingPacketLocal);
             //it sends the packets
             // close the connection or socket
+            System.out.println("TrfDgmRunnableU: launchTrafficUp::success, begin of sending packets");
             sendingPkts(codec, timelength);
         } catch (SocketTimeoutException se) {
             System.out.println("TrfDgmRunnableU::Error:receiving flag::" + se.getMessage());
+            System.out.println("TrfDgmRunnableU:in Catch...:closing the socket..");
+            dgmsocket.close();
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("TrfDgmRunnableU:in Catch...:closing the socket..");
+            dgmsocket.close();
         }
     }
 

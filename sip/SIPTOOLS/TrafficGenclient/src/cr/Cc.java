@@ -123,7 +123,6 @@ public class Cc {
     }
 
     public Thread launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        System.out.println("launchTrafficUp::success, begin of sending packets");
         TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
         Thread trfDgmUThread = new Thread(trfDgmU);
         trfDgmUThread.start();

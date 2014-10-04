@@ -81,14 +81,15 @@ class PacketControl {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
                 System.out.println("sending is finished / cancled= " + res + "--- total packet sent =" + count);
-                System.out.println("PacketControl:sndPktForAnGivenTime: closing the DG socket.. ");
-                dgmsocket.close();
-                System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
                 try {
                     //realese Ports
                     System.out.println("PacketControl:sndPktForAnGivenTime: releasing porttrf Out " + portTrf + " result:" + trfdao.updateOnePortStatus(portTrf, "f"));
                 } catch (Exception ex) {
                     Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    System.out.println("PacketControl:sndPktForAnGivenTime: closing the DG socket.. ");
+                    dgmsocket.close();
+                    System.out.println("PacketControl:sndPktForAnGivenTime: the socket is closed. ");
                 }
             }
         }, timeLength, SECONDS);

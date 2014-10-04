@@ -56,9 +56,7 @@ public class TrfDgmRunnableIn implements Runnable {
         } catch (Exception ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
     /*
      it receives and computes packet loss of the incoming packets from the client as follows:
      1- send a flag that indicates the start of this session
@@ -66,6 +64,7 @@ public class TrfDgmRunnableIn implements Runnable {
      3- once received so it's start to listen to the other side packets
      4-computes the packet loss
      */
+
     private synchronized float handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         String testid = param.getTstid();
@@ -82,14 +81,32 @@ public class TrfDgmRunnableIn implements Runnable {
         int pps = CdcVo.returnPPSbyCodec(codec);
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
-
         //send a flag packet to the server before start receiving
+        //send a flag packet to the server before start receiving
+        byte[] bufFlag = new byte[8];
+        int flagsNum = 3;
+        boolean flagrcv = false;
+        double elapsedSeconds = 0;
+        DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
+        System.out.println("TrfDgmRunnableIn::handleClienttraffic::sending " + flagsNum + " flags packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
+        //send flag packet to server
+        for (int i = 0; i < flagsNum; i++) {
+            dgmsocket.send(outgoingPacketFlag);
+        }
+        System.out.println("TrfDgmRunnableIn::handleClienttraffic::waiting to recev the flag....");
         try {
+            dgmsocket.setSoTimeout(timelength * 1000);
+            //register the begin time
+            dgmsocket.receive(incomingPacketFlag);
+            System.out.println("TrfDgmRunnableIn::handleClienttraffic::flag received");
+            flagrcv = true;
+            //increase the timeout  
+            //dgmsocket.setSoTimeout(TrfBo.T_P);
             //increase the timeout  
             dgmsocket.setSoTimeout(timelength * 1000);//sometime the timeout fires before finishing the test in case where the client close his app while he is sending packets
             //: register the begin time
             long tStart = System.currentTimeMillis();
-            double elapsedSeconds;
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
@@ -106,13 +123,11 @@ public class TrfDgmRunnableIn implements Runnable {
                 }
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
-           
-
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:TrfDgmRunnableIn::waiting to recev the flag:" + se.getMessage());
+            System.out.println("Error:TrfDgmRunnableIn::waiting to recev pkts::" + se.getMessage()+"/ flag received = "+flagrcv);
         } finally {
-             if (count > 0) {
-                System.out.println("received pkt: total received count=" + count);
+            if (count > 0) {
+                System.out.println("TrfDgmRunnableIn: received pkt: total received count=" + count);
                 /*
                  computes the packet lost/down 
                  */
@@ -120,16 +135,16 @@ public class TrfDgmRunnableIn implements Runnable {
                 System.out.println("packetlossUp=" + packetlostup);
                 System.out.println("receivingPkts:finish receiving function.");
             } else {
-                System.out.println("TrfDgmRunnable:receivingPkts:Something goes wrong nothing is received count=" + count);
+                System.out.println("TrfDgmRunnableIn:receivingPkts:Something goes wrong nothing is received count=" + count);
             }
-            System.out.println("TrfDgmRunnable:receivingPkts:closing the socket..");
+            System.out.println("TrfDgmRunnableIn:receivingPkts:closing the socket..");
             dgmsocket.close();
             //release the port
             System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
             trfdao.updateOnePortStatus(portsrc, "f");
             //insert test record: testId,pktLossUp
             trfdao.updateTestPacketLostUp(testid, packetlostup);//todo insert the end time of test: testId, end time
-            System.out.println("TrfDgmRunnable:receivingPkts:inserting the endtime of test: testId, end time]..");
+            System.out.println("TrfDgmRunnableIn:receivingPkts:inserting the endtime of test: testId, end time]..");
             trfdao.updateTestEndTime(testid);
         }
         return packetlostup;

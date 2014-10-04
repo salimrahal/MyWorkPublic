@@ -85,12 +85,18 @@ public class TrfDgmRunnableOut implements Runnable {
         } catch (SocketTimeoutException se) {
             //release the port here in case there is a time out exception
             boolean released = trfdao.updateOnePortStatus(this.portsrc, "f");
-            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage()+"/releasing the port="+released);
+            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + se.getMessage() + "/releasing the port=" + portsrc + "/released=" + released);
+            System.out.println("TrfDgmRunnableOut:in Catch...:closing the socket..");
+            dgmsocket.close();
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
-              //release the port here in case there is a time out exception
+            //release the port here in case there is a time out exception
             boolean released = trfdao.updateOnePortStatus(this.portsrc, "f");
-            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + ex.getMessage()+"/releasing the port="+released);
+            System.out.println("TrfDgmRunnableOut::Error:receiving flag::" + ex.getMessage() + "/releasing the port=" + released);
+            System.out.println("TrfDgmRunnableOut:in Catch..:closing the socket..");
+            dgmsocket.close();
+        }finally{
+              System.out.println("TrfDgmRunnableOut:handleClienttraffic: finally clause");
         }
     }
 

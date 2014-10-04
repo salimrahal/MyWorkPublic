@@ -104,7 +104,7 @@ public class VpMethds {
             for (PktVo pktObj : pktL) {
                 latInst = pktObj.getRtt() / 2;
                 latArray[i] = (long) latInst;
-                System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
+                //System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
                 i++;
             }
             //computes lat peak/avg
@@ -144,7 +144,7 @@ public class VpMethds {
             long[] diffArr = new long[arrL - 1];
             for (int i = 0; i < arrL - 1; i++) {
                 diffArr[i] = Math.abs(latArr[i] - latArr[i + 1]);
-                System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
+                //System.out.println("computeJtr::lat1-lat2=jitter" + latArr[i] + "-" + latArr[i + 1] + "=" + diffArr[i]);
             }
 
             //computes peak/avg

@@ -63,7 +63,7 @@ class PacketControl {
 
     public boolean sndPktForAnGivenTime(String codec, int timeLength) {
         boolean res = false;
-        System.out.println("Sending packet:: start time= " + new Date());
+        System.out.println("sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
          System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
@@ -79,7 +79,7 @@ class PacketControl {
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
-                System.out.println("task is finished and cancled="+res+"--- total packet sent ="+count);
+                System.out.println("sndPktForAnGivenTime: task is finished and cancled="+res+"--- total packet sent ="+count);
                 dgmsocket.close();
             }
         }, timeLength, SECONDS);

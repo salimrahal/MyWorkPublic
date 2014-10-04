@@ -14,7 +14,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vp.bo.VpMethds;
@@ -68,6 +67,13 @@ public class TrfDmgRunnableD implements Runnable {
         }
     }
 
+    /*
+    1- it sends flags packets to the server
+    2- still blocked until it receives a packet back
+    3- start receiving other packets by looping on receive() function
+    4- break the loop once it achieves the timelength limit
+    5- it computes the packet lost Down
+    */
     private synchronized float handleClienttraffic() throws IOException, InterruptedException {
         String codec = param.getCodec();
         float packetlostdown = -1;
@@ -88,6 +94,7 @@ public class TrfDmgRunnableD implements Runnable {
         //send a flag packet to the server before start receiving
         byte[] bufFlag = new byte[8];
         int flagsNum = 3;
+        double elapsedSeconds = 0;
         DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
         System.out.println("TrfDmgRunnableD::handleClienttraffic::sending " + flagsNum + " flags packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
@@ -109,12 +116,11 @@ public class TrfDmgRunnableD implements Runnable {
             do {
                 dgmsocket.receive(incomingPacketLocal);
                 count++;
-                System.out.println("received pktnum" + count);
+                //System.out.println("received pktnum" + count);
                 //check the elapsed time whether is greate than test time length then break the test
                 long tEnd = System.currentTimeMillis();
                 long tDelta = tEnd - tStart;
-                double elapsedSeconds = tDelta / 1000.0;
-                System.out.println("TrfDmgRunnableD::handleClienttraffic:time elapsed:" + elapsedSeconds + " sec");
+                elapsedSeconds = tDelta / 1000.0;
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
                 if (elapsedSeconds >= timelength) {
                     System.out.println("TrfDmgRunnableD::handleClienttraffic:elapsed time:" + elapsedSeconds + " exceeded test time:" + timelength + ". finish the listening.");
@@ -124,8 +130,9 @@ public class TrfDmgRunnableD implements Runnable {
         } catch (SocketTimeoutException se) {
             System.out.println("Error:TrfDmgRunnableD::waiting to recev the flag:" + se.getMessage());
         } finally {
+            System.out.println("TrfDmgRunnableD::handleClienttraffic:time elapsed:" + elapsedSeconds + " sec");
              if (count > 0) {
-                System.out.println("received pkt: total received count=" + count);
+                System.out.println("TrfDmgRunnableD::handleClienttraffic:received pkt: total received count=" + count);
                 /*
                  computes the packet lost/down 
                  */
