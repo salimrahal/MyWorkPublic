@@ -67,7 +67,7 @@ public class TrfDao {
                 res = false;
                 System.out.println("Error: updatePortStatus:" + query + " returns zero, no row updated!");
             }
-            System.out.println("update return=" + i);
+            System.out.println("updatePortStatus:update return=" + i);
         }
         return res;
     }

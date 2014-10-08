@@ -35,9 +35,8 @@ public class TrfDgmRunnableOut implements Runnable {
     Param param;
     TrfDao trfdao;
 
-    public TrfDgmRunnableOut(Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
+    public TrfDgmRunnableOut(Param param, InetAddress addressDest, int portsrc, int portDest) throws IOException {
         this.param = param;
-        this.clientID = clientID;
         this.addressDest = addressDest;
         this.portsrc = portsrc;
         this.portDest = portDest;
@@ -138,7 +137,7 @@ public class TrfDgmRunnableOut implements Runnable {
         int portdest = 5108;
         InetAddress inetaddressDest = InetAddress.getByName(destAddress);
         //run the thread that sends the traffic
-        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param2, inetaddressDest, portsrc, portdest, 0);
+        TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param2, inetaddressDest, portsrc, portdest);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
     }

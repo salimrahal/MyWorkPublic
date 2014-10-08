@@ -71,9 +71,8 @@ public class Cc {
                     /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
                     //2- generate the x of the test
                     String testUuid = trfBo.genID();//size 36
-
-//3- send parameters
-                    cltcp = new ClTcp(portSig);
+                    //3- send parameters
+                    cltcp = new ClTcp(portSig, porttrfU, porttrfD);
                     boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
                     //Thread.currentThread().wait(TrfBo.D_S);
                     if (success) {
@@ -90,14 +89,8 @@ public class Cc {
                         //launch lat&jitter test up/down
                         launchLatDownRunnable(param, inetAddrDest);
                         //4- launch up packet lost test: sending/receiving packets
-                        Thread thUp = launchTrafficUp(param, inetAddrDest);
-                        Thread thDown = lauchktLossDownRunnable(param, inetAddrDest, wsres);
-                        //System.out.println("lauchktLossDownRunnable join() started");
-                        //thDown.join();
-                        // System.out.println("Thread:"+Thread.currentThread().getName()+" waiting..");
-                        //Thread.currentThread().wait(timelength);
-                        // System.out.println("Thread:"+Thread.currentThread().getName()+" finish wait");
-
+                        launchTrafficUp(param, inetAddrDest);
+                        lauchktLossDownRunnable(param, inetAddrDest, wsres);
                         resvo = wsres.getRes();
                         resultmsgjlabel.setText(TrfBo.M_FIN);
                     } else {
@@ -123,20 +116,46 @@ public class Cc {
     }
 
     public Thread launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
-        Thread trfDgmUThread = new Thread(trfDgmU);
-        trfDgmUThread.start();
-        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
+        String resmsg;
+        Thread trfDgmUThread = null;
+        try {
+            boolean successReqToServerTrfIn = cltcp.sendTrfReqToServerUp(TrfBo.getSrIp(), param.getPortrfU(), TrfBo.REQ_IN_KEY);
+            if (successReqToServerTrfIn) {
+                TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
+                trfDgmUThread = new Thread(trfDgmU);
+                trfDgmUThread.start();
+                //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
+            } else {
+                System.out.println("CC:launchTrafficUp: successReqToServerTrfIn: the result is false, cannot lauch the test of traffic Up.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+            resmsg = ex.getMessage();
+            trfBo.setresultmessage(resultmsgjlabel, resmsg);
+        }
         return trfDgmUThread;
     }
 
     public Thread lauchktLossDownRunnable(Param param, InetAddress addressDest, WsRes wsres) throws SocketException, InterruptedException {
-        int portsrc = Integer.valueOf(param.getPortrfD());
-        int portdest = Integer.valueOf(param.getPortrfD());
-        TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, wsres, 0);
-        Thread trfDgmDThread = new Thread(trfDgmD);
-        trfDgmDThread.start();
-        //trfDgmDThread.join();
+        String resmsg;
+        Thread trfDgmDThread = null;
+        try {
+            int portsrc = Integer.valueOf(param.getPortrfD());
+            int portdest = Integer.valueOf(param.getPortrfD());
+            boolean successReqToServerTrfOut = cltcp.sendTrfReqToServerDown(TrfBo.getSrIp(), param.getPortrfD(), TrfBo.REQ_OUT_KEY);
+            if (successReqToServerTrfOut) {
+                TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, wsres, 0);
+                trfDgmDThread = new Thread(trfDgmD);
+                trfDgmDThread.start();
+                //trfDgmDThread.join();
+            } else {
+                System.out.println("CC:lauchktLossDownRunnable: successReqToServerTrfOut: the result is false, cannot launch the test of traffic Out.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+            resmsg = ex.getMessage();
+            trfBo.setresultmessage(resultmsgjlabel, resmsg);
+        }
         return trfDgmDThread;
     }
 

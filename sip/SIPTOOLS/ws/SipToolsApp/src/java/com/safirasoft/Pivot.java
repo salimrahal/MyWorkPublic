@@ -50,22 +50,6 @@ public class Pivot {
         return "Hello " + txt + " !";
     }
 
-    /*
-     it returns port/status and server Ip address
-     */
-    @WebMethod(operationName = "getPrtSts")
-    public PrtStstVoList getPrtSts() throws ParserConfigurationException, SAXException, IOException {
-        /*
-         TODO: ws should extract port/status from DB instead of xml file
-         */
-        ConfVO confVo = ConfVO.getInstance();
-        saxparserconf.parseConfVOPrtSts(confVo.getInitialLoc());
-        List<PrtStsVo> prtstsL = confVo.getPrtStsList();
-        PrtStstVoList pl = new PrtStstVoList(prtstsL);
-        pl.setServerIp(confVo.getIpServer());
-        return pl;
-    }
-
     /**
      * Web service operation called by Sip tool server jar
      */

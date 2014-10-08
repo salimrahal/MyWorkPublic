@@ -38,7 +38,7 @@ public class TrfBo {
     public static final String MSG_CONN_SV_PB = "Server connection problem";
     public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached.";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
-     public static final String M_U_T = "You have a firewall that might be blocking some traffic during this test. Please check your router or Internet Service Provider";
+    public static final String M_U_T = "You have a firewall that might be blocking some traffic during this test. Please check your router or Internet Service Provider";
 
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
@@ -48,7 +48,7 @@ public class TrfBo {
     public static final Integer D_P = 2;//sec
     public static final Integer P_MX_D = 20000;//ms
     public static final Integer WS_D = 5000;//ms
-     public static final int E_VAL = -1;
+    public static final int E_VAL = -1;
     public static String srIp;
     String iplocal;
 
@@ -56,6 +56,10 @@ public class TrfBo {
     private static byte[] b0 = new byte[]{56, 48, 56, 48};
     private static byte[] b1 = new byte[]{47, 83, 105, 112, 84, 111, 111, 108, 115, 65, 112, 112, 47, 80, 105, 118, 111, 116};
     private final static String newline = "\r\n";
+
+    public static final String ACK = "ACK";
+    public static final String REQ_IN_KEY = "REQIN";
+    public static final String REQ_OUT_KEY = "REQOUT";
 
     public List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
@@ -149,17 +153,17 @@ public class TrfBo {
 
         testStatTextArea.setText(sb.toString());
     }
-    
-    public boolean isES(ResVo resvo){
+
+    public boolean isES(ResVo resvo) {
         boolean res = false;//
-        if(resvo.getDopkloss() == E_VAL || resvo.getDolatpeak() == E_VAL || resvo.getDolatav() == E_VAL || resvo.getDojtav() == E_VAL || resvo.getDojtpeak() == E_VAL 
-                || resvo.getUppkloss() == E_VAL || resvo.getUplatpeak() == E_VAL || resvo.getUplatav() == E_VAL || resvo.getUpjtpeak() == E_VAL || resvo.getUpjtav() == E_VAL){
-                res = true;
-            }
+        if (resvo.getDopkloss() == E_VAL || resvo.getDolatpeak() == E_VAL || resvo.getDolatav() == E_VAL || resvo.getDojtav() == E_VAL || resvo.getDojtpeak() == E_VAL
+                || resvo.getUppkloss() == E_VAL || resvo.getUplatpeak() == E_VAL || resvo.getUplatav() == E_VAL || resvo.getUpjtpeak() == E_VAL || resvo.getUpjtav() == E_VAL) {
+            res = true;
+        }
         return res;
     }
-    
-      public void setresultmessage(JLabel resultmsgjlabel, String outmessage) {
+
+    public void setresultmessage(JLabel resultmsgjlabel, String outmessage) {
         //AlgJPanel.resultmsgjlabel.setText(outmessage);        
         String labelText = String.format("<html><div style=\"width:%dpx;\"><p align=\"center\">%s</p></div><html>", 200, outmessage);
         resultmsgjlabel.setText(labelText);

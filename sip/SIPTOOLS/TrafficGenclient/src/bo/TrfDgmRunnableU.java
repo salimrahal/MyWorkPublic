@@ -69,9 +69,13 @@ public class TrfDgmRunnableU implements Runnable {
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
         System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
-
+            double elapsedSeconds = 0;
+        long tStart = 0;
+        long tEnd;
+        long tDelta;
         try {
             dgmsocket.setSoTimeout(TrfBo.P_MX_D);
+            tStart = System.currentTimeMillis();
             dgmsocket.receive(incomingPacketLocal);
             System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
             InetAddress inetAddrInco = incomingPacketLocal.getAddress();
@@ -91,6 +95,11 @@ public class TrfDgmRunnableU implements Runnable {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("TrfDgmRunnableU:in Catch...:closing the socket..");
             dgmsocket.close();
+        }finally{
+            tEnd = System.currentTimeMillis();
+            tDelta = tEnd - tStart;
+            elapsedSeconds = tDelta / 1000.0;
+            System.out.println("TrfDgmRunnableU: finally: time elapsed="+elapsedSeconds+" s");
         }
     }
 

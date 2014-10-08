@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -25,7 +26,6 @@ import sipserver.trf.vp.vo.CdcVo;
  */
 public class TrfDgmRunnableIn implements Runnable {
 
-    private int clientID;
     //private int bytesToReceive;
     private DatagramSocket dgmsocket;
     InetAddress addressDest;
@@ -33,10 +33,10 @@ public class TrfDgmRunnableIn implements Runnable {
     Integer portDest;
     Param param;
     TrfDao trfdao;
+    ServerSocket serversocket;
 
-    public TrfDgmRunnableIn(Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws IOException {
+    public TrfDgmRunnableIn(Param param, InetAddress addressDest, int portsrc, int portdest) throws IOException {
         this.param = param;
-        this.clientID = clientID;
         //portsrc could be any port
         this.portsrc = portsrc;
         this.portDest = portdest;
@@ -84,7 +84,7 @@ public class TrfDgmRunnableIn implements Runnable {
         //send a flag packet to the server before start receiving
         //send a flag packet to the server before start receiving
         byte[] bufFlag = new byte[8];
-        int flagsNum = 3;
+        int flagsNum = 4;
         boolean flagrcv = false;
         double elapsedSeconds = 0;
         DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
@@ -93,6 +93,7 @@ public class TrfDgmRunnableIn implements Runnable {
         //send flag packet to server
         for (int i = 0; i < flagsNum; i++) {
             dgmsocket.send(outgoingPacketFlag);
+            System.out.println("TrfDgmRunnableIn::handleClienttraffic::sending flag num=" + i);
         }
         System.out.println("TrfDgmRunnableIn::handleClienttraffic::waiting to recev the flag....");
         try {
@@ -124,7 +125,7 @@ public class TrfDgmRunnableIn implements Runnable {
             } while (morepacket);
             //System.out.println("[" + new Date() + "]\n - [" + threadName + "] packet: clientID:" + clientID + " is sent.");
         } catch (SocketTimeoutException se) {
-            System.out.println("Error:TrfDgmRunnableIn::waiting to recev pkts::" + se.getMessage()+"/ flag received = "+flagrcv);
+            System.out.println("Error:TrfDgmRunnableIn::waiting to recev pkts::" + se.getMessage() + "/ flag received = " + flagrcv);
         } finally {
             if (count > 0) {
                 System.out.println("TrfDgmRunnableIn: received pkt: total received count=" + count);

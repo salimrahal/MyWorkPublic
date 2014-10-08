@@ -7,14 +7,10 @@ package sipserver.trf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
-import sipserver.trf.vp.bo.VpMethds;
-import sipserver.trf.vp.vo.JtrVo;
-import sipserver.trf.vp.vo.LatVo;
 import sipserver.trf.vp.vo.PktVo;
 
 /**
@@ -32,6 +28,12 @@ public class TrfBo {
     public static final Integer U_T = 20000;//millisecond
     public static final Integer Packet_Max_Delay = 20000;//millisecond
     public static final Integer T_P = 50000;//millisecond
+    public static final Integer F_DELAY = 500;//millisecond
+    public static final String CODEC_KEY = "codec";
+    public static final String TST_ID_KEY = "tstid";//only to be accepted
+    public static final String ACK = "ACK";
+    public static final String REQ_IN_KEY = "REQIN";
+    public static final String REQ_OUT_KEY = "REQOUT";
     TrfDao trfdao;
 
     public TrfBo() {
@@ -100,7 +102,7 @@ public class TrfBo {
             //add the client public Ip to the bean
             param.setClientIp(clientIp);
         }//end for
-        System.out.println(param.toString());
+        System.out.println("savingParamsTobean="+param.toString());
         return param;
     }
 
@@ -112,5 +114,5 @@ public class TrfBo {
         com.safirasoft.Pivot port = service.getPivotPort();
         return port.getConfLoc();
     }
-    
+
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>  
-<!-- Moved to anothe dir then the project--> 
 <configuration>
     <!-- for local test: ipServer = "127.0.1.1" 209.208.79.151 -->
     <sipServer ip="74.117.31.73"/>
@@ -29,4 +28,17 @@
         <portdest>5092</portdest>
         <transport>tcp</transport>
     </test>
+    
+    <!-- unused: conf loc it's hardoced-->
+    <confLoc loc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml"/>
+    
+    <!-- udp traffic generator config -->
+    <logfile loc="/home/srahal/sipworkspace/logs-trf.log"/>
+    <port-sig value="5094"></port-sig>
+    
+    <codec name="g729" enabled="true"> </codec>
+    <codec name="g722" enabled="false"> </codec>
+    <codec name="g711" enabled="true"> </codec>
+    <codec name="ilbc" enabled="false"> </codec>
+    <codec name="silk" enabled="false"> </codec>
 </configuration>

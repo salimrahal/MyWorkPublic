@@ -58,12 +58,16 @@ public class LatRunnable implements Runnable {
         try {
             LatVo latvoDown = handlelat();
             System.out.println("LatRunnable: saving latvoDown to DB..");
-            int latpk = VpMethds.safeLongToInt(latvoDown.getPeak());
-            int latavg = VpMethds.safeLongToInt(latvoDown.getAvg());
-            int jtpk = VpMethds.safeLongToInt(latvoDown.getJitterObj().getPeak());
-            int jtavg = VpMethds.safeLongToInt(latvoDown.getJitterObj().getAvg());
-            WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg);
-            System.out.println("LatRunnable: finish ws call");
+            if (latvoDown != null) {
+                int latpk = VpMethds.safeLongToInt(latvoDown.getPeak());
+                int latavg = VpMethds.safeLongToInt(latvoDown.getAvg());
+                int jtpk = VpMethds.safeLongToInt(latvoDown.getJitterObj().getPeak());
+                int jtavg = VpMethds.safeLongToInt(latvoDown.getJitterObj().getAvg());
+                WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg);
+                System.out.println("LatRunnable: finish ws call");
+            }else{
+                System.out.println("warning: latvoDown is null, dont save res to ws");
+            }
         } catch (IOException ex) {
             Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
