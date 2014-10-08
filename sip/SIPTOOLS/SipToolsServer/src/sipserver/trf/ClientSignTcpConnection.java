@@ -100,15 +100,18 @@ public class ClientSignTcpConnection implements Runnable {
                             System.out.println("ClientSignTcpConnection:ACK is sent");
                             //record the test
                             trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
+
                             //lauching latency test
                             launchLatUp(param);
                             //launch receive thread
-                           // TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
-                            //processorIn.processTest(param);
+                            TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
+                        //something goes wrong in this function: the ACK is send normally when it's commented
+                            // processorIn.processTest(param);
 //                            launchTrafficPktLossIn(param);
                             //launch send thread
-                           // TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
-                           // processorOut.processTest(param);
+                            // TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
+                            // processorOut.processTest(param);
+
                         }
                         break;
                     }

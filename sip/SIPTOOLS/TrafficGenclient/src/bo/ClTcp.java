@@ -42,14 +42,14 @@ public class ClTcp {
         socketD = new Socket();
     }
 
-     public boolean sendTrfReqToServerUp(String svip, String portUp, String req_key) throws IOException, Exception {
+    public boolean sendTrfReqToServerUp(String svip, String portUp, String req_key) throws IOException, Exception {
         BufferedReader in = null;
         PrintWriter out = null;
         String outmsg;
         boolean success = false;
         try {
             socketUp.connect(new InetSocketAddress(svip, Integer.parseInt(portUp)), TrfBo.T_T);
-            System.out.println("sendTrfReqToServerUp:Req Type:"+req_key+" Process Request: connected.");
+            System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
             out = new PrintWriter(socketUp.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketUp.getInputStream()));
@@ -78,15 +78,15 @@ public class ClTcp {
         }
         return success;
     }
-     
-        public boolean sendTrfReqToServerDown(String svip, String portD, String req_key) throws IOException, Exception {
+
+    public boolean sendTrfReqToServerDown(String svip, String portD, String req_key) throws IOException, Exception {
         BufferedReader in = null;
         PrintWriter out = null;
         String outmsg;
         boolean success = false;
         try {
             socketD.connect(new InetSocketAddress(svip, Integer.parseInt(portD)), TrfBo.T_T);
-            System.out.println("sendTrfReqToServerDown:Req Type:"+req_key+" Process Request: connected.");
+            System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
             out = new PrintWriter(socketD.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketD.getInputStream()));
@@ -157,9 +157,9 @@ public class ClTcp {
         return success;
     }
 
-     private boolean sendTrfReq(BufferedReader in, PrintWriter out, String port, String req_key) throws Exception {
+    private boolean sendTrfReq(BufferedReader in, PrintWriter out, String port, String req_key) throws Exception {
         boolean ack = false;
-        System.out.println("send sendTrfReq param.. req type:"+req_key);
+        System.out.println("send sendTrfReq param.. req type:" + req_key);
         String msgToSend = req_key;
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
@@ -188,9 +188,10 @@ public class ClTcp {
      send param to the server and receive an ACK
      returns true is an ACK is received
      */
+
     public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;
-        System.out.println("sendParamToServer:sendparam..");
+        System.out.println("sendParamToServer:sendparam()");
         String msgToSend = generateQueryParam(portlat, porttrfU, porttrfD, codec, timelength, custname, tstid);
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
@@ -203,9 +204,10 @@ public class ClTcp {
             out.println(submsgToSend);
             //recieve from the server,
             //in some case it will freeze here nothing is received, so a timeout will be triggered
+            System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
             msgRecv = in.readLine();
             System.out.println("echo: " + msgRecv);
-            if (firstLine) {          
+            if (firstLine) {
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
                 }
