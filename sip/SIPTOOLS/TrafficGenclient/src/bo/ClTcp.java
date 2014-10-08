@@ -165,16 +165,16 @@ public class ClTcp {
         BufferedReader msgbr = new BufferedReader(msgreader);
         String msgRecv;
         String submsgToSend;
-        StringBuilder strbuilder = new StringBuilder();
         boolean firstLine = true;
         while ((submsgToSend = msgbr.readLine()) != null) {
             //write to the server
             out.println(submsgToSend);
             //recieve from the server,
+            System.out.println("sendTrfReq: waiting for inputs..");
             //in some case it will freeze here nothing is received, so a timeout will be triggered
             msgRecv = in.readLine();
+            System.out.println("sendTrfReq: readLine= " + msgRecv);
             if (firstLine) {
-                System.out.println("echo: " + msgRecv);
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
                 }
@@ -206,7 +206,7 @@ public class ClTcp {
             //in some case it will freeze here nothing is received, so a timeout will be triggered
             System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
             msgRecv = in.readLine();
-            System.out.println("echo: " + msgRecv);
+            System.out.println("sendParamToServer readLine: " + msgRecv);
             if (firstLine) {
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;

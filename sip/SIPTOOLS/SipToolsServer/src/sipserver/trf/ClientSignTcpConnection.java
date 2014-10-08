@@ -97,6 +97,7 @@ public class ClientSignTcpConnection implements Runnable {
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
                             System.out.println("ClientSignTcpConnection:sending the ACK..");
                             out.write(ACK);
+                            closeRess(clientSocket, out, in);
                             System.out.println("ClientSignTcpConnection:ACK is sent");
                             //record the test
                             trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
@@ -105,12 +106,12 @@ public class ClientSignTcpConnection implements Runnable {
                             launchLatUp(param);
                             //launch receive thread
                             TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
-                        //something goes wrong in this function: the ACK is send normally when it's commented
-                            // processorIn.processTest(param);
+                            //something goes wrong in this function: the ACK is send normally when it's commented
+                            processorIn.processTest(param);
 //                            launchTrafficPktLossIn(param);
                             //launch send thread
-                            // TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
-                            // processorOut.processTest(param);
+                             TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
+                             processorOut.processTest(param);
 
                         }
                         break;
@@ -127,27 +128,31 @@ public class ClientSignTcpConnection implements Runnable {
         } catch (IOException ex) {
             Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (clientSocket != null) {
-                try {
-                    clientSocket.close();
-                    // System.out.println("Client connection(clientSocket) is closed");
-                } catch (IOException ex) {
-                    Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            closeRess(clientSocket, out, in);
         }
         if (recognizedClient) {
             System.out.println("traffic ServerTcp: [" + new Date() + "]\n - [" + threadName + "] : clientID:" + clientID + ". Connection to client is closed.");
+        }
+    }
+
+    public static void closeRess(Socket clientSocket, PrintWriter out, BufferedReader in) {
+        if (out != null) {
+            out.close();
+        }
+        if (in != null) {
+            try {
+                in.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (clientSocket != null) {
+            try {
+                clientSocket.close();
+                // System.out.println("Client connection(clientSocket) is closed");
+            } catch (IOException ex) {
+                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     /*

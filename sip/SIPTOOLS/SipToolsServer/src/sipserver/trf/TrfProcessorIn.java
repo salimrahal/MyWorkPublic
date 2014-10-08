@@ -49,7 +49,9 @@ public class TrfProcessorIn {
         System.out.println("TrfProcessorIn: starts..\n waiting for connections trf key=" + trfkey);
         try {
             // a "blocking" call which waits until a connection is requested
+            System.out.println("TrfProcessorIn:waiting for accept..");
             Socket clientSocket = serverSocket.accept();
+            System.out.println("TrfProcessorIn:connection accepted");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
             in = new BufferedReader(
@@ -63,9 +65,11 @@ public class TrfProcessorIn {
                         System.out.println("TrfProcessorIn:receiving:" + inputLine);
                         System.out.println("TrfProcessorIn:receiving: Accepted, sending back the " + ACK+".Starting the trafficIn");
                         out.write(ACK);
+                        InetAddress inetaddressDest = clientSocket.getInetAddress();
+                        TrfBo.closeRess(clientSocket, out, in);
                         try {
                             // launch the traffIn thread
-                            launchTrafficPktLossIn(param, clientSocket);
+                            launchTrafficPktLossIn(param, inetaddressDest);
                         } catch (UnknownHostException ex) {
                             Logger.getLogger(TrfProcessorIn.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InterruptedException ex) {
@@ -92,8 +96,8 @@ public class TrfProcessorIn {
      sending paquets
      */
 
-    public void launchTrafficPktLossIn(Param param, Socket clientSocket) throws UnknownHostException, IOException, InterruptedException {
-        InetAddress inetaddressDest = clientSocket.getInetAddress();
+    public void launchTrafficPktLossIn(Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
+      
         //run the thread that sends the traffic
         int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
         int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
@@ -102,4 +106,6 @@ public class TrfProcessorIn {
         Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
         trfDgmThreadIn.start();
     }
+    
+ 
 }

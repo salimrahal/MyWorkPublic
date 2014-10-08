@@ -62,9 +62,11 @@ public class TrfProcessorOut {
                     if (inputLine.contains(trfkey)) {
                         System.out.println("TrfProcessorout: Accepted, sending back the " + ACK+".Starting the trafficOut");
                         out.write(ACK);
+                        InetAddress inetaddressDest = clientSocket.getInetAddress();
+                        TrfBo.closeRess(clientSocket, out, in);
                         try {
                             // launch the traffIn thread
-                            launchTrafficOut(param, clientSocket);
+                            launchTrafficOut(param, inetaddressDest);
                         } catch (UnknownHostException ex) {
                             Logger.getLogger(TrfProcessorOut.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InterruptedException ex) {
@@ -90,8 +92,7 @@ public class TrfProcessorOut {
      start receiving paquets and computes paquet loss
      sending paquets
      */
-      public void launchTrafficOut(Param param, Socket clientSocket) throws UnknownHostException, IOException, InterruptedException {
-        InetAddress inetaddressDest = clientSocket.getInetAddress();
+      public void launchTrafficOut(Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
 //run the thread that sends the traffic
         int portsrcOutChannel = Integer.valueOf(param.getPortrfClientD());
         int portdestOutChannel = Integer.valueOf(param.getPortrfClientD());

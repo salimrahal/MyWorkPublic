@@ -5,10 +5,16 @@
  */
 package sipserver.trf;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
 import sipserver.trf.vp.vo.PktVo;
@@ -40,6 +46,27 @@ public class TrfBo {
         trfdao = new TrfDao();
     }
 
+       public synchronized static void closeRess(Socket clientSocket, PrintWriter out, BufferedReader in) {
+        if (out != null) {
+            out.close();
+        }
+        if (in != null) {
+            try {
+                in.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (clientSocket != null) {
+            try {
+                clientSocket.close();
+                // System.out.println("Client connection(clientSocket) is closed");
+            } catch (IOException ex) {
+                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("TrfBo: closeRess: ressource closed");
+        }
+    }
     public static List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
         if (!pktMap.isEmpty()) {
