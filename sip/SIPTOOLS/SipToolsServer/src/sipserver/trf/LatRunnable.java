@@ -21,6 +21,7 @@ import sipserver.trf.bean.Param;
 import sipserver.trf.dao.TrfDao;
 import sipserver.trf.vp.bo.VpMethds;
 import sipserver.trf.vp.vo.CdcVo;
+import sipserver.trf.vp.vo.JtrVo;
 import sipserver.trf.vp.vo.LatVo;
 import sipserver.trf.vp.vo.PktVo;
 
@@ -31,7 +32,7 @@ import sipserver.trf.vp.vo.PktVo;
  *
  */
 public class LatRunnable implements Runnable {
-
+    
     private int clientID;
     private DatagramSocket dgmsocket;
     InetAddress addressDest;
@@ -40,7 +41,7 @@ public class LatRunnable implements Runnable {
     Param param;
     TrfDao trfdao;
     static final int packetNumToSend = 30;
-
+    
     public LatRunnable(Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
         this.param = param;
         this.clientID = clientID;
@@ -50,7 +51,7 @@ public class LatRunnable implements Runnable {
         dgmsocket = new DatagramSocket(this.portsrc);
         trfdao = new TrfDao();
     }
-
+    
     @Override
     public void run() {
         System.out.println("LatRunnable:: Priority=" + Thread.currentThread().getPriority());
@@ -58,6 +59,11 @@ public class LatRunnable implements Runnable {
             LatVo latvoUp = handleLat();
             //set the used port to free
             trfdao.updateOnePortStatus(portsrc, "f");
+            if (latvoUp == null) {
+                latvoUp = new LatVo(-1, -1);
+                JtrVo jitterO = new JtrVo(-1, -1);
+                latvoUp.setJitterObj(jitterO);
+            }
             //update the DB with Lat and jitter results
             trfdao.updateLatJitUp(param.getTstid(), latvoUp, latvoUp.getJitterObj());
         } catch (InterruptedException ex) {
@@ -114,9 +120,9 @@ public class LatRunnable implements Runnable {
                     morepacketToProcess = false;
                 }
             } while (morepacketToProcess);
-
+            
             System.out.println("LatRunnable:handleLat:phase a-b(listen-echo): finished: received and resent pktnum=" + countLoop1);
-            System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo):finished :elapsed time:" + elapsedSeconds );
+            System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo):finished :elapsed time:" + elapsedSeconds);
             boolean morepacketToRecv = true;
             long tStartLoopS = System.nanoTime();
             int countLoop2 = 1;
@@ -152,7 +158,7 @@ public class LatRunnable implements Runnable {
                     morepacketToRecv = false;
                 }
             } while (morepacketToRecv);
-            System.out.println("LatRunnable::handlelat:phase c(listen) Finished: received pkt="+countLoop2+"time elapsed:" + elapsedSecondsLoopS + " sec");
+            System.out.println("LatRunnable::handlelat:phase c(listen) Finished: received pkt=" + countLoop2 + "time elapsed:" + elapsedSecondsLoopS + " sec");
         } catch (SocketTimeoutException se) {
             long tEndEx = System.nanoTime();
             long tDeltaLoopE = tEndEx - tStart;
@@ -178,5 +184,5 @@ public class LatRunnable implements Runnable {
         }
         return latvoUp;
     }
-
+    
 }

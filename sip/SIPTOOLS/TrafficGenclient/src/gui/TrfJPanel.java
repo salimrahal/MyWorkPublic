@@ -253,6 +253,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             //Initialize progress property.
             setProgress(0);
             setProgress(50);
+            System.out.println("doInBackground::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             try {
                 launchtest();
             } catch (IOException ex) {
@@ -293,7 +294,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             if (trfBo.isES(resvo)) {
                 trfBo.setresultmessage(resultmsgjlabel, TrfBo.M_U_T);
             }
-
+        }else{
+             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
         }
         return null;
     }

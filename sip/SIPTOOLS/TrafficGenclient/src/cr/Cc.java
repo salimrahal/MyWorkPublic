@@ -51,6 +51,7 @@ public class Cc {
         String resmsg = TrfBo.M_PR;
         ResVo resvo = null;
         try {
+             System.out.println("CC:launchtest::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
             resultmsgjlabel.setText(resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();

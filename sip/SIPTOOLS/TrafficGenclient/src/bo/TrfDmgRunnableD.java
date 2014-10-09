@@ -49,7 +49,7 @@ public class TrfDmgRunnableD implements Runnable {
     @Override
     public void run() {
         String pktLoss = null;
-        System.out.println("TrfDmgRunnableD:: Priority=" + Thread.currentThread().getPriority());
+           System.out.println("TrfDmgRunnableD::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
@@ -59,7 +59,10 @@ public class TrfDmgRunnableD implements Runnable {
             // call an outside function to retreive the final results
              System.out.println("TrfDmgRunnableD: call ws: final results");
             ResVo resVo = wsres.retreiveResbyWS(param.getTstid());
-            wsres.putRes(resVo);
+           wsres.putRes(resVo);
+            if(resVo == null){
+                  System.out.println("TrfDmgRunnableD:Warning: res is null ! putting a null value!");
+            }
         } catch (IOException ex) {
             Logger.getLogger(TrfDmgRunnableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -105,6 +108,7 @@ public class TrfDmgRunnableD implements Runnable {
         System.out.println("TrfDmgRunnableD::handleClienttraffic::waiting to recev the flag....");
         try {
             //set the timeout for the flag 
+             //todo decrease the time out
             dgmsocket.setSoTimeout(timelength * 1000);
             //register the begin time
             dgmsocket.receive(incomingPacketFlag);

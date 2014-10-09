@@ -54,7 +54,7 @@ public class LatRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("LatRunnable:: Priority=" + Thread.currentThread().getPriority());
+        System.out.println("LatRunnable::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
         try {
             LatVo latvoDown = handlelat();
             System.out.println("LatRunnable: saving latvoDown to DB..");
@@ -66,7 +66,8 @@ public class LatRunnable implements Runnable {
                 WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg);
                 System.out.println("LatRunnable: finish ws call");
             }else{
-                System.out.println("warning: latvoDown is null, dont save res to ws");
+                System.out.println("warning: latvoDown is null, save with -1 values");
+                 WSBo.svLJD(param.getTstid(), -1, -1, -1, -1);
             }
         } catch (IOException ex) {
             Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,6 +112,7 @@ public class LatRunnable implements Runnable {
         int count = 1;
         try {
             //set the timeout
+            //todo decrease the time out
             dgmsocket.setSoTimeout(timelength * 1000);
             long tStart = System.nanoTime();
             do {

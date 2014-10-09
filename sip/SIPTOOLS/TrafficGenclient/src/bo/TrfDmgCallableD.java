@@ -51,9 +51,6 @@ public class TrfDmgCallableD implements Callable<String> {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
             pktLoss = String.valueOf(packetlostdown);
-            /*
-             todo: save the packetlostdown into the DB
-             */
         } catch (IOException ex) {
             Logger.getLogger(TrfDmgCallableD.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -94,7 +91,6 @@ public class TrfDmgCallableD implements Callable<String> {
         try {
             //set the timeout for the flag 
             dgmsocket.setSoTimeout(timelength * 1000);
-            //todo: register the begin time
             dgmsocket.receive(incomingPacketFlag);
             System.out.println("TrfDmgCallableD::handleClienttraffic::flag received");
             //increase the timeout  

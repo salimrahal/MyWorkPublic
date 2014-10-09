@@ -25,7 +25,11 @@ public class WsRes {
                 System.out.println("InterruptedException caught");
             }
         }
-        System.out.println("Got: clientip=" + res.getPuip()+"/getDopkloss="+res.getDopkloss());
+        if(res != null){
+            System.out.println("Got: clientip=" + res.getPuip()+"/getDopkloss="+res.getDopkloss());
+        }else{
+              System.out.println("Got: warning result is null!");
+        }
         valueSet = false;
         notify();
         return res;
@@ -41,8 +45,12 @@ public class WsRes {
         }
         this.res = res;
         valueSet = true;
-        System.out.println("Put: clientip=" + res.getPuip()+"/getDopkloss="+res.getDopkloss());
         notify();
+        if(res != null){
+             System.out.println("Put: clientip=" + res.getPuip()+"/getDopkloss="+res.getDopkloss());
+        }else{
+             System.out.println("Put: warning: putting  a Null value! ");
+        }
     }
 
     public synchronized ResVo retreiveResbyWS(String ti) {
