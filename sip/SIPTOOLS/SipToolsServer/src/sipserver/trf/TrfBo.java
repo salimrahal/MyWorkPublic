@@ -40,13 +40,16 @@ public class TrfBo {
     public static final String ACK = "ACK";
     public static final String REQ_IN_KEY = "REQIN";
     public static final String REQ_OUT_KEY = "REQOUT";
+    public static final String PRT_FREE = "f";
+    public static final String PRT_BUSY = "b";
+
     TrfDao trfdao;
 
     public TrfBo() {
         trfdao = new TrfDao();
     }
 
-       public synchronized static void closeRess(Socket clientSocket, PrintWriter out, BufferedReader in) {
+    public synchronized static void closeRess(Socket clientSocket, PrintWriter out, BufferedReader in) {
         if (out != null) {
             out.close();
         }
@@ -67,6 +70,7 @@ public class TrfBo {
             System.out.println("TrfBo: closeRess: ressource closed");
         }
     }
+
     public static List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
         if (!pktMap.isEmpty()) {
@@ -129,7 +133,7 @@ public class TrfBo {
             //add the client public Ip to the bean
             param.setClientIp(clientIp);
         }//end for
-        System.out.println("savingParamsTobean="+param.toString());
+        System.out.println("savingParamsTobean=" + param.toString());
         return param;
     }
 

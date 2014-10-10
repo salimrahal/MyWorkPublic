@@ -8,14 +8,19 @@ package com.safirasoft;
 import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
+import dao.PrtDao;
 import dao.TestDao;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.naming.NamingException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import vo.CodecVo;
@@ -36,10 +41,12 @@ public class Pivot {
 
     Spf saxparserconf;
     TestDao tstDao;
+    PrtDao prtDao;
 
     public Pivot() {
         saxparserconf = new Spf();
         tstDao = new TestDao();
+        prtDao = new PrtDao();
     }
 
     /**
@@ -118,10 +125,10 @@ public class Pivot {
         JtrVo jObj = new JtrVo(jitdwpk, jitdwav);
         try {
             //securitycheck for the testid
-         //   if (ti.length() == StaticVar.TEST_ID_SIZE) {
-                if (tstDao.updateLatJitDown(ti, latObj, jObj)) {
-                    res = 1;
-                }
+            //   if (ti.length() == StaticVar.TEST_ID_SIZE) {
+            if (tstDao.updateLatJitDown(ti, latObj, jObj)) {
+                res = 1;
+            }
 //            } else {
 //                System.out.println("Error: svLJD:: received testId is different from the accepted length!");
 //            }
@@ -134,20 +141,39 @@ public class Pivot {
     /*
     
      */
-
     /**
-     * Web service operation:
-     *  retrieve test result for the client and should hide the testId from the response
+     * Web service operation: retrieve test result for the client and should
+     * hide the testId from the response
      */
     @WebMethod(operationName = "getrs")
     public ResVo getrs(@WebParam(name = "ti") String ti) {
         ResVo rs = null;
         try {
             rs = tstDao.getRes(ti);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
+    }
+
+    /**
+     * Web service operation
+     *
+     * @return
+     */
+    @WebMethod(operationName = "retreiveAllPorts")
+    public String retreiveAllPorts() {
+        List<PrtStsVo> l;
+        String res = null;
+        try {
+            l = prtDao.retrieveAllPorts();
+            res = Arrays.toString(l.toArray());
+        } catch (NamingException ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
 }

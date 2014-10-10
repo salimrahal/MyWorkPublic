@@ -39,27 +39,58 @@ public class WSBo {
     }
 
     private static CodecVoList getcodecs() throws IOException_Exception, ParserConfigurationException_Exception, SAXException_Exception {
-        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        com.safirasoft.Pivot port = service.getPivotPort();
-        return port.getcodecs();
+        CodecVoList codlist = null;
+        try {
+            com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+            com.safirasoft.Pivot port = service.getPivotPort();
+            codlist = port.getcodecs();
+            
+        } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception iOException_Exception) {
+              System.out.println("wsbo:Exception:getcodecs"+iOException_Exception.getMessage());
+        }
+    return codlist;
     }
 
     public static PrtMiscVo getMiscPorts() throws SAXException_Exception, IOException_Exception, ParserConfigurationException_Exception {
-        com.safirasoft.Pivot pivotPort = null;
-        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        pivotPort = service.getPivotPort();
-        return pivotPort.getMiscPorts();
+        PrtMiscVo portVo = null;
+        try {
+            com.safirasoft.Pivot pivotPort = null;
+            com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+            pivotPort = service.getPivotPort();
+            portVo = pivotPort.getMiscPorts();
+        } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception iOException_Exception) {
+              System.out.println("wsbo:Exception:getMiscPorts"+iOException_Exception.getMessage());
+        }
+        return portVo;
     }
 
-    protected static Integer savePLD(java.lang.String tid, float pld) {
-        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        com.safirasoft.Pivot port = service.getPivotPort();
-        return port.savePLD(tid, pld);
+    protected static String savePLD(java.lang.String tid, float pld) {
+        String message = "";
+        try {
+            com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+            com.safirasoft.Pivot port = service.getPivotPort();
+            int res = port.savePLD(tid, pld);
+            if(res!=-1){
+                message = TrfBo.SUCCESS_KEY;
+            }else{
+                message = TrfBo.FAIL_KEY;
+            }
+        } catch (Exception e) {
+              System.out.println("wsbo:Exception:getMiscPorts"+e.getMessage());
+              message = e.getMessage();
+        }
+        return message;
     }
 
     protected static Integer svLJD(java.lang.String ti, int latdwnpk, int latdwnav, int jitdwpk, int jitdwav) {
-        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        com.safirasoft.Pivot port = service.getPivotPort();
-        return port.svLJD(ti, latdwnpk, latdwnav, jitdwpk, jitdwav);
+        int res = 0;
+        try {
+            com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+            com.safirasoft.Pivot port = service.getPivotPort();
+            res = port.svLJD(ti, latdwnpk, latdwnav, jitdwpk, jitdwav);
+        } catch (Exception e) {
+             System.out.println("wsbo:Exception:svLJD"+e.getMessage());
+        }
+        return res;
     }  
 }

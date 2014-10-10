@@ -35,7 +35,7 @@ public class TrfDmgRunnableD implements Runnable {
     TrfBo trfBo;
     WsRes wsres;
 
-    public TrfDmgRunnableD(Param param, InetAddress addressDest, int portsrc, int portdest,WsRes wsres, int clientID) throws SocketException {
+    public TrfDmgRunnableD(Param param, InetAddress addressDest, int portsrc, int portdest, WsRes wsres, int clientID) throws SocketException {
         this.param = param;
         this.clientID = clientID;
         this.addressDest = addressDest;
@@ -49,34 +49,32 @@ public class TrfDmgRunnableD implements Runnable {
     @Override
     public void run() {
         String pktLoss = null;
-           System.out.println("TrfDmgRunnableD::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+        System.out.println("TrfDmgRunnableD::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
             System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
-            WSBo.savePLD(param.getTstid(), packetlostdown);
+            String message = WSBo.savePLD(param.getTstid(), packetlostdown);
             System.out.println("TrfDmgRunnableD: finish ws call: saving pkt loss down");
             // call an outside function to retreive the final results
-             System.out.println("TrfDmgRunnableD: call ws: final results");
+            System.out.println("TrfDmgRunnableD: call ws: final results");
             ResVo resVo = wsres.retreiveResbyWS(param.getTstid());
-           wsres.putRes(resVo);
-            if(resVo == null){
-                  System.out.println("TrfDmgRunnableD:Warning: res is null ! putting a null value!");
+            wsres.putRes(resVo);
+            if (resVo == null) {
+                System.out.println("TrfDmgRunnableD:Warning: res is null ! putting a null value!");
             }
-        } catch (IOException ex) {
-            Logger.getLogger(TrfDmgRunnableD.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TrfDmgRunnableD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | InterruptedException e) {
+            System.out.println("TrfDmgRunnableD:Exception:" + e.getMessage());
         }
     }
 
     /*
-    1- it sends flags packets to the server
-    2- still blocked until it receives a packet back
-    3- start receiving other packets by looping on receive() function
-    4- break the loop once it achieves the timelength limit
-    5- it computes the packet lost Down
-    */
+     1- it sends flags packets to the server
+     2- still blocked until it receives a packet back
+     3- start receiving other packets by looping on receive() function
+     4- break the loop once it achieves the timelength limit
+     5- it computes the packet lost Down
+     */
     private synchronized float handleClienttraffic() throws IOException, InterruptedException {
         String codec = param.getCodec();
         float packetlostdown = -1;
@@ -108,7 +106,7 @@ public class TrfDmgRunnableD implements Runnable {
         System.out.println("TrfDmgRunnableD::handleClienttraffic::waiting to recev the flag....");
         try {
             //set the timeout for the flag 
-             //todo decrease the time out
+            //todo decrease the time out
             dgmsocket.setSoTimeout(timelength * 1000);
             //register the begin time
             dgmsocket.receive(incomingPacketFlag);
@@ -135,7 +133,7 @@ public class TrfDmgRunnableD implements Runnable {
             System.out.println("Error:TrfDmgRunnableD::waiting to recev the flag:" + se.getMessage());
         } finally {
             System.out.println("TrfDmgRunnableD::handleClienttraffic:time elapsed:" + elapsedSeconds + " sec");
-             if (count > 0) {
+            if (count > 0) {
                 System.out.println("TrfDmgRunnableD::handleClienttraffic:received pkt: total received count=" + count);
                 /*
                  computes the packet lost/down 

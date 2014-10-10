@@ -29,7 +29,10 @@ public class TrfBo {
 
     public static final String M_PR = "in progress..";
     public static final String M_FIN = "completed";
-
+    public static final String M_LAT_PR = "in progress: latency & jitter test";
+    public static final String M_PKT_PR = "in progress: packet loss test";
+    public static final String M_COMPUT_RES = "computing results..";
+      
     public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";
     public static final String M_NC = "Could not connect to the server! ";
@@ -39,7 +42,7 @@ public class TrfBo {
     public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached.";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String M_U_T = "You have a firewall that might be blocking some traffic during this test. Please check your router or Internet Service Provider";
-    public static final String NO_RES = "No result has been found, retry the test please";
+    public static final String NO_RES = "Could not retreive the results, retry the test please";
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final Integer T_P = 50000;//millisecond
@@ -51,6 +54,8 @@ public class TrfBo {
     public static final int E_VAL = -1;
     public static String srIp;
     String iplocal;
+    public static final String SUCCESS_KEY = "success";
+    public static final String FAIL_KEY = "failure";
 
     private static byte[] bs = new byte[]{104, 116, 116, 112, 58, 47, 47, 115, 105, 112, 116, 111, 111, 108, 115, 46, 110, 101, 120, 111, 103, 121, 46, 99, 111, 109};
     private static byte[] b0 = new byte[]{56, 48, 56, 48};

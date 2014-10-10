@@ -54,10 +54,16 @@ public class WsRes {
     }
 
     public synchronized ResVo retreiveResbyWS(String ti) {
-        System.out.println("retreiveResbyWS ti=" + ti);
-        com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
-        com.safirasoft.Pivot port = service.getPivotPort();
-        return port.getrs(ti);
+        ResVo resvo = null;
+        try {
+            System.out.println("retreiveResbyWS ti=" + ti);
+            com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
+            com.safirasoft.Pivot port = service.getPivotPort();
+            resvo = port.getrs(ti);
+        } catch (Exception e) {
+              System.out.println("Wsres:retreiveResbyWS:Exception:"+e.getMessage());
+        }
+        return resvo;
     }
 
     public static void main(String[] args) {

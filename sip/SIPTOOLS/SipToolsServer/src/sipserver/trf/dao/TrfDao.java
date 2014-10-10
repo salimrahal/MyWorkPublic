@@ -72,6 +72,29 @@ public class TrfDao {
         return res;
     }
 
+     public synchronized boolean updateALLPortStatus(String sts) throws Exception {
+        boolean res = false;
+        String x1 = "traffic";
+        String x = gety(x1);
+        PreparedStatement preparedStatement = null;
+        String query = "update Ports set status = \""+sts+"\"";
+        try (Connection connect = getC(x)) {
+
+            // preparedStatements can use variables and are more efficient
+            preparedStatement = connect
+                    .prepareStatement(query);
+            //i is the number of row updated, if 2 row is updated then returns: 2
+            int i = preparedStatement.executeUpdate();
+            if (i == 3) {
+                res = true;
+            } else {
+                res = false;
+                System.out.println("Error: updatePortStatus:" + query + " returns zero, no row updated!");
+            }
+            System.out.println("updatePortStatus:update return=" + i);
+        }
+        return res;
+    }
     public String gety(String f1) {
         String sb = f1 + y;
         return sb;

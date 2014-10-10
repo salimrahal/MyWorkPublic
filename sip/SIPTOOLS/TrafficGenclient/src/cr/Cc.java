@@ -75,7 +75,6 @@ public class Cc {
                     //3- send parameters
                     cltcp = new ClTcp(portSig, porttrfU, porttrfD);
                     boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
-                    //Thread.currentThread().wait(TrfBo.D_S);
                     if (success) {
                         Param param = new Param();
                         param.setTimelength(timeLengthParam);
@@ -88,10 +87,12 @@ public class Cc {
                         InetAddress inetAddrDest = InetAddress.getByName(srip);
                         WsRes wsres = new WsRes();
                         //launch lat&jitter test up/down
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_LAT_PR);
                         launchLatDownRunnable(param, inetAddrDest);
                         //4- launch up packet lost test: sending/receiving packets
                         launchTrafficUp(param, inetAddrDest);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
                         resvo = wsres.getRes();
                         resultmsgjlabel.setText(TrfBo.M_FIN);
                     } else {
