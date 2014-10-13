@@ -141,6 +141,8 @@ public class TrfBo {
 
      Packet loss: you --> server: 56.6 %
      Packet loss: server --> you: 19.6 %
+    
+    todo: instead of result -1 show "time out" on UI
  
      */
     public void renderResults(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
@@ -150,12 +152,12 @@ public class TrfBo {
         sb.append("Upstream: Packet loss: you --> server: ").append(resvo.getUppkloss()).append("%").append(newline);
         sb.append("Downstream: Packet loss: server --> you: ").append(resvo.getDopkloss()).append("%").append(newline);
         sb.append(newline);
-        sb.append("Upstream: Jitter: you --> server: Peak: ").append(resvo.getUpjtpeak()).append("ms; average: ").append(resvo.getUpjtav()).append("ms").append(newline);
-        sb.append("Downstream: Jitter: server --> you: Peak: ").append(resvo.getDojtpeak()).append("ms; average: ").append(resvo.getDojtav()).append("ms").append(newline);
-        sb.append(newline);
         sb.append("Upstream: Latency: you --> server: Peak: ").append(resvo.getUplatpeak()).append("ms; average: ").append(resvo.getUplatav()).append("ms").append(newline);
         sb.append("Downstream: Latency: server --> you: Peak: ").append(resvo.getDolatpeak()).append("ms; average: ").append(resvo.getDolatav()).append("ms").append(newline);
-
+        sb.append(newline);
+        sb.append("Upstream: Jitter: you --> server: Peak: ").append(resvo.getUpjtpeak()).append("ms; average: ").append(resvo.getUpjtav()).append("ms").append(newline);
+        sb.append("Downstream: Jitter: server --> you: Peak: ").append(resvo.getDojtpeak()).append("ms; average: ").append(resvo.getDojtav()).append("ms").append(newline);
+        
         testStatTextArea.setText(sb.toString());
     }
 

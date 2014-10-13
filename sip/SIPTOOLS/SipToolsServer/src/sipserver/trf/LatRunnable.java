@@ -32,7 +32,7 @@ import sipserver.trf.vp.vo.PktVo;
  *
  */
 public class LatRunnable implements Runnable {
-    
+
     private int clientID;
     private DatagramSocket dgmsocket;
     InetAddress addressDest;
@@ -41,7 +41,7 @@ public class LatRunnable implements Runnable {
     Param param;
     TrfDao trfdao;
     static final int packetNumToSend = 30;
-    
+
     public LatRunnable(Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
         this.param = param;
         this.clientID = clientID;
@@ -51,7 +51,7 @@ public class LatRunnable implements Runnable {
         dgmsocket = new DatagramSocket(this.portsrc);
         trfdao = new TrfDao();
     }
-    
+
     @Override
     public void run() {
         System.out.println("LatRunnable:: Priority=" + Thread.currentThread().getPriority());
@@ -97,6 +97,7 @@ public class LatRunnable implements Runnable {
         System.out.println("LatRunnable:handleLat::phase a-b(listen-echo) waiting for Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
         try {
             dgmsocket.setSoTimeout((timelength + 2) * 1000);
+           // dgmsocket.setSoTimeout(TrfBo.U_T); time out very soon
             tStart = System.nanoTime();
             do {
                 dgmsocket.receive(incomingPacket);
@@ -120,7 +121,7 @@ public class LatRunnable implements Runnable {
                     morepacketToProcess = false;
                 }
             } while (morepacketToProcess);
-            
+
             System.out.println("LatRunnable:handleLat:phase a-b(listen-echo): finished: received and resent pktnum=" + countLoop1);
             System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo):finished :elapsed time:" + elapsedSeconds);
             boolean morepacketToRecv = true;
@@ -130,8 +131,10 @@ public class LatRunnable implements Runnable {
             /*increase timeout: this is a multthreaded App, increasing this value may prevent a timeout exception 
              in case the JVM will prioritize another thread to be executed first, such as packet lost test.
              */
-            int localtimelength = timelength + timelength / 3;
-            dgmsocket.setSoTimeout((localtimelength) * 1000);//
+            //int localtimelength = timelength + timelength / 3;
+            //dgmsocket.setSoTimeout((localtimelength) * 1000);//
+            int localtimelength = timelength;
+            dgmsocket.setSoTimeout(localtimelength * 1000);
             double elapsedSecondsLoopS;
             do {
                 dgmsocket.receive(incomingPacket);
@@ -184,5 +187,5 @@ public class LatRunnable implements Runnable {
         }
         return latvoUp;
     }
-    
+
 }
