@@ -23,7 +23,7 @@ public class Sender {
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException{
         
         int srcport = 6000;
-        int destport = 5108;
+        int destport = 80;
         DatagramSocket ds = new DatagramSocket(srcport);
         byte[] buf = new byte[1024];
         String msg = "hiiiiiiiiiiiiiiiii";

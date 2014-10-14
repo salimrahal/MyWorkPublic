@@ -252,14 +252,14 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             int progress = 0;
             //Initialize progress property.
             setProgress(0);
-            setProgress(50);
+            //setProgress(50);
             System.out.println("doInBackground::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             try {
                 launchtest();
             } catch (IOException ex) {
                 Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            progress = 100;
+            //progress = 100;
             setProgress(Math.min(progress, 100));
             return null;
 
@@ -287,8 +287,9 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         String timeLength = timelengthjComboBox.getSelectedItem().toString();
         //System.out.println("timelength=" + timeLength);
         runTestButton.setEnabled(false);
+       //cc.updateJprogressBar(jProgressBar1, 80);
         reset.setEnabled(false);
-        ResVo resvo = cc.launchtest(codec, timeLength, custnm);
+        ResVo resvo = cc.launchtest(codec, timeLength, custnm, jProgressBar1);
         if (resvo != null) {
             trfBo.renderResults(testStatTextArea, resvo);
             if (trfBo.isES(resvo)) {

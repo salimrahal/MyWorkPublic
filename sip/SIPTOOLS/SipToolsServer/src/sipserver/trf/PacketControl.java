@@ -93,6 +93,15 @@ class PacketControl {
                 }
             }
         }, timeLength, SECONDS);
+        try {
+             System.out.println("PacketControl;sndPktForAnGivenTime: waiting for termination..");
+            boolean succterm = scheduler.awaitTermination(timeLength, SECONDS);
+             if(succterm){System.out.println("sndPktForAnGivenTime: finished successfully");}else{
+                 System.out.println("PacketControl:sndPktForAnGivenTime: task termination has triggered before finishing the task. (timeout)");
+             }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//end of sndPktForAnGivenTime function
 
     class Sndr implements Runnable {

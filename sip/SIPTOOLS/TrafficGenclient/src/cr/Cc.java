@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -47,11 +48,11 @@ public class Cc {
         executor = Executors.newCachedThreadPool();
     }
 
-    public ResVo launchtest(String codecparam, String timeLengthParam, String custnmparam) throws IOException, Exception {
+    public ResVo launchtest(String codecparam, String timeLengthParam, String custnmparam, JProgressBar jprobar) throws IOException, Exception {
         String resmsg = TrfBo.M_PR;
         ResVo resvo = null;
         try {
-             System.out.println("CC:launchtest::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+            System.out.println("CC:launchtest::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             resultmsgjlabel.setText(resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();
@@ -59,7 +60,6 @@ public class Cc {
                 String porttrfU = miscPortObj.getPrtTrfNumUp();
                 String porttrfD = miscPortObj.getPrtTrfNumDown();
                 String portSig = miscPortObj.getPrtSigNum();
-                //portlat = "null";
                 System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
@@ -88,13 +88,29 @@ public class Cc {
                         WsRes wsres = new WsRes();
                         //launch lat&jitter test up/down
                         trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_LAT_PR);
+                        updateJprogressBar(jprobar, 25);
+                        System.out.println("CC: phase-1:begin: latency Down test");
                         launchLatDownRunnable(param, inetAddrDest);
+                        System.out.println("CC: phase-1:Ends: latency Down test");
                         //4- launch up packet lost test: sending/receiving packets
+                        System.out.println("CC: phase-2:begin: traffic Up");
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTUP_PR);
+                        updateJprogressBar(jprobar, 50);
                         launchTrafficUp(param, inetAddrDest);
+                        System.out.println("CC: phase-2:Ends: traffic Up");
+                        System.out.println("CC: phase-3:begin: traffic Down");
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTDO_PR);
+                        updateJprogressBar(jprobar, 75);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
+                        System.out.println("CC: phase-3:Ends: traffic Down");
+                         updateJprogressBar(jprobar, 95);
                         trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
-                        resvo = wsres.getRes();
+                        System.out.println("CC: phase-4:begins: Retrieving results...");
+                        resvo = wsres.retreiveResbyWS(param.getTstid());
+                        System.out.println("CC: phase-4:Ends: Retrieving results");
+                        //resvo = wsres.getRes();
                         resultmsgjlabel.setText(TrfBo.M_FIN);
+                        updateJprogressBar(jprobar, 100);
                     } else {
                         System.out.println("Error:launchtest::success: Failed!");
                         trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB);
@@ -126,6 +142,8 @@ public class Cc {
                 TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
                 trfDgmUThread = new Thread(trfDgmU);
                 trfDgmUThread.start();
+                System.out.println("CC:launchTrafficUp: waiting to finish the TrfDgmRunnableU thread");
+                trfDgmUThread.join();
                 //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
             } else {
                 System.out.println("CC:launchTrafficUp: successReqToServerTrfIn: the result is false, cannot lauch the test of traffic Up.");
@@ -149,7 +167,8 @@ public class Cc {
                 TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, wsres, 0);
                 trfDgmDThread = new Thread(trfDgmD);
                 trfDgmDThread.start();
-                //trfDgmDThread.join();
+                System.out.println("CC:lauchktLossDownRunnable: waiting to finish the TrfDmgRunnableD thread");
+                trfDgmDThread.join();
             } else {
                 System.out.println("CC:lauchktLossDownRunnable: successReqToServerTrfOut: the result is false, cannot launch the test of traffic Out.");
             }
@@ -167,11 +186,16 @@ public class Cc {
         LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
         Thread latrunThread = new Thread(latDrun);
         //imp to pass the lat first
-        latrunThread.setPriority(8);
+        //latrunThread.setPriority(8);
         latrunThread.start();
         //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
         //imp
+        System.out.println("CC:launchLatDownRunnable: waiting to finish the LatRunnable thread");
         latrunThread.join();
+    }
+
+    public void updateJprogressBar(JProgressBar jprobar, int val) {
+        jprobar.setValue(val);
     }
 
 //    public String getPktLossDown(Param param, InetAddress addressDest) throws SocketException, InterruptedException {

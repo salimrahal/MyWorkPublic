@@ -105,7 +105,7 @@ public class ClTcp {
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.err.println("sendTrfReqToServerDown:Process Request:iOException" + outmsg);
+            System.err.println("sendTrfReqToServerDown:Process Request: iOException" + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketD != null) {

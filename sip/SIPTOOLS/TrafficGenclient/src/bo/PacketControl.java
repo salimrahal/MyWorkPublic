@@ -15,6 +15,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -63,11 +64,12 @@ class PacketControl {
 
     public boolean sndPktForAnGivenTime(String codec, int timeLength) {
         boolean res = false;
-        System.out.println("sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
-         System.out.println("sndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
+        System.out.println("PacketControl:sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
+             System.out.println("PacketControl:sndPktForAnGivenTime::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+         System.out.println("PacketControlsndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
-        final Runnable sndr = new Sndr(codec);
+        final Runnable sndrRunnable = new SndrRunnable(codec);
         /*
          public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
          command - the task to execute
@@ -75,7 +77,7 @@ class PacketControl {
          period - the period between successive executions
          unit - the time unit of the initialDelay and period parameters
          */
-        final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndr, 0, periodbetweenPkt, MILLISECONDS);
+        final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndrRunnable, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
@@ -83,14 +85,24 @@ class PacketControl {
                 dgmsocket.close();
             }
         }, timeLength, SECONDS);
-        res = true;
+        try {
+             System.out.println("sndPktForAnGivenTime: waiting for termination..");
+            boolean succterm = scheduler.awaitTermination(timeLength, SECONDS);
+             if(succterm){System.out.println("sndPktForAnGivenTime: finished successfully");}else{
+                 System.out.println("sndPktForAnGivenTime: task termination has triggered before finishing the task. (timeout)");
+             }
+             res = true;
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return res;
     }
 
-    class Sndr implements Runnable {
+    class SndrRunnable implements Runnable {
         String codec;
         byte[] buf = null;
-        public Sndr(String codec) {
+        public SndrRunnable(String codec) {
             this.codec = codec;
             buf = CdcVo.returnPayloadybyCodec(codec);
         }

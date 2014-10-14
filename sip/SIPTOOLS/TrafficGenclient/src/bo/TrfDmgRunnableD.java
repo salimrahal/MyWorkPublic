@@ -58,11 +58,13 @@ public class TrfDmgRunnableD implements Runnable {
             System.out.println("TrfDmgRunnableD: finish ws call: saving pkt loss down");
             // call an outside function to retreive the final results
             System.out.println("TrfDmgRunnableD: call ws: final results");
+            //todo: in case of g711/60 sec Wifi: the res returned null,
+            /*solution: move retreiving result to sending packet module / trfUp, check server log
             ResVo resVo = wsres.retreiveResbyWS(param.getTstid());
             wsres.putRes(resVo);
             if (resVo == null) {
                 System.out.println("TrfDmgRunnableD:Warning: res is null ! putting a null value!");
-            }
+            }*/
         } catch (IOException | InterruptedException e) {
             System.out.println("TrfDmgRunnableD:Exception:" + e.getMessage());
         }

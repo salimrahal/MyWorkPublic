@@ -38,10 +38,8 @@ public class TrfProcessorIn {
             this.trfkey = trfkey;
         } catch (IOException e) {
             System.err.println("TrfProcessorIn: Could not listen on port:" + port);
-            System.exit(1);
         }
     }
-
 
     public void processTest(Param param) throws IOException {
         PrintWriter out = null;
@@ -63,7 +61,7 @@ public class TrfProcessorIn {
                 if (firstLine) {
                     if (inputLine.contains(trfkey)) {
                         System.out.println("TrfProcessorIn:receiving:" + inputLine);
-                        System.out.println("TrfProcessorIn:receiving: Accepted, sending back the " + ACK+".Starting the trafficIn");
+                        System.out.println("TrfProcessorIn:receiving: Accepted, sending back the " + ACK + ".Starting the trafficIn");
                         out.write(ACK);
                         InetAddress inetaddressDest = clientSocket.getInetAddress();
                         TrfBo.closeRess(clientSocket, out, in);
@@ -82,22 +80,21 @@ public class TrfProcessorIn {
             }
         } catch (IOException e) {
             System.err.println("TrfProcessorIn: Accept failed.");
-            System.exit(1);
         } finally {
             if (serverSocket != null) {
                 serverSocket.close();
             }
         }//end of while true
     }//end of process request of IN
-        /*
+
+    /*
      launchTrafficPktLoss():
      launch the listening Dgms socket which listen on portTrf
      start receiving paquets and computes paquet loss
      sending paquets
      */
-
     public void launchTrafficPktLossIn(Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
-      
+
         //run the thread that sends the traffic
         int portsrcInChannel = Integer.valueOf(param.getPortrfClientU());
         int portdestInChannel = Integer.valueOf(param.getPortrfClientU());
@@ -105,7 +102,8 @@ public class TrfProcessorIn {
         TrfDgmRunnableIn trfDgmRunnableIn = new TrfDgmRunnableIn(param, inetaddressDest, portsrcInChannel, portdestInChannel);
         Thread trfDgmThreadIn = new Thread(trfDgmRunnableIn);
         trfDgmThreadIn.start();
+        System.out.println("TrfProcessorIn:launchTrafficPktLossIn waiting to finish the TrfDgmRunnableIn thread");
+        trfDgmThreadIn.join();
     }
-    
- 
+
 }

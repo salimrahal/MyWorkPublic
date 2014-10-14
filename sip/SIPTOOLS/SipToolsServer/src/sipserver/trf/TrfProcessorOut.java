@@ -38,7 +38,6 @@ public class TrfProcessorOut {
             this.trfkey = trfkey;
         } catch (IOException e) {
             System.err.println("TrfProcessorout: Could not listen on port:" + port);
-            System.exit(1);
         }
     }
 
@@ -79,7 +78,6 @@ public class TrfProcessorOut {
             }
         } catch (IOException e) {
             System.err.println("TrfProcessorout: Accept failed.");
-            System.exit(1);
         } finally {
             if (serverSocket != null) {
                 serverSocket.close();
@@ -99,5 +97,7 @@ public class TrfProcessorOut {
         TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(param, inetaddressDest, portsrcOutChannel, portdestOutChannel);
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
+        System.out.println("TrfProcessorout:launchTrafficOut waiting to finish the TrfDgmRunnableOut thread");
+        trfDgmThreadOut.join(); 
     }
 }

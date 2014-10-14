@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Receiver {
 
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
-        int srcport = 5108;
+        int srcport = 5068;
         DatagramSocket ds = new DatagramSocket(srcport);
         byte[] buf = new byte[1024];
         DatagramPacket pd = new DatagramPacket(buf, buf.length);

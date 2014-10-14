@@ -29,9 +29,10 @@ public class TrfBo {
 
     public static final String M_PR = "in progress..";
     public static final String M_FIN = "completed";
-    public static final String M_LAT_PR = "in progress: latency & jitter test";
-    public static final String M_PKT_PR = "in progress: packet loss test";
-    public static final String M_COMPUT_RES = "computing results..";
+    public static final String M_LAT_PR = "1/4 latency & jitter test: in progress..";
+    public static final String M_PKTUP_PR = "2/4 Upstream packet loss test: in progress..";
+    public static final String M_PKTDO_PR = "3/4 Downstream packet loss test: in progress.. ";
+    public static final String M_COMPUT_RES = "4/4 computing final results..";
       
     public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";

@@ -103,16 +103,23 @@ public class ClientSignTcpConnection implements Runnable {
                             trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
 
                             //lauching latency test
+                            System.out.println("ClientSignTcpConnection: phase-1:begin: latency Up test");
                             launchLatUp(param);
+                            System.out.println("ClientSignTcpConnection: phase-1:End: latency Up test");
                             //launch receive thread
+                            System.out.println("ClientSignTcpConnection: phase-2:begin: trf In in test");
                             TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
-                            //something goes wrong in this function: the ACK is send normally when it's commented
                             processorIn.processTest(param);
+                            System.out.println("ClientSignTcpConnection: phase-2:end:  trf In in test");
 //                            launchTrafficPktLossIn(param);
                             //launch send thread
-                             TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
-                             processorOut.processTest(param);
-
+                            System.out.println("ClientSignTcpConnection: phase-3:begin: trf out test");
+                            TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
+                            processorOut.processTest(param);
+                            System.out.println("ClientSignTcpConnection: phase-3:end: trf out test");
+                            //release all ports in DB
+                            boolean releaseallPorts = trfdao.updatePortStatus(ports, "f");
+                            System.out.println("ClientSignTcpConnection: releasing the ports..");
                         }
                         break;
                     }
@@ -194,5 +201,7 @@ public class ClientSignTcpConnection implements Runnable {
         //imp to pass the lat first
         //latTh.setPriority(8);
         latTh.start();
+        System.out.println("ClientSignTcpConnection:launchLatUp waiting to finish the launchLatUp thread");
+        latTh.join();
     }
 }
