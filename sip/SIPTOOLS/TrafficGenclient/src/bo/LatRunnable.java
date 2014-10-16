@@ -112,7 +112,6 @@ public class LatRunnable implements Runnable {
         int count = 1;
         try {
             //set the timeout
-            //todo decrease the time out
             dgmsocket.setSoTimeout(timelength * 1000);
             long tStart = System.nanoTime();
             do {
@@ -161,7 +160,7 @@ public class LatRunnable implements Runnable {
             }
             System.out.println("LatRunnable:handlelat:closing the socket..");
             dgmsocket.close();
-        }
+        }//end of finally
         return latvoDown;
     }
 

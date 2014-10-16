@@ -27,16 +27,17 @@ import vp.vo.PktVo;
  */
 public class TrfBo {
 
+    public static final String M_CN = "connecting..";
     public static final String M_PR = "in progress..";
     public static final String M_FIN = "completed";
     public static final String M_LAT_PR = "1/4 latency & jitter test: in progress..";
     public static final String M_PKTUP_PR = "2/4 Upstream packet loss test: in progress..";
     public static final String M_PKTDO_PR = "3/4 Downstream packet loss test: in progress.. ";
     public static final String M_COMPUT_RES = "4/4 computing final results..";
-      
+
     public static final String M_PRT_B = "Server is Busy, pleaze try again.";
     public static final String M_I = "The server is not responding";
-    public static final String M_NC = "Could not connect to the server! ";
+    public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us.";
     public static final String MSG_CONN_SV_PB = "Server connection problem";
@@ -52,6 +53,7 @@ public class TrfBo {
     public static final Integer D_P = 2;//sec
     public static final Integer P_MX_D = 20000;//ms
     public static final Integer WS_D = 5000;//ms
+    public static final Integer U_C_T = 5000;//ms
     public static final int E_VAL = -1;
     public static String srIp;
     String iplocal;
@@ -66,6 +68,7 @@ public class TrfBo {
     public static final String ACK = "ACK";
     public static final String REQ_IN_KEY = "REQIN";
     public static final String REQ_OUT_KEY = "REQOUT";
+    public static final String LAT_KEY = "LAT";
 
     public List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
@@ -115,15 +118,22 @@ public class TrfBo {
     public static boolean uchkr(String up) throws IOException {
         boolean isg = false;
         final URL url = new URL(up);
-        HttpURLConnection huc = (HttpURLConnection) url.openConnection();
         int responseCode = 0;
-
-        responseCode = huc.getResponseCode();
-        if (responseCode == 200) {
-            isg = true;
-        } else {
-            isg = false;
+        try {
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            huc.setConnectTimeout(U_C_T);
+            responseCode = 0;
+            responseCode = huc.getResponseCode();
+            if (responseCode == 200) {
+                isg = true;
+            } else {
+                isg = false;
+            }
+        } catch (java.net.SocketTimeoutException e) {
+            System.out.println("uchkr: timeout");
+        } catch (IOException iOException) {
         }
+
         return isg;
     }
 
@@ -143,7 +153,7 @@ public class TrfBo {
      Packet loss: you --> server: 56.6 %
      Packet loss: server --> you: 19.6 %
     
-    todo: instead of result -1 show "time out" on UI
+     todo: instead of result -1 show "time out" on UI
  
      */
     public void renderResults(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
@@ -158,7 +168,7 @@ public class TrfBo {
         sb.append(newline);
         sb.append("Upstream: Jitter: you --> server: Peak: ").append(resvo.getUpjtpeak()).append("ms; average: ").append(resvo.getUpjtav()).append("ms").append(newline);
         sb.append("Downstream: Jitter: server --> you: Peak: ").append(resvo.getDojtpeak()).append("ms; average: ").append(resvo.getDojtav()).append("ms").append(newline);
-        
+
         testStatTextArea.setText(sb.toString());
     }
 

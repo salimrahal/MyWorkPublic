@@ -49,16 +49,18 @@ public class Cc {
     }
 
     public ResVo launchtest(String codecparam, String timeLengthParam, String custnmparam, JProgressBar jprobar) throws IOException, Exception {
-        String resmsg = TrfBo.M_PR;
-        ResVo resvo = null;
+        String resmsg = TrfBo.M_CN;
+        ResVo resvo = null;//= new ResVo();
         try {
             System.out.println("CC:launchtest::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             resultmsgjlabel.setText(resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();
                 String portlat = miscPortObj.getPrtLatNum();
-                String porttrfU = miscPortObj.getPrtTrfNumUp();
-                String porttrfD = miscPortObj.getPrtTrfNumDown();
+//                String porttrfU = miscPortObj.getPrtTrfNumUp();
+//                String porttrfD = miscPortObj.getPrtTrfNumDown();
+                String porttrfU = portlat;
+                String porttrfD = portlat;
                 String portSig = miscPortObj.getPrtSigNum();
                 System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
@@ -73,7 +75,7 @@ public class Cc {
                     //2- generate the x of the test
                     String testUuid = trfBo.genID();//size 36
                     //3- send parameters
-                    cltcp = new ClTcp(portSig, porttrfU, porttrfD);
+                    cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
                     boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
                     if (success) {
                         Param param = new Param();
@@ -103,7 +105,7 @@ public class Cc {
                         updateJprogressBar(jprobar, 75);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
                         System.out.println("CC: phase-3:Ends: traffic Down");
-                         updateJprogressBar(jprobar, 95);
+                        updateJprogressBar(jprobar, 95);
                         trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
                         System.out.println("CC: phase-4:begins: Retrieving results...");
                         resvo = wsres.retreiveResbyWS(param.getTstid());
@@ -181,23 +183,51 @@ public class Cc {
     }
 
     public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
-        int portsrc = Integer.valueOf(param.getPortlat());
-        int portdest = Integer.valueOf(param.getPortlat());
-        LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
-        Thread latrunThread = new Thread(latDrun);
-        //imp to pass the lat first
-        //latrunThread.setPriority(8);
-        latrunThread.start();
-        //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
-        //imp
-        System.out.println("CC:launchLatDownRunnable: waiting to finish the LatRunnable thread");
-        latrunThread.join();
+        String resmsg;
+        Thread latrunThread = null;
+        try {
+            int portsrc = Integer.valueOf(param.getPortlat());
+            int portdest = Integer.valueOf(param.getPortlat());
+            boolean successReqToServerLat = cltcp.sendLattoServer(TrfBo.getSrIp(), param.getPortlat(), TrfBo.LAT_KEY);
+            if (successReqToServerLat) {
+                LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
+                latrunThread = new Thread(latDrun);
+                //imp to pass the lat first
+                //latrunThread.setPriority(8);
+                latrunThread.start();
+                //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
+                //imp
+                System.out.println("CC:launchLatDownRunnable: waiting to finish the LatRunnable thread");
+                latrunThread.join();
+            } else {
+                System.out.println("CC:launchLatDownRunnable: successReqToServerLat: the result is false, cannot launch the test of Lat.");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Cc.class.getName()).log(Level.SEVERE, null, ex);
+            resmsg = ex.getMessage();
+            trfBo.setresultmessage(resultmsgjlabel, resmsg);
+        }
     }
 
     public void updateJprogressBar(JProgressBar jprobar, int val) {
         jprobar.setValue(val);
     }
 
+    /*
+     public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+     int portsrc = Integer.valueOf(param.getPortlat());
+     int portdest = Integer.valueOf(param.getPortlat());
+     LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
+     Thread latrunThread = new Thread(latDrun);
+     //imp to pass the lat first
+     //latrunThread.setPriority(8);
+     latrunThread.start();
+     //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished   
+     //imp
+     System.out.println("CC:launchLatDownRunnable: waiting to finish the LatRunnable thread");
+     latrunThread.join();
+     }
+     */
 //    public String getPktLossDown(Param param, InetAddress addressDest) throws SocketException, InterruptedException {
 //        String pktLlossDown = "";
 //        int portsrc = Integer.valueOf(param.getPortrfD());

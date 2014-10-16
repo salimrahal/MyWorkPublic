@@ -36,11 +36,13 @@ public class TrfBo {
     public static final Integer Packet_Max_Delay = 20000;//millisecond
     public static final Integer T_P = 50000;//millisecond
     public static final Integer F_DELAY = 500;//millisecond
+     public static final Integer S_S_T = 20000;//millisecond
     public static final String CODEC_KEY = "codec";
     public static final String TST_ID_KEY = "tstid";//only to be accepted
     public static final String ACK = "ACK";
     public static final String REQ_IN_KEY = "REQIN";
     public static final String REQ_OUT_KEY = "REQOUT";
+    public static final String LAT_KEY = "LAT";
     public static final String PRT_FREE = "f";
     public static final String PRT_BUSY = "b";
 
@@ -83,16 +85,6 @@ public class TrfBo {
             }
         }
         return list;
-    }
-
-    public boolean releasePort(String portparam) throws Exception {
-        System.out.println("releasePort:" + portparam);
-        boolean portreleased = false;
-        //release the port  
-        int port = Integer.valueOf(portparam);
-        //update the port status in DB f->b
-        portreleased = trfdao.updateOnePortStatus(port, "f");
-        return portreleased;
     }
 
     /*

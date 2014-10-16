@@ -6,20 +6,17 @@
 package sipserver.trf;
 
 import java.io.BufferedReader;
-import sipserver.bo.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static sipserver.trf.TrfBo.ACK;
-import static sipserver.trf.TrfBo.TST_ID_KEY;
 import sipserver.trf.bean.Param;
 
 /**
@@ -44,10 +41,12 @@ public class TrfProcessorIn {
     public void processTest(Param param) throws IOException {
         PrintWriter out = null;
         BufferedReader in = null;
+        int serverSockTimeout = TrfBo.S_S_T;
         System.out.println("TrfProcessorIn: starts..\n waiting for connections trf key=" + trfkey);
         try {
-            // a "blocking" call which waits until a connection is requested
-            System.out.println("TrfProcessorIn:waiting for accept..");
+            //wait for connection for a given time then it fires a timeout exception
+            System.out.println("TrfProcessorIn:waiting for accept..timeout:" + serverSockTimeout + " sec");
+            serverSocket.setSoTimeout(serverSockTimeout);
             Socket clientSocket = serverSocket.accept();
             System.out.println("TrfProcessorIn:connection accepted");
             out = new PrintWriter(clientSocket.getOutputStream(),
@@ -58,6 +57,7 @@ public class TrfProcessorIn {
             boolean firstLine = true;
             System.out.println("TrfProcessorIn:[port=" + this.serverSocket.getLocalPort() + "] Connection successful\n");
             while ((inputLine = in.readLine()) != null) {
+                System.out.println("TrfProcessorIn: inputLine="+inputLine);
                 if (firstLine) {
                     if (inputLine.contains(trfkey)) {
                         System.out.println("TrfProcessorIn:receiving:" + inputLine);
@@ -78,6 +78,8 @@ public class TrfProcessorIn {
                 }
                 firstLine = false;
             }
+        } catch (SocketTimeoutException se) {
+            System.out.println("TrfProcessorIn::" + se.getMessage());
         } catch (IOException e) {
             System.err.println("TrfProcessorIn: Accept failed.");
         } finally {

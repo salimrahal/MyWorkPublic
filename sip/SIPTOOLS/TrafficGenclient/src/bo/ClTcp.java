@@ -34,12 +34,57 @@ public class ClTcp {
     Socket socketSig = null;
     Socket socketUp = null;
     Socket socketD = null;
+    Socket socketL = null;
 
-    public ClTcp(String portSig, String portUp, String portD) {
+    public ClTcp(String portSig, String portUp, String portD, String portL) {
         this.portSig = portSig;
         socketSig = new Socket();
         socketUp = new Socket();
         socketD = new Socket();
+        socketL = new Socket();
+    }
+
+    public boolean sendLattoServer(String svip, String portL, String lat_key) throws IOException, Exception {
+        BufferedReader in = null;
+        PrintWriter out = null;
+        String outmsg;
+        boolean success = false;
+        try {
+            socketL.connect(new InetSocketAddress(svip, Integer.parseInt(portL)), TrfBo.T_T);
+            System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
+            out = new PrintWriter(socketL.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(
+                    socketL.getInputStream()));
+            success = sendTrfReq(in, out, portL, lat_key);
+        } catch (UnknownHostException e) {
+            outmsg = "sendLattoServer: sendStream: Don't know about host: " + svip;
+            System.out.println(outmsg);
+            setresultmessage(outmsg);
+        } catch (SocketTimeoutException socketTimeout) {
+            outmsg = TrfBo.M_U;
+            System.out.println("sendLattoServer:Process Request:socketTimeout" + outmsg);
+
+            setresultmessage(outmsg);
+        } catch (IOException iOException) {
+            //handling network unreachable
+            outmsg = iOException.getLocalizedMessage();
+            //"processRequests: Couldn't get I/O for "
+            //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
+            System.out.println("sendLattoServer:Process Request: iOException" + outmsg);
+            setresultmessage(outmsg);
+        } finally {
+            if (socketL != null) {
+                socketL.close();
+            }
+            if (out != null) {
+                out.close();
+                in.close();
+            }
+            if (in != null) {
+                in.close();
+            }
+        }
+        return success;
     }
 
     public boolean sendTrfReqToServerUp(String svip, String portUp, String req_key) throws IOException, Exception {
@@ -56,24 +101,29 @@ public class ClTcp {
             success = sendTrfReq(in, out, portUp, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerUp: sendStream: Don't know about host: " + svip;
-            System.err.println(outmsg);
+            System.out.println(outmsg);
             setresultmessage(outmsg);
         } catch (SocketTimeoutException socketTimeout) {
             outmsg = TrfBo.M_U;
-            System.err.println("sendTrfReqToServerUp: Process Request:socketTimeout" + outmsg);
+            System.out.println("sendTrfReqToServerUp: Process Request:socketTimeout" + outmsg);
             setresultmessage(outmsg);
         } catch (IOException iOException) {
             //handling network unreachable
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.err.println("sendTrfReqToServerUp:Process Request:iOException" + outmsg);
+            System.out.println("sendTrfReqToServerUp:Process Request:iOException" + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketUp != null) {
+                socketUp.close();
+            }
+            if (out != null) {
                 out.close();
                 in.close();
-                socketUp.close();
+            }
+            if (in != null) {
+                in.close();
             }
         }
         return success;
@@ -93,25 +143,29 @@ public class ClTcp {
             success = sendTrfReq(in, out, portD, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerDown: sendStream: Don't know about host: " + svip;
-            System.err.println(outmsg);
+            System.out.println(outmsg);
             setresultmessage(outmsg);
         } catch (SocketTimeoutException socketTimeout) {
             outmsg = TrfBo.M_U;
-            System.err.println("sendTrfReqToServerDown:Process Request:socketTimeout" + outmsg);
-
+            System.out.println("sendTrfReqToServerDown:Process Request:socketTimeout" + outmsg);
             setresultmessage(outmsg);
         } catch (IOException iOException) {
             //handling network unreachable
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.err.println("sendTrfReqToServerDown:Process Request: iOException" + outmsg);
+            System.out.println("sendTrfReqToServerDown:Process Request: iOException" + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketD != null) {
+                socketD.close();
+            }
+            if (out != null) {
                 out.close();
                 in.close();
-                socketD.close();
+            }
+            if (in != null) {
+                in.close();
             }
         }
         return success;
@@ -133,11 +187,11 @@ public class ClTcp {
             success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
         } catch (UnknownHostException e) {
             outmsg = "sendParamToServer:sendStream: Don't know about host: " + svip;
-            System.err.println(outmsg);
+            System.out.println(outmsg);
             setresultmessage(outmsg);
         } catch (SocketTimeoutException socketTimeout) {
             outmsg = TrfBo.M_U;
-            System.err.println("sendParamToServer:Process Request:socketTimeout" + outmsg);
+            System.out.println("sendParamToServer:Process Request:socketTimeout" + outmsg);
 
             setresultmessage(outmsg);
         } catch (IOException iOException) {
@@ -145,13 +199,18 @@ public class ClTcp {
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.err.println("sendParamToServer:Process Request:iOException" + outmsg);
+            System.out.println("sendParamToServer:Process Request:iOException" + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketSig != null) {
+                socketSig.close();
+            }
+            if (out != null) {
                 out.close();
                 in.close();
-                socketSig.close();
+            }
+            if (in != null) {
+                in.close();
             }
         }
         return success;

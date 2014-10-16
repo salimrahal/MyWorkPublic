@@ -47,12 +47,20 @@ public class TrfDao {
         String x1 = "traffic";
         String x = gety(x1);
         PreparedStatement preparedStatement = null;
-        StringBuilder sb = new StringBuilder("update Ports set status = \"");
-        sb.append(sts).append("\"");
-        sb.append("where portNum =").append(portNumArr[0]).append(" or portNum = ").append(portNumArr[1]).
-                append(" or portNum = ").append(portNumArr[2]);
-        String query = sb.toString();
-
+        String query = "update Ports set status = \"";
+        query += sts + "\" where (";
+        boolean first = true;
+        for (int i = 0; i < portNumArr.length; i++) {
+            if (first) {
+                query += "portNum =" + portNumArr[i];
+                first = false;
+            }
+            else{
+                query += " or  portNum =" + portNumArr[i];
+            }
+        }
+        query+=")";
+        //System.out.println("TrfDao:updatePortStatus query="+query);
         try (Connection connect = getC(x)) {
 
             // preparedStatements can use variables and are more efficient
@@ -61,7 +69,7 @@ public class TrfDao {
 
             //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
-            if (i == 3) {
+             if (i >= 1) {
                 res = true;
             } else {
                 res = false;
@@ -72,12 +80,12 @@ public class TrfDao {
         return res;
     }
 
-     public synchronized boolean updateALLPortStatus(String sts) throws Exception {
+    public synchronized boolean updateALLPortStatus(String sts) throws Exception {
         boolean res = false;
         String x1 = "traffic";
         String x = gety(x1);
         PreparedStatement preparedStatement = null;
-        String query = "update Ports set status = \""+sts+"\"";
+        String query = "update Ports set status = \"" + sts + "\"";
         try (Connection connect = getC(x)) {
 
             // preparedStatements can use variables and are more efficient
@@ -85,7 +93,7 @@ public class TrfDao {
                     .prepareStatement(query);
             //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
-            if (i == 3) {
+             if (i >= 1) {
                 res = true;
             } else {
                 res = false;
@@ -95,6 +103,7 @@ public class TrfDao {
         }
         return res;
     }
+
     public String gety(String f1) {
         String sb = f1 + y;
         return sb;
@@ -115,7 +124,7 @@ public class TrfDao {
 
             //i is the number of row updated, if 2 row is updated then returns: 2
             int i = preparedStatement.executeUpdate();
-            if (i == 1) {
+            if (i >= 1) {
                 res = true;
             } else {
                 res = false;
@@ -246,9 +255,9 @@ public class TrfDao {
     }
 
     /*
-    unsused in the server
-    for test only
-    */
+     unsused in the server
+     for test only
+     */
     public ResVo getRes(String testId) throws Exception {
         String x1 = "traffic";
         String x = gety(x1);
@@ -269,7 +278,7 @@ public class TrfDao {
             if (rs.first()) {
                 res = new ResVo(rs.getString("customerName"), rs.getString("publicIp"), rs.getString("codec"), rs.getInt("testLength"));
                 res.setsDate(new java.util.Date(rs.getTimestamp("startTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
-                 res.seteDate(new java.util.Date(rs.getTimestamp("endTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
+                res.seteDate(new java.util.Date(rs.getTimestamp("endTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
                 res.setUppkloss(rs.getFloat("uploadPacketLost"));
                 res.setUplatpeak(rs.getInt("uploadLatencyPeak"));
                 res.setUplatav(rs.getInt("uploadLatencyAvg"));
@@ -293,10 +302,11 @@ public class TrfDao {
         ports[1] = 5096;
         TrfDao dao = new TrfDao();
         //dao.updatePortStatus(ports, "b");
-        System.out.println(dao.getRes("7034cc4f-0f59-471b-a198-f803fe7bf062"));
+       // System.out.println(dao.getRes("7034cc4f-0f59-471b-a198-f803fe7bf062"));
         //ResVo{cnme=custnamefromAppletclass, puip=93.185.225.150, cdc=SILK, tlth=120,
         //stime=Thu Jan 01 20:49:41 EET 1970, sDate=Mon Sep 29 00:00:00 EEST 2014, etime=2014-09-29, eDate=null, uppkloss=54.38, uplatpeak=921, uplatav=894, 
         //upjtpeak=643, upjtav=25, dopkloss=81.28, dolatpeak=403, dolatav=272, dojtpeak=30, dojtav=9}
+        dao.updatePortStatus(new int[]{5098,5098},"f");
     }
 
 }

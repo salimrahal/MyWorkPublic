@@ -54,11 +54,10 @@ public class LatRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("LatRunnable:: Priority=" + Thread.currentThread().getPriority());
         try {
             LatVo latvoUp = handleLat();
-            //set the used port to free
-            trfdao.updateOnePortStatus(portsrc, "f");
+            //releasing the port is done in clientTCPconnection
+            //trfdao.updateOnePortStatus(portsrc, "f");
             if (latvoUp == null) {
                 latvoUp = new LatVo(-1, -1);
                 JtrVo jitterO = new JtrVo(-1, -1);
@@ -116,7 +115,7 @@ public class LatRunnable implements Runnable {
                 elapsedSeconds = tDelta / 1000000000.0;
                 //System.out.println("LatRunnable::handlelat:phase a-b(listen-echo) time elapsed:" + elapsedSeconds + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
-                if (countLoop1 == packetNumToSend || elapsedSeconds >= timelength) {
+                if (countLoop1 == packetNumToSend || elapsedSeconds >= timelength/2) {
                     System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo) :elapsed time:" + elapsedSeconds + " /original test time:" + timelength + ". finish the listening.");
                     morepacketToProcess = false;
                 }
@@ -128,9 +127,9 @@ public class LatRunnable implements Runnable {
             long tStartLoopS = System.nanoTime();
             int countLoop2 = 1;
             System.out.println("LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
-            /*increase timeout: this is a multthreaded App, increasing this value may prevent a timeout exception 
-             in case the JVM will prioritize another thread to be executed first, such as packet lost test.
-             */
+            /*
+            since it becomes sequential process, to we can minimize the timelength
+            */
             //int localtimelength = timelength + timelength / 3;
             //dgmsocket.setSoTimeout((localtimelength) * 1000);//
             int localtimelength = timelength;

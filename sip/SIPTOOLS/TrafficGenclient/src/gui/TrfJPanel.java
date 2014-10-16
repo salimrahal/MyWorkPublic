@@ -295,9 +295,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             if (trfBo.isES(resvo)) {
                 trfBo.setresultmessage(resultmsgjlabel, TrfBo.M_U_T);
             }
-        }else{
-             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
         }
+//        else{
+//             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
+//        }
         return null;
     }
 

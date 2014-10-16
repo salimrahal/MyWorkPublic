@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,11 +43,14 @@ public class TrfProcessorOut {
     }
 
     public void processTest(Param param) throws IOException {
-        PrintWriter out ;
-        BufferedReader in ;
+        PrintWriter out;
+        BufferedReader in;
+        int serverSockTimeout = TrfBo.S_S_T;
         System.out.println("TrfProcessorout: starts..\n waiting for connections trf key=" + trfkey);
         try {
-            // a "blocking" call which waits until a connection is requested
+            //wait for connection for a given time then it fires a timeout exception
+            System.out.println("TrfProcessorout:waiting for accept..timeout:" + serverSockTimeout + " sec");
+            serverSocket.setSoTimeout(serverSockTimeout);
             Socket clientSocket = serverSocket.accept();
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
@@ -56,10 +60,11 @@ public class TrfProcessorOut {
             boolean firstLine = true;
             System.out.println("TrfProcessorout:[port=" + this.serverSocket.getLocalPort() + "] Connection successful\n");
             while ((inputLine = in.readLine()) != null) {
+                System.out.println("TrfProcessorout: inputLine=" + inputLine);
                 if (firstLine) {
-                     System.out.println("TrfProcessorout:receiving:" + inputLine);
+                    System.out.println("TrfProcessorout:receiving:" + inputLine);
                     if (inputLine.contains(trfkey)) {
-                        System.out.println("TrfProcessorout: Accepted, sending back the " + ACK+".Starting the trafficOut");
+                        System.out.println("TrfProcessorout: Accepted, sending back the " + ACK + ".Starting the trafficOut");
                         out.write(ACK);
                         InetAddress inetaddressDest = clientSocket.getInetAddress();
                         TrfBo.closeRess(clientSocket, out, in);
@@ -76,6 +81,8 @@ public class TrfProcessorOut {
                 }
                 firstLine = false;
             }
+        } catch (SocketTimeoutException se) {
+            System.out.println("TrfProcessorout::" + se.getMessage());
         } catch (IOException e) {
             System.err.println("TrfProcessorout: Accept failed.");
         } finally {
@@ -90,7 +97,8 @@ public class TrfProcessorOut {
      start receiving paquets and computes paquet loss
      sending paquets
      */
-      public void launchTrafficOut(Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
+
+    public void launchTrafficOut(Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
 //run the thread that sends the traffic
         int portsrcOutChannel = Integer.valueOf(param.getPortrfClientD());
         int portdestOutChannel = Integer.valueOf(param.getPortrfClientD());
@@ -98,6 +106,6 @@ public class TrfProcessorOut {
         Thread trfDgmThreadOut = new Thread(trfDgmRunnableOut);
         trfDgmThreadOut.start();
         System.out.println("TrfProcessorout:launchTrafficOut waiting to finish the TrfDgmRunnableOut thread");
-        trfDgmThreadOut.join(); 
+        trfDgmThreadOut.join();
     }
 }
