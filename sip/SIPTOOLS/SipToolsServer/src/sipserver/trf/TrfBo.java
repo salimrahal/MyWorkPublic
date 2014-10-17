@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -70,7 +71,7 @@ public class TrfBo {
             } catch (IOException ex) {
                 Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("TrfBo: closeRess: ressource closed");
+            System.out.println("["+ new Date() +"] TrfBo: closeRess: ressource closed");
         }
     }
 

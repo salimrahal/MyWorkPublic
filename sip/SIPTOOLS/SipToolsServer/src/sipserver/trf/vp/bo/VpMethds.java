@@ -19,7 +19,7 @@ import sipserver.trf.vp.vo.PktVo;
  * @author salim
  */
 public class VpMethds {
-
+ private static final long M_X_L = 1500;
     /**
      *
      * @param pktL: packet received
@@ -103,6 +103,7 @@ public class VpMethds {
             //loop thru packet and retreive latencies
             for (PktVo pktObj : pktL) {
                 latInst = pktObj.getRtt() / 2;
+                 latInst = roundLat(latInst);
                 latArray[i] = (long) latInst;
                 //System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
                 i++;
@@ -126,7 +127,15 @@ public class VpMethds {
         }
         return latObj;
     }
-
+   /*
+     if lat > 1500 ms --> round it on 1500 ms
+     */
+    public static long roundLat(long theoricalLat) {
+        if (theoricalLat > M_X_L) {
+            theoricalLat = M_X_L;
+        }
+        return theoricalLat;
+    }
     /**
      *
      * @param latObj

@@ -51,10 +51,10 @@ public class ClTcp {
         boolean success = false;
         try {
             socketL.connect(new InetSocketAddress(svip, Integer.parseInt(portL)), TrfBo.T_T);
-            System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
             out = new PrintWriter(socketL.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketL.getInputStream()));
+            System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portL, lat_key);
         } catch (UnknownHostException e) {
             outmsg = "sendLattoServer: sendStream: Don't know about host: " + svip;
@@ -70,7 +70,7 @@ public class ClTcp {
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.out.println("sendLattoServer:Process Request: iOException" + outmsg);
+            System.out.println("sendLattoServer:Process Request: iOException: " + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketL != null) {
@@ -93,11 +93,12 @@ public class ClTcp {
         String outmsg;
         boolean success = false;
         try {
+            //todo: to handle the connection refused excption implement retry 3 times
             socketUp.connect(new InetSocketAddress(svip, Integer.parseInt(portUp)), TrfBo.T_T);
-            System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
             out = new PrintWriter(socketUp.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketUp.getInputStream()));
+            System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portUp, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerUp: sendStream: Don't know about host: " + svip;
@@ -110,9 +111,8 @@ public class ClTcp {
         } catch (IOException iOException) {
             //handling network unreachable
             outmsg = iOException.getLocalizedMessage();
-            //"processRequests: Couldn't get I/O for "
-            //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.out.println("sendTrfReqToServerUp:Process Request:iOException" + outmsg);
+            //todo: frequent bug implement retry
+            System.out.println("sendTrfReqToServerUp:Process Request:iOException " + outmsg);
             setresultmessage(outmsg);
         } finally {
             if (socketUp != null) {
@@ -136,10 +136,10 @@ public class ClTcp {
         boolean success = false;
         try {
             socketD.connect(new InetSocketAddress(svip, Integer.parseInt(portD)), TrfBo.T_T);
-            System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
             out = new PrintWriter(socketD.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketD.getInputStream()));
+              System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portD, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerDown: sendStream: Don't know about host: " + svip;
@@ -179,11 +179,10 @@ public class ClTcp {
 
         try {
             socketSig.connect(new InetSocketAddress(svip, Integer.parseInt(portSig)), TrfBo.T_T);
-            System.out.println("sendParamToServer:Process Request: connected.");
             out = new PrintWriter(socketSig.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketSig.getInputStream()));
-
+            System.out.println("sendParamToServer:Process Request: connected.");
             success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
         } catch (UnknownHostException e) {
             outmsg = "sendParamToServer:sendStream: Don't know about host: " + svip;
@@ -229,7 +228,7 @@ public class ClTcp {
             //write to the server
             out.println(submsgToSend);
             //recieve from the server,
-            System.out.println("sendTrfReq: waiting for inputs..");
+            System.out.println("sendTrfReq: key sent, waiting for inputs..");
             //in some case it will freeze here nothing is received, so a timeout will be triggered
             msgRecv = in.readLine();
             System.out.println("sendTrfReq: readLine= " + msgRecv);

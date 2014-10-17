@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static sipserver.trf.TrfBo.ACK;
@@ -42,10 +43,10 @@ public class TrfProcessorIn {
         PrintWriter out = null;
         BufferedReader in = null;
         int serverSockTimeout = TrfBo.S_S_T;
-        System.out.println("TrfProcessorIn: starts..\n waiting for connections trf key=" + trfkey);
+        System.out.println("["+ new Date() +"] TrfProcessorIn: starts..\n waiting for connections trf key=" + trfkey);
         try {
             //wait for connection for a given time then it fires a timeout exception
-            System.out.println("TrfProcessorIn:waiting for accept..timeout:" + serverSockTimeout + " sec");
+            System.out.println("["+ new Date() +"] TrfProcessorIn:waiting for accept..timeout:" + serverSockTimeout + " sec");
             serverSocket.setSoTimeout(serverSockTimeout);
             Socket clientSocket = serverSocket.accept();
             System.out.println("TrfProcessorIn:connection accepted");
@@ -57,7 +58,7 @@ public class TrfProcessorIn {
             boolean firstLine = true;
             System.out.println("TrfProcessorIn:[port=" + this.serverSocket.getLocalPort() + "] Connection successful\n");
             while ((inputLine = in.readLine()) != null) {
-                System.out.println("TrfProcessorIn: inputLine="+inputLine);
+                System.out.println("["+ new Date() +"] TrfProcessorIn: inputLine="+inputLine);
                 if (firstLine) {
                     if (inputLine.contains(trfkey)) {
                         System.out.println("TrfProcessorIn:receiving:" + inputLine);

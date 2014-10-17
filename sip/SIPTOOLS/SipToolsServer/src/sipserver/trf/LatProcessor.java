@@ -14,6 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static sipserver.trf.TrfBo.ACK;
@@ -31,7 +32,7 @@ public class LatProcessor {
     public LatProcessor(Integer port, String latkey) {
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("LatProcessor: listening on port " + port);
+            System.out.println("["+ new Date() +"] LatProcessor: listening on port " + port);
             this.latkey = latkey;
         } catch (IOException e) {
             System.err.println("LatProcessor: Could not listen on port:" + port);
@@ -42,21 +43,21 @@ public class LatProcessor {
         PrintWriter out = null;
         BufferedReader in = null;
         int serverSockTimeout = TrfBo.S_S_T;
-        System.out.println("LatProcessor: starts..\n waiting for connections trf key=" + latkey);
+        System.out.println("["+ new Date() +"] LatProcessor: starts..\n waiting for connections trf key=" + latkey);
         try {
-            System.out.println("LatProcessor:waiting for accept..timeout:" + serverSockTimeout + " sec");
+            System.out.println("["+ new Date() +"] LatProcessor:waiting for accept..timeout:" + serverSockTimeout + " sec");
             serverSocket.setSoTimeout(serverSockTimeout);
             Socket clientSocket = serverSocket.accept();
-            System.out.println("LatProcessor:connection accepted");
+            System.out.println("["+ new Date() +"] LatProcessor:connection accepted");
             out = new PrintWriter(clientSocket.getOutputStream(),
                     true);
             in = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
             String inputLine;
             boolean firstLine = true;
-            System.out.println("LatProcessor:[port=" + this.serverSocket.getLocalPort() + "] Connection successful\n");
+            System.out.println("["+ new Date() +"] LatProcessor:[port=" + this.serverSocket.getLocalPort() + "] Connection successful\n");
             while ((inputLine = in.readLine()) != null) {
-                System.out.println("LatProcessor: inputLine=" + inputLine);
+                System.out.println("["+ new Date() +"] LatProcessor: inputLine=" + inputLine);
                 if (firstLine) {
                     if (inputLine.contains(latkey)) {
                         System.out.println("LatProcessor:receiving:" + inputLine);
@@ -97,7 +98,7 @@ public class LatProcessor {
         LatRunnable lat = new LatRunnable(param, inetaddressDest, portsrc, portdest, 0);
         Thread latTh = new Thread(lat);
         latTh.start();
-        System.out.println("LatProcessor:launchLatUp waiting to finish the launchLatUp..");
+        System.out.println("["+ new Date() +"] LatProcessor:launchLatUp waiting to finish the launchLatUp..");
         latTh.join();
     }
 

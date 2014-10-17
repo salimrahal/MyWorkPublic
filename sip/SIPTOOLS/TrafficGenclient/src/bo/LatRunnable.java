@@ -57,14 +57,14 @@ public class LatRunnable implements Runnable {
         System.out.println("LatRunnable::Thread name: "+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
         try {
             LatVo latvoDown = handlelat();
-            System.out.println("LatRunnable: saving latvoDown to DB..");
+            System.out.println("["+ new Date() +"] LatRunnable: saving latvoDown to DB..");
             if (latvoDown != null) {
                 int latpk = VpMethds.safeLongToInt(latvoDown.getPeak());
                 int latavg = VpMethds.safeLongToInt(latvoDown.getAvg());
                 int jtpk = VpMethds.safeLongToInt(latvoDown.getJitterObj().getPeak());
                 int jtavg = VpMethds.safeLongToInt(latvoDown.getJitterObj().getAvg());
                 WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg);
-                System.out.println("LatRunnable: finish ws call");
+                System.out.println("["+ new Date() +"] LatRunnable: finish ws call");
             }else{
                 System.out.println("warning: latvoDown is null, save with -1 values");
                  WSBo.svLJD(param.getTstid(), -1, -1, -1, -1);
@@ -97,7 +97,7 @@ public class LatRunnable implements Runnable {
         buf = CdcVo.returnPayloadybyCodec(codec);
 
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        System.out.println("LatRunnable::handlelat:phase: a-b(send-listen):start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        System.out.println("["+ new Date() +"] LatRunnable::handlelat:phase: a-b(send-listen):start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
         //send packet to server
         for (int i = 1; i <= packetNumToSend; i++) {
@@ -107,12 +107,11 @@ public class LatRunnable implements Runnable {
             dgmsocket.send(outgoingPacket);
             pktMap.put(i, pktObj);
         }
-        System.out.println("LatRunnable::handlelat:phase: a-b(send-listen): sending finished");
-        System.out.println("LatRunnable::handlelat::phase: a-b(send-listen): waiting to recev....");
+        System.out.println("["+ new Date() +"] LatRunnable::handlelat::phase: a-b(send-listen): sending finished, waiting to recev....");
         int count = 1;
         try {
             //set the timeout
-            dgmsocket.setSoTimeout(timelength * 1000);
+            dgmsocket.setSoTimeout((timelength)* 1000);
             long tStart = System.nanoTime();
             do {
                 dgmsocket.receive(incomingPacket);
@@ -131,17 +130,16 @@ public class LatRunnable implements Runnable {
                 long tDelta = tEnd - tStart;
                 double elapsedSeconds = tDelta / 1000000000.0;
                 //System.out.println("LatRunnable::handlelat:time elapsed:" + elapsedSeconds + " sec");
-                //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
-                if (elapsedSeconds >= timelength / 2 || count == packetNumToSend) {
-                    System.out.println("LatRunnable::handlelat:a-b(send-listen):Ends:No more packet to received. elapsed time:" + elapsedSeconds + " /original test time/2:" + timelength / 2 + ". finish the listening.");
+                if (elapsedSeconds >= timelength || count == packetNumToSend) {
+                    System.out.println("LatRunnable::handlelat:a-b(send-listen):Ends:No more packet to received. elapsed time:" + elapsedSeconds + " /original test [time]:" + timelength + ". finish the listening.");
                     morepacketToReceive = false;
                 }
             } while (morepacketToReceive);
         } catch (SocketTimeoutException se) {
-            System.out.println("LatRunnable::handlelat:a-b(send-listen)" + se.getMessage());
+            System.out.println("["+ new Date() +"]: LatRunnable::handlelat:SocketTimeoutException: a-b(send-listen):" + se.getMessage());
         } finally {
             if (count > 0) {
-                System.out.println("LatRunnable received pkt: total received count=" + count);
+                System.out.println("["+ new Date() +"] LatRunnable received pkt: total received count=" + count);
                 System.out.println("LatRunnable:handlelat:finish receiving function.");
                 sendPkt(outgoingPacket);
             } else {
@@ -158,7 +156,7 @@ public class LatRunnable implements Runnable {
             } else {
                 System.out.println("LatRunnable:handlelat:Result:" + latvoDown.toString());
             }
-            System.out.println("LatRunnable:handlelat:closing the socket..");
+            System.out.println("["+ new Date() +"] LatRunnable:handlelat:closing the socket..");
             dgmsocket.close();
         }//end of finally
         return latvoDown;

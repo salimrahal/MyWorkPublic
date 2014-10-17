@@ -102,24 +102,24 @@ public class ClientSignTcpConnection implements Runnable {
                             //record the test
                             trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
                             //lauching latency test
-                            System.out.println("ClientSignTcpConnection: phase-1:begin: latency Up test");
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-1:begin: latency Up test");
                             LatProcessor processorLat = new LatProcessor(portlat, TrfBo.LAT_KEY);
                             processorLat.processTest(param);
-                            System.out.println("ClientSignTcpConnection: phase-1:End: latency Up test");
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-1:End: latency Up test");
                             //launch receive thread
-                            System.out.println("ClientSignTcpConnection: phase-2:begin: trf In in test");
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-2:begin: trf In in test");
                             TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
                             processorIn.processTest(param);
-                            System.out.println("ClientSignTcpConnection: phase-2:end:  trf In in test");
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-2:end:  trf In in test");
 //                            launchTrafficPktLossIn(param);
                             //launch send thread
-                                System.out.println("ClientSignTcpConnection: phase-3:begin: trf out test");
+                                System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-3:begin: trf out test");
                             TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
                             processorOut.processTest(param);
-                            System.out.println("ClientSignTcpConnection: phase-3:end: trf out test");
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-3:end: trf out test");
                             //release all ports in DB
                             releaseallPorts = trfdao.updatePortStatus(ports, "f");
-                            System.out.println("ClientSignTcpConnection: releasing the ports=" + releaseallPorts);
+                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: releasing the ports=" + releaseallPorts);
                         }
                         break;
                     }

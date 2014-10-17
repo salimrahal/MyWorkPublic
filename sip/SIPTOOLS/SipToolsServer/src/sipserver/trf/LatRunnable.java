@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,9 +94,10 @@ public class LatRunnable implements Runnable {
         buf = CdcVo.returnPayloadybyCodec(codec);
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
-        System.out.println("LatRunnable:handleLat::phase a-b(listen-echo) waiting for Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+        System.out.println("["+ new Date() +"] LatRunnable:handleLat::phase a-b(listen-echo) waiting for Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+        int initial_delay = 2;//init delay debore start the process, this is the time receive the request from the client
         try {
-            dgmsocket.setSoTimeout((timelength + 2) * 1000);
+            dgmsocket.setSoTimeout((timelength + initial_delay) * 1000);
            // dgmsocket.setSoTimeout(TrfBo.U_T); time out very soon
             tStart = System.nanoTime();
             do {
@@ -116,17 +118,17 @@ public class LatRunnable implements Runnable {
                 //System.out.println("LatRunnable::handlelat:phase a-b(listen-echo) time elapsed:" + elapsedSeconds + " sec");
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
                 if (countLoop1 == packetNumToSend || elapsedSeconds >= timelength/2) {
-                    System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo) :elapsed time:" + elapsedSeconds + " /original test time:" + timelength + ". finish the listening.");
+                    System.out.println("["+ new Date() +"] LatRunnable::handlelat:phase: a-b(listen-echo) :elapsed time:" + elapsedSeconds + " /original test time:" + timelength + ". finish the listening.");
                     morepacketToProcess = false;
                 }
             } while (morepacketToProcess);
 
-            System.out.println("LatRunnable:handleLat:phase a-b(listen-echo): finished: received and resent pktnum=" + countLoop1);
-            System.out.println("LatRunnable::handlelat:phase: a-b(listen-echo):finished :elapsed time:" + elapsedSeconds);
+            System.out.println("["+ new Date() +"] LatRunnable:handleLat:phase a-b(listen-echo): finished: received and resent pktnum=" + countLoop1);
+            System.out.println("["+ new Date() +"] LatRunnable::handlelat:phase: a-b(listen-echo):finished :elapsed time:" + elapsedSeconds);
             boolean morepacketToRecv = true;
             long tStartLoopS = System.nanoTime();
             int countLoop2 = 1;
-            System.out.println("LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
+            System.out.println("["+ new Date() +"] LatRunnable:handleLat:phase c(listen) start receiving the resent message to record the time arrived");
             /*
             since it becomes sequential process, to we can minimize the timelength
             */
@@ -147,7 +149,7 @@ public class LatRunnable implements Runnable {
                     //System.out.println("LatRunnable:handleLat:phase c(listen): Pkt:" + pktObj.toString());
                     countLoop2++;
                 } else {
-                    System.out.println("phase c(listen) an WARNING! the pkt with id=" + countLoop2 + " doesnt exists in the Pkt Map, some pkt are lost. breaking the listeing loop.");
+                    System.out.println("["+ new Date() +"] phase c(listen) an WARNING! the pkt with id=" + countLoop2 + " doesnt exists in the Pkt Map, some pkt are lost. breaking the listeing loop.");
                     morepacketToRecv = false;
                 }
                 //check the elapsed time whether is greate than test time length then break the test
@@ -156,16 +158,16 @@ public class LatRunnable implements Runnable {
                 elapsedSecondsLoopS = tDeltaLoopS / 1000000000.0;
                 //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
                 if (elapsedSecondsLoopS >= localtimelength) {
-                    System.out.println("LatRunnable::handlelat:phase c(listen) elapsed time:" + elapsedSecondsLoopS + " exceeded test time/x:" + localtimelength + ". finish the listening.");
+                    System.out.println("["+ new Date() +"] LatRunnable::handlelat:phase c(listen) elapsed time:" + elapsedSecondsLoopS + " exceeded test time/x:" + localtimelength + ". finish the listening.");
                     morepacketToRecv = false;
                 }
             } while (morepacketToRecv);
-            System.out.println("LatRunnable::handlelat:phase c(listen) Finished: received pkt=" + countLoop2 + "time elapsed:" + elapsedSecondsLoopS + " sec");
+            System.out.println("["+ new Date() +"] LatRunnable::handlelat:phase c(listen) Finished: received pkt=" + countLoop2 + "time elapsed:" + elapsedSecondsLoopS + " sec");
         } catch (SocketTimeoutException se) {
             long tEndEx = System.nanoTime();
             long tDeltaLoopE = tEndEx - tStart;
             double elapsedSecondsEx = tDeltaLoopE / 1000000000.0;
-            System.out.println("LatRunnable:handleLat::No more Packet to receive:receiving Pkt::" + se.getMessage() + ".elapsed time:" + elapsedSecondsEx + "");
+            System.out.println("["+ new Date() +"] LatRunnable:handleLat:SocketTimeoutException:No more Packet to receive:receiving Pkt::" + se.getMessage() + ".elapsed time:" + elapsedSecondsEx + "");
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -177,11 +179,11 @@ public class LatRunnable implements Runnable {
             //concer to ms the results
             VpMethds.cvLat(latvoUp);
             if (latvoUp == null) {
-                System.out.println("LatRunnable:handlelat:Result:latency is null!");
+                System.out.println("["+ new Date() +"] LatRunnable:handlelat:Result:latency is null!");
             } else {
-                System.out.println("LatRunnable:handlelat:Result:" + latvoUp.toString());
+                System.out.println("["+ new Date() +"] LatRunnable:handlelat:Result:" + latvoUp.toString());
             }
-            System.out.println("LatRunnable:handlelat:closing the socket..");
+            System.out.println("["+ new Date() +"] LatRunnable:handlelat:closing the socket..");
             dgmsocket.close();
         }
         return latvoUp;

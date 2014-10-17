@@ -22,6 +22,8 @@ import vp.vo.PktVo;
  */
 public class VpMethds {
 
+    private static final long M_X_L = 1500;
+
     public static int safeLongToInt(long l) {
         int i = (int) l;
         if ((long) i != l) {
@@ -132,6 +134,7 @@ public class VpMethds {
             //loop thru packet and retreive latencies
             for (PktVo pktObj : pktL) {
                 latInst = pktObj.getRtt() / 2;
+                latInst = roundLat(latInst);
                 latArray[i] = (long) latInst;
                 //System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
                 i++;
@@ -158,6 +161,19 @@ public class VpMethds {
             System.out.println("Error: VpMethds.computeLatJitV2(): pktL Array length is " + pktLSize);
         }
         return latObj;
+    }
+
+    /*
+     if lat > 1500 ms --> round it on 1500 ms
+     */
+    public static long roundLat(long latparam) {
+        //System.out.println("roundLat:latparam"+latparam);
+        long mx_nn = convertMTN(M_X_L);
+        if (latparam > mx_nn) {
+            //System.out.println("roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
+            latparam = mx_nn;
+        }
+        return latparam;
     }
 
     /**
@@ -199,6 +215,11 @@ public class VpMethds {
     public static long convertNTM(long nv) {
         long ms = nv / 1000000;
         return ms;
+    }
+    
+      public static long convertMTN(long ms) {
+        long ns = ms * 1000000;
+        return ns;
     }
 
     public static List<PktVo> cll(List<PktVo> pkl) {

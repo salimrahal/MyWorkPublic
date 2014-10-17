@@ -65,6 +65,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel2 = new javax.swing.JLabel();
         timelengthjComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -120,6 +122,15 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("VoIP test statistics");
 
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("150ms is the specified maximum desired one-way latency to achieve high-quality voice. Voice users will notice round-trip delays that exceed 250ms.");
+        jTextArea1.setBorder(new javax.swing.border.MatteBorder(null));
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,6 +167,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGap(202, 202, 202)
                 .addComponent(jLabel26)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +196,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -221,6 +238,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JLabel jLabel3;
     public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runTestButton;

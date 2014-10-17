@@ -57,10 +57,10 @@ public class Cc {
             if (TrfBo.uchkr(TrfBo.genul())) {
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();
                 String portlat = miscPortObj.getPrtLatNum();
-//                String porttrfU = miscPortObj.getPrtTrfNumUp();
-//                String porttrfD = miscPortObj.getPrtTrfNumDown();
-                String porttrfU = portlat;
-                String porttrfD = portlat;
+                String porttrfU = miscPortObj.getPrtTrfNumUp();
+                String porttrfD = miscPortObj.getPrtTrfNumDown();
+//                String porttrfU = portlat;
+//                String porttrfD = portlat;
                 String portSig = miscPortObj.getPrtSigNum();
                 System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
