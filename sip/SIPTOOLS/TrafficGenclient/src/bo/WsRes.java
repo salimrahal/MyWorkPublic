@@ -6,6 +6,7 @@
 package bo;
 
 import com.safirasoft.ResVo;
+import java.net.SocketTimeoutException;
 
 /**
  *

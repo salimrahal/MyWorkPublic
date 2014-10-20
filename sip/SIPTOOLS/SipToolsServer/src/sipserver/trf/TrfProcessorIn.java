@@ -29,14 +29,12 @@ public class TrfProcessorIn {
     ServerSocket serverSocket = null;
     String trfkey;
 
-    public TrfProcessorIn(Integer port, String trfkey) {
-        try {
-            serverSocket = new ServerSocket(port);
+    public TrfProcessorIn(ServerSocket serverSocket, Integer port, String trfkey) {
+            //serverSocket = new ServerSocket(port);
+            this.serverSocket = serverSocket;
             System.out.println("TrfProcessorIn: listening on port " + port);
             this.trfkey = trfkey;
-        } catch (IOException e) {
-            System.err.println("TrfProcessorIn: Could not listen on port:" + port);
-        }
+       
     }
 
     public void processTest(Param param) throws IOException {

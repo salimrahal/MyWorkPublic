@@ -79,7 +79,6 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -178,7 +177,7 @@
                           <Component id="jTabbedPane2Reg" pref="280" max="32767" attributes="0"/>
                           <Component id="jTabbedPane1Reg" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="148" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -353,7 +352,7 @@
                           <Component id="jTabbedPane3" min="-2" pref="280" max="-2" attributes="0"/>
                           <Component id="jTabbedPane4" min="-2" pref="280" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="210" max="32767" attributes="0"/>
+                      <EmptySpace pref="145" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -524,7 +523,7 @@
                           <Component id="jTabbedPane6" min="-2" pref="280" max="-2" attributes="0"/>
                           <Component id="jTabbedPane5" alignment="0" min="-2" pref="280" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="207" max="32767" attributes="0"/>
+                      <EmptySpace pref="142" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -700,7 +699,7 @@
                               <Component id="jTabbedPane7" min="-2" pref="281" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="206" max="32767" attributes="0"/>
+                      <EmptySpace pref="141" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -857,7 +856,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6ALHHelp" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

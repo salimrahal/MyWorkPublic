@@ -46,20 +46,21 @@
         <div>        
             <p align="center"> <img src="nexogy.gif" width="150" height="20" alt="nexogy"/></p> 
             <input type="hidden" id="idcust" value="custNme"/>
-            <p align="center"><b>Under construction </b></p>
-            <p align="center">
+<!--           <p align="center"><b>Under construction </b></p>-->
+            <div align="center">
                 <script src="http://www.java.com/js/deployJava.js"></script>
                 <script>
                     var attributes = {code: 'applet.MainJapplet.class',
                         archive: 'TrafficGenclient.jar',
-                        width: 600, height: 600};
+                        width: 600, height: 570};
                     var custnm = document.getElementById('idcust').value;
                     //alert(custnm);
                     var parameters = {fontSize: 16, cust: custnm};
                     var version = '1.6';
                     deployJava.runApplet(attributes, parameters, version);
                 </script>
-            </p>
+          <div align="right"><font size=2><a href=http://www.safirasoft.com target="_blank">Developed by Safirasoft.com</a></font></div>  
+            </div>
         </div>
     </body>
 </html>

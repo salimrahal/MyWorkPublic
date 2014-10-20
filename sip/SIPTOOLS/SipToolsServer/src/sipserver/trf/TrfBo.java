@@ -8,6 +8,7 @@ package sipserver.trf;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,8 @@ public class TrfBo {
     public static final Integer Packet_Max_Delay = 20000;//millisecond
     public static final Integer T_P = 50000;//millisecond
     public static final Integer F_DELAY = 500;//millisecond
-     public static final Integer S_S_T = 20000;//millisecond
+    public static final Integer S_S_T = 20000;//millisecond
+    public static final Integer LAT_T = 7;//latency window, sec
     public static final String CODEC_KEY = "codec";
     public static final String TST_ID_KEY = "tstid";//only to be accepted
     public static final String ACK = "ACK";
@@ -71,7 +73,42 @@ public class TrfBo {
             } catch (IOException ex) {
                 Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("["+ new Date() +"] TrfBo: closeRess: ressource closed");
+            System.out.println("[" + new Date() + "] TrfBo: closeRess: ressource closed");
+        }
+    }
+
+    public synchronized static void closeServerSock(ServerSocket serverSocketLat, ServerSocket serverSockettrfIn, ServerSocket serverSockettrfOut) {
+        if (serverSocketLat != null) {
+            try {
+                if (!serverSocketLat.isClosed()) {
+                    serverSocketLat.close();
+                    System.out.println("[" + new Date() + "] TrfBo: closeServerSock: serversocket closed port=" + serverSocketLat.getLocalPort());
+
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(TrfBo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        if (serverSockettrfIn != null) {
+            try {
+                if (!serverSockettrfIn.isClosed()) {
+                    serverSockettrfIn.close();
+                    System.out.println("[" + new Date() + "] TrfBo: closeServerSock: serversocket closed port=" + serverSockettrfIn.getLocalPort());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(TrfBo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (serverSockettrfOut != null) {
+            try {
+                if (!serverSockettrfOut.isClosed()) {
+                    serverSockettrfOut.close();
+                    System.out.println("[" + new Date() + "] TrfBo: closeServerSock: serversocket closed port=" + serverSockettrfOut.getLocalPort());
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(TrfBo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

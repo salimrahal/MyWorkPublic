@@ -33,6 +33,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         initComponents();
         this.custnm = custnm;
         trfBo = new TrfBo();
+        cc = new Cc();
     }
 
     public static Cc getCc() {
@@ -67,6 +68,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -129,7 +131,11 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jTextArea1.setRows(5);
         jTextArea1.setText("150ms is the specified maximum desired one-way latency to achieve high-quality voice. Voice users will notice round-trip delays that exceed 250ms.");
         jTextArea1.setBorder(new javax.swing.border.MatteBorder(null));
+        jTextArea1.setCaretPosition(0);
         jScrollPane2.setViewportView(jTextArea1);
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 10)); // NOI18N
+        jLabel4.setText("Recommended java 1.7+");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -162,20 +168,25 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(reset))
-                        .addGap(240, 240, 240))))
+                        .addGap(252, 252, 252))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(202, 202, 202)
-                .addComponent(jLabel26)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -198,8 +209,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -225,7 +235,6 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
 
-        cc = new Cc();
     }//GEN-LAST:event_formAncestorAdded
 
 
@@ -236,6 +245,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -306,7 +316,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         String timeLength = timelengthjComboBox.getSelectedItem().toString();
         //System.out.println("timelength=" + timeLength);
         runTestButton.setEnabled(false);
-       //cc.updateJprogressBar(jProgressBar1, 80);
+        //cc.updateJprogressBar(jProgressBar1, 80);
         reset.setEnabled(false);
         ResVo resvo = cc.launchtest(codec, timeLength, custnm, jProgressBar1);
         if (resvo != null) {
@@ -315,9 +325,9 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 trfBo.setresultmessage(resultmsgjlabel, TrfBo.M_U_T);
             }
         }
-//        else{
-//             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
-//        }
+        else{//handle the case of ws return null in retrieving results
+             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
+        }
         return null;
     }
 

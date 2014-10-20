@@ -32,14 +32,11 @@ public class TrfProcessorOut {
     ServerSocket serverSocket = null;
     String trfkey;
 
-    public TrfProcessorOut(Integer port, String trfkey) {
-        try {
-            serverSocket = new ServerSocket(port);
+    public TrfProcessorOut(ServerSocket serverSocket, Integer port, String trfkey) {
+             //serverSocket = new ServerSocket(port);
+            this.serverSocket = serverSocket;
             System.out.println("TrfProcessorout: listening on port " + port);
             this.trfkey = trfkey;
-        } catch (IOException e) {
-            System.err.println("TrfProcessorout: Could not listen on port:" + port);
-        }
     }
 
     public void processTest(Param param) throws IOException {

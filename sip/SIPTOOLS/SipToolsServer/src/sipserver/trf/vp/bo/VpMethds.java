@@ -19,7 +19,9 @@ import sipserver.trf.vp.vo.PktVo;
  * @author salim
  */
 public class VpMethds {
- private static final long M_X_L = 1500;
+
+    private static final long M_X_L = 1500;
+
     /**
      *
      * @param pktL: packet received
@@ -103,9 +105,9 @@ public class VpMethds {
             //loop thru packet and retreive latencies
             for (PktVo pktObj : pktL) {
                 latInst = pktObj.getRtt() / 2;
-                 latInst = roundLat(latInst);
+                latInst = roundLat(latInst);
                 latArray[i] = (long) latInst;
-                //System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
+                System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
                 i++;
             }
             //computes lat peak/avg
@@ -127,15 +129,29 @@ public class VpMethds {
         }
         return latObj;
     }
+    /*
+     if lat > 1500 ms --> round it on 1500 ms
+     */
+
    /*
      if lat > 1500 ms --> round it on 1500 ms
      */
-    public static long roundLat(long theoricalLat) {
-        if (theoricalLat > M_X_L) {
-            theoricalLat = M_X_L;
+    public static long roundLat(long latparam) {
+        System.out.println("VpMethds:roundLat:latparam"+latparam);
+        long mx_nn = convertMTN(M_X_L);
+        if (latparam > mx_nn) {
+            System.out.println("VpMethds:roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
+            latparam = mx_nn;
+        }else{
+               System.out.println("VpMethds:roundLat:latparam no need to round.");
         }
-        return theoricalLat;
+        return latparam;
     }
+ public static long convertMTN(long ms) {
+        long ns = ms * 1000000;
+        return ns;
+    }
+
     /**
      *
      * @param latObj
@@ -202,57 +218,57 @@ public class VpMethds {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("test begins..." + new Date());
-        Date d1 = new Date();//sent
-        Thread.currentThread().sleep(10);
-        Date d2 = new Date();//received
-        PktVo pk1 = new PktVo(1);
-        pk1.setRtt(10);
-
-        Date d3 = new Date();
-        Thread.currentThread().sleep(5);
-        Date d4 = new Date();
-        PktVo pk2 = new PktVo(2);
-        pk2.setRtt(20);
-
-        Date d5 = new Date();
-        Thread.currentThread().sleep(3);
-        Date d6 = new Date();
-        PktVo pk3 = new PktVo(3);
-        pk3.setRtt(30);
-
-        Thread.currentThread().sleep(1);
-        PktVo pk4 = new PktVo(4);
-        pk4.setRtt(40);
-        PktVo pk5 = new PktVo(5);
-        pk4.setRtt(50);
-        PktVo pk6 = new PktVo(6);
-        pk4.setRtt(60);
-        PktVo pk7 = new PktVo(7);
-        pk4.setRtt(70);
-        PktVo pk8 = new PktVo(8);
-        pk4.setRtt(80);
-
-        List<PktVo> l = new ArrayList<>();
-        List<PktVo> lrecv = new ArrayList<>();
-        l.add(pk1);
-        l.add(pk2);
-        l.add(pk3);
-        l.add(pk4);
-        l.add(pk5);
-        l.add(pk6);
-        l.add(pk7);
-        l.add(pk8);
-
-        /**
-         * *************Latendy jitter test****************
-         */
-        LatVo lat = computeLatJitV2(l);
-
-        System.out.println(lat.toString());
-        JtrVo jt = lat.getJitterObj();
-        System.out.println(jt.toString());
-        System.out.println("test ends..." + new Date());
+//        System.out.println("test begins..." + new Date());
+//        Date d1 = new Date();//sent
+//        Thread.currentThread().sleep(10);
+//        Date d2 = new Date();//received
+//        PktVo pk1 = new PktVo(1);
+//        pk1.setRtt(10);
+//
+//        Date d3 = new Date();
+//        Thread.currentThread().sleep(5);
+//        Date d4 = new Date();
+//        PktVo pk2 = new PktVo(2);
+//        pk2.setRtt(20);
+//
+//        Date d5 = new Date();
+//        Thread.currentThread().sleep(3);
+//        Date d6 = new Date();
+//        PktVo pk3 = new PktVo(3);
+//        pk3.setRtt(30);
+//
+//        Thread.currentThread().sleep(1);
+//        PktVo pk4 = new PktVo(4);
+//        pk4.setRtt(40);
+//        PktVo pk5 = new PktVo(5);
+//        pk4.setRtt(50);
+//        PktVo pk6 = new PktVo(6);
+//        pk4.setRtt(60);
+//        PktVo pk7 = new PktVo(7);
+//        pk4.setRtt(70);
+//        PktVo pk8 = new PktVo(8);
+//        pk4.setRtt(80);
+//
+//        List<PktVo> l = new ArrayList<>();
+//        List<PktVo> lrecv = new ArrayList<>();
+//        l.add(pk1);
+//        l.add(pk2);
+//        l.add(pk3);
+//        l.add(pk4);
+//        l.add(pk5);
+//        l.add(pk6);
+//        l.add(pk7);
+//        l.add(pk8);
+//
+//        /**
+//         * *************Latendy jitter test****************
+//         */
+//        LatVo lat = computeLatJitV2(l);
+//
+//        System.out.println(lat.toString());
+//        JtrVo jt = lat.getJitterObj();
+//        System.out.println(jt.toString());
+//        System.out.println("test ends..." + new Date());
 
         /**
          *************Packet lost test************************

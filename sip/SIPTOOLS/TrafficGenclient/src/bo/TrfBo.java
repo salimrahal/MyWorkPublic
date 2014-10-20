@@ -40,11 +40,12 @@ public class TrfBo {
     public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us.";
-    public static final String MSG_CONN_SV_PB = "Server connection problem";
+    public static final String MSG_CONN_SV_PB = "Server connection problem."
+            + "You might a firewall that could blocks your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached.";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String M_U_T = "You have a firewall that might be blocking some traffic during this test. Please check your router or Internet Service Provider";
-    public static final String NO_RES = "Could not retreive the results, retry the test please";
+    public static final String NO_RES = "Connection timed out: Could not retreive the results.";
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final Integer T_P = 50000;//millisecond
@@ -54,6 +55,7 @@ public class TrfBo {
     public static final Integer P_MX_D = 20000;//ms
     public static final Integer WS_D = 5000;//ms
     public static final Integer U_C_T = 5000;//ms
+    public static final Integer LAT_T = 7;//
     public static final int E_VAL = -1;
     public static String srIp;
     String iplocal;
@@ -123,6 +125,7 @@ public class TrfBo {
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             huc.setConnectTimeout(U_C_T);
             responseCode = 0;
+            System.out.println("uchkr: waiting for response..");
             responseCode = huc.getResponseCode();
             if (responseCode == 200) {
                 isg = true;
@@ -132,6 +135,7 @@ public class TrfBo {
         } catch (java.net.SocketTimeoutException e) {
             System.out.println("uchkr: timeout");
         } catch (IOException iOException) {
+             System.out.println("uchkr: iOException: "+iOException.getMessage());
         }
 
         return isg;
@@ -158,7 +162,12 @@ public class TrfBo {
      */
     public void renderResults(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Your Public IP address: ").append(resvo.getPuip()).append(newline);
+        sb.append("Your Public IP address: ");
+                if(resvo.getPuip() == null){
+                    sb.append("--").append(newline);
+                }else{
+                       sb.append(resvo.getPuip()).append(newline);
+                }
         sb.append(newline);
         sb.append("Upstream: Packet loss: you --> server: ").append(resvo.getUppkloss()).append("%").append(newline);
         sb.append("Downstream: Packet loss: server --> you: ").append(resvo.getDopkloss()).append("%").append(newline);
@@ -186,5 +195,15 @@ public class TrfBo {
         String labelText = String.format("<html><div style=\"width:%dpx;\"><p align=\"center\">%s</p></div><html>", 200, outmessage);
         resultmsgjlabel.setText(labelText);
         resultmsgjlabel.setBackground(Color.red);
+    }
+
+    /*unused: href is not clickable in Swing
+    */
+    public void setHrefJlabel(JLabel hrefjlabel) {
+        //AlgJPanel.resultmsgjlabel.setText(outmessage);        
+        String labelText = "<html><font size=2><a href=www.safirasoft.com>Developed by Safirasoft.com</a>"
+                + "</font></html>";
+        hrefjlabel.setText(labelText);
+        hrefjlabel.setBackground(Color.BLUE);
     }
 }

@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -99,30 +100,46 @@ public class ClientSignTcpConnection implements Runnable {
                             out.write(ACK);
                             TrfBo.closeRess(clientSocket, out, in);
                             System.out.println("ClientSignTcpConnection:ACK is sent");
-                            //record the test
-                            trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
-                            //lauching latency test
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-1:begin: latency Up test");
-                            LatProcessor processorLat = new LatProcessor(portlat, TrfBo.LAT_KEY);
-                            processorLat.processTest(param);
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-1:End: latency Up test");
-                            //launch receive thread
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-2:begin: trf In in test");
-                            TrfProcessorIn processorIn = new TrfProcessorIn(porttrfClientup, TrfBo.REQ_IN_KEY);
-                            processorIn.processTest(param);
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-2:end:  trf In in test");
+                            //create server tcp sockets:
+                            ServerSocket serverSocketLat = null;
+                            ServerSocket serverSockettrfIn = null;
+                            ServerSocket serverSockettrfOut = null;
+                            try {
+                                serverSocketLat = new ServerSocket(portlat);
+                                serverSockettrfIn = new ServerSocket(porttrfClientup);
+                                serverSockettrfOut = new ServerSocket(porttrfClientdown);
+
+                                //record the test
+                                trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
+                                //lauching latency test
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-1:begin: latency Up test");
+                                LatProcessor processorLat = new LatProcessor(serverSocketLat, portlat, TrfBo.LAT_KEY);
+                                processorLat.processTest(param);
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-1:End: latency Up test");
+                                //launch receive thread
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-2:begin: trf In in test");
+                                TrfProcessorIn processorIn = new TrfProcessorIn(serverSockettrfIn, porttrfClientup, TrfBo.REQ_IN_KEY);
+                                processorIn.processTest(param);
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-2:end:  trf In in test");
 //                            launchTrafficPktLossIn(param);
-                            //launch send thread
-                                System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-3:begin: trf out test");
-                            TrfProcessorOut processorOut = new TrfProcessorOut(porttrfClientdown, TrfBo.REQ_OUT_KEY);
-                            processorOut.processTest(param);
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: phase-3:end: trf out test");
-                            //release all ports in DB
-                            releaseallPorts = trfdao.updatePortStatus(ports, "f");
-                            System.out.println("["+ new Date() +"] ClientSignTcpConnection: releasing the ports=" + releaseallPorts);
-                        }
+                                //launch send thread
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-3:begin: trf out test");
+                                TrfProcessorOut processorOut = new TrfProcessorOut(serverSockettrfOut, porttrfClientdown, TrfBo.REQ_OUT_KEY);
+                                processorOut.processTest(param);
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-3:end: trf out test");
+                            } catch (IOException iOException) {
+                                System.out.println("ClientSignTcpConnection: iOException=" + iOException.getMessage());
+                            } finally {
+                                //re-check  if not closed then close opened server sockets
+                                TrfBo.closeServerSock(serverSocketLat, serverSockettrfIn, serverSockettrfOut);
+                                //release all ports in DB
+                                releaseallPorts = trfdao.updatePortStatus(ports, "f");
+                                System.out.println("[" + new Date() + "] ClientSignTcpConnection:finally: releasing the ports=" + releaseallPorts);
+
+                            }
+                        }//end if portserved
                         break;
-                    }
+                    }//end clause if key true
                     firstLine = false;
                 }
                 i++;

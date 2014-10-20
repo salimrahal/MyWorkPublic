@@ -120,6 +120,7 @@ public class Cc {
                 }//end of else
             }//end of if ws ok
             else {
+                resvo = new ResVo();
                 resmsg = TrfBo.M_NC;
                 trfBo.setresultmessage(resultmsgjlabel, resmsg);
             }
