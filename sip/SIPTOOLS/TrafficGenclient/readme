@@ -1,0 +1,17 @@
+V2
+
+ Improvement:
+- adding help page
+- improving the back-end design/processing
+- bug fixing
+
+Some characteristics of the App: 
+a- it uses some ports in this range:  5095 -> 5125
+
+b- The real test time will be greater than the time length options [15 ,30, 60 sec], since each sub-test takes a separate time equal to the time length choosed by the user. (appreciatively: real test time = test length * 3)
+Example: when user choose 15 sec as time length:
+1- latency: 15 sec
+2- upstream packet loss :15 sec
+3- downstream packet loss :15 sec
+
+total test time: 15*3 =~ 45 sec
