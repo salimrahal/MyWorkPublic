@@ -114,6 +114,7 @@ public class Cc {
                         resultmsgjlabel.setText(TrfBo.M_FIN);
                         updateJprogressBar(jprobar, 100);
                     } else {
+                        resvo = new ResVo();
                         System.out.println("Error:launchtest::success: Failed!");
                         trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB);
                     }

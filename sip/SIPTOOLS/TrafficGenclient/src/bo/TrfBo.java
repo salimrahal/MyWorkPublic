@@ -35,17 +35,17 @@ public class TrfBo {
     public static final String M_PKTDO_PR = "3/4 Downstream packet loss test: in progress.. ";
     public static final String M_COMPUT_RES = "4/4 computing final results..";
 
-    public static final String M_PRT_B = "Server is Busy, pleaze try again.";
-    public static final String M_I = "The server is not responding";
-    public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider";
-    public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
-    public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us.";
+    public static final String M_PRT_B = "Server is Busy, pleaze try again[1]";
+    public static final String M_I = "The server is not responding[2]";
+    public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider[3]";
+    public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin[4]";
+    public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us [5]";
     public static final String MSG_CONN_SV_PB = "Server connection problem."
-            + "You might a firewall that could blocks your Voice over IP Service. Please check your router or Internet Service Provider";
-    public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached.";
-    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
-    public static final String M_U_T = "You have a firewall that might be blocking some traffic during this test. Please check your router or Internet Service Provider";
-    public static final String NO_RES = "Connection timed out: Could not retreive the results.";
+            + ".You might a firewall that could blocks your Voice over IP Service. Please check your router or Internet Service Provider [6]";
+    public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached [7]";
+    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [8]";
+    public static final String M_U_T = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [9]";
+    public static final String NO_RES = "Connection timed out: Could not retreive the results [10]";
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final Integer T_P = 50000;//millisecond
