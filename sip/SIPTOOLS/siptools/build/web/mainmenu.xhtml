@@ -9,7 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>NEXOGY</title>
+        <title>Nexogy</title>
 
         <script type="text/javascript">
             window.onload = function() {
@@ -28,7 +28,7 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <h:link outcome="secure/adminmenu" value="Admin Access" /><br></br>
-                <a href="logout.jsp">logout</a>        
+<!--                <a href="logout.jsp">logout</a>        -->
                 <p> Date/Time : March24, 2014 15:17:20 EST;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
 
                 <p>Customer Name : [ ] please enter the name of your company</p>
@@ -38,11 +38,8 @@
             <div id="top">
                 <ui:insert name="left"> 
                     <h:form target="_blank">
-                        <h:commandButton action="#{sipserverController.runSipServer}" value="Run SIP server" rendered="#{p:ifGranted('admin')}"/>
                         <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
-                        <h:commandButton  action="trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
-
-
+                        <h:commandButton  action="trafficsimulator/trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
                     </h:form>
                 </ui:insert>
             </div>

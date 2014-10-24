@@ -54,17 +54,17 @@ public class LatRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("LatRunnable::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
+        //System.out.println("LatRunnable::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
         try {
             LatVo latvoDown = handlelat();
-            System.out.println("[" + new Date() + "] LatRunnable: saving latvoDown to DB..");
+            //System.out.println("[" + new Date() + "] LatRunnable: saving latvoDown to DB..");
             if (latvoDown != null) {
                 int latpk = VpMethds.safeLongToInt(latvoDown.getPeak());
                 int latavg = VpMethds.safeLongToInt(latvoDown.getAvg());
                 int jtpk = VpMethds.safeLongToInt(latvoDown.getJitterObj().getPeak());
                 int jtavg = VpMethds.safeLongToInt(latvoDown.getJitterObj().getAvg());
                 WSBo.svLJD(param.getTstid(), latpk, latavg, jtpk, jtavg);
-                System.out.println("[" + new Date() + "] LatRunnable: finish ws call");
+                //System.out.println("[" + new Date() + "] LatRunnable: finish ws call");
             } else {
                 System.out.println("warning: latvoDown is null, save with -1 values");
                 WSBo.svLJD(param.getTstid(), -1, -1, -1, -1);
@@ -80,17 +80,17 @@ public class LatRunnable implements Runnable {
         LatVo latvoDown = null;
         try {
 //1
-            System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: start processLatDown:");
+            //System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: start processLatDown:");
             latvoDown = processLatDown();
-            System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: end processLatDown:");
+           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: end processLatDown:");
             //2
-            System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: start echolat:");
+           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: start echolat:");
             echolatPkt();
-            System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: end echolat:");
+           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: end echolat:");
         } catch (Exception e) {
             System.out.println("LatRunnable::handlelat: exception=" + e.getMessage());
         } finally {
-            System.out.println("[" + new Date() + "] LatRunnable:handlelat:3/3closing the socket..");
+          //  System.out.println("[" + new Date() + "] LatRunnable:handlelat:3/3closing the socket..");
             dgmsocket.close();
         }
         return latvoDown;
@@ -115,7 +115,7 @@ public class LatRunnable implements Runnable {
         byte[] buf;
         buf = CdcVo.returnPayloadybyCodec(codec);
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        System.out.println("[" + new Date() + "] LatRunnable::processLatDown:phase-a:start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        //System.out.println("[" + new Date() + "] LatRunnable::processLatDown:phase-a:start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
         //send packet to server
         for (int i = 1; i <= packetNumToSend; i++) {
@@ -125,7 +125,7 @@ public class LatRunnable implements Runnable {
             dgmsocket.send(outgoingPacket);
             pktMap.put(i, pktObj);
         }
-        System.out.println("[" + new Date() + "] LatRunnable::processLatDown::phase: a:finished. start phase-b: waiting to recev....");
+        //System.out.println("[" + new Date() + "] LatRunnable::processLatDown::phase: a:finished. start phase-b: waiting to recev....");
         int count = 1;
         try {
             //set the timeout

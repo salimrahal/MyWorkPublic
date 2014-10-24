@@ -9,25 +9,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Nexogy</title>
     </h:head>
+    <!--todo: 
+    - render the list of test or logs from the Db - 
+    - search by customer, start date, end date
+    -->
+    <div id="top" class="top">
+            <ui:insert name="top">
+                <a href="../logout.jsp">logout</a>        
+                <p> Date/Time : March24, 2014 15:17:20 EST;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
 
-    <h:body>
-
-
-        <div id="top" class="top">
-            <ui:insert name="top">Top</ui:insert>
+                <p>Welcome Administrator</p>
+            </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">   
-                    <ui:include src="../menusrc.xhtml" />
+            <div id="top">
+                <ui:insert name="left"> 
+                    <h:form target="_blank">
+                        <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
+                        <h:commandButton  action="trafficsimulator/trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
+                    </h:form>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
+
+                <ui:insert name="content">insert here the datatable</ui:insert>
             </div>
         </div>
-    </h:body>
 
 </html>

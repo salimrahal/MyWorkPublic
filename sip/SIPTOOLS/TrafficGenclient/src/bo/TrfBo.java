@@ -41,7 +41,7 @@ public class TrfBo {
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin[4]";
     public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us [5]";
     public static final String MSG_CONN_SV_PB = "Server connection problem."
-            + ".You might a firewall that could blocks your Voice over IP Service. Please check your router or Internet Service Provider [6]";
+            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [6]";
     public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached [7]";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [8]";
     public static final String M_U_T = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [9]";

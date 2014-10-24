@@ -68,7 +68,7 @@ public class TrfDgmRunnableU implements Runnable {
          */
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
-        System.out.println("TrfDgmRunnableU:handleClienttraffic:: sources address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+        //System.out.println("TrfDgmRunnableU:handleClienttraffic:: sources address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
             double elapsedSeconds = 0;
         long tStart = 0;
         long tEnd;
@@ -79,7 +79,7 @@ public class TrfDgmRunnableU implements Runnable {
             tStart = System.currentTimeMillis();
             //it sends the packets
             // close the connection or socket
-            System.out.println("TrfDgmRunnableU: launchTrafficUp: begin of sending packets..");
+            //System.out.println("TrfDgmRunnableU: launchTrafficUp: begin of sending packets..");
             sendingPkts(codec, timelength);
         } catch (SocketTimeoutException se) {
             System.out.println("TrfDgmRunnableU::Error::" + se.getMessage());
@@ -106,7 +106,7 @@ public class TrfDgmRunnableU implements Runnable {
          */
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
-        System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
+        //System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
             double elapsedSeconds = 0;
         long tStart = 0;
         long tEnd;
@@ -116,15 +116,15 @@ public class TrfDgmRunnableU implements Runnable {
             dgmsocket.setSoTimeout(TrfBo.P_MX_D);
             tStart = System.currentTimeMillis();
             dgmsocket.receive(incomingPacketLocal);
-            System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
+           // System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
             InetAddress inetAddrInco = incomingPacketLocal.getAddress();
             int portInco = incomingPacketLocal.getPort();
             DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
-            System.out.println("TrfDgmRunnableU:handleClienttraffic:sending back the flag packet");
+            //System.out.println("TrfDgmRunnableU:handleClienttraffic:sending back the flag packet");
             dgmsocket.send(outgoingPacketLocal);
             //it sends the packets
             // close the connection or socket
-            System.out.println("TrfDgmRunnableU: launchTrafficUp::success, begin of sending packets");
+            //System.out.println("TrfDgmRunnableU: launchTrafficUp::success, begin of sending packets");
             sendingPkts(codec, timelength);
         } catch (SocketTimeoutException se) {
             System.out.println("TrfDgmRunnableU::Error:receiving flag::" + se.getMessage());
@@ -138,7 +138,7 @@ public class TrfDgmRunnableU implements Runnable {
             tEnd = System.currentTimeMillis();
             tDelta = tEnd - tStart;
             elapsedSeconds = tDelta / 1000.0;
-            System.out.println("TrfDgmRunnableU: finally: time elapsed="+elapsedSeconds+" s");
+            //System.out.println("TrfDgmRunnableU: finally: time elapsed="+elapsedSeconds+" s");
         }
     }
     /**

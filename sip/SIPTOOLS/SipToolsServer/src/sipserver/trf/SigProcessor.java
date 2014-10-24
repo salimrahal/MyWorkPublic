@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,7 +29,7 @@ public class SigProcessor implements Runnable {
     public SigProcessor(Integer port) {
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Traffic TCPServer: listening on port " + port + " /using cachedThreadPoo");
+            System.out.println("[" + new Date() + "] Traffic TCPServer: listening on port " + port + " /using cachedThreadPoo");
         } catch (IOException e) {
             System.err.println("Traffic TCPServer:: Could not listen on port:" + port);
             System.exit(1);

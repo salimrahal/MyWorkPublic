@@ -10,6 +10,7 @@ import sipserver.bo.EchoServerDatagram;
 import sipserver.bo.EchoServerTcp;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +40,7 @@ public class MainServer {
         Integer defaultport = 5092;
         String portStr;
         if (args.length == 0) {
-            System.out.println("The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
+            System.out.println("[" + new Date() + "] The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
                     + "");
             //launching UDP TCP echo server thread
             launchingEchoServer(localIp, defaultport);

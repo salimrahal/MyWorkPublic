@@ -64,9 +64,9 @@ class PacketControl {
 
     public boolean sndPktForAnGivenTime(String codec, int timeLength) {
         boolean res = false;
-        System.out.println("PacketControl:sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
-             System.out.println("PacketControl:sndPktForAnGivenTime::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
-         System.out.println("PacketControlsndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
+        //System.out.println("PacketControl:sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
+         //    System.out.println("PacketControl:sndPktForAnGivenTime::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+        // System.out.println("PacketControlsndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndrRunnable = new SndrRunnable(codec);
@@ -81,12 +81,12 @@ class PacketControl {
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
-                System.out.println("sndPktForAnGivenTime: task is finished and cancled="+res+"--- total packet sent ="+count);
+                //System.out.println("sndPktForAnGivenTime: task is finished and cancled="+res+"--- total packet sent ="+count);
                 dgmsocket.close();
             }
         }, timeLength, SECONDS);
         try {
-             System.out.println("sndPktForAnGivenTime: waiting for termination..");
+             //System.out.println("sndPktForAnGivenTime: waiting for termination..");
             boolean succterm = scheduler.awaitTermination(timeLength, SECONDS);
              if(succterm){System.out.println("sndPktForAnGivenTime: finished successfully");}else{
                  System.out.println("sndPktForAnGivenTime: task termination has triggered before finishing the task. (timeout)");

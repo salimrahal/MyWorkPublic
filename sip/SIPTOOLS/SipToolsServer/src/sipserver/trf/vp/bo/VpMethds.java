@@ -107,7 +107,7 @@ public class VpMethds {
                 latInst = pktObj.getRtt() / 2;
                 latInst = roundLat(latInst);
                 latArray[i] = (long) latInst;
-                System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
+                //System.out.println("computLat::latency[" + i + "]=" + pktObj.getRtt() + "/ 2=" + latArray[i]);
                 i++;
             }
             //computes lat peak/avg
@@ -137,13 +137,13 @@ public class VpMethds {
      if lat > 1500 ms --> round it on 1500 ms
      */
     public static long roundLat(long latparam) {
-        System.out.println("VpMethds:roundLat:latparam"+latparam);
+       // System.out.println("VpMethds:roundLat:latparam"+latparam);
         long mx_nn = convertMTN(M_X_L);
         if (latparam > mx_nn) {
-            System.out.println("VpMethds:roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
+           // System.out.println("VpMethds:roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
             latparam = mx_nn;
         }else{
-               System.out.println("VpMethds:roundLat:latparam no need to round.");
+               //System.out.println("VpMethds:roundLat:latparam no need to round.");
         }
         return latparam;
     }

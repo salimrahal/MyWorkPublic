@@ -54,7 +54,7 @@ public class ClTcp {
             out = new PrintWriter(socketL.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketL.getInputStream()));
-            System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
+            //System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portL, lat_key);
         } catch (UnknownHostException e) {
             outmsg = "sendLattoServer: sendStream: Don't know about host: " + svip;
@@ -98,7 +98,7 @@ public class ClTcp {
             out = new PrintWriter(socketUp.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketUp.getInputStream()));
-            System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
+            //System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portUp, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerUp: sendStream: Don't know about host: " + svip;
@@ -139,7 +139,7 @@ public class ClTcp {
             out = new PrintWriter(socketD.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketD.getInputStream()));
-              System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
+            // System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
             success = sendTrfReq(in, out, portD, req_key);
         } catch (UnknownHostException e) {
             outmsg = "sendTrfReqToServerDown: sendStream: Don't know about host: " + svip;
@@ -182,7 +182,7 @@ public class ClTcp {
             out = new PrintWriter(socketSig.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketSig.getInputStream()));
-            System.out.println("sendParamToServer:Process Request: connected.");
+           // System.out.println("sendParamToServer:Process Request: connected.");
             success = sendParam(in, out, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
         } catch (UnknownHostException e) {
             outmsg = "sendParamToServer:sendStream: Don't know about host: " + svip;
@@ -217,7 +217,7 @@ public class ClTcp {
 
     private boolean sendTrfReq(BufferedReader in, PrintWriter out, String port, String req_key) throws Exception {
         boolean ack = false;
-        System.out.println("send sendTrfReq param.. req type:" + req_key);
+        //System.out.println("send sendTrfReq param.. req type:" + req_key);
         String msgToSend = req_key;
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
@@ -228,10 +228,10 @@ public class ClTcp {
             //write to the server
             out.println(submsgToSend);
             //recieve from the server,
-            System.out.println("sendTrfReq: key sent, waiting for inputs..");
+            //System.out.println("sendTrfReq: key sent, waiting for inputs..");
             //in some case it will freeze here nothing is received, so a timeout will be triggered
             msgRecv = in.readLine();
-            System.out.println("sendTrfReq: readLine= " + msgRecv);
+            //System.out.println("sendTrfReq: readLine= " + msgRecv);
             if (firstLine) {
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
@@ -249,7 +249,7 @@ public class ClTcp {
 
     public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;
-        System.out.println("sendParamToServer:sendparam()");
+        //System.out.println("sendParamToServer:sendparam()");
         String msgToSend = generateQueryParam(portlat, porttrfU, porttrfD, codec, timelength, custname, tstid);
         StringReader msgreader = new StringReader(msgToSend);
         BufferedReader msgbr = new BufferedReader(msgreader);
@@ -262,9 +262,9 @@ public class ClTcp {
             out.println(submsgToSend);
             //recieve from the server,
             //in some case it will freeze here nothing is received, so a timeout will be triggered
-            System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
+            //System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
             msgRecv = in.readLine();
-            System.out.println("sendParamToServer readLine: " + msgRecv);
+            //System.out.println("sendParamToServer readLine: " + msgRecv);
             if (firstLine) {
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
