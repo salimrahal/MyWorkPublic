@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dao;
 
 import bean.ResVo;
@@ -18,11 +17,11 @@ import java.util.List;
  * @author salim
  */
 public class ResDao {
-    
+
     /*
-    todo: get all results as list
-    */
-      public List<ResVo> getResList() throws Exception {
+     get all results as list, except the start / end time equal to null
+     */
+    public List<ResVo> retrieveResList() throws Exception {
         PreparedStatement preparedStatement = null;
         List resList = new ArrayList();
         ResVo res = null;
@@ -39,8 +38,12 @@ public class ResDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 res = new ResVo(rs.getString("customerName"), rs.getString("publicIp"), rs.getString("codec"), rs.getInt("testLength"));
-                res.setsDate(new java.util.Date(rs.getTimestamp("startTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
-                res.seteDate(new java.util.Date(rs.getTimestamp("endTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
+                if (rs.getTimestamp("startTime") != null) {
+                    res.setsDate(new java.util.Date(rs.getTimestamp("startTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
+                }
+                if (rs.getTimestamp("endTime") != null) {
+                    res.seteDate(new java.util.Date(rs.getTimestamp("endTime").getTime()));//Mon Sep 29 20:49:41 EEST 2014
+                }
                 res.setUppkloss(rs.getFloat("uploadPacketLost"));
                 res.setUplatpeak(rs.getInt("uploadLatencyPeak"));
                 res.setUplatav(rs.getInt("uploadLatencyAvg"));

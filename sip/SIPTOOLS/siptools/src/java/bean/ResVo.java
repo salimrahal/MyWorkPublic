@@ -5,7 +5,10 @@
  */
 package bean;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -21,7 +24,7 @@ import java.util.Date;
  * smallint(4) DEFAULT NULL, `downloadJitterAvg` smallint(4) DEFAULT NULL,
  *
  */
-public class ResVo {
+public class ResVo implements Serializable{
 
     String cnme;
     String puip;

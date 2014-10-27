@@ -4,7 +4,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-
+<!-- todo:
+send the customer name to the applet
+-->
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
@@ -28,20 +30,30 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <h:link outcome="secure/adminmenu" value="Admin Access" /><br></br>
-<!--                <a href="logout.jsp">logout</a>        -->
-                <p> Date/Time : March24, 2014 15:17:20 EST;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
+                <!--                <a href="logout.jsp">logout</a>        -->
+                <p> Date/Time : Enter current date;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
 
-                <p>Customer Name : [ ] please enter the name of your company</p>
+
             </ui:insert>
         </div>
         <div>
             <div id="top">
-                <ui:insert name="left"> 
-                    <h:form target="_blank">
-                        <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
-                        <h:commandButton  action="trafficsimulator/trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
-                    </h:form>
-                </ui:insert>
+
+
+                <h:form>
+                    <p:growl id="growl_1" showDetail="true"/>  
+                    <p:panelGrid style="margin-bottom:10px; width: 50em">  
+                        <p:row>
+                            <p:column><p:outputLabel value="Customer name"/></p:column>
+                            <p:column><h:inputText id="custId" value="#{resController.customername}" 
+                                                   required="true" 
+                                                   requiredMessage="please enter the name of your company"/></p:column>
+                        </p:row>   
+                    </p:panelGrid>
+                    <h:commandButton  action="#{resController.handleAlg()}" value="Run ALG Test Detector"></h:commandButton>
+                    <h:commandButton  action="#{resController.handleTrfSim()}" value="Run Voip Traffic Simulator"></h:commandButton> 
+                </h:form>
+
             </div>
             <div id="content" class="left_content">
 
