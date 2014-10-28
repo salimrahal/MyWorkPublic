@@ -6,7 +6,6 @@
 package sipserver.trf;
 
 import java.io.BufferedReader;
-import sipserver.bo.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,12 +14,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static sipserver.trf.TrfBo.ACK;
-import static sipserver.trf.TrfBo.TST_ID_KEY;
 import sipserver.trf.bean.Param;
 
 /**

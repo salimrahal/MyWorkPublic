@@ -50,21 +50,23 @@ public class VpMethds {
         }
     }
 
-    public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
+public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
         int pktLoss = -1;
-        float pktLossPerc = 0;
+        float pktLossPerc = -1;
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         int effectivePktNum = receivedPkt;
-        System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
+        //System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
 
-        if (effectivePktNum < expectedPktNum) {
+        if (effectivePktNum <= expectedPktNum) {
             pktLoss = expectedPktNum - effectivePktNum;
             //int res = 100 * 100 / 3;
             //double res2 = 40/50f;
-            System.out.println("pkloss1 = " + pktLoss + " pkt");
+            //System.out.println("pkloss1 = " + pktLoss + " pkt");
             pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
-            pktLossPerc = formatNumberFl(pktLossPerc);
+            if(pktLossPerc != 0){
+                 pktLossPerc = formatNumberFl(pktLossPerc);
+            } 
         }
         return pktLossPerc;
     }
@@ -276,10 +278,10 @@ public class VpMethds {
          * 15; int pps = CdcVo.returnPPSbyCodec("g711"); List<PktVo> l2 = new
          * ArrayList<>(); for (int i = 0; i < 50; i++) { l2.add(pk1); } int
          * pktLsize = l2.size(); System.out.println("");
-         *
-         * System.out.println("Pkt loss %=" + computePktLossByCodec(749, pps,
-         * testlength) + "%");
-         *
+         * *
          */
+          System.out.println("Pkt loss %=" + computePktLossByCodec(700, 50,
+          15) + "%");
+        
     }
 }

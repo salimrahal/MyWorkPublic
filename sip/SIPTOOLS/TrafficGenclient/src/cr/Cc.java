@@ -90,7 +90,7 @@ public class Cc {
                         WsRes wsres = new WsRes();
                         //launch lat&jitter test up/down
                         String portlatStr = "[Port=" + portlat + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_LAT_PR + portlatStr);
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test "+portlatStr+": In Progress ....");
                         updateJprogressBar(jprobar, 25);
                         //System.out.println("CC: phase-1:begin: latency Down test");
                         launchLatDownRunnable(param, inetAddrDest);
@@ -98,13 +98,13 @@ public class Cc {
                         //4- launch up packet lost test: sending/receiving packets
                         //System.out.println("CC: phase-2:begin: traffic Up");
                         String portUpStr = "[Port=" + porttrfU + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTUP_PR + portUpStr);
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test "+portUpStr+": In Progress....");
                         updateJprogressBar(jprobar, 50);
                         launchTrafficUp(param, inetAddrDest);
                         //System.out.println("CC: phase-2:Ends: traffic Up");
                         //System.out.println("CC: phase-3:begin: traffic Down");
                         String portDoStr = "[Port=" + porttrfD + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTDO_PR + portDoStr);
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test "+portDoStr+": In Progress....");
                         updateJprogressBar(jprobar, 75);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
                         // System.out.println("CC: phase-3:Ends: traffic Down");

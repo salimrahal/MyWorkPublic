@@ -29,16 +29,16 @@ public class ResVo {
     int tlth;
     Date sDate;
     Date eDate;
-    float uppkloss;
-    int uplatpeak;
-    int uplatav;
-    int upjtpeak;
-    int upjtav;
-    float dopkloss;
-    int dolatpeak;
-    int dolatav;
-    int dojtpeak;
-    int dojtav;
+    float uppkloss = -1;
+    int uplatpeak = -1;
+    int uplatav = -1;
+    int upjtpeak = -1;
+    int upjtav = -1;
+    float dopkloss = -1;
+    int dolatpeak = -1;
+    int dolatav = -1;
+    int dojtpeak = -1;
+    int dojtav = -1;
 
     public ResVo(String cnme, String puip, String cdc, int tlth) {
         this.cnme = cnme;

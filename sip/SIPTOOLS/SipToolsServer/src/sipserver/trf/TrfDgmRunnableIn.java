@@ -50,15 +50,15 @@ public class TrfDgmRunnableIn implements Runnable {
         System.out.println("TrfDgmRunnableIn:: Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostup is < 0 then didn't completed
-            float packetlossup = handleClienttrafficV2();
+            handleClienttrafficV2();
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-      private synchronized float handleClienttrafficV2() throws IOException, InterruptedException, Exception {
+
+    private synchronized float handleClienttrafficV2() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         String testid = param.getTstid();
         float packetlostup = -1;
@@ -81,9 +81,9 @@ public class TrfDgmRunnableIn implements Runnable {
         boolean flagrcv = false;
         double elapsedSeconds = 0;
         DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
-        System.out.println("TrfDgmRunnableIn::handleClienttrafficV2::.listening on UDP:"+dgmsocket.getLocalPort());
+        System.out.println("TrfDgmRunnableIn::handleClienttrafficV2::.listening on UDP:" + dgmsocket.getLocalPort());
         DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
-     
+
         try {
             //decrease the timeout  
             dgmsocket.setSoTimeout(timelength * 1000);//sometime the timeout fires before finishing the test in case where the client close his app while he is sending packets
