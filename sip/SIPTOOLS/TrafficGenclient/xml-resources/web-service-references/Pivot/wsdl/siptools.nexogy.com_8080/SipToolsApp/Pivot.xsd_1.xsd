@@ -14,10 +14,6 @@
 
 <xs:element name="getMiscPortsResponse" type="tns:getMiscPortsResponse"/>
 
-<xs:element name="getPrtSts" type="tns:getPrtSts"/>
-
-<xs:element name="getPrtStsResponse" type="tns:getPrtStsResponse"/>
-
 <xs:element name="getcodecs" type="tns:getcodecs"/>
 
 <xs:element name="getcodecsResponse" type="tns:getcodecsResponse"/>
@@ -29,6 +25,10 @@
 <xs:element name="hello" type="tns:hello"/>
 
 <xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:element name="retreiveAllPorts" type="tns:retreiveAllPorts"/>
+
+<xs:element name="retreiveAllPortsResponse" type="tns:retreiveAllPortsResponse"/>
 
 <xs:element name="savePLD" type="tns:savePLD"/>
 
@@ -154,27 +154,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getPrtSts">
+<xs:complexType name="retreiveAllPorts">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="getPrtStsResponse">
+<xs:complexType name="retreiveAllPortsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:prtStstVoList" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="prtStstVoList">
-<xs:sequence>
-<xs:element name="prtstsL" type="tns:prtStsVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="serverIp" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="prtStsVo">
-<xs:sequence>
-<xs:element name="prtNum" type="xs:string" minOccurs="0"/>
-<xs:element name="sts" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

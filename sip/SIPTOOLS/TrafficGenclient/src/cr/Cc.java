@@ -53,7 +53,7 @@ public class Cc {
         ResVo resvo = null;//= new ResVo();
         try {
             System.out.println("CC:launchtest::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
-            resultmsgjlabel.setText(resmsg);
+            trfBo.setSimpleresultmessage(resultmsgjlabel, resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();
                 String portlat = miscPortObj.getPrtLatNum();
@@ -89,32 +89,37 @@ public class Cc {
                         InetAddress inetAddrDest = InetAddress.getByName(srip);
                         WsRes wsres = new WsRes();
                         //launch lat&jitter test up/down
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_LAT_PR);
+                        String portlatStr = "[Port=" + portlat + "]";
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_LAT_PR + portlatStr);
                         updateJprogressBar(jprobar, 25);
                         //System.out.println("CC: phase-1:begin: latency Down test");
                         launchLatDownRunnable(param, inetAddrDest);
                         //System.out.println("CC: phase-1:Ends: latency Down test");
                         //4- launch up packet lost test: sending/receiving packets
                         //System.out.println("CC: phase-2:begin: traffic Up");
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTUP_PR);
+                        String portUpStr = "[Port=" + porttrfU + "]";
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTUP_PR + portUpStr);
                         updateJprogressBar(jprobar, 50);
                         launchTrafficUp(param, inetAddrDest);
                         //System.out.println("CC: phase-2:Ends: traffic Up");
                         //System.out.println("CC: phase-3:begin: traffic Down");
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTDO_PR);
+                        String portDoStr = "[Port=" + porttrfD + "]";
+                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PKTDO_PR + portDoStr);
                         updateJprogressBar(jprobar, 75);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
-                       // System.out.println("CC: phase-3:Ends: traffic Down");
+                        // System.out.println("CC: phase-3:Ends: traffic Down");
                         updateJprogressBar(jprobar, 95);
                         trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
                         //System.out.println("CC: phase-4:begins: Retrieving results...");
                         resvo = wsres.retreiveResbyWS(param.getTstid());
                         //System.out.println("CC: phase-4:Ends: Retrieving results");
                         //resvo = wsres.getRes();
-                        resultmsgjlabel.setText(TrfBo.M_FIN);
+                        trfBo.setSimpleresultmessage(resultmsgjlabel, TrfBo.M_FIN);
                         updateJprogressBar(jprobar, 100);
                     } else {
                         resvo = new ResVo();
+                        //just set a -1 value a indicator in order to post the firewall message in text area
+                        resvo.setDolatpeak(-1);
                         System.out.println("Error:launchtest::success: Failed!");
                         trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB);
                     }
@@ -122,6 +127,8 @@ public class Cc {
             }//end of if ws ok
             else {
                 resvo = new ResVo();
+                //just set a -1 value a indicator in order to post the firewall message in text area
+                resvo.setDolatpeak(-1);
                 resmsg = TrfBo.M_NC;
                 trfBo.setresultmessage(resultmsgjlabel, resmsg);
             }

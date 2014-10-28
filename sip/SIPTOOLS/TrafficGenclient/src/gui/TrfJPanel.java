@@ -149,7 +149,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +158,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(152, 152, 152)
@@ -321,13 +321,15 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         reset.setEnabled(false);
         ResVo resvo = cc.launchtest(codec, timeLength, custnm, jProgressBar1);
         if (resvo != null) {
-            trfBo.renderResults(testStatTextArea, resvo);
             if (trfBo.isES(resvo)) {
                 trfBo.setresultmessage(resultmsgjlabel, TrfBo.M_U_T);
+                trfBo.renderJTextAreaMessage(testStatTextArea, TrfBo.M_U_T);
+            } else {//case of successfull test
+                trfBo.renderJTextAreaStatistics(testStatTextArea, resvo);
             }
-        }
-        else{//handle the case of ws return null in retrieving results
-             trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
+        } else {//handle the case of ws return null in retrieving results
+            trfBo.setresultmessage(resultmsgjlabel, TrfBo.NO_RES);
+            trfBo.renderJTextAreaMessage(testStatTextArea, TrfBo.NO_RES);
         }
         return null;
     }

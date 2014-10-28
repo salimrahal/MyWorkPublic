@@ -35,7 +35,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jProgressBar1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace pref="284" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="resultmsgjlabel" min="-2" pref="342" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -47,7 +47,7 @@
                                   </Group>
                                   <Component id="runTestButton" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="171" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>

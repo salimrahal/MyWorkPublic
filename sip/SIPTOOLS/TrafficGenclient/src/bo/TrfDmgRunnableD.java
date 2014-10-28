@@ -48,7 +48,6 @@ public class TrfDmgRunnableD implements Runnable {
 
     @Override
     public void run() {
-        String pktLoss = null;
         System.out.println("TrfDmgRunnableD::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
         try {
             //if packetlostdown is < 0 then didn't completed

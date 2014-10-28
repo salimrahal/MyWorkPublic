@@ -7,13 +7,9 @@ package applet;
 
 
 import gui.TrfJPanel;
-import java.net.URL;
-import java.text.ParseException;
-import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JApplet;
-import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class MainJapplet extends JApplet {

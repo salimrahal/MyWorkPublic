@@ -29,11 +29,11 @@ public class TrfBo {
 
     public static final String M_CN = "connecting..";
     public static final String M_PR = "in progress..";
-    public static final String M_FIN = "completed";
-    public static final String M_LAT_PR = "1/4 latency & jitter test: in progress..";
-    public static final String M_PKTUP_PR = "2/4 Upstream packet loss test: in progress..";
-    public static final String M_PKTDO_PR = "3/4 Downstream packet loss test: in progress.. ";
-    public static final String M_COMPUT_RES = "4/4 computing final results..";
+    public static final String M_FIN = "Test Completed";
+    public static final String M_LAT_PR = "Step 1 of 4 - Latency & Jitter Test : In Progress ....";
+    public static final String M_PKTUP_PR = "Step 2 of 4 - Upstream Packet Loss Test: In Progress....";
+    public static final String M_PKTDO_PR = "Step 3 of 4 - Downstream Packet Loss Test: In Progress....";
+    public static final String M_COMPUT_RES = "Step 4 of 4 - Computing Final Results: In Progress....";
 
     public static final String M_PRT_B = "Server is Busy, pleaze try again[1]";
     public static final String M_I = "The server is not responding[2]";
@@ -160,7 +160,7 @@ public class TrfBo {
      todo: instead of result -1 show "time out" on UI
  
      */
-    public void renderResults(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
+    public void renderJTextAreaStatistics(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
         StringBuilder sb = new StringBuilder();
         sb.append("Your Public IP address: ");
                 if(resvo.getPuip() == null){
@@ -180,7 +180,12 @@ public class TrfBo {
 
         testStatTextArea.setText(sb.toString());
     }
+    
+      public void renderJTextAreaMessage(javax.swing.JTextArea testStatTextArea, String outmessage) {
+        testStatTextArea.setText(outmessage);
+    }
 
+      //any -1 value indicate the presence of a time out, the app interprete it as firewall
     public boolean isES(ResVo resvo) {
         boolean res = false;//
         if (resvo.getDopkloss() == E_VAL || resvo.getDolatpeak() == E_VAL || resvo.getDolatav() == E_VAL || resvo.getDojtav() == E_VAL || resvo.getDojtpeak() == E_VAL
@@ -195,6 +200,10 @@ public class TrfBo {
         String labelText = String.format("<html><div style=\"width:%dpx;\"><p align=\"center\">%s</p></div><html>", 200, outmessage);
         resultmsgjlabel.setText(labelText);
         resultmsgjlabel.setBackground(Color.red);
+    }
+    
+     public void setSimpleresultmessage(JLabel resultmsgjlabel, String outmessage) {
+       resultmsgjlabel.setText(outmessage);
     }
 
     /*unused: href is not clickable in Swing
