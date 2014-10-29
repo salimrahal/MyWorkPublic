@@ -32,12 +32,13 @@ public class ResController  implements Serializable {
     private ResService serviceRes;
     List<ResVo> results;
     List<ResVo> filteredresults;
-    String algdetector = "algdetect/algdetector";
-    String trafficsimulator = "trafficsimulator/trafficsimulation";
+    String algdetector = "algdetect/index.html";
+    String trafficsimulator = "trafficsimulator/index.html";
     String customername;
+    Date dateCurr;
     
     public ResController() {
-       
+       dateCurr = new Date();
     }
      @PostConstruct
     public void init() {
@@ -100,6 +101,14 @@ public class ResController  implements Serializable {
 
     public void setFilteredresults(List<ResVo> filteredresults) {
         this.filteredresults = filteredresults;
+    }
+
+    public Date getDateCurr() {
+        return dateCurr;
+    }
+
+    public void setDateCurr(Date dateCurr) {
+        this.dateCurr = dateCurr;
     }
      
 }

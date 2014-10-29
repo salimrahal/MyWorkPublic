@@ -31,9 +31,6 @@ send the customer name to the applet
             <ui:insert name="top">
                 <h:link outcome="secure/adminmenu" value="Admin Access" /><br></br>
                 <!--                <a href="logout.jsp">logout</a>        -->
-                <p> Date/Time : Enter current date;&nbsp;Ip address Detected :  <label id="ipaddress"></label></p>
-
-
             </ui:insert>
         </div>
         <div>
@@ -43,11 +40,22 @@ send the customer name to the applet
                 <h:form>
                     <p:growl id="growl_1" showDetail="true"/>  
                     <p:panelGrid style="margin-bottom:10px; width: 50em">  
+                           <p:row>
+                            <p:column><p:outputLabel value="Date/Time :" style="font-size: medium"/></p:column>
+                            <p:column><p:outputLabel value="#{resController.dateCurr}"/>
+                            </p:column>
+                        </p:row>   
+                          <p:row>
+                            <p:column><p:outputLabel value="Ip address Detected : " style="font-size: medium"/>
+                                <label id="ipaddress"></label>
+                            </p:column>
+                           
+                        </p:row>  
                         <p:row>
-                            <p:column><p:outputLabel value="Customer name"/></p:column>
+                            <p:column><p:outputLabel value="Customer name:" style="font-size: medium"/></p:column>
                             <p:column><h:inputText id="custId" value="#{resController.customername}" 
                                                    required="true" 
-                                                   requiredMessage="please enter the name of your company"/></p:column>
+                                                   requiredMessage="please enter the Customer name"/>please enter the name of your company</p:column>
                         </p:row>   
                     </p:panelGrid>
                     <h:commandButton  action="#{resController.handleAlg()}" value="Run ALG Test Detector"></h:commandButton>
