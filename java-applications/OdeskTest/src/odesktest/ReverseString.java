@@ -14,7 +14,15 @@ import java.util.Scanner;
 class ReverseString {
 
     public static void main(String args[]) {
-        rotateOriginalV2();
+//        Scanner in = new Scanner(System.in);
+//        System.out.println("Enter a Integer Array to reverse:");
+//        String original = in.nextLine();
+//        Integer num = Integer. original.split("\,");
+//        Integer[] inArr = 
+//        rotateOriginalV2();valueOf(original);
+//     original.split("\,");
+//        Integer[] inArr = 
+       rotateOriginalV2();
     }
 
     public static void rotateOriginalV2() {
@@ -22,56 +30,36 @@ class ReverseString {
         original[0] = 1;
         original[1] = 2;
         original[2] = 3;
-        
+
         for (int i = 0; i < original.length; i++) {
             System.out.println("befroe rev: " + original[i]);
         }
         Integer[] reverse = new Integer[3];
-        int k = 2;
+        int k = 1;
         int length = original.length;
         Integer[] res1 = rotate(original, 0, length - 1);
         Integer[] res2 = rotate(res1, 0, k - 1);
-        Integer[] res3 = rotate(res1, k,  length - 1);
+        Integer[] res3 = rotate(res1, k, length - 1);
         System.out.println("final res:");
         for (int i = 0; i < original.length; i++) {
             System.out.println("final res: " + res3[i]);
         }
-        
-        
+
     }
 
     public static Integer[] rotate(Integer[] original, int left, int right) {
-        
+
         while (left < right) {
             Integer tmp = original[left];
             original[left] = original[right];
             original[right] = tmp;
-            //reverse = reverse + original.charAt(i);
             left++;
             right--;
         }
-        
         String s;
         for (int i = 0; i < original.length; i++) {
             System.out.println("After of entered int is: " + original[i]);
         }
-         return original ;
+        return original;
     }
-
-public void rotateOriginal() {
-        String original, reverse = "";
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("Enter a string to reverse");
-        original = in.nextLine();
-
-        int length = original.length();
-
-        for (int i = length - 1; i >= 0; i--) {
-            reverse = reverse + original.charAt(i);
-        }
-
-        System.out.println("Reverse of entered string is: " + reverse);
-    }
-
 }
