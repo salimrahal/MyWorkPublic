@@ -6,6 +6,7 @@
 
 package bean;
 
+import bo.sipserverBO;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,8 +33,6 @@ public class ResController  implements Serializable {
     private ResService serviceRes;
     List<ResVo> results;
     List<ResVo> filteredresults;
-    String algdetector = "algdetect/index.html";
-    String trafficsimulator = "trafficsimulator/index.html";
     String customername;
     Date dateCurr;
     
@@ -52,14 +51,14 @@ public class ResController  implements Serializable {
     public String handleAlg(){
          FacesMessage msg = new FacesMessage("handleAlg");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return algdetector;
+        return sipserverBO.URL_ALG;
         
     }
     
     public String handleTrfSim(){
           FacesMessage msg = new FacesMessage("handleTrfSim");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return trafficsimulator;
+        return sipserverBO.URL_TRF_GEN;
         
     }
 

@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bo;
-
 
 /**
  *
@@ -13,11 +11,12 @@ package bo;
  */
 public class sipserverBO {
 
-   
-    
-    public void initializeSipServer(){
-       /*
-        TODO
-        */
+    public static String URL_ALG = "http://siptools.nexogy.com/alg";
+    public static String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen";
+
+    public void initializeSipServer() {
+        /*
+         TODO
+         */
     }
 }
