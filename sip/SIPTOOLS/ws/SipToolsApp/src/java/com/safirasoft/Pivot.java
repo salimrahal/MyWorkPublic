@@ -85,6 +85,7 @@ public class Pivot {
     @WebMethod(operationName = "getMiscPorts")
     public PrtMiscVo getMiscPorts() throws ParserConfigurationException, SAXException, IOException {
         bo.Logic logic = new Logic();
+        //todo: retrieve only one port instead of 3 ports (lat, packtUp, down)
         PrtMiscVo prtMisc = logic.renderPortMiscVo("f");
         return prtMisc;
     }

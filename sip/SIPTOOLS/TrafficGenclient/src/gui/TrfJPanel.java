@@ -70,6 +70,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         testStatTextArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaPortused = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -137,6 +139,12 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jScrollPane3.setViewportView(jTextArea2);
 
         jTabbedPane1.addTab("Why Voip traffic generator?", jScrollPane3);
+
+        jTextAreaPortused.setColumns(20);
+        jTextAreaPortused.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaPortused);
+
+        jTabbedPane1.addTab("Port Used", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -216,7 +224,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     }// </editor-fold>//GEN-END:initComponents
 
     private void runTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestButtonActionPerformed
-
+        jTextAreaPortused.setText("");
         runTestButton.setEnabled(false);
         reset.setEnabled(false);
 
@@ -231,6 +239,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         testStatTextArea.setText("");
         resultmsgjlabel.setText("");
+        jTextAreaPortused.setText("");
     }//GEN-LAST:event_resetActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
@@ -248,13 +257,15 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JLabel jLabel4;
     public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
+    public static javax.swing.JTextArea jTextAreaPortused;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runTestButton;
-    public javax.swing.JTextArea testStatTextArea;
+    private javax.swing.JTextArea testStatTextArea;
     private javax.swing.JComboBox timelengthjComboBox;
     // End of variables declaration//GEN-END:variables
 

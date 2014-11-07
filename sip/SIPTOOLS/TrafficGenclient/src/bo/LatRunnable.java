@@ -49,6 +49,7 @@ public class LatRunnable implements Runnable {
         this.portsrc = portsrc;
         this.portDest = portdest;
         trfBo = new TrfBo();
+        //todo: receive the socket as parameter
         dgmsocket = new DatagramSocket(this.portsrc);
     }
 

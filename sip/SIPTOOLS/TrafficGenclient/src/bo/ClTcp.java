@@ -247,6 +247,7 @@ public class ClTcp {
     /*
      send param to the server and receive an ACK
      returns true is an ACK is received
+    todo: sendParam will return ServerReply Object: ACK, BUSY+:+testLength
      */
 
     public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
@@ -270,7 +271,7 @@ public class ClTcp {
             if (firstLine) {
                 if (msgRecv.equalsIgnoreCase(ACK)) {
                     ack = true;
-                }
+                }//todo: add elseif result  equal = busy
                 firstLine = false;
             }
             //strbuilder.append(msgRecv).append("\r\n");

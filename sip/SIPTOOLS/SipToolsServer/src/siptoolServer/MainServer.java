@@ -42,12 +42,13 @@ public class MainServer {
         if (args.length == 0) {
             System.out.println("[" + new Date() + "] The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
                     + "");
+            //commented by salim
             //launching UDP TCP echo server thread
-            launchingEchoServer(localIp, defaultport);
+            //launchingEchoServer(localIp, defaultport);
         } else {
             portStr = args[0];
             Integer port = Integer.valueOf(portStr);
-            launchingEchoServer(localIp, port);
+           // launchingEchoServer(localIp, port);
 
         }
 

@@ -55,6 +55,7 @@ public class Cc {
             System.out.println("CC:launchtest::Thread name: " + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             trfBo.setSimpleresultmessage(resultmsgjlabel, resmsg);
             if (TrfBo.uchkr(TrfBo.genul())) {
+                //todo: call the new method and retrieve only one port
                 PrtMiscVo miscPortObj = WSBo.getMiscPorts();
                 String portlat = miscPortObj.getPrtLatNum();
                 String porttrfU = miscPortObj.getPrtTrfNumUp();
@@ -66,6 +67,8 @@ public class Cc {
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
                 } else {
+                    //post the port to be used for this test:
+                    trfBo.renderJTextAreaPortUsed(TrfJPanel.jTextAreaPortused, portSig, portlat, porttrfU, porttrfD);
                     //sr ip
                     String srip = null;
                     srip = miscPortObj.getServerIp();
@@ -77,6 +80,7 @@ public class Cc {
                     //3- send parameters
                     cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
                     boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                    //todo: retrieve the ServerReply, it the result is busy for 60 sec the retry after 60 sec
                     if (success) {
                         Param param = new Param();
                         param.setTimelength(timeLengthParam);

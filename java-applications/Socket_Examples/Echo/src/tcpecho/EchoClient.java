@@ -17,13 +17,14 @@ public class EchoClient {
     public static void main(String[] args) throws IOException {
 
         //String serverHostname = new String ("127.0.0.1");
-        String serverHostname = new String("127.0.0.1");
+//        String serverHostname = new String("127.0.0.1");
+        String serverHostname = new String("141.138.189.250");
         Integer port = 10007;
         if (args.length > 0) {
             serverHostname = args[0];
         }
         System.out.println("Attemping to connect to host "
-                + serverHostname + " on port "+port+".");
+                + serverHostname + " on port " + port + ".");
 
         Socket echoSocket = null;
         PrintWriter out = null;
@@ -31,7 +32,7 @@ public class EchoClient {
 
         try {
             // echoSocket = new Socket("taranis", 7);
-            echoSocket = new Socket(serverHostname, port );
+            echoSocket = new Socket(serverHostname, port);
             out = new PrintWriter(echoSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     echoSocket.getInputStream()));

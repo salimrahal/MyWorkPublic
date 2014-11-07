@@ -76,7 +76,7 @@ public class CHr extends DefaultHandler {
         }
         if (qName.equalsIgnoreCase("sipServer")) {
             //Add the employee to list once end tag is found
-            confVO.setIpServer(attributes.getValue("ip"));
+            confVO.setIpServer(attributes.getValue("ip1"));
         } else if (qName.equalsIgnoreCase("sipIdLocal")) {
             confVO.setSipIdLocal(attributes.getValue("sipid"));//attributes.getValue("sipid")) ;
         } else if (qName.equalsIgnoreCase("agentname")) {

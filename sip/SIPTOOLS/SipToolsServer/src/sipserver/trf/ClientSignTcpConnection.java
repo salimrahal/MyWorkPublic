@@ -85,6 +85,7 @@ public class ClientSignTcpConnection implements Runnable {
                         System.out.println("ClientSignTcpConnection:receiving:" + inputLine);
                         //extract the parameters from the client and save them to bean 
                         Param param = trbo.savingParamsTobean(inputLine, clientSocket.getInetAddress().getHostAddress());
+                        //todo: working on one port 5092,
                         porttrfClientup = Integer.valueOf(param.getPortrfClientU());
                         porttrfClientdown = Integer.valueOf(param.getPortrfClientD());
                         portlat = Integer.valueOf(param.getPortlat());
@@ -93,6 +94,7 @@ public class ClientSignTcpConnection implements Runnable {
                         ports[2] = porttrfClientdown;
                         int portUnique = portlat;
                         //update the port status in DB f->b
+                        //todo: update only the port 5092 to busy
                         boolean portReserved = trfdao.updatePortStatus(ports, "b");
                         if (portReserved) {
                             //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
@@ -101,6 +103,7 @@ public class ClientSignTcpConnection implements Runnable {
                             TrfBo.closeRess(clientSocket, out, in);
                             System.out.println("ClientSignTcpConnection:ACK is sent");
                             //create server tcp sockets:
+                            //todo work on one socket and assign it to the new Ip2 for traffic generator
                             ServerSocket serverSocketLat = null;
                             ServerSocket serverSockettrfIn = null;
                             ServerSocket serverSockettrfOut = null;
@@ -138,6 +141,8 @@ public class ClientSignTcpConnection implements Runnable {
 
                             }
                         }//end if portserved
+                        /*todo: the server reply with busy: out.write(BUSY+test length);
+                        so the client will wait testlength*2 then he retry*/
                         break;
                     }//end clause if key true
                     firstLine = false;

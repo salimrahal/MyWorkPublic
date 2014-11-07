@@ -16,16 +16,21 @@ public class EchoServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
-
+        String iplocal = "141.138.189.250";
+        
         try {
-            serverSocket = new ServerSocket(10007);
+//server not binded to a specific Ip            
+//serverSocket = new ServerSocket(10007);
+            //binding the server to a specific Ip
+            InetAddress inetAddrSrc1 = InetAddress.getByName(iplocal);
+            serverSocket = new ServerSocket(10007, 50, inetAddrSrc1);
         } catch (IOException e) {
             System.err.println("Could not listen on port: 10007.");
             System.exit(1);
         }
 
         Socket clientSocket = null;
-        System.out.println("Waiting for connection.....");
+        System.out.println("server listening on: " + serverSocket.getInetAddress().getHostAddress() + ":" + serverSocket.getLocalPort() + "Waiting for connection.....");
 
         try {
             clientSocket = serverSocket.accept();
@@ -45,7 +50,7 @@ public class EchoServer {
         String inputLine;
 
         while ((inputLine = in.readLine()) != null) {
-            System.out.println("Server: " + inputLine);
+            System.out.println("Server: [" + iplocal + "] " + inputLine);
             out.println(inputLine);
 
             if (inputLine.equals("Bye.")) {
