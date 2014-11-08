@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 public class EchoServerDatagram implements Runnable{
 
     DatagramSocket socket = null;
-    BufferedReader in = null;
     InetAddress address;
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";

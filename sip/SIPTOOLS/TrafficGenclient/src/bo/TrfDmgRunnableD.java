@@ -35,13 +35,14 @@ public class TrfDmgRunnableD implements Runnable {
     TrfBo trfBo;
     WsRes wsres;
 
-    public TrfDmgRunnableD(Param param, InetAddress addressDest, int portsrc, int portdest, WsRes wsres, int clientID) throws SocketException {
+    public TrfDmgRunnableD(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portdest, WsRes wsres, int clientID) throws SocketException {
         this.param = param;
         this.clientID = clientID;
         this.addressDest = addressDest;
         this.portsrc = portsrc;
         this.portDest = portdest;
-        dgmsocket = new DatagramSocket(this.portsrc);
+        this.dgmsocket = dgmsocket;
+        //dgmsocket = new DatagramSocket(this.portsrc);
         trfBo = new TrfBo();
         this.wsres = wsres;
     }
@@ -56,7 +57,7 @@ public class TrfDmgRunnableD implements Runnable {
             String message = WSBo.savePLD(param.getTstid(), packetlostdown);
            // System.out.println("TrfDmgRunnableD: finish ws call: saving pkt loss down");
             // call an outside function to retreive the final results
-           // System.out.println("TrfDmgRunnableD: call ws: final results");        
+            // System.out.println("TrfDmgRunnableD: call ws: final results");        
         } catch (IOException | InterruptedException e) {
             System.out.println("TrfDmgRunnableD:Exception:" + e.getMessage());
         }

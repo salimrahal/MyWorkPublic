@@ -43,14 +43,14 @@ public class LatRunnable implements Runnable {
     TrfDao trfdao;
     static final int packetNumToSend = 30;
 
-    public LatRunnable(Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
+    public LatRunnable(DatagramSocket dgmsocket, Param param,  InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
         this.param = param;
         this.clientID = clientID;
         this.addressDest = addressDest;
         this.portsrc = portsrc;
         this.portDest = portDest;
         //todo: dmsocket should be received as parameters
-        dgmsocket = new DatagramSocket(this.portsrc);
+        this.dgmsocket = dgmsocket;
         trfdao = new TrfDao();
     }
 

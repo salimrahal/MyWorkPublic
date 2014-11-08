@@ -81,7 +81,7 @@ class PacketControl {
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
-                //System.out.println("sndPktForAnGivenTime: task is finished and cancled="+res+"--- total packet sent ="+count);
+                System.out.println("sndPktForAnGivenTime: task is finished and cancled="+res+"--- total packet sent ="+count);
                 dgmsocket.close();
             }
         }, timeLength, SECONDS);

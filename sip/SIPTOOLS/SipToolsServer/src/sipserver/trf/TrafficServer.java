@@ -22,7 +22,7 @@ import sipserver.trf.dao.TrfDao;
  */
 public class TrafficServer {
 
-    public static void launchingTrafficServer() throws SocketException, UnknownHostException, ParserConfigurationException, SAXException, IOException {
+    public static void launchingTrafficServer(String localIp) throws SocketException, UnknownHostException, ParserConfigurationException, SAXException, IOException {
 
         /**
          * ***********
@@ -42,7 +42,7 @@ public class TrafficServer {
         Spf saxparserconf = new Spf();
         saxparserconf.parseConfVOPrt(ConfVO.getInstance().getInitialLoc());
         Integer portSig = ConfVO.getInstance().getPortSig();
-        SigProcessor trfthreadTcp = new SigProcessor(portSig);
+        SigProcessor trfthreadTcp = new SigProcessor(localIp, portSig);
         Thread serverTrfThread = new Thread(trfthreadTcp);
         serverTrfThread.start();
     }

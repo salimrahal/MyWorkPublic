@@ -8,6 +8,7 @@ package sipserver.trf;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -43,6 +44,10 @@ public class TrfBo {
     public static final String CODEC_KEY = "codec";
     public static final String TST_ID_KEY = "tstid";//only to be accepted
     public static final String ACK = "ACK";
+    public static final String ACK_START = "ACK_START";
+    public static final String ACK_LAT = "LAT";
+    public static final String ACK_TRFIN = "TRFIN";
+    public static final String ACK_TRFOUT = "TRFOUT";
     public static final String REQ_IN_KEY = "REQIN";
     public static final String REQ_OUT_KEY = "REQOUT";
     public static final String LAT_KEY = "LAT";
@@ -55,27 +60,30 @@ public class TrfBo {
         trfdao = new TrfDao();
     }
 
-    public synchronized static void closeRess(Socket clientSocket, PrintWriter out, BufferedReader in) {
-        if (out != null) {
-            out.close();
-        }
-        if (in != null) {
-            try {
-                in.close();
-            } catch (IOException ex) {
-                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+    public synchronized static void closesockDm(DatagramSocket socketDglat, DatagramSocket socketDgIn, DatagramSocket socketDgOut) {
+        if (socketDglat != null) {
+            if (!socketDglat.isClosed()) {
+                System.out.println("[" + new Date() + "] TrfBo: closesockDm: closesockDm closed port=" + socketDglat.getLocalPort());
+                socketDglat.close();
             }
         }
-        if (clientSocket != null) {
-            try {
-                clientSocket.close();
-                // System.out.println("Client connection(clientSocket) is closed");
-            } catch (IOException ex) {
-                Logger.getLogger(ClientSignTcpConnection.class.getName()).log(Level.SEVERE, null, ex);
+        if (socketDgIn != null) {
+            if (!socketDgIn.isClosed()) {
+                System.out.println("[" + new Date() + "] TrfBo: closesockDm: closesockDm closed port=" + socketDgIn.getLocalPort());
+                socketDgIn.close();
             }
-            System.out.println("[" + new Date() + "] TrfBo: closeRess: ressource closed");
+        }
+        if (socketDgOut != null) {
+            if (!socketDgOut.isClosed()) {
+                System.out.println("[" + new Date() + "] TrfBo: closesockDm: closesockDm closed port=" + socketDgOut.getLocalPort());
+                socketDgOut.close();
+            }
+
         }
     }
+    /*
+     unused
+     */
 
     public synchronized static void closeServerSock(ServerSocket serverSocketLat, ServerSocket serverSockettrfIn, ServerSocket serverSockettrfOut) {
         if (serverSocketLat != null) {

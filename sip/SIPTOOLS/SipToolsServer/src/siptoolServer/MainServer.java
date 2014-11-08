@@ -30,7 +30,9 @@ public class MainServer {
     @SuppressWarnings("empty-statement")
     public static void main(String[] args) throws SocketException, UnknownHostException {
         //for remote test or on production
-        String localIp = Networking.getLocalIpAddress();//"127.0.1.1";//
+        String localIpAlgEcho = Networking.getLocalIpAddress();//"127.0.1.1";//
+        String localIpTraffic = localIpAlgEcho;
+        
         //for local host test
         //localIp = "127.0.0.1";
 
@@ -42,21 +44,21 @@ public class MainServer {
         if (args.length == 0) {
             System.out.println("[" + new Date() + "] The server by default run on " + defaultport + ", you can change the port by passing it as parameter: example: java -jar AlgEchoServer.jar 5068."
                     + "");
-            //commented by salim
+            //comment the code below to disable the echo server
             //launching UDP TCP echo server thread
-            //launchingEchoServer(localIp, defaultport);
+            launchingEchoServer(localIpAlgEcho, defaultport);
         } else {
             portStr = args[0];
             Integer port = Integer.valueOf(portStr);
-           // launchingEchoServer(localIp, port);
+            // launchingEchoServer(localIp, port);
 
         }
 
         try {
             /*
-            ************ Launch traffic server**************
-            */
-            TrafficServer.launchingTrafficServer();
+             ************ Launch traffic server**************
+             */
+            TrafficServer.launchingTrafficServer(localIpTraffic);
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(MainServer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {

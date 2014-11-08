@@ -11,7 +11,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.SocketTimeoutException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sipserver.trf.bean.Param;
@@ -35,13 +34,13 @@ public class TrfDgmRunnableIn implements Runnable {
     TrfDao trfdao;
     ServerSocket serversocket;
 
-    public TrfDgmRunnableIn(Param param, InetAddress addressDest, int portsrc, int portdest) throws IOException {
+    public TrfDgmRunnableIn(DatagramSocket dgmsocketIn, Param param, InetAddress addressDest, int portsrc, int portdest) throws IOException {
         this.param = param;
         //portsrc could be any port
         this.portsrc = portsrc;
         this.portDest = portdest;
         this.addressDest = addressDest;
-        dgmsocket = new DatagramSocket(this.portsrc);
+        this.dgmsocket = dgmsocketIn;
         trfdao = new TrfDao();
     }
 

@@ -42,7 +42,7 @@ public class LatRunnable implements Runnable {
     TrfBo trfBo;
     static final int packetNumToSend = 30;
 
-    public LatRunnable(Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws SocketException {
+    public LatRunnable(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws SocketException {
         this.param = param;
         this.clientID = clientID;
         this.addressDest = addressDest;
@@ -50,7 +50,10 @@ public class LatRunnable implements Runnable {
         this.portDest = portdest;
         trfBo = new TrfBo();
         //todo: receive the socket as parameter
-        dgmsocket = new DatagramSocket(this.portsrc);
+        this.dgmsocket = dgmsocket;
+        //old version commented
+        //dgmsocket = new DatagramSocket(this.portsrc);
+
     }
 
     @Override
@@ -85,13 +88,13 @@ public class LatRunnable implements Runnable {
             latvoDown = processLatDown();
            // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: end processLatDown:");
             //2
-           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: start echolat:");
+            // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: start echolat:");
             echolatPkt();
-           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: end echolat:");
+            // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: end echolat:");
         } catch (Exception e) {
             System.out.println("LatRunnable::handlelat: exception=" + e.getMessage());
         } finally {
-          //  System.out.println("[" + new Date() + "] LatRunnable:handlelat:3/3closing the socket..");
+            //  System.out.println("[" + new Date() + "] LatRunnable:handlelat:3/3closing the socket..");
             dgmsocket.close();
         }
         return latvoDown;

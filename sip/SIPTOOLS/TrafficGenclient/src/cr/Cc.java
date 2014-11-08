@@ -7,6 +7,7 @@ package cr;
 
 import bn.Param;
 import bo.ClTcp;
+import bo.ClUdp;
 import bo.LatRunnable;
 import bo.TrfBo;
 import bo.TrfDgmRunnableU;
@@ -22,6 +23,7 @@ import gui.TrfJPanel;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -37,7 +39,8 @@ import javax.swing.JProgressBar;
  */
 public class Cc {
 
-    ClTcp cltcp;
+    //ClTcp cltcp;
+    ClUdp cludp;
     TrfBo trfBo;
     //use to execute tcp send/rcv message callable method
     ExecutorService executor;
@@ -72,14 +75,16 @@ public class Cc {
                     //sr ip
                     String srip = null;
                     srip = miscPortObj.getServerIp();
+                    InetAddress inetAddrDest = InetAddress.getByName(srip);
                     TrfBo.setSrIp(srip);
                     System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
                     /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
                     //2- generate the x of the test
                     String testUuid = trfBo.genID();//size 36
                     //3- send parameters
-                    cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
-                    boolean success = cltcp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
+                    //cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
+                    cludp = new ClUdp(inetAddrDest, portSig);
+                    boolean success = cludp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
                     //todo: retrieve the ServerReply, it the result is busy for 60 sec the retry after 60 sec
                     if (success) {
                         Param param = new Param();
@@ -90,11 +95,11 @@ public class Cc {
                         param.setPortrfD(String.valueOf(porttrfD));//for test
                         param.setTstid(testUuid);
                         param.setCustname(custnmparam);
-                        InetAddress inetAddrDest = InetAddress.getByName(srip);
+
                         WsRes wsres = new WsRes();
                         //launch lat&jitter test up/down
                         String portlatStr = "[Port=" + portlat + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test "+portlatStr+": In Progress ....");
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test " + portlatStr + ": In Progress ....");
                         updateJprogressBar(jprobar, 25);
                         //System.out.println("CC: phase-1:begin: latency Down test");
                         launchLatDownRunnable(param, inetAddrDest);
@@ -102,13 +107,13 @@ public class Cc {
                         //4- launch up packet lost test: sending/receiving packets
                         //System.out.println("CC: phase-2:begin: traffic Up");
                         String portUpStr = "[Port=" + porttrfU + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test "+portUpStr+": In Progress....");
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test " + portUpStr + ": In Progress....");
                         updateJprogressBar(jprobar, 50);
                         launchTrafficUp(param, inetAddrDest);
                         //System.out.println("CC: phase-2:Ends: traffic Up");
                         //System.out.println("CC: phase-3:begin: traffic Down");
                         String portDoStr = "[Port=" + porttrfD + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test "+portDoStr+": In Progress....");
+                        trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test " + portDoStr + ": In Progress....");
                         updateJprogressBar(jprobar, 75);
                         lauchktLossDownRunnable(param, inetAddrDest, wsres);
                         // System.out.println("CC: phase-3:Ends: traffic Down");
@@ -151,10 +156,11 @@ public class Cc {
     public Thread launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         String resmsg;
         Thread trfDgmUThread = null;
-        try {
-            boolean successReqToServerTrfIn = cltcp.sendTrfReqToServerUp(TrfBo.getSrIp(), param.getPortrfU(), TrfBo.REQ_IN_KEY);
+        try(DatagramSocket dmsocketU = new DatagramSocket(Integer.valueOf(param.getPortrfU()))){
+            cludp.setDmsocketUp(dmsocketU);
+            boolean successReqToServerTrfIn = cludp.sendTrfReqToServerUp(param.getPortrfU(), TrfBo.REQ_IN_KEY);
             if (successReqToServerTrfIn) {
-                TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(param, addressDest, 0);
+                TrfDgmRunnableU trfDgmU = new TrfDgmRunnableU(cludp.getDmsocketUp(), param, addressDest, 0);
                 trfDgmUThread = new Thread(trfDgmU);
                 trfDgmUThread.start();
                 //System.out.println("CC:launchTrafficUp: waiting to finish the TrfDgmRunnableU thread");
@@ -174,12 +180,13 @@ public class Cc {
     public Thread lauchktLossDownRunnable(Param param, InetAddress addressDest, WsRes wsres) throws SocketException, InterruptedException {
         String resmsg;
         Thread trfDgmDThread = null;
-        try {
+        try (DatagramSocket dmsocketD = new DatagramSocket(Integer.valueOf(param.getPortrfD()))) {
+            cludp.setDmsocketD(dmsocketD);
             int portsrc = Integer.valueOf(param.getPortrfD());
             int portdest = Integer.valueOf(param.getPortrfD());
-            boolean successReqToServerTrfOut = cltcp.sendTrfReqToServerDown(TrfBo.getSrIp(), param.getPortrfD(), TrfBo.REQ_OUT_KEY);
+            boolean successReqToServerTrfOut = cludp.sendTrfReqToServerDown(param.getPortrfD(), TrfBo.REQ_OUT_KEY);
             if (successReqToServerTrfOut) {
-                TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(param, addressDest, portsrc, portdest, wsres, 0);
+                TrfDmgRunnableD trfDgmD = new TrfDmgRunnableD(dmsocketD, param, addressDest, portsrc, portdest, wsres, 0);
                 trfDgmDThread = new Thread(trfDgmD);
                 trfDgmDThread.start();
                 //System.out.println("CC:lauchktLossDownRunnable: waiting to finish the TrfDmgRunnableD thread");
@@ -198,12 +205,13 @@ public class Cc {
     public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         String resmsg;
         Thread latrunThread = null;
-        try {
+        try (DatagramSocket dmsocketL = new DatagramSocket(Integer.valueOf(param.getPortlat()))) {
+            cludp.setDmsocketL(dmsocketL);
             int portsrc = Integer.valueOf(param.getPortlat());
             int portdest = Integer.valueOf(param.getPortlat());
-            boolean successReqToServerLat = cltcp.sendLattoServer(TrfBo.getSrIp(), param.getPortlat(), TrfBo.LAT_KEY);
+            boolean successReqToServerLat = cludp.sendLattoServer(param.getPortlat(), TrfBo.LAT_KEY);
             if (successReqToServerLat) {
-                LatRunnable latDrun = new LatRunnable(param, addressDest, portsrc, portdest, 0);
+                LatRunnable latDrun = new LatRunnable(dmsocketL, param, addressDest, portsrc, portdest, 0);
                 latrunThread = new Thread(latDrun);
                 //imp to pass the lat first
                 //latrunThread.setPriority(8);

@@ -35,20 +35,21 @@ public class TrfDgmRunnableU implements Runnable {
     Integer portDest;
     Param param;
 
-    public TrfDgmRunnableU(Param param, InetAddress addressDest, int clientID) throws IOException {
+    public TrfDgmRunnableU(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int clientID) throws IOException {
         this.param = param;
 //this.incomingPacket = incomingPacket;
         this.clientID = clientID;
         this.addressDest = addressDest;
         this.port = Integer.valueOf(param.getPortrfU());
         this.portDest = Integer.valueOf(param.getPortrfU());
-        dgmsocket = new DatagramSocket(this.port);
+        this.dgmsocket = dgmsocket;
+        //dgmsocket = new DatagramSocket(this.port);
     }
 
     @Override
     public void run() {
         try {
-            System.out.println("TrfDgmRunnableU::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+            System.out.println("TrfDgmRunnableU::Thread name" + Thread.currentThread().getName() + " Priority=" + Thread.currentThread().getPriority());
             handleClienttrafficV2();
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,12 +70,12 @@ public class TrfDgmRunnableU implements Runnable {
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
         //System.out.println("TrfDgmRunnableU:handleClienttraffic:: sources address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
-            double elapsedSeconds = 0;
+        double elapsedSeconds = 0;
         long tStart = 0;
         long tEnd;
         long tDelta;
         try {
-             //todo decrease the time out
+            //todo decrease the time out
             dgmsocket.setSoTimeout(TrfBo.P_MX_D);
             tStart = System.currentTimeMillis();
             //it sends the packets
@@ -89,15 +90,15 @@ public class TrfDgmRunnableU implements Runnable {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("TrfDgmRunnableU:in Catch...:closing the socket..");
             dgmsocket.close();
-        }finally{
+        } finally {
             tEnd = System.currentTimeMillis();
             tDelta = tEnd - tStart;
             elapsedSeconds = tDelta / 1000.0;
-            System.out.println("TrfDgmRunnableU: finally: time elapsed="+elapsedSeconds+" s");
+            System.out.println("TrfDgmRunnableU: finally: time elapsed=" + elapsedSeconds + " s");
         }
     }
 
-     private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
+    private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
         /* 1- receive the flag packet from the client
@@ -107,16 +108,16 @@ public class TrfDgmRunnableU implements Runnable {
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
         //System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
-            double elapsedSeconds = 0;
+        double elapsedSeconds = 0;
         long tStart = 0;
         long tEnd;
         long tDelta;
         try {
-             //todo decrease the time out
+            //todo decrease the time out
             dgmsocket.setSoTimeout(TrfBo.P_MX_D);
             tStart = System.currentTimeMillis();
             dgmsocket.receive(incomingPacketLocal);
-           // System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
+            // System.out.println("TrfDgmRunnableU:handleClienttraffic:receives a flag packet ");
             InetAddress inetAddrInco = incomingPacketLocal.getAddress();
             int portInco = incomingPacketLocal.getPort();
             DatagramPacket outgoingPacketLocal = new DatagramPacket(buf, buf.length, inetAddrInco, portInco);
@@ -134,13 +135,14 @@ public class TrfDgmRunnableU implements Runnable {
             Logger.getLogger(TrfDgmRunnableU.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("TrfDgmRunnableU:in Catch...:closing the socket..");
             dgmsocket.close();
-        }finally{
+        } finally {
             tEnd = System.currentTimeMillis();
             tDelta = tEnd - tStart;
             elapsedSeconds = tDelta / 1000.0;
             //System.out.println("TrfDgmRunnableU: finally: time elapsed="+elapsedSeconds+" s");
         }
     }
+
     /**
      * It just send the packets through a thread
      *

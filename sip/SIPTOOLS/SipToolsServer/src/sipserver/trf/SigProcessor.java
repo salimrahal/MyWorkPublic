@@ -5,11 +5,10 @@
  */
 package sipserver.trf;
 
-import sipserver.bo.*;
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,48 +19,58 @@ import java.util.concurrent.Executors;
  */
 public class SigProcessor implements Runnable {
 
-    ServerSocket serverSocket = null;
+    //ServerSocket serverSocket = null;
+    DatagramSocket socket = null;
     InetAddress address;
     //Remote server 1 CPU::: Sip ServerTcp: listening on port 5060 / poolsize=20
     //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
 
     //insert the constructor
-    public SigProcessor(Integer port) {
+    public SigProcessor(String localIp, Integer port) {
         try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("[" + new Date() + "] Traffic TCPServer: listening on port " + port + " /using cachedThreadPoo");
+            address = InetAddress.getByName(localIp);
+            socket = new DatagramSocket(port, address);
+            System.out.println("Traffic UDPServer: listening on port " + port + "/ Ip " + localIp + " / use a cached pool");
+            System.out.println("[" + new Date() + "] Traffic UDPServer: listening on port " + port + " /using cachedThreadPoo");
         } catch (IOException e) {
-            System.err.println("Traffic TCPServer:: Could not listen on port:" + port);
+            System.err.println("Traffic UDPServer:: Could not listen on port:" + port);
             System.exit(1);
         }
     }
 
     public void processrequests() throws IOException {
-        int i = 0;// when it attemps 90 the client cannot sende / receive data to the server: DEAD Lock
-        boolean processrequets = true;
-        //ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
+        int i = 0;
         ExecutorService poolservice = Executors.newCachedThreadPool();
-        System.out.println("Traffic TCPServer: starts..\n waiting for connections");
-        while (processrequets) {
-            try {
-                // a "blocking" call which waits until a connection is requested
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Traffic TCPServer:[port="+this.serverSocket.getLocalPort()+"] Connection successful\n creating new thread for the clientId=" + i);
-                //create the thread(Runnable) that echo the receievd message, it should disregard the "OPTIONS" spam
-                ClientSignTcpConnection clientcpConn = new ClientSignTcpConnection(clientSocket, i);
-                //and this task to a pool, so clientConnection thread will be started
-                poolservice.execute(clientcpConn);
-                //sendbackStream(clientSocket, i);    
-                i++;
-            } catch (IOException e) {
-                System.err.println("Traffic TCPServer: Accept failed.");
-                System.exit(1);
-            }
+        System.out.println("Traffic UDPServer: starts..");
+        //buffer to receive incoming data
+        byte[] buf = new byte[1024];//65536
+        try {
 
-            //processrequets = false;
-        }//end of while true
-        if (serverSocket != null) {
-            serverSocket.close();
+            System.out.println("Traffic UDPServer: waiting to receive packets");
+            //communication loop
+            while (true) {
+                //create udp packet
+                DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
+                // receive request
+                socket.receive(incomingPacket);
+                //DatagramPacket incomingPacketTmp = incomingPacket;
+                String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
+                System.out.println("Traffic UDPServer: [" + new Date() + "]\n received packet clientID:" + i + "\n" + recvMsg);
+                InetAddress addressInco = incomingPacket.getAddress();
+                int portInco = incomingPacket.getPort();
+                //create the thread(Runnable) that sends the message                  
+                ClientSignUdpConnection clientConn = new ClientSignUdpConnection(socket, recvMsg, addressInco, portInco, i);
+                //and this task to a pool, so clientConnection thread will be started
+                poolservice.execute(clientConn);
+                i++;
+            }//end of while
+        }//end try
+        catch (IOException e) {
+            System.out.println("Traffic UDPServer:Error:" + e.getLocalizedMessage());
+        } finally {
+            if (socket != null) {
+                socket.close();
+            }
         }
     }//end of process requests
 
@@ -70,7 +79,7 @@ public class SigProcessor implements Runnable {
         try {
             processrequests();
         } catch (IOException ex) {
-            System.out.println("Sip ServerTcp: Error: couldn;t run the ServerTcp:" + ex.getLocalizedMessage());
+            System.out.println("Traffic UDPServer: Error: couldn't be run:" + ex.getLocalizedMessage());
         }
     }
 }

@@ -21,16 +21,21 @@ public class Receiver {
 
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
         int srcport = 5068;
+        
         DatagramSocket ds = new DatagramSocket(srcport);
         byte[] buf = new byte[1024];
         DatagramPacket pd = new DatagramPacket(buf, buf.length);
         boolean morepkt = true;
         int i = 0;
+        String rcvmsg = null;
         while (morepkt) {
             System.out.println("waiting to receive....portsrc=" + ds.getPort());
             ds.receive(pd);
             i++;
-            System.out.println("count="+i+" received data=" + Arrays.toString(pd.getData()));
+            rcvmsg =  new String (pd.getData());
+           
+            System.out.println("count="+i+" received data=" +rcvmsg);
+            
             if (i == 1000000) {
                 morepkt = false;
             }

@@ -7,22 +7,13 @@ package bo;
 
 import static bo.TrfBo.ACK;
 import static gui.TrfJPanel.resultmsgjlabel;
-import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  *
@@ -44,208 +35,126 @@ public class ClUdp {
     InetAddress inetAddrDest;
     TrfBo trfbo;
 
-    public ClUdp(InetAddress inetAddrDest, String portSig, String portUp, String portD, String portL) throws SocketException {
+    public ClUdp(InetAddress inetAddrDest, String portSig) throws SocketException {
         this.portSig = portSig;
         this.inetAddrDest = inetAddrDest;
-        dmsocketSig = new DatagramSocket(Integer.valueOf(portSig));
-        dmsocketUp = new DatagramSocket(Integer.valueOf(portUp));
-        dmsocketD = new DatagramSocket(Integer.valueOf(portD));
-        dmsocketL = new DatagramSocket(Integer.valueOf(portL));
         trfbo = new TrfBo();
     }
 
     public boolean sendParamToServer(String portlat, String porttrfU, String porttrfD, String codec, String timelength, String custname, String svip, String testUuid) throws IOException, Exception {
-        BufferedReader in = null;
-        PrintWriter out = null;
         String outmsg;
         boolean success = false;
-
+        this.dmsocketSig = new DatagramSocket(Integer.valueOf(portSig));
         try {
-
-            success = sendParam(dmsocketSig, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
-        } catch (UnknownHostException e) {
-            outmsg = "sendParamToServer:sendStream: Don't know about host: " + svip;
+            success = sendParam(dmsocketSig, inetAddrDest, codec, timelength, custname, testUuid, portlat, porttrfU, porttrfD);
+        } catch (Exception e) {
+            outmsg = "sendParamToServer:sendStream: Exception: " + e.getMessage();
             System.out.println(outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (SocketTimeoutException socketTimeout) {
-            outmsg = TrfBo.M_U;
-            System.out.println("sendParamToServer:Process Request:socketTimeout" + outmsg);
-
-            setresultmessageTcp(outmsg);
-        } catch (IOException iOException) {
-            //handling network unreachable
-            outmsg = iOException.getLocalizedMessage();
-            //"processRequests: Couldn't get I/O for "
-            //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.out.println("sendParamToServer:Process Request:iOException" + outmsg);
-            setresultmessageTcp(outmsg);
+            setresultmessageUdp(outmsg);
         } finally {
-            if (socketSig != null) {
-                socketSig.close();
-            }
-            if (out != null) {
-                out.close();
-                in.close();
-            }
-            if (in != null) {
-                in.close();
+            if (dmsocketSig != null) {
+                dmsocketSig.close();
             }
         }
         return success;
     }
 
-    public boolean sendLattoServer(String svip, String portL, String lat_key) throws IOException, Exception {
-        BufferedReader in = null;
-        PrintWriter out = null;
+    public boolean sendLattoServer(String portL, String lat_key) throws IOException, Exception {
         String outmsg;
         boolean success = false;
         try {
-            socketL.connect(new InetSocketAddress(svip, Integer.parseInt(portL)), TrfBo.T_T);
-            out = new PrintWriter(socketL.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(
-                    socketL.getInputStream()));
-            //System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
-            success = sendTrfReq(in, out, portL, lat_key);
-        } catch (UnknownHostException e) {
-            outmsg = "sendLattoServer: sendStream: Don't know about host: " + svip;
+            success = sendTrfReq(dmsocketL, inetAddrDest, portL, lat_key);
+        } catch (Exception e) {
+            outmsg = "sendLattoServer: Exception: " + e.getMessage();
             System.out.println(outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (SocketTimeoutException socketTimeout) {
-            outmsg = TrfBo.M_U;
-            System.out.println("sendLattoServer:Process Request:socketTimeout" + outmsg);
-
-            setresultmessageTcp(outmsg);
-        } catch (IOException iOException) {
-            //handling network unreachable
-            outmsg = iOException.getLocalizedMessage();
-            //"processRequests: Couldn't get I/O for "
-            //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.out.println("sendLattoServer:Process Request: iOException: " + outmsg);
-            setresultmessageTcp(outmsg);
-        } finally {
-            if (socketL != null) {
-                socketL.close();
-            }
-            if (out != null) {
-                out.close();
-                in.close();
-            }
-            if (in != null) {
-                in.close();
-            }
+            setresultmessageUdp(outmsg);
         }
+        //socket will be closed in the traffic thread
+//        finally {
+//            if (dmsocketL != null) {
+//                dmsocketL.close();
+//            }
+//        }
         return success;
     }
 
-    public boolean sendTrfReqToServerUp(String svip, String portUp, String req_key) throws IOException, Exception {
-        BufferedReader in = null;
-        PrintWriter out = null;
+    public boolean sendTrfReqToServerDown(String portD, String req_out_key) throws IOException, Exception {
         String outmsg;
         boolean success = false;
         try {
-            //todo: to handle the connection refused excption implement retry 3 times
-            socketUp.connect(new InetSocketAddress(svip, Integer.parseInt(portUp)), TrfBo.T_T);
-            out = new PrintWriter(socketUp.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(
-                    socketUp.getInputStream()));
-            //System.out.println("sendTrfReqToServerUp:Req Type:" + req_key + " Process Request: connected.");
-            success = sendTrfReq(in, out, portUp, req_key);
-        } catch (UnknownHostException e) {
-            outmsg = "sendTrfReqToServerUp: sendStream: Don't know about host: " + svip;
+            success = sendTrfReq(dmsocketD, inetAddrDest, portD, req_out_key);
+        } catch (Exception e) {
+            outmsg = "sendTrfReqToServerDown: Exception: " + e.getMessage();
             System.out.println(outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (SocketTimeoutException socketTimeout) {
-            outmsg = TrfBo.M_U;
-            System.out.println("sendTrfReqToServerUp: Process Request:socketTimeout" + outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (IOException iOException) {
-            //handling network unreachable
-            outmsg = iOException.getLocalizedMessage();
-            //todo: frequent bug implement retry
-            System.out.println("sendTrfReqToServerUp:Process Request:iOException " + outmsg);
-            setresultmessageTcp(outmsg);
-        } finally {
-            if (socketUp != null) {
-                socketUp.close();
-            }
-            if (out != null) {
-                out.close();
-                in.close();
-            }
-            if (in != null) {
-                in.close();
-            }
+            setresultmessageUdp(outmsg);
         }
+        //socket will be closed in the traffic thread
+//        finally {
+//            if (dmsocketD != null) {
+//                dmsocketD.close();
+//            }
+//        }
         return success;
     }
 
-    public boolean sendTrfReqToServerDown(String svip, String portD, String req_key) throws IOException, Exception {
-        BufferedReader in = null;
-        PrintWriter out = null;
+    public boolean sendTrfReqToServerUp(String portU, String req_in_key) throws IOException, Exception {
         String outmsg;
         boolean success = false;
         try {
-            socketD.connect(new InetSocketAddress(svip, Integer.parseInt(portD)), TrfBo.T_T);
-            out = new PrintWriter(socketD.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(
-                    socketD.getInputStream()));
-            // System.out.println("sendTrfReqToServerDown:Req Type:" + req_key + " Process Request: connected.");
-            success = sendTrfReq(in, out, portD, req_key);
-        } catch (UnknownHostException e) {
-            outmsg = "sendTrfReqToServerDown: sendStream: Don't know about host: " + svip;
+            success = sendTrfReq(dmsocketUp, inetAddrDest, portU, req_in_key);
+        } catch (Exception e) {
+            outmsg = "sendTrfReqToServerUp: Exception: " + e.getMessage();
             System.out.println(outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (SocketTimeoutException socketTimeout) {
-            outmsg = TrfBo.M_U;
-            System.out.println("sendTrfReqToServerDown:Process Request:socketTimeout" + outmsg);
-            setresultmessageTcp(outmsg);
-        } catch (IOException iOException) {
-            //handling network unreachable
-            outmsg = iOException.getLocalizedMessage();
-            //"processRequests: Couldn't get I/O for "
-            //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
-            System.out.println("sendTrfReqToServerDown:Process Request: iOException" + outmsg);
-            setresultmessageTcp(outmsg);
-        } finally {
-            if (socketD != null) {
-                socketD.close();
-            }
-            if (out != null) {
-                out.close();
-                in.close();
-            }
-            if (in != null) {
-                in.close();
-            }
+            setresultmessageUdp(outmsg);
         }
+        //socket will be closed in the traffic thread
+//        finally {
+//            if (dmsocketUp != null) {
+//                dmsocketUp.close();
+//            }
+//        }
         return success;
     }
 
-    private boolean sendTrfReq(BufferedReader in, PrintWriter out, String port, String req_key) throws Exception {
+    private boolean sendTrfReq(DatagramSocket dmsocketSig, InetAddress inetAddrDestparam, String port, String req_key) throws Exception {
+        String outmsg;
         boolean ack = false;
-        //System.out.println("send sendTrfReq param.. req type:" + req_key);
+        System.out.println("send sendTrfReq param.. req type:" + req_key);
         String msgToSend = req_key;
-        StringReader msgreader = new StringReader(msgToSend);
-        BufferedReader msgbr = new BufferedReader(msgreader);
+        byte[] buf = msgToSend.getBytes();
+        byte[] incomingbuf = new byte[256];
+        DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, inetAddrDestparam, Integer.valueOf(port));
+        DatagramPacket incomingPacket = new DatagramPacket(incomingbuf, incomingbuf.length);
         String msgRecv;
-        String submsgToSend;
-        boolean firstLine = true;
-        while ((submsgToSend = msgbr.readLine()) != null) {
-            //write to the server
-            out.println(submsgToSend);
-            //recieve from the server,
-            //System.out.println("sendTrfReq: key sent, waiting for inputs..");
-            //in some case it will freeze here nothing is received, so a timeout will be triggered
-            msgRecv = in.readLine();
-            //System.out.println("sendTrfReq: readLine= " + msgRecv);
-            if (firstLine) {
-                if (msgRecv.equalsIgnoreCase(ACK)) {
+        boolean tryToSend = true;
+        int maxTry = 1;
+        int i = 0;
+        while (tryToSend) {
+            try {
+                i++;
+                System.out.println("sendTrfReq:trying to send params..try num=" + i);
+                dmsocketSig.send(outgoingPacket);
+                dmsocketSig.setSoTimeout(TrfBo.T_T);// 7sec
+                dmsocketSig.receive(incomingPacket);
+                msgRecv = new String(incomingPacket.getData());
+                System.out.println("sendTrfReq:Received " + msgRecv);
+                if (msgRecv.contains(TrfBo.ACK_LAT)  || msgRecv.contains(TrfBo.ACK_TRFIN) || msgRecv.contains(TrfBo.ACK_TRFOUT)) {
                     ack = true;
+                    System.out.println("sendTrfReq: ACK recieved no more retry:"+msgRecv);
+                    tryToSend = false;
                 }
-                firstLine = false;
+            } catch (SocketTimeoutException se) {
+                outmsg = TrfBo.M_U;
+                System.out.println("sendLattoServer:Process Request:socketTimeout" + se.getMessage());
+                setresultmessageUdp(outmsg);
+            } finally {
+                System.out.println("sendTrfReq: finally..");
+                if (i >= maxTry) {
+                    System.out.println("sendTrfReq: no more retry..max reached");
+                    tryToSend = false;
+                }
             }
-            //strbuilder.append(msgRecv).append("\r\n");
-        }
+        }//end while
         return ack;
     }
     /*
@@ -254,43 +163,41 @@ public class ClUdp {
      todo: sendParam will return ServerReply Object: ACK, BUSY+:+testLength
      */
 
-    public boolean sendParam(DatagramSocket dmsocketSig, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
+    public boolean sendParam(DatagramSocket dmsocketSig, InetAddress inetAddrDestparam, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;
         String msgToSend = generateQueryParam(portlat, porttrfU, porttrfD, codec, timelength, custname, tstid);
         byte[] buf = msgToSend.getBytes();
         byte[] incomingbuf = new byte[256];
-        DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, inetAddrDest, Integer.valueOf(portSig));
+        DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, inetAddrDestparam, Integer.valueOf(portSig));
         DatagramPacket incomingPacket = new DatagramPacket(incomingbuf, incomingbuf.length);
         String msgRecv;
-        String submsgToSend;
         boolean tryToSend = true;
-        int maxTry = 2;
+        int maxTry = 1;
         int i = 0;
         while (tryToSend) {
             try {
                 i++;
+                System.out.println("sendParamToServer:trying to send params..try num=" + i);
                 dmsocketSig.send(outgoingPacket);
-                dmsocketSig.setSoTimeout(TrfBo.T_T);
+                dmsocketSig.setSoTimeout(TrfBo.T_T);// 20 sec
                 dmsocketSig.receive(incomingPacket);
-                msgRecv = Arrays.toString(incomingPacket.getData());
-                System.out.println("sendParamToServer: " + msgRecv);
-                if (msgRecv.equalsIgnoreCase(ACK)) {
+                msgRecv = new String(incomingPacket.getData());
+                System.out.println("sendParamToServer: received:" + msgRecv);
+                if (msgRecv.contains(TrfBo.ACK_START)) {
                     ack = true;
-                }
-                tryToSend = false;
-            } catch (SocketTimeoutException se) {
-                System.out.println("sendParamToServer: " + se.getMessage());
-            } finally {
-                if (i >= maxTry) {
+                    System.out.println("sendParamToServer: ACK received no more retry");
                     tryToSend = false;
-                    break;
+                }
+            } catch (SocketTimeoutException se) {
+                System.out.println("sendParamToServer:Process Request:SocketTimeoutException: " + se.getMessage());
+            } finally {
+                System.out.println("sendParamToServer: finally..");
+                if (i >= maxTry) {
+                    System.out.println("sendParamToServer: no more retry..max reached");
+                    tryToSend = false;
                 }
             }
         }//end while
-        //write to the server
-        //recieve from the server,
-        //in some case it will freeze here nothing is received, so a timeout will be triggered
-        //System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
         return ack;
     }
 
@@ -305,7 +212,32 @@ public class ClUdp {
         return msgToSend;
     }
 
-    public void setresultmessageTcp(String outmessage) {
+    public void setresultmessageUdp(String outmessage) {
         trfbo.setresultmessage(resultmsgjlabel, outmessage);
     }
+
+    public DatagramSocket getDmsocketUp() {
+        return dmsocketUp;
+    }
+
+    public void setDmsocketUp(DatagramSocket dmsocketUp) {
+        this.dmsocketUp = dmsocketUp;
+    }
+
+    public DatagramSocket getDmsocketD() {
+        return dmsocketD;
+    }
+
+    public void setDmsocketD(DatagramSocket dmsocketD) {
+        this.dmsocketD = dmsocketD;
+    }
+
+    public DatagramSocket getDmsocketL() {
+        return dmsocketL;
+    }
+
+    public void setDmsocketL(DatagramSocket dmsocketL) {
+        this.dmsocketL = dmsocketL;
+    }
+
 }

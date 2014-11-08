@@ -53,11 +53,12 @@ public class ClientTcpConnection implements Runnable {
             int i = 0;
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
+                  System.out.println("Sip ServerTcp::firstLine" + inputLine);
                 // if the first line contains OPTIONS then break and dont re-send the message
                 if (firstLine) {
                     if (inputLine.contains(optionKey)) {
                         recognizedClient = false;
-                        System.out.println("Sip ServerTcp: Unrecognized Client, breaking:" + inputLine);
+                        System.out.println("Sip ServerTcp: Unrecognized Client, breaking.");
                         break;
                     }
                     firstLine = false;
