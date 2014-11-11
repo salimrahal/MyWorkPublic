@@ -102,29 +102,38 @@ public class Cc {
                         trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test " + portlatStr + ": In Progress ....");
                         updateJprogressBar(jprobar, 25);
                         //System.out.println("CC: phase-1:begin: latency Down test");
-                        launchLatDownRunnable(param, inetAddrDest);
-                        //System.out.println("CC: phase-1:Ends: latency Down test");
-                        //4- launch up packet lost test: sending/receiving packets
-                        //System.out.println("CC: phase-2:begin: traffic Up");
-                        String portUpStr = "[Port=" + porttrfU + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test " + portUpStr + ": In Progress....");
-                        updateJprogressBar(jprobar, 50);
-                        launchTrafficUp(param, inetAddrDest);
+                        boolean isLatLaunched = launchLatDownRunnable(param, inetAddrDest);
+                        if (isLatLaunched) {
+                             //System.out.println("CC: phase-1:Ends: latency Down test");
+                            //4- launch up packet lost test: sending/receiving packets
+                            //System.out.println("CC: phase-2:begin: traffic Up");
+                            String portUpStr = "[Port=" + porttrfU + "]";
+                            trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test " + portUpStr + ": In Progress....");
+                            updateJprogressBar(jprobar, 50);
+                            launchTrafficUp(param, inetAddrDest);
                         //System.out.println("CC: phase-2:Ends: traffic Up");
-                        //System.out.println("CC: phase-3:begin: traffic Down");
-                        String portDoStr = "[Port=" + porttrfD + "]";
-                        trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test " + portDoStr + ": In Progress....");
-                        updateJprogressBar(jprobar, 75);
-                        lauchktLossDownRunnable(param, inetAddrDest, wsres);
-                        // System.out.println("CC: phase-3:Ends: traffic Down");
-                        updateJprogressBar(jprobar, 95);
-                        trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
-                        //System.out.println("CC: phase-4:begins: Retrieving results...");
-                        resvo = wsres.retreiveResbyWS(param.getTstid());
+                            //System.out.println("CC: phase-3:begin: traffic Down");
+                            String portDoStr = "[Port=" + porttrfD + "]";
+                            trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test " + portDoStr + ": In Progress....");
+                            updateJprogressBar(jprobar, 75);
+                            lauchktLossDownRunnable(param, inetAddrDest, wsres);
+                            // System.out.println("CC: phase-3:Ends: traffic Down");
+                            updateJprogressBar(jprobar, 95);
+                            trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_COMPUT_RES);
+                            //System.out.println("CC: phase-4:begins: Retrieving results...");
+                            resvo = wsres.retreiveResbyWS(param.getTstid());
                         //System.out.println("CC: phase-4:Ends: Retrieving results");
-                        //resvo = wsres.getRes();
-                        trfBo.setSimpleresultmessage(resultmsgjlabel, TrfBo.M_FIN);
-                        updateJprogressBar(jprobar, 100);
+                            //resvo = wsres.getRes();
+                            trfBo.setSimpleresultmessage(resultmsgjlabel, TrfBo.M_FIN);
+                            updateJprogressBar(jprobar, 100);
+                        } else {    
+                            resvo = new ResVo();
+                            //just set a -1 value a indicator in order to post the firewall message in text area
+                            resvo.setDolatpeak(-1);
+                            System.out.println("Error:launchtest::success: Failed!");
+                            trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB_V2);
+                        }
+
                     } else {
                         resvo = new ResVo();
                         //just set a -1 value a indicator in order to post the firewall message in text area
@@ -156,7 +165,7 @@ public class Cc {
     public Thread launchTrafficUp(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
         String resmsg;
         Thread trfDgmUThread = null;
-        try(DatagramSocket dmsocketU = new DatagramSocket(Integer.valueOf(param.getPortrfU()))){
+        try (DatagramSocket dmsocketU = new DatagramSocket(Integer.valueOf(param.getPortrfU()))) {
             cludp.setDmsocketUp(dmsocketU);
             boolean successReqToServerTrfIn = cludp.sendTrfReqToServerUp(param.getPortrfU(), TrfBo.REQ_IN_KEY);
             if (successReqToServerTrfIn) {
@@ -202,7 +211,8 @@ public class Cc {
         return trfDgmDThread;
     }
 
-    public void launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+    public boolean launchLatDownRunnable(Param param, InetAddress addressDest) throws UnknownHostException, IOException, InterruptedException {
+        boolean res = false;
         String resmsg;
         Thread latrunThread = null;
         try (DatagramSocket dmsocketL = new DatagramSocket(Integer.valueOf(param.getPortlat()))) {
@@ -211,6 +221,7 @@ public class Cc {
             int portdest = Integer.valueOf(param.getPortlat());
             boolean successReqToServerLat = cludp.sendLattoServer(param.getPortlat(), TrfBo.LAT_KEY);
             if (successReqToServerLat) {
+                res = true;
                 LatRunnable latDrun = new LatRunnable(dmsocketL, param, addressDest, portsrc, portdest, 0);
                 latrunThread = new Thread(latDrun);
                 //imp to pass the lat first
@@ -221,6 +232,7 @@ public class Cc {
                 //System.out.println("CC:launchLatDownRunnable: waiting to finish the LatRunnable thread");
                 latrunThread.join();
             } else {
+                res = false;
                 System.out.println("CC:launchLatDownRunnable: successReqToServerLat: the result is false, cannot launch the test of Lat.");
             }
         } catch (Exception ex) {
@@ -228,6 +240,7 @@ public class Cc {
             resmsg = ex.getMessage();
             trfBo.setresultmessage(resultmsgjlabel, resmsg);
         }
+        return res;
     }
 
     public void updateJprogressBar(JProgressBar jprobar, int val) {

@@ -42,7 +42,7 @@ public class TrfProcessorIn {
         byte[] bufOut = TrfBo.ACK_TRFIN.getBytes();
         DatagramPacket outgoingPacket;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-
+        int inAcknum = 2;
         System.out.println("[" + new Date() + "] TrfProcessorIn: starts..\n waiting for packet:excpected trf key=" + trfkey);
         try {
             System.out.println("[" + new Date() + "] TrfProcessorIn:waiting for packet..timeout:" + sockTimeout + " sec");
@@ -51,13 +51,14 @@ public class TrfProcessorIn {
             String keyreceived = new String(incomingPacket.getData());
             System.out.println("TrfProcessorIn: keyreceived=" + keyreceived);
             if (keyreceived.contains(trfkey)) {
-                System.out.println("TrfProcessorIn:receiving: Accepted, sending back the " + ACK + ".Starting the trafficIn test");
+                System.out.println("TrfProcessorIn:receiving: Accepted, sending back "+inAcknum+":" + TrfBo.ACK_TRFIN + ".Starting the trafficIn test");
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
 //send two ACK to ensure receiving the ACK
-                socketDgIn.send(outgoingPacket);
-                socketDgIn.send(outgoingPacket);
+                 for (int j = 1; j <= inAcknum; j++) {
+                   socketDgIn.send(outgoingPacket);
+                }
                 try {
                     // launch the traffIn thread
                     launchTrafficPktLossIn(socketDgIn, param, addressInco);

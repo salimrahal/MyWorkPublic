@@ -11,11 +11,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static sipserver.trf.TrfBo.ACK;
 import sipserver.trf.bean.Param;
 
 /**
@@ -42,8 +40,8 @@ public class TrfProcessorOut {
         byte[] bufOut = TrfBo.ACK_TRFOUT.getBytes();
         DatagramPacket outgoingPacket;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-
-        System.out.println("[" + new Date() + "] TrfProcessorOut: starts..\n waiting for packet:excpected trf key=" + trfkey);
+         int outAcknum = 2;
+        System.out.println("[" + new Date() + "] TrfProcessorOut: starts..\n waiting for packet:expected trf key=" + trfkey);
         try {
             System.out.println("[" + new Date() + "] TrfProcessorOut:waiting for packet..timeout:" + sockTimeout + " sec");
             dgmsocketOut.setSoTimeout(sockTimeout);
@@ -51,13 +49,14 @@ public class TrfProcessorOut {
             String keyreceived = new String(incomingPacket.getData());
             System.out.println("TrfProcessorOut: keyreceived=" + keyreceived);
             if (keyreceived.contains(trfkey)) {
-                System.out.println("TrfProcessorOut:receiving: Accepted, sending back the " + ACK + ".Starting the trafficOut test");
+                System.out.println("TrfProcessorOut:receiving: Accepted, sending back  "+ outAcknum +": " + TrfBo.ACK_TRFOUT + ".Starting the trafficOut test");
                 //send two ACK to ensure receiving the ACK
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
-                dgmsocketOut.send(outgoingPacket);
-                dgmsocketOut.send(outgoingPacket);
+                 for (int j = 1; j <= outAcknum; j++) {
+                   dgmsocketOut.send(outgoingPacket);
+                }
                 try {
                     // launch the traffIn thread
                     launchTrafficOut(dgmsocketOut, param, addressInco);

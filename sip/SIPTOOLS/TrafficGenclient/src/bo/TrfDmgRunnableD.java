@@ -6,7 +6,6 @@
 package bo;
 
 import bn.Param;
-import com.safirasoft.ResVo;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,8 +13,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import vp.bo.VpMethds;
 import vp.vo.CdcVo;
 
@@ -92,20 +89,20 @@ public class TrfDmgRunnableD implements Runnable {
         int flagsNum = 3;
         double elapsedSeconds = 0;
         DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
-        //System.out.println("TrfDmgRunnableD::handleClienttraffic::sending " + flagsNum + " flags packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        System.out.println("TrfDmgRunnableD::handleClienttraffic::sending " + flagsNum + " flags packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
         //send flag packet to server
         for (int i = 0; i < flagsNum; i++) {
             dgmsocket.send(outgoingPacketFlag);
         }
-        //System.out.println("TrfDmgRunnableD::handleClienttraffic::waiting to recev the flag....");
+        System.out.println("TrfDmgRunnableD::handleClienttraffic::waiting to recev the flag....");
         try {
             //set the timeout for the flag 
             //todo decrease the time out
             dgmsocket.setSoTimeout(timelength * 1000);
             //register the begin time
             dgmsocket.receive(incomingPacketFlag);
-            System.out.println("TrfDmgRunnableD::handleClienttraffic::flag received");
+            System.out.println("TrfDmgRunnableD::handleClienttraffic::flag received. start listening for incoming traffic");
             //increase the timeout  
             dgmsocket.setSoTimeout(TrfBo.T_P);
 

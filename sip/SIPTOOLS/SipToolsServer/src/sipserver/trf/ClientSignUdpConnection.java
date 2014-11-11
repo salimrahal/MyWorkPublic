@@ -5,15 +5,10 @@
  */
 package sipserver.trf;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -79,17 +74,19 @@ public class ClientSignUdpConnection implements Runnable {
                     + threadName + "]" + clientID + ". Waiting to inputs..");
 
             int i = 0;
+            int maxAck = 2;
             System.out.println("ClientSignUdpConnection:receiving:" + recvMsg);
             if (recvMsg.contains(TST_ID_KEY)) {
-                System.out.println("ClientSignUdpConnection:yes it contains testId. sending the ACK..");
+                System.out.println("[" + new Date() + "]ClientSignUdpConnection:yes it contains testId. sending "+maxAck+" ACK..");
                 //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
                 byte[] bufAck = TrfBo.ACK_START.getBytes();
                 DatagramPacket outgoingpacket = new DatagramPacket(bufAck, bufAck.length, inetAddressInco, portInco);
                 //sedning 3 times the ACK to overcome the packet loss
-                socket.send(outgoingpacket);
-                socket.send(outgoingpacket);
-                
-                System.out.println("ClientSignUdpConnection: ACK is sent");
+                for (int j = 1; j <= maxAck; j++) {
+                    socket.send(outgoingpacket);
+                }
+
+                System.out.println("[" + new Date() + "] ClientSignUdpConnection: ACK is sent");
                 recognizedClient = true;
                 //extract the parameters from the client and save them to bean 
                 Param param = trbo.savingParamsTobean(recvMsg, inetAddressInco.getHostAddress());
@@ -143,10 +140,10 @@ public class ClientSignUdpConnection implements Runnable {
                         /*todo: the server reply with busy: out.write(BUSY+test length);
                  so the client will wait testlength*2 then he retry*/
             }//end clause if key true
-            System.out.println("ClientSignUdpConnection: reading/writing message is finished . The loop is ended on line number:" + i);         
+            System.out.println("ClientSignUdpConnection: reading/writing message is finished . The loop is ended on line number:" + i);
         } catch (IOException ex) {
             Logger.getLogger(ClientSignUdpConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {             
+        } finally {
             if (!releaseallPorts) {
                 trfdao.updatePortStatus(ports, "f");
                 System.out.println("ClientSignUdpConnection:Finally clause:releasing the ports=" + releaseallPorts);

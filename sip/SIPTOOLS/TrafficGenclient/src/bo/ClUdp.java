@@ -5,7 +5,6 @@
  */
 package bo;
 
-import static bo.TrfBo.ACK;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,7 +12,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.Arrays;
+import java.util.Date;
 
 /**
  *
@@ -119,7 +118,7 @@ public class ClUdp {
     private boolean sendTrfReq(DatagramSocket dmsocketSig, InetAddress inetAddrDestparam, String port, String req_key) throws Exception {
         String outmsg;
         boolean ack = false;
-        System.out.println("send sendTrfReq param.. req type:" + req_key);
+        System.out.println("[" + new Date() + "] send sendTrfReq param.. req type:" + req_key);
         String msgToSend = req_key;
         byte[] buf = msgToSend.getBytes();
         byte[] incomingbuf = new byte[256];
@@ -128,33 +127,36 @@ public class ClUdp {
         String msgRecv;
         boolean tryToSend = true;
         int maxTry = 1;
+        int packetShotsNum = 2;
         int i = 0;
-        while (tryToSend) {
             try {
                 i++;
-                System.out.println("sendTrfReq:trying to send params..try num=" + i);
-                dmsocketSig.send(outgoingPacket);
-                dmsocketSig.setSoTimeout(TrfBo.T_T);// 7sec
+                System.out.println("[" + new Date() + "] sendTrfReq:trying to send params..send " + packetShotsNum+" successive packets");
+                for (int j = 1; j <= packetShotsNum; j++) {
+                    dmsocketSig.send(outgoingPacket);
+                }
+                dmsocketSig.setSoTimeout(TrfBo.T_T);// 20 sec
                 dmsocketSig.receive(incomingPacket);
                 msgRecv = new String(incomingPacket.getData());
-                System.out.println("sendTrfReq:Received " + msgRecv);
-                if (msgRecv.contains(TrfBo.ACK_LAT)  || msgRecv.contains(TrfBo.ACK_TRFIN) || msgRecv.contains(TrfBo.ACK_TRFOUT)) {
+                System.out.println("[" + new Date() + "] sendTrfReq:Received=[" + msgRecv+"]");
+                msgRecv = msgRecv.trim();
+                System.out.println("[" + new Date() + "] sendTrfReq:Received After trim=[" + msgRecv+"]");
+                if (msgRecv.contains(TrfBo.ACK_LAT) || msgRecv.contains(TrfBo.ACK_TRFIN) || msgRecv.contains(TrfBo.ACK_TRFOUT)) {
                     ack = true;
-                    System.out.println("sendTrfReq: ACK recieved no more retry:"+msgRecv);
+                    System.out.println("[" + new Date() + "] sendTrfReq: ACK recieved no more retry:" + msgRecv);
                     tryToSend = false;
                 }
             } catch (SocketTimeoutException se) {
                 outmsg = TrfBo.M_U;
-                System.out.println("sendLattoServer:Process Request:socketTimeout" + se.getMessage());
+                System.out.println("[" + new Date() + "] sendLattoServer:Process Request:socketTimeout" + se.getMessage());
                 setresultmessageUdp(outmsg);
             } finally {
-                System.out.println("sendTrfReq: finally..");
+                System.out.println("[" + new Date() + "] sendTrfReq: finally..");
                 if (i >= maxTry) {
-                    System.out.println("sendTrfReq: no more retry..max reached");
+                    System.out.println("[" + new Date() + "] sendTrfReq: no more retry..max reached");
                     tryToSend = false;
                 }
             }
-        }//end while
         return ack;
     }
     /*
@@ -177,23 +179,23 @@ public class ClUdp {
         while (tryToSend) {
             try {
                 i++;
-                System.out.println("sendParamToServer:trying to send params..try num=" + i);
+                System.out.println("[" + new Date() + "]sendParamToServer:trying to send params..send num=" + i);
                 dmsocketSig.send(outgoingPacket);
                 dmsocketSig.setSoTimeout(TrfBo.T_T);// 20 sec
                 dmsocketSig.receive(incomingPacket);
                 msgRecv = new String(incomingPacket.getData());
-                System.out.println("sendParamToServer: received:" + msgRecv);
+                System.out.println("[" + new Date() + "] sendParamToServer: received:" + msgRecv);
                 if (msgRecv.contains(TrfBo.ACK_START)) {
                     ack = true;
-                    System.out.println("sendParamToServer: ACK received no more retry");
+                    System.out.println("[" + new Date() + "] sendParamToServer: ACK received no more retry");
                     tryToSend = false;
                 }
             } catch (SocketTimeoutException se) {
-                System.out.println("sendParamToServer:Process Request:SocketTimeoutException: " + se.getMessage());
+                System.out.println("[" + new Date() + "] sendParamToServer:Process Request:SocketTimeoutException: " + se.getMessage());
             } finally {
-                System.out.println("sendParamToServer: finally..");
+                System.out.println("[" + new Date() + "] sendParamToServer: finally..");
                 if (i >= maxTry) {
-                    System.out.println("sendParamToServer: no more retry..max reached");
+                    System.out.println("[" + new Date() + "] sendParamToServer: no more retry..max reached");
                     tryToSend = false;
                 }
             }

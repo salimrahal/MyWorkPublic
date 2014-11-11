@@ -73,15 +73,9 @@ public class TrfDgmRunnableIn implements Runnable {
         int pps = CdcVo.returnPPSbyCodec(codec);
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
+        double elapsedSeconds = 0;        //send a flag packet to the server before start receiving
         //send a flag packet to the server before start receiving
-        //send a flag packet to the server before start receiving
-        byte[] bufFlag = new byte[8];
-        int flagsNum = 4;
-        boolean flagrcv = false;
-        double elapsedSeconds = 0;
-        DatagramPacket incomingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length);
         System.out.println("TrfDgmRunnableIn::handleClienttrafficV2::.listening on UDP:" + dgmsocket.getLocalPort());
-        DatagramPacket outgoingPacketFlag = new DatagramPacket(bufFlag, bufFlag.length, addressDest, portDest);
 
         try {
             //decrease the timeout  

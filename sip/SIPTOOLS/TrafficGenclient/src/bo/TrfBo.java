@@ -46,6 +46,9 @@ public class TrfBo {
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [8]";
     public static final String M_U_T = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [9]";
     public static final String NO_RES = "Connection timed out: Could not retreive the results [10]";
+     public static final String MSG_CONN_SV_PB_V2 = "Server connection problem."
+            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [11]";
+
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final Integer T_P = 50000;//millisecond

@@ -48,23 +48,24 @@ public class LatProcessor {
         byte[] bufOut = TrfBo.ACK_LAT.getBytes();
         DatagramPacket outgoingPacket = null;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
+        int latAcknum = 2;
 
-        System.out.println("[" + new Date() + "] LatProcessor: starts..\n waiting for packet:excpected trf key=" + latkey);
+        System.out.println("[" + new Date() + "] LatProcessor: starts..\n waiting for packet:excpected trf key=" + latkey+"-timeout "+ sockTimeout + " sec");
         try {
-            System.out.println("[" + new Date() + "] LatProcessor:waiting for packet..timeout:" + sockTimeout + " sec");
             socketDglat.setSoTimeout(sockTimeout);
             socketDglat.receive(incomingPacket);
             String keyreceived = new String(incomingPacket.getData());
-            System.out.println("LatProcessor: keyreceived=" + keyreceived);
+            System.out.println("[" + new Date() + "]LatProcessor: keyreceived=" + keyreceived);
             if (keyreceived.contains(latkey)) {
-                System.out.println("LatProcessor:receiving: Accepted, sending back the " + ACK + ".Starting the LAtency test");
+                System.out.println("[" + new Date() + "]LatProcessor:receiving: Accepted, sending back "+latAcknum +" "+ACK + ".Starting the LAtency test");
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
                 //send two ACK to ensure receiving the ACK
-                socketDglat.send(outgoingPacket);
-                socketDglat.send(outgoingPacket);
-                System.out.println("LatProcessor:finish sending back the " + ACK + ".to"+addressInco.getHostAddress()+":"+portInco);
+                for (int j = 1; j <= latAcknum; j++) {
+                   socketDglat.send(outgoingPacket);
+                }
+                System.out.println("[" + new Date() + "]LatProcessor:finish sending back the " + ACK + ".to"+addressInco.getHostAddress()+":"+portInco);
                 try {
                     // launch the traffIn thread
                     launchLatUp(socketDglat, param, addressInco);
@@ -91,7 +92,7 @@ public class LatProcessor {
         LatRunnable lat = new LatRunnable(socketDglat, param, inetaddressDest, portsrc, portdest, 0);
         Thread latTh = new Thread(lat);
         latTh.start();
-        System.out.println("[" + new Date() + "] LatProcessor:launchLatUp waiting to finish the launchLatUp..");
+        System.out.println("[" + new Date() + "] LatProcessor:LatRunnable waiting to finish the LatRunnable..");
         latTh.join();
     }
 
