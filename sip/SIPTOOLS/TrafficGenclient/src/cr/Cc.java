@@ -74,6 +74,7 @@ public class Cc {
                     trfBo.renderJTextAreaPortUsed(TrfJPanel.jTextAreaPortused, portSig, portlat, porttrfU, porttrfD);
                     //sr ip
                     String srip = null;
+                    //retrieve the traffic server Ip
                     srip = miscPortObj.getServerIp();
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
                     TrfBo.setSrIp(srip);

@@ -68,6 +68,7 @@ public class Pivot {
 
     /**
      * Web service operation
+     *  used by Udp traffic generator:
      */
     @WebMethod(operationName = "getcodecs")
     public CodecVoList getcodecs() throws ParserConfigurationException, SAXException, IOException {
@@ -78,7 +79,7 @@ public class Pivot {
         return cl;
     }
 
-    /**
+    /** used by Udp traffic generator:
      * Web service operation 1- it gets 2 free port from Db 2- signaling port
      * from the xml 3- Ip server
      */
@@ -90,9 +91,9 @@ public class Pivot {
         return prtMisc;
     }
 
-    /**
+    /** used by Udp traffic generator:
      * Web service operation
-     *
+     * 
      * @param tid
      * @param pld
      * @return result 1 | -1
@@ -118,6 +119,7 @@ public class Pivot {
 
     /**
      * Web service operation: save lat, jitter down
+     *  used by Udp traffic generator:
      */
     @WebMethod(operationName = "svLJD")
     public Integer svLJD(@WebParam(name = "ti") String ti, @WebParam(name = "latdwnpk") int latdwnpk, @WebParam(name = "latdwnav") int latdwnav, @WebParam(name = "jitdwpk") int jitdwpk, @WebParam(name = "jitdwav") int jitdwav) {
@@ -145,6 +147,7 @@ public class Pivot {
     /**
      * Web service operation: retrieve test result for the client and should
      * hide the testId from the response
+     *  used by Udp traffic generator:
      */
     @WebMethod(operationName = "getrs")
     public ResVo getrs(@WebParam(name = "ti") String ti) {
@@ -160,7 +163,7 @@ public class Pivot {
 
     /**
      * Web service operation
-     *
+     * used by Udp traffic generator:
      * @return
      */
     @WebMethod(operationName = "retreiveAllPorts")

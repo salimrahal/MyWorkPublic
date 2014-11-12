@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>  
 <configuration>
-    <!-- for local test: ipServer = "127.0.1.1" 209.208.79.151 -->
-    <sipServer ip="74.117.31.73"/>
+    <!-- for local test: ipServer = "127.0.1.1". ip1 for ALG. ip2 for Udp traffic gen -->
+    <sipServerAlg ip="141.138.189.216"/>
+    <sipServerTrf ip="127.0.0.1"/>
     <sipIdLocal sipid="ALGdetector"/>
     <agentname agentname="CISCO spa504g"/>
     <!-- test with id=1 is equivalent to test A in the plugin GUI -->   
@@ -33,7 +34,7 @@
     <confLoc loc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml"/>
     
     <!-- udp traffic generator config -->
-    <logfile loc="/home/srahal/sipworkspace/logs-trf.log"/>
+    <logfile loc="/home/srahal/sipworkspace/siptoolserver/log{date}"/>
     <port-sig value="5094"></port-sig>
     
     <codec name="g729" enabled="true"> </codec>

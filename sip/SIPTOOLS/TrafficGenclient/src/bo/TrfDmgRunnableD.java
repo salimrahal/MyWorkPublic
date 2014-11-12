@@ -50,7 +50,7 @@ public class TrfDmgRunnableD implements Runnable {
         try {
             //if packetlostdown is < 0 then didn't completed
             float packetlostdown = handleClienttraffic();
-            //System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
+            System.out.println("TrfDmgRunnableD: saving pktLossdown by WS to DB..");
             String message = WSBo.savePLD(param.getTstid(), packetlostdown);
            // System.out.println("TrfDmgRunnableD: finish ws call: saving pkt loss down");
             // call an outside function to retreive the final results
@@ -131,8 +131,8 @@ public class TrfDmgRunnableD implements Runnable {
                  computes the packet lost/down 
                  */
                 packetlostdown = VpMethds.computePktLossByCodec(count, pps, timelength);
-                //System.out.println("packetlossDown=" + packetlostdown);
-                //System.out.println("receivingPkts:finish receiving function.");
+                System.out.println("packetlossDown=" + packetlostdown);
+                System.out.println("receivingPkts:finish receiving function.");
 
             } else {
                 System.out.println("TrfDmgRunnableD:receivingPkts:Something goes wrong nothing is received count=" + count);

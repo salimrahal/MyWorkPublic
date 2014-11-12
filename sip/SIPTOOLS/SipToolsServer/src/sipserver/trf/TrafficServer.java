@@ -39,8 +39,6 @@ public class TrafficServer {
         } catch (Exception ex) {
             Logger.getLogger(TrafficServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Spf saxparserconf = new Spf();
-        saxparserconf.parseConfVOPrt(ConfVO.getInstance().getInitialLoc());
         Integer portSig = ConfVO.getInstance().getPortSig();
         SigProcessor trfthreadTcp = new SigProcessor(localIp, portSig);
         Thread serverTrfThread = new Thread(trfthreadTcp);

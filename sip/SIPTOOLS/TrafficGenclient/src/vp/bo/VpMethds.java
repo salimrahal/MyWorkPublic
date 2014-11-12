@@ -65,18 +65,22 @@ public class VpMethds {
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         int effectivePktNum = receivedPkt;
-        //System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
-
-        if (effectivePktNum <= expectedPktNum) {
-            pktLoss = expectedPktNum - effectivePktNum;
-            //int res = 100 * 100 / 3;
-            //double res2 = 40/50f;
-            //System.out.println("pkloss1 = " + pktLoss + " pkt");
-            pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
-            if(pktLossPerc != 0){
-                 pktLossPerc = formatNumberFl(pktLossPerc);
-            } 
+        System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
+        /*in case the packet received > expected ,
+         I should take the expected. this case occurred in G729/60 sec where I have received extrat two packet +2: expected:3000/received 3002
+         */
+        if (effectivePktNum > expectedPktNum) {
+            effectivePktNum = expectedPktNum;
         }
+        pktLoss = expectedPktNum - effectivePktNum;
+            //int res = 100 * 100 / 3;
+        //double res2 = 40/50f;
+        //System.out.println("pkloss1 = " + pktLoss + " pkt");
+        pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
+        if (pktLossPerc != 0) {
+            pktLossPerc = formatNumberFl(pktLossPerc);
+        }
+
         return pktLossPerc;
     }
 
@@ -218,8 +222,8 @@ public class VpMethds {
         long ms = nv / 1000000;
         return ms;
     }
-    
-      public static long convertMTN(long ms) {
+
+    public static long convertMTN(long ms) {
         long ns = ms * 1000000;
         return ns;
     }
@@ -290,15 +294,14 @@ public class VpMethds {
         System.out.println("test ends..." + new Date());
 
         /**
-         *************Packet lost test************************
-         * System.out.println("packet lost test..........."); int testlength =
-         * 15; int pps = CdcVo.returnPPSbyCodec("g711"); List<PktVo> l2 = new
-         * ArrayList<>(); for (int i = 0; i < 50; i++) { l2.add(pk1); } int
-         * pktLsize = l2.size(); System.out.println("");
-         *
-         * System.out.println("Pkt loss %=" + computePktLossByCodec(749, pps,
-         * testlength) + "%");
-         *
+         ************Packet lost test************************
          */
+        System.out.println("packet lost test...........");
+        int testlength = 15;
+        int pps = CdcVo.returnPPSbyCodec("g729");
+
+        System.out.println("Pkt loss %=" + computePktLossByCodec(3002, pps,
+                testlength) + "%");
+
     }
 }

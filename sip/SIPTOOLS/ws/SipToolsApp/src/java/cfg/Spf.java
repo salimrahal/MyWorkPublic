@@ -22,8 +22,6 @@ import vo.PrtStsVo;
  * @author salim
  */
 public class Spf {
-
-    CHr handler;
     SAXParserFactory parserFactor;
     Codechandler codechandler;
 
@@ -31,24 +29,10 @@ public class Spf {
         parserFactor = SAXParserFactory.newInstance();
 
     }
-
-    @Deprecated
-    public void parseConfVOPrtSts(String confUri) throws ParserConfigurationException, SAXException, IOException {
-
-        SAXParserFactory parserFactor = SAXParserFactory.newInstance();
-        SAXParser parser = parserFactor.newSAXParser();
-        CHr handler = new CHr();
-        File f = new File(confUri);
-      
-        parser.parse(confUri, handler);
-        ConfVO confvo = handler.confVO;
-        List<PrtStsVo> prtstsL = handler.getPrtStsList();
-        for (PrtStsVo t : prtstsL) {
-            System.out.println("t:" + t.toString());
-        }
-        // System.out.println("parseConfVO:" + confvo.toString());
-    }
     
+    /*udp traffic generator:
+    extract the port signaling and ip (ip2) reserved for upd traffic gen
+    */
      public void parseConfVOPrtSig(String confUri) throws ParserConfigurationException, SAXException, IOException {
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
@@ -77,6 +61,6 @@ public class Spf {
 
     public static void main(String[] args) throws Exception {
         Spf saxparserconf = new Spf();
-        saxparserconf.parseConfVOPrtSts("/home/salim/public_html/siptoolsconfig/config.xml");
+        saxparserconf.parseConfVOPrtSig("/home/salim/public_html/siptoolsconfig/config.xml");
     }
 }

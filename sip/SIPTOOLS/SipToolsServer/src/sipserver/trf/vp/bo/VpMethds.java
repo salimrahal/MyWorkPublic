@@ -50,23 +50,26 @@ public class VpMethds {
         }
     }
 
-public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
+    public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
         int pktLoss = -1;
         float pktLossPerc = -1;
         //total pkt received per time interval or test length
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         int effectivePktNum = receivedPkt;
         //System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
-
-        if (effectivePktNum <= expectedPktNum) {
-            pktLoss = expectedPktNum - effectivePktNum;
+         /*in case the packet received > expected ,
+         I should take the expected. this case occurred in G729/60 sec where I have received extrat two packet +2: expected:3000/received 3002
+         */
+        if (effectivePktNum > expectedPktNum) {
+            effectivePktNum = expectedPktNum;
+        }
+        pktLoss = expectedPktNum - effectivePktNum;
             //int res = 100 * 100 / 3;
-            //double res2 = 40/50f;
-            //System.out.println("pkloss1 = " + pktLoss + " pkt");
-            pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
-            if(pktLossPerc != 0){
-                 pktLossPerc = formatNumberFl(pktLossPerc);
-            } 
+        //double res2 = 40/50f;
+        //System.out.println("pkloss1 = " + pktLoss + " pkt");
+        pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
+        if (pktLossPerc != 0) {
+            pktLossPerc = formatNumberFl(pktLossPerc);
         }
         return pktLossPerc;
     }
@@ -135,21 +138,22 @@ public static synchronized float computePktLossByCodec(int receivedPkt, int pps,
      if lat > 1500 ms --> round it on 1500 ms
      */
 
-   /*
+    /*
      if lat > 1500 ms --> round it on 1500 ms
      */
     public static long roundLat(long latparam) {
-       // System.out.println("VpMethds:roundLat:latparam"+latparam);
+        // System.out.println("VpMethds:roundLat:latparam"+latparam);
         long mx_nn = convertMTN(M_X_L);
         if (latparam > mx_nn) {
-           // System.out.println("VpMethds:roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
+            // System.out.println("VpMethds:roundLat:latparam"+latparam+"ns>"+M_X_L+" ns");
             latparam = mx_nn;
-        }else{
-               //System.out.println("VpMethds:roundLat:latparam no need to round.");
+        } else {
+            //System.out.println("VpMethds:roundLat:latparam no need to round.");
         }
         return latparam;
     }
- public static long convertMTN(long ms) {
+
+    public static long convertMTN(long ms) {
         long ns = ms * 1000000;
         return ns;
     }
@@ -277,11 +281,10 @@ public static synchronized float computePktLossByCodec(int receivedPkt, int pps,
          * System.out.println("packet lost test..........."); int testlength =
          * 15; int pps = CdcVo.returnPPSbyCodec("g711"); List<PktVo> l2 = new
          * ArrayList<>(); for (int i = 0; i < 50; i++) { l2.add(pk1); } int
-         * pktLsize = l2.size(); System.out.println("");
-         * *
+         * pktLsize = l2.size(); System.out.println(""); *
          */
-          System.out.println("Pkt loss %=" + computePktLossByCodec(700, 50,
-          15) + "%");
-        
+        System.out.println("Pkt loss %=" + computePktLossByCodec(700, 50,
+                15) + "%");
+
     }
 }

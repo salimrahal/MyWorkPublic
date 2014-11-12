@@ -40,14 +40,21 @@ public class TrfBo {
     public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider[3]";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin[4]";
     public static final String MSG_E_VAL = "Connection problem, negative results are found, retry the test. If the problem persists contact us [5]";
-    public static final String MSG_CONN_SV_PB = "Server connection problem."
-            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [6]";
-    public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached [7]";
-    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [8]";
-    public static final String M_U_T = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [9]";
+    //            static final String MSG_CONN_SV_PB = "Server connection problem."
+    //            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [6]";
+    //    public static final String MSG_CONN_TO = "connection timed out ; no servers could be reached [7]";
+    //    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [8]";
+    //    public static final String M_U_T = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [9]";
+    //    public static final String NO_RES = "Connection timed out: Could not retreive the results [10]";
+    //    public static final String MSG_CONN_SV_PB_V2 = "Server connection problem."
+    //            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [11]";
+    
+    public static final String MSG_CONN_SV_PB = "Test timed out: The test timed out. Please try again later [6]";
+    public static final String MSG_CONN_TO = "Test timed out: The test timed out. Please try again later [7]";
+    public static final String M_U = "Test timed out: The test timed out. Please try again later [8]";
+    public static final String M_U_T = "Test timed out: The test timed out. Please try again later [9]";
     public static final String NO_RES = "Connection timed out: Could not retreive the results [10]";
-     public static final String MSG_CONN_SV_PB_V2 = "Server connection problem."
-            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [11]";
+    public static final String MSG_CONN_SV_PB_V2 = "Test timed out: The test timed out. Please try again later [11]";
 
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
@@ -146,7 +153,6 @@ public class TrfBo {
         } catch (IOException iOException) {
             System.out.println("uchkr: iOException: " + iOException.getMessage());
         }
-
         return isg;
     }
 

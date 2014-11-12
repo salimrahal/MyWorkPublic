@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cfg;
 
 import cfg.vo.ConfVO;
@@ -18,7 +17,7 @@ import vo.PrtVo;
  *
  * @author salim
  */
-public class PortSigHandler extends DefaultHandler {
+public class ConfHandler extends DefaultHandler {
 
     ConfVO confVO = null;
     //var unsed, no content to retrieve
@@ -32,7 +31,7 @@ public class PortSigHandler extends DefaultHandler {
     public List<PrtVo> getPortListVo() {
         return portListVo;
     }
-   
+
     @Override
     //Triggered when the start of tag is found.
     public void startElement(String uri, String localName,
@@ -43,7 +42,15 @@ public class PortSigHandler extends DefaultHandler {
             //Create a new presence object when the start tag is found         
             confVO = ConfVO.getInstance();
         }
-       if (qName.equalsIgnoreCase("port-sig")) {
+        if (qName.equalsIgnoreCase("sipServerAlg")) {
+            //Add the employee to list once end tag is found
+            confVO.setIpServerAlg(attributes.getValue("ip"));
+        }
+        if (qName.equalsIgnoreCase("sipServerTrf")) {
+            //Add the employee to list once end tag is found
+            confVO.setIpServerTrf(attributes.getValue("ip"));
+        }
+        if (qName.equalsIgnoreCase("port-sig")) {
             String portnumStr = attributes.getValue("value");
             ConfVO.getInstance().setPortSig(Integer.parseInt(portnumStr));
 //            prtVo = new PrtVo();

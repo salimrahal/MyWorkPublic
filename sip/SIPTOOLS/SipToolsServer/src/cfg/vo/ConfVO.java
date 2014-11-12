@@ -13,12 +13,14 @@ import vo.PrtVo;
  */
 public class ConfVO {
 
-    String ipServer;
+    String ipServerAlg;
+    String ipServerTrf;
     String agentname;
     String sipIdLocal;
     List<PrtVo> prtList;
-    Integer portSig;//for signaling
-    //String initialLoc = "/home/salim/public_html/siptoolsconfig/config.xml";//local host test
+    Integer portSig;//for signaling 
+    //String initialLoc = "/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/SipToolsServer/src/config.xml";//"/home/salim/public_html/siptoolsconfig/config.xml";//local host test
+    //for remote test
     String initialLoc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml";
     private static final ConfVO INSTANCE = new ConfVO();
 
@@ -56,13 +58,22 @@ public class ConfVO {
         return INSTANCE;
     }
 
-    public String getIpServer() {
-        return ipServer;
+    public String getIpServerAlg() {
+        return ipServerAlg;
     }
 
-    public void setIpServer(String ipServer) {
-        this.ipServer = ipServer;
+    public void setIpServerAlg(String ipServerAlg) {
+        this.ipServerAlg = ipServerAlg;
     }
+
+    public String getIpServerTrf() {
+        return ipServerTrf;
+    }
+
+    public void setIpServerTrf(String ipServerTrf) {
+        this.ipServerTrf = ipServerTrf;
+    }
+
 
     public String getAgentname() {
         return agentname;
@@ -79,4 +90,12 @@ public class ConfVO {
     public void setSipIdLocal(String sipIdLocal) {
         this.sipIdLocal = sipIdLocal;
     }
+
+    @Override
+    public String toString() {
+        return "ConfVO{" + "ipServerAlg=" + ipServerAlg + ", ipServerTrf=" + ipServerTrf + ", agentname=" + agentname + ", sipIdLocal=" + sipIdLocal + ", prtList=" + prtList + ", portSig=" + portSig + ", initialLoc=" + initialLoc + '}';
+    }
+
+    
+    
 }

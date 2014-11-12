@@ -116,7 +116,7 @@ public class LatRunnable implements Runnable {
         byte[] buf;
         buf = CdcVo.returnPayloadybyCodec(codec);
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        //System.out.println("[" + new Date() + "] LatRunnable::processLatDown:phase-a:start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
+        System.out.println("[" + new Date() + "] LatRunnable::processLatDown:phase-a:start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
         //send packet to server
         for (int i = 1; i <= packetNumToSend; i++) {
