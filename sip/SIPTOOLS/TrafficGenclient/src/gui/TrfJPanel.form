@@ -42,12 +42,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" pref="61" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="codecComboBox1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="comboBox1Codec" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="runTestButton" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="171" max="32767" attributes="0"/>
+                              <EmptySpace pref="271" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
@@ -90,26 +90,24 @@
               <Component id="jLabel26" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="resultmsgjlabel" min="-2" pref="87" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="codecComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="timelengthjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="runTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="resultmsgjlabel" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
+                  <Component id="jProgressBar1" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="comboBox1Codec" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="timelengthjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="runTestButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jLabel3" min="-2" pref="18" max="-2" attributes="0"/>
@@ -181,16 +179,10 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="codecComboBox1">
+    <Component class="javax.swing.JComboBox" name="comboBox1Codec">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="G.711 (87.2 Kbps)"/>
-            <StringItem index="1" value="G.722 (80 kbps)"/>
-            <StringItem index="2" value="G.729 (31.2 Kbps)"/>
-            <StringItem index="3" value="ILBC (27.7 kbps)"/>
-            <StringItem index="4" value="SILK (178,5 kbps) "/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
     </Component>

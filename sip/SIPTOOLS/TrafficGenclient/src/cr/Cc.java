@@ -78,8 +78,6 @@ public class Cc {
                     srip = miscPortObj.getServerIp();
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
                     TrfBo.setSrIp(srip);
-                    System.out.println("remote codec config=" + WSBo.getCodecRemoteList().toArray().toString());
-                    /*TODO: make the codec list enabled/disabled by comparing with the return codecRemote List */
                     //2- generate the x of the test
                     String testUuid = trfBo.genID();//size 36
                     //3- send parameters

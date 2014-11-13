@@ -11,6 +11,7 @@ import com.safirasoft.IOException_Exception;
 import com.safirasoft.ParserConfigurationException_Exception;
 import com.safirasoft.PrtMiscVo;
 import com.safirasoft.SAXException_Exception;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,8 +23,6 @@ public class WSBo {
     private static final String PRT_STS_FR = "f";
     private static final String PRT_STS_BU = "b";
 
-
-
     /*
      getting list of {codec:g711; enable: true|false}
      */
@@ -33,17 +32,27 @@ public class WSBo {
 
     }
 
+    public static List<CodecVo> returnFilterdList(List<CodecVo> lparam, boolean enabled) {
+        List<CodecVo> l = new ArrayList<>();
+        for (CodecVo c : lparam) {
+            if (c.isEnabled()) {
+                l.add(c);
+            }
+        }
+        return l;
+    }
+
     private static CodecVoList getcodecs() throws IOException_Exception, ParserConfigurationException_Exception, SAXException_Exception {
         CodecVoList codlist = null;
         try {
             com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
             com.safirasoft.Pivot port = service.getPivotPort();
             codlist = port.getcodecs();
-            
+
         } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception iOException_Exception) {
-              System.out.println("wsbo:Exception:getcodecs"+iOException_Exception.getMessage());
+            System.out.println("wsbo:Exception:getcodecs" + iOException_Exception.getMessage());
         }
-    return codlist;
+        return codlist;
     }
 
     public static PrtMiscVo getMiscPorts() throws SAXException_Exception, IOException_Exception, ParserConfigurationException_Exception {
@@ -54,7 +63,7 @@ public class WSBo {
             pivotPort = service.getPivotPort();
             portVo = pivotPort.getMiscPorts();
         } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception iOException_Exception) {
-              System.out.println("wsbo:Exception:getMiscPorts"+iOException_Exception.getMessage());
+            System.out.println("wsbo:Exception:getMiscPorts" + iOException_Exception.getMessage());
         }
         return portVo;
     }
@@ -65,14 +74,14 @@ public class WSBo {
             com.safirasoft.Pivot_Service service = new com.safirasoft.Pivot_Service();
             com.safirasoft.Pivot port = service.getPivotPort();
             int res = port.savePLD(tid, pld);
-            if(res!=-1){
+            if (res != -1) {
                 message = TrfBo.SUCCESS_KEY;
-            }else{
+            } else {
                 message = TrfBo.FAIL_KEY;
             }
         } catch (Exception e) {
-              System.out.println("wsbo:Exception:getMiscPorts"+e.getMessage());
-              message = e.getMessage();
+            System.out.println("wsbo:Exception:getMiscPorts" + e.getMessage());
+            message = e.getMessage();
         }
         return message;
     }
@@ -84,8 +93,8 @@ public class WSBo {
             com.safirasoft.Pivot port = service.getPivotPort();
             res = port.svLJD(ti, latdwnpk, latdwnav, jitdwpk, jitdwav);
         } catch (Exception e) {
-             System.out.println("wsbo:Exception:svLJD"+e.getMessage());
+            System.out.println("wsbo:Exception:svLJD" + e.getMessage());
         }
         return res;
-    }  
+    }
 }

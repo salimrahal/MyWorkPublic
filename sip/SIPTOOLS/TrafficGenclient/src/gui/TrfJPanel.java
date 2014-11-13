@@ -6,12 +6,18 @@
 package gui;
 
 import bo.TrfBo;
+import bo.WSBo;
+import com.safirasoft.CodecVo;
+import com.safirasoft.IOException_Exception;
+import com.safirasoft.ParserConfigurationException_Exception;
 import com.safirasoft.ResVo;
+import com.safirasoft.SAXException_Exception;
 import cr.Cc;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
@@ -59,7 +65,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel26 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
-        codecComboBox1 = new javax.swing.JComboBox();
+        comboBox1Codec = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         timelengthjComboBox = new javax.swing.JComboBox();
@@ -108,8 +114,6 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         });
 
         jProgressBar1.setStringPainted(true);
-
-        codecComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "G.711 (87.2 Kbps)", "G.722 (80 kbps)", "G.729 (31.2 Kbps)", "ILBC (27.7 kbps)", "SILK (178,5 kbps) " }));
 
         jLabel1.setText("Codec:");
 
@@ -163,10 +167,10 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(25, 25, 25)
+                                        .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(152, 152, 152)
@@ -196,21 +200,20 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(codecComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(runTestButton)
-                            .addComponent(reset))))
+                    .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(runTestButton)
+                    .addComponent(reset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,6 +227,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     }// </editor-fold>//GEN-END:initComponents
 
     private void runTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestButtonActionPerformed
+      
         jTextAreaPortused.setText("");
         runTestButton.setEnabled(false);
         reset.setEnabled(false);
@@ -240,16 +244,18 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         testStatTextArea.setText("");
         resultmsgjlabel.setText("");
         jTextAreaPortused.setText("");
+        fillComboBoxCdcFromWS();
     }//GEN-LAST:event_resetActionPerformed
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
 
+       fillComboBoxCdcFromWS();
     }//GEN-LAST:event_formAncestorAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox codecComboBox1;
+    private javax.swing.JComboBox comboBox1Codec;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;
@@ -265,7 +271,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runTestButton;
-    private javax.swing.JTextArea testStatTextArea;
+    public javax.swing.JTextArea testStatTextArea;
     private javax.swing.JComboBox timelengthjComboBox;
     // End of variables declaration//GEN-END:variables
 
@@ -323,8 +329,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     }//end of swing worker task Class
 
     public String launchtest() throws IOException, Exception {
-        String codec = CdcVo.returnSelectedCodec(codecComboBox1.getSelectedIndex());
-        //System.out.println(codec);
+        String codec = CdcVo.returnSelectedCodec(comboBox1Codec.getSelectedItem().toString());
+        System.out.println(codec);
         String timeLength = timelengthjComboBox.getSelectedItem().toString();
         //System.out.println("timelength=" + timeLength);
         runTestButton.setEnabled(false);
@@ -343,6 +349,30 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             trfBo.renderJTextAreaMessage(testStatTextArea, TrfBo.NO_RES);
         }
         return null;
+    }
+    
+    public void fillComboBoxCdcFromWS(){
+         //it fills the combobox with enabled codec
+        List<CodecVo> cdcL = null;
+        try {
+            if (TrfBo.uchkr(TrfBo.genul())) {
+                try {
+                    cdcL = WSBo.getCodecRemoteList();
+                    List<CodecVo> cdcLEnabled = WSBo.returnFilterdList(cdcL, true);
+                    String[] strCodecL = CdcVo.buildListViewCodec(cdcLEnabled);
+                    comboBox1Codec.setModel(new javax.swing.DefaultComboBoxModel(strCodecL));
+                    System.out.println(comboBox1Codec.getModel().getSize());
+                } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception ex) {
+                     trfBo.setresultmessage(resultmsgjlabel, ex.getMessage());
+                }
+
+            } else {
+                String resmsg = TrfBo.M_NC;
+                trfBo.setresultmessage(resultmsgjlabel, resmsg);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(TrfJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

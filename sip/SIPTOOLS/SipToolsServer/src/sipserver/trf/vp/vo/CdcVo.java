@@ -17,8 +17,8 @@ public class CdcVo {
     public static final String CODEC_G711 = "g711";
     public static final String CODEC_G722 = "g722";
     public static final String CODEC_G729 = "g729";
-    public static final String CODEC_ILBC = "ILBC";
-    public static final String CODEC_SILK = "SILK";
+    public static final String CODEC_ILBC = "ilbc";
+    public static final String CODEC_SILK = "silk";
 
     public static String returnSelectedCodec(int index) {
         String codec = null;
@@ -56,7 +56,7 @@ public class CdcVo {
 
     public static byte[] returnPayloadybyCodec(String codec) {
         byte[] payload = null;
-        switch (codec) {
+        switch (codec.toLowerCase()) {
             case CODEC_G711:
                 payload = new byte[160];
                 break;
