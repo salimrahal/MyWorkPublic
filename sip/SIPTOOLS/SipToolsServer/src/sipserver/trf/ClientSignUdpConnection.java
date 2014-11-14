@@ -30,6 +30,7 @@ public class ClientSignUdpConnection implements Runnable {
     DatagramSocket socket;
     private Integer clientID;
     InetAddress inetAddressInco;
+    InetAddress inetAddressLocal;
     String recvMsg;
     TrfBo trbo;
     TrfDao trfdao;
@@ -37,6 +38,7 @@ public class ClientSignUdpConnection implements Runnable {
 
     public ClientSignUdpConnection(DatagramSocket socket, String recvMsg, InetAddress inetAddressInco, Integer portInco, Integer clientID) {
         this.socket = socket;
+        this.inetAddressLocal = socket.getLocalAddress();
         this.recvMsg = recvMsg;
         this.inetAddressInco = inetAddressInco;
         this.portInco = portInco;
@@ -77,7 +79,7 @@ public class ClientSignUdpConnection implements Runnable {
             int maxAck = 2;
             System.out.println("ClientSignUdpConnection:receiving:" + recvMsg);
             if (recvMsg.contains(TST_ID_KEY)) {
-                System.out.println("[" + new Date() + "]ClientSignUdpConnection:yes it contains testId. sending "+maxAck+" ACK..");
+                System.out.println("[" + new Date() + "]ClientSignUdpConnection:yes it contains testId. sending " + maxAck + " ACK..");
                 //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
                 byte[] bufAck = TrfBo.ACK_START.getBytes();
                 DatagramPacket outgoingpacket = new DatagramPacket(bufAck, bufAck.length, inetAddressInco, portInco);
@@ -103,9 +105,26 @@ public class ClientSignUdpConnection implements Runnable {
                 if (portReserved) {
                     //TODO: write UDP socket instead
                     //create Udp socket to listen on
-                    DatagramSocket socketDglat = new DatagramSocket(portlat);
-                    DatagramSocket socketDgIn = new DatagramSocket(porttrfClientup);
-                    DatagramSocket socketDgOut = new DatagramSocket(porttrfClientdown);
+                    DatagramSocket socketDglat = new DatagramSocket(portlat, inetAddressLocal);
+                    /**test*
+                    byte[] buf = new byte[256];
+                    DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
+                    boolean morepacket = true;
+                    System.out.println("[" + new Date() + "] ClientSignUdpConnection:waiting to receive");
+                    while (morepacket) {
+                        socketDglat.receive(incomingPacket);
+                        String keyreceived = new String(incomingPacket.getData());
+                        System.out.println("[" + new Date() + "]ClientSignUdpConnection: keyreceived=" + keyreceived);
+                        morepacket = false;
+                    }
+                    end test**/
+                    DatagramSocket socketDgIn = new DatagramSocket(porttrfClientup, inetAddressLocal);
+                    DatagramSocket socketDgOut = new DatagramSocket(porttrfClientdown, inetAddressLocal);
+                    System.out.println("[" + new Date() + "] ClientSignUdpConnection: Udp socket instantiated on:"
+                            + "Lat[" + socketDglat.getLocalAddress() + ":" + socketDglat.getLocalPort() + "],"
+                            + "In:[" + socketDgIn.getLocalAddress() + ":"
+                            + socketDgIn.getLocalPort() + "],"
+                            + " Out [" + socketDgOut.getLocalAddress() + ":" + socketDgOut.getLocalPort() + "]");
                     try {
 
                         //record the test

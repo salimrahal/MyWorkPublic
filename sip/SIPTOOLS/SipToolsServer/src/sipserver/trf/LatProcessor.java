@@ -33,7 +33,7 @@ public class LatProcessor {
     String latkey;
     Integer portLat;
 
-    public LatProcessor(DatagramSocket socketDglat, Integer portLat, String latkey) {
+        public LatProcessor(DatagramSocket socketDglat, Integer portLat, String latkey) {
         //serverSocket = new ServerSocket(port);
         this.socketDglat = socketDglat;
         System.out.println("[" + new Date() + "] LatProcessor: listening on port " + portLat);

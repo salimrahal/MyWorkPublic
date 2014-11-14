@@ -21,15 +21,16 @@ public class Receiver {
 
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
         int srcport = 5068;
-        
-        DatagramSocket ds = new DatagramSocket(srcport);
+        String ip = "127.0.0.1";
+        InetAddress inetAddr = InetAddress.getByName(ip);
+        DatagramSocket ds = new DatagramSocket(srcport, inetAddr);
         byte[] buf = new byte[1024];
         DatagramPacket pd = new DatagramPacket(buf, buf.length);
         boolean morepkt = true;
         int i = 0;
         String rcvmsg = null;
         while (morepkt) {
-            System.out.println("waiting to receive....portsrc=" + ds.getPort());
+            System.out.println("waiting to receive....portsrc=" + ds.getLocalPort()+"/"+ds.getLocalAddress());
             ds.receive(pd);
             i++;
             rcvmsg =  new String (pd.getData());
@@ -40,7 +41,6 @@ public class Receiver {
                 morepkt = false;
             }
             System.out.println("finish receiving.");
-
         }
     }
 }

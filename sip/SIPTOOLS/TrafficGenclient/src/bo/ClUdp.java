@@ -115,10 +115,11 @@ public class ClUdp {
         return success;
     }
 
-    private boolean sendTrfReq(DatagramSocket dmsocketSig, InetAddress inetAddrDestparam, String port, String req_key) throws Exception {
+    private boolean sendTrfReq(DatagramSocket dmsocket, InetAddress inetAddrDestparam, String port, String req_key) throws Exception {
         String outmsg;
         boolean ack = false;
-        System.out.println("[" + new Date() + "] send sendTrfReq param.. req type:" + req_key);
+        System.out.println("[" + new Date() + "] send sendTrfReq param.. req type:" + req_key+""
+                + ":dmsocket:"+dmsocket.getLocalAddress()+":"+dmsocket.getLocalPort()+";inetAddrDest="+inetAddrDestparam.getHostAddress());
         String msgToSend = req_key;
         byte[] buf = msgToSend.getBytes();
         byte[] incomingbuf = new byte[256];
@@ -127,16 +128,16 @@ public class ClUdp {
         String msgRecv;
         boolean tryToSend = true;
         int maxTry = 1;
-        int packetShotsNum = 2;
+        int packetShotsNum = 5;
         int i = 0;
             try {
                 i++;
                 System.out.println("[" + new Date() + "] sendTrfReq:trying to send params..send " + packetShotsNum+" successive packets");
                 for (int j = 1; j <= packetShotsNum; j++) {
-                    dmsocketSig.send(outgoingPacket);
+                    dmsocket.send(outgoingPacket);
                 }
-                dmsocketSig.setSoTimeout(TrfBo.T_T);// 20 sec
-                dmsocketSig.receive(incomingPacket);
+                dmsocket.setSoTimeout(TrfBo.T_T);// 20 sec
+                dmsocket.receive(incomingPacket);
                 msgRecv = new String(incomingPacket.getData());
                 System.out.println("[" + new Date() + "] sendTrfReq:Received=[" + msgRecv+"]");
                 msgRecv = msgRecv.trim();
