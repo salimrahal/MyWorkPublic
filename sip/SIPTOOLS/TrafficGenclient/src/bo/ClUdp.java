@@ -128,7 +128,7 @@ public class ClUdp {
         String msgRecv;
         boolean tryToSend = true;
         int maxTry = 1;
-        int packetShotsNum = 5;
+        int packetShotsNum = 2;
         int i = 0;
             try {
                 i++;

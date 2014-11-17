@@ -21,9 +21,7 @@ public class MainJapplet extends JApplet {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {                   
-                    try {
-                     
-                       
+                    try {                      
                         String  cstr = getParameter("cust");  
                         cstr = "custnamefromAppletclass";
                         System.out.println("cust nme:"+ cstr);

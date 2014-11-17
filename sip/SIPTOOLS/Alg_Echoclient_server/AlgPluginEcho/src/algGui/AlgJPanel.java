@@ -31,6 +31,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
      * Creates new form AlgJPanel
      */
     private static Cc cc;
+    public String custnm;
 
     public static Cc getCc() {
         return cc;
@@ -42,6 +43,14 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     public AlgJPanel() throws Exception {
         initComponents();
+    }
+
+    public String getCustnm() {
+        return custnm;
+    }
+
+    public void setCustnm(String custnm) {
+        this.custnm = custnm;
     }
 
     /**
@@ -492,7 +501,6 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private void runALGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGButtonActionPerformed
 
-
         runALGButton.setEnabled(false);
         reset.setEnabled(false);
 
@@ -538,7 +546,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         // TODO add your handling code here:
 
         if (getCc() == null) {
-           
+
             try {
                 cc = new Cc();
 //                sipClientController.createSipStack();
@@ -664,7 +672,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
 
         try {
-            cc.prreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+            cc.preprreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, custnm);
 
         } catch (IOException ex) {
             Logger.getLogger(AlgJPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -675,7 +683,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public static void updateTestLabels() {
         //update the test parameters 
         String testA;
-        
+
         testA = "No Parameters have been found!";
         Alb algBo = getCc().getAlgBo();
         if (algBo.getPortsrc1() != null && algBo.getTransport1() != null && algBo.getPortdest1() != null) {
@@ -686,7 +694,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jRadioButton1.setText(testA);
 
         String testB;
-       
+
         testB = "No Parameters have been found!";
         if (algBo.getPortsrc2() != null && algBo.getTransport2() != null && algBo.getPortdest2() != null) {
             StringBuilder sb = new StringBuilder();
@@ -733,7 +741,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     class TL extends SwingWorker<Void, Void> {
         /*
          * Main task. Executed in background thread.
-        */
+         */
 
         @Override
         public Void doInBackground() {

@@ -5,7 +5,6 @@
  */
 package sipserver.bo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -15,8 +14,6 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

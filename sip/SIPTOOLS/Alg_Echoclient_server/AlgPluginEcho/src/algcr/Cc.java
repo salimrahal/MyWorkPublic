@@ -6,6 +6,7 @@ package algcr;
 
 import algBo.Alb;
 import static algBo.Alb.U_E;
+import static algBo.Ntg.getmyPIP;
 import algConcurrent.SRC;
 import algGui.AlgJPanel;
 import algVo.Test;
@@ -82,7 +83,6 @@ public class Cc {
     //use to execute tcp send/rcv message callable method
     ExecutorService executor;
 
-   
     public Cc() throws SocketException {
         algBo = new Alb();
 
@@ -132,17 +132,34 @@ public class Cc {
         this.iplocal = iplocal;
     }
 
+    public void preprreq(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite, String custname) throws IOException {
+        String outmsg;
+        if (Alb.uchkr(Alb.genul())) {
+            String testUuid = Alb.genID();//size 36
+            Integer portSrc = test.getPortscr();
+            Integer portDest = test.getPortDest();
+            String transport = test.getTransport();
+            String custNm = custname;
+            String publicIp = getmyPIP();
+            //TODO: send params to remote server thru WS: UID, transport/ports, customername, pip
+            prreq(test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+        } else {
+            outmsg = Alb.M_NC;
+            setresultmessage(outmsg);
+        }
+    }
+
     public String prreq(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
         DatagramSocket datagramsocket = null;
         counter++;
-     
+
         iplocal = algBo.getIplocal();
 
         setresultmessage(Alb.I_P);
         String outmsg = null;
         Integer portSrc = test.getPortscr();
         Integer portDest = test.getPortDest();
-      
+
         String callId = new StringBuilder().append(Alb.C_P).append("@").append(iplocal).toString();
         if (test.getTransport().equalsIgnoreCase("udp")) {
             try {
@@ -167,8 +184,7 @@ public class Cc {
                     datagramsocket.close();
                 }
             }
-        }
-        else if (test.getTransport().equalsIgnoreCase("tcp")) {
+        } else if (test.getTransport().equalsIgnoreCase("tcp")) {
             String serverHostname = ipServer;
             Socket echoSocket = null;
             String msgToSendReg = null;
@@ -176,14 +192,12 @@ public class Cc {
             PrintWriter out = null;
             BufferedReader in = null;
             try {
-               
+
                 System.out.println("Process Request: Attemping to connect to host " + serverHostname + " on port " + portDest + "/TCP.");
 
-                
                 msgToSendReg = algBo.brm(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
                 msgToSendInv = algBo.bim(ipServer, iplocal, "TCP", test.getPortscr(), test.getPortDest(), callId, algBo.getAgentname());
 
-               
                 echoSocket = new Socket();
                 echoSocket.connect(new InetSocketAddress(serverHostname, portDest), Alb.T_T);
                 System.out.println("Process Request: connected.");
@@ -191,10 +205,9 @@ public class Cc {
                 in = new BufferedReader(new InputStreamReader(
                         echoSocket.getInputStream()));
 
-              
                 ResultObj resObjreg = sS(Alb.RG, echoSocket, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                 outmsg = resObjreg.getResmessage();
-              
+
                 if (resObjreg.getRescode() == 1) {
                     ResultObj resObjinv = sS(Alb.IV, echoSocket, test, sentmsgInv, recvjtextinvite, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                     outmsg = resObjinv.getResmessage();
@@ -209,10 +222,10 @@ public class Cc {
                 setresultmessage(outmsg);
 
             } catch (SocketTimeoutException socketTimeout) {
-               
+
                 outmsg = Alb.M_U;
                 System.err.println("Process Request:socketTimeout" + outmsg);
-                
+
                 setresultmessage(outmsg);
                 setJtextRegisterSentRcvTxt(outmsg, msgToSendReg, sentmsgReg, recvjtextregister);
                 setJtextInviteSentRcvTxt(outmsg, msgToSendInv, sentmsgInv, recvjtextinvite);
@@ -365,12 +378,10 @@ public class Cc {
             registerMsg = algBo.brm(ipServer, iplocal, "UDP", portsrc, portdest, callId, agentName);
             abyteReg = registerMsg.getBytes();
 
-          
-           
             datagrampacket = new DatagramPacket(abyteReg, abyteReg.length, inetaddress1, portdest);
-           
+
             datagramsocket.send(datagrampacket);
-            
+
             //int k = datagramsocket.getLocalPort();
             sentmsgReg.setText(new StringBuilder().append("New Packet Sent:").append(newline).append(registerMsg).toString());
             //set the caret to the top always
@@ -380,11 +391,11 @@ public class Cc {
             datagramsocket.setSoTimeout(Alb.U_T);
             //Constructs a DatagramPacket for receiving packets of length length.
             DatagramPacket datagrampacketRecReg = new DatagramPacket(abyteBuff, abyteBuff.length);
-           
+
             datagramsocket.receive(datagrampacketRecReg);
             String recvMsg = new String(datagrampacketRecReg.getData(), 0, datagrampacketRecReg.getLength());
             byte recMsgByte[] = recvMsg.getBytes();
-           
+
             if (recvMsg.equals(registerMsg)) {
                 outmsg = algBo.MSG_SipALGNotFound;
             } else {

@@ -12,7 +12,6 @@ import dao.PrtDao;
 import dao.TestDao;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,7 +28,6 @@ import vo.JtrVo;
 import vo.LatVo;
 import vo.PrtMiscVo;
 import vo.PrtStsVo;
-import vo.PrtStstVoList;
 import vo.ResVo;
 
 /**
@@ -180,4 +178,17 @@ public class Pivot {
         }
         return res;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "svAlgpam")
+    public Integer svAlgpam(@WebParam(name = "tid") String tid, @WebParam(name = "trs") String trs, @WebParam(name = "prs") int prs, @WebParam(name = "prdes") int prdes, @WebParam(name = "cus") String cus, @WebParam(name = "pip") String pip) {
+       //todo: same params into DB and start time too
+        return null;
+    }
+
+
+    
+    
 }
