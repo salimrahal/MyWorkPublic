@@ -8,6 +8,7 @@ package com.safirasoft;
 import bo.Logic;
 import cfg.Spf;
 import cfg.vo.ConfVO;
+import dao.AlgDao;
 import dao.PrtDao;
 import dao.TestDao;
 import java.io.IOException;
@@ -40,11 +41,13 @@ public class Pivot {
     Spf saxparserconf;
     TestDao tstDao;
     PrtDao prtDao;
+    AlgDao algDao;
 
     public Pivot() {
         saxparserconf = new Spf();
         tstDao = new TestDao();
         prtDao = new PrtDao();
+        algDao = new AlgDao();
     }
 
     /**
@@ -65,8 +68,7 @@ public class Pivot {
     }
 
     /**
-     * Web service operation
-     *  used by Udp traffic generator:
+     * Web service operation used by Udp traffic generator:
      */
     @WebMethod(operationName = "getcodecs")
     public CodecVoList getcodecs() throws ParserConfigurationException, SAXException, IOException {
@@ -77,9 +79,9 @@ public class Pivot {
         return cl;
     }
 
-    /** used by Udp traffic generator:
-     * Web service operation 1- it gets 2 free port from Db 2- signaling port
-     * from the xml 3- Ip server
+    /**
+     * used by Udp traffic generator: Web service operation 1- it gets 2 free
+     * port from Db 2- signaling port from the xml 3- Ip server
      */
     @WebMethod(operationName = "getMiscPorts")
     public PrtMiscVo getMiscPorts() throws ParserConfigurationException, SAXException, IOException {
@@ -89,9 +91,9 @@ public class Pivot {
         return prtMisc;
     }
 
-    /** used by Udp traffic generator:
-     * Web service operation
-     * 
+    /**
+     * used by Udp traffic generator: Web service operation
+     *
      * @param tid
      * @param pld
      * @return result 1 | -1
@@ -116,8 +118,8 @@ public class Pivot {
     }
 
     /**
-     * Web service operation: save lat, jitter down
-     *  used by Udp traffic generator:
+     * Web service operation: save lat, jitter down used by Udp traffic
+     * generator:
      */
     @WebMethod(operationName = "svLJD")
     public Integer svLJD(@WebParam(name = "ti") String ti, @WebParam(name = "latdwnpk") int latdwnpk, @WebParam(name = "latdwnav") int latdwnav, @WebParam(name = "jitdwpk") int jitdwpk, @WebParam(name = "jitdwav") int jitdwav) {
@@ -144,8 +146,7 @@ public class Pivot {
      */
     /**
      * Web service operation: retrieve test result for the client and should
-     * hide the testId from the response
-     *  used by Udp traffic generator:
+     * hide the testId from the response used by Udp traffic generator:
      */
     @WebMethod(operationName = "getrs")
     public ResVo getrs(@WebParam(name = "ti") String ti) {
@@ -160,8 +161,8 @@ public class Pivot {
     }
 
     /**
-     * Web service operation
-     * used by Udp traffic generator:
+     * Web service operation used by Udp traffic generator:
+     *
      * @return
      */
     @WebMethod(operationName = "retreiveAllPorts")
@@ -180,15 +181,53 @@ public class Pivot {
     }
 
     /**
-     * Web service operation
+     * ALG detector Web service operation
      */
-    @WebMethod(operationName = "svAlgpam")
-    public Integer svAlgpam(@WebParam(name = "tid") String tid, @WebParam(name = "trs") String trs, @WebParam(name = "prs") int prs, @WebParam(name = "prdes") int prdes, @WebParam(name = "cus") String cus, @WebParam(name = "pip") String pip) {
-       //todo: same params into DB and start time too
-        return null;
+    @WebMethod(operationName = "vAlgpam")
+    public Integer vAlgpam(@WebParam(name = "tid") String tid, @WebParam(name = "cus") String cus, @WebParam(name = "pip") String pip, @WebParam(name = "trs") String trs, @WebParam(name = "prs") int prs, @WebParam(name = "prdes") int prdes) {
+        int res = -1;
+        try {
+
+            if (algDao.insertAlgStartParams(tid, cus, pip, trs, prs, prdes)) {
+                res = 1;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
 
+    /**
+     * ALG detector Web service operation
+     */
+    @WebMethod(operationName = "vAlgEnd")
+    public Integer vAlgEnd(@WebParam(name = "tid") String tid, @WebParam(name = "isalgdetected") boolean isalgdetected, @WebParam(name = "isFirewalldetected") boolean isFirewalldetected) {
+        int res = -1;
+        try {
+            if (algDao.updateAlgEnd(tid, isalgdetected, isFirewalldetected)) {
+                res = 1;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
 
-    
-    
+    /**
+     * Web service operation
+     * @param tid
+     * @return 
+     */
+    @WebMethod(operationName = "dtid")
+    public Integer dtid(@WebParam(name = "tid") String tid) {
+        int res = -1;
+        try {
+            if (algDao.deleteAlgparam(tid)) {
+                res = 1;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Pivot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
 }

@@ -5,11 +5,14 @@
 package algcr;
 
 import algBo.Alb;
+import static algBo.Alb.M_U_K;
 import static algBo.Alb.U_E;
 import static algBo.Ntg.getmyPIP;
+import algBo.WsBo;
 import algConcurrent.SRC;
 import algGui.AlgJPanel;
 import algVo.Test;
+import com.safirasoft.VAlgpam;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -141,15 +144,17 @@ public class Cc {
             String transport = test.getTransport();
             String custNm = custname;
             String publicIp = getmyPIP();
-            //TODO: send params to remote server thru WS: UID, transport/ports, customername, pip
-            prreq(test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+            //System.out.println("preprreq saving=" + testUuid + "/" + publicIp);
+            int res = WsBo.vam(testUuid, custNm, publicIp, transport, portSrc, portDest);
+            //System.out.println("WS:save to WS/DB=" + res);
+            prreq(testUuid, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
         } else {
             outmsg = Alb.M_NC;
             setresultmessage(outmsg);
         }
     }
 
-    public String prreq(Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
+    public String prreq(String testUuid, Test test, JTextArea sentmsgReg, JTextArea recvjtextregister, JTextArea sentmsgInv, JTextArea recvjtextinvite) throws IOException {
         DatagramSocket datagramsocket = null;
         counter++;
 
@@ -162,12 +167,14 @@ public class Cc {
 
         String callId = new StringBuilder().append(Alb.C_P).append("@").append(iplocal).toString();
         if (test.getTransport().equalsIgnoreCase("udp")) {
+            ResultObj resObjreg = new ResultObj();
+            ResultObj resObjinv = new ResultObj();
             try {
                 datagramsocket = new DatagramSocket(portSrc);
-                ResultObj resObjreg = sRD(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
+                resObjreg = sRD(datagramsocket, test, sentmsgReg, recvjtextregister, callId);
                 outmsg = resObjreg.getResmessage();
                 Thread.currentThread().sleep(U_E);
-                ResultObj resObjinv = sID(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
+                resObjinv = sID(datagramsocket, test, sentmsgInv, recvjtextinvite, callId);
                 outmsg = resObjinv.getResmessage();
                 //}
                 setresultmessage(outmsg);
@@ -180,6 +187,7 @@ public class Cc {
                 outmsg = ex.getLocalizedMessage();
                 setresultmessage(outmsg);
             } finally {
+                svAlgFw(testUuid, resObjreg, resObjinv);
                 if (datagramsocket != null) {
                     datagramsocket.close();
                 }
@@ -191,6 +199,8 @@ public class Cc {
             String msgToSendInv = null;
             PrintWriter out = null;
             BufferedReader in = null;
+            ResultObj resObjreg = new ResultObj();
+            ResultObj resObjinv = new ResultObj();
             try {
 
                 System.out.println("Process Request: Attemping to connect to host " + serverHostname + " on port " + portDest + "/TCP.");
@@ -205,11 +215,11 @@ public class Cc {
                 in = new BufferedReader(new InputStreamReader(
                         echoSocket.getInputStream()));
 
-                ResultObj resObjreg = sS(Alb.RG, echoSocket, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
+                resObjreg = sS(Alb.RG, echoSocket, test, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                 outmsg = resObjreg.getResmessage();
 
                 if (resObjreg.getRescode() == 1) {
-                    ResultObj resObjinv = sS(Alb.IV, echoSocket, test, sentmsgInv, recvjtextinvite, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
+                    resObjinv = sS(Alb.IV, echoSocket, test, sentmsgInv, recvjtextinvite, sentmsgInv, recvjtextinvite, callId, out, in, msgToSendReg, msgToSendInv);
                     outmsg = resObjinv.getResmessage();
                 }
                 setresultmessage(outmsg);
@@ -222,7 +232,6 @@ public class Cc {
                 setresultmessage(outmsg);
 
             } catch (SocketTimeoutException socketTimeout) {
-
                 outmsg = Alb.M_U;
                 System.err.println("Process Request:socketTimeout" + outmsg);
 
@@ -237,13 +246,41 @@ public class Cc {
                 System.err.println("Process Request:iOException" + outmsg);
                 setresultmessage(outmsg);
             } finally {
+                svAlgFw(testUuid, resObjreg, resObjinv);
                 if (echoSocket != null) {
                     echoSocket.close();
                 }
             }
-
-        }
+            //todo: check result object then insert result of ALG
+        }//end of TCP
         return null;
+    }
+
+    public static void svAlgFw(String testUuid, ResultObj resObjreg, ResultObj resObjinv) {
+//case1: successuful test
+        if (resObjreg.getRescode() == 1 && resObjinv.getRescode() == 1) {
+            boolean fw = false;
+            boolean algdetected = false;
+            if (resObjreg.isAlgDetect() || resObjinv.isAlgDetect()) {
+                algdetected = true;
+            }
+           // System.out.println("CC:svAlg: saving to ws..isALGdetected=" + testUuid + "/" + algdetected);
+            WsBo.vae(testUuid, algdetected, fw);
+        }//end of rescode == 1
+        //case2: Exception case: if at least one rescode is zero, i.e. the code has entered an exception
+        else if (resObjreg.getRescode() == 0 || resObjinv.getRescode() == 0) {
+            boolean fw;
+            boolean algdetected = false;
+            if (resObjreg.getResmessage().substring(0, 19).toLowerCase().contains(M_U_K) || resObjinv.getResmessage().substring(0, 19).toLowerCase().contains(M_U_K)) {
+                fw = true;
+                //System.out.println("svAlgFw: firwall detected saving fw=true alg=false");
+                WsBo.vae(testUuid, algdetected, fw);
+            } else {//case of other exception: dont keep a record in server side
+                // delete initial record since the log will not be useful for admin
+                WsBo.dae(testUuid);
+                //System.out.println("svAlgFw: clean any record on server. Exception not defined");
+            }
+        }
     }
 
     /**
@@ -301,11 +338,13 @@ public class Cc {
                 //msgRecv = msgRecv + "unknowncharacter";
                 if (msgToSend.equalsIgnoreCase(msgRecv)) {
                     outmsg = Alb.MSG_SipALGNotFound;
+                    resObj.setAlgDetect(false);
 
                 } else {
                     // check the caller-ID
                     //retreive received caller Id
                     outmsg = algBo.ak(msgRecv, callId);
+                    resObj.setAlgDetect(true);
                 }
                 //setresultmessage(outmsg);
                 //echoSocket.close();
@@ -398,10 +437,12 @@ public class Cc {
 
             if (recvMsg.equals(registerMsg)) {
                 outmsg = algBo.MSG_SipALGNotFound;
+                resObj.setAlgDetect(false);
             } else {
                 // check the caller-ID
                 //retreive received caller Id
                 outmsg = algBo.ak(recvMsg, callId);
+                resObj.setAlgDetect(true);
             }
             //setresultmessage(outmsg);
             recvjtextregister.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
@@ -412,7 +453,6 @@ public class Cc {
         } catch (SocketTimeoutException sockettimeoutexception) {
             recvjtextregister.setText(new StringBuilder().append(newline).append("[No Packet Received]").append(algBo.M_U).toString());
             recvjtextregister.setCaretPosition(0);
-            //TODO?? add to invite text field the sent and received 
             outmsg = algBo.M_U;
             //setresultmessage(outmsg);
             System.out.println("sendRegister excpetion:" + sockettimeoutexception.getLocalizedMessage());
@@ -465,10 +505,12 @@ public class Cc {
             //recvMsg = recvMsg + "kdkdkd";
             if (recvMsg.equals(inviteMsg)) {
                 outmsg = algBo.MSG_SipALGNotFound;
+                resObj.setAlgDetect(false);
             } else {
                 // check the caller-ID
                 //retreive received caller Id
                 outmsg = algBo.ak(recvMsg, callId);
+                resObj.setAlgDetect(true);
             }
             //setresultmessage(outmsg);
             recvjtextinvite.setText(new StringBuilder().append("New Packet Received:").append(newline).append(recvMsg).toString());
@@ -523,6 +565,15 @@ public class Cc {
         String messageTosendInv;
         Integer rescode;
         String resmessage;
+        boolean algDetect;
+
+        public boolean isAlgDetect() {
+            return algDetect;
+        }
+
+        public void setAlgDetect(boolean algDetect) {
+            this.algDetect = algDetect;
+        }
 
         public Integer getRescode() {
             return rescode;

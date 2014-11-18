@@ -22,8 +22,9 @@ public class MainJapplet extends JApplet {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
                     try {
+                        String fontsize = getParameter("fontSize");
                         String cstr = getParameter("cust");
-                        System.out.println("cust nme:" + cstr);
+                        System.out.println("MainJapplet:cust nme:" + cstr+"/font="+fontsize);
                         crg(cstr);
                         //parse the XML config to class VO by passing URI
                         Alb alb = new Alb();

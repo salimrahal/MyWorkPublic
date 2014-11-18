@@ -74,6 +74,8 @@ public class Alb {
     //No Packet Received - SIP ALG / Firewall issue
     public static final String M_I = "The server is not responding";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
+    //this message cannot be changed, check method CC.svAlgFw
+    public static final String M_U_K = "firewall";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
@@ -107,6 +109,7 @@ public class Alb {
     public String getCU(String hst) {
         //build the config url: http://localhost/siptoolsconfig/config.xml
         String configUri = new StringBuilder().append(hst).append("/").append(C_D).append("/").append(C_N).toString();
+        System.out.println(configUri);
         return configUri;
 
     }
@@ -446,5 +449,9 @@ public class Alb {
         String res = null;
         res = btS(bs) + ":" + btS(b0) + btS(b1);
         return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(M_U.substring(0, 19).toLowerCase().contains(M_U_K));
     }
 }

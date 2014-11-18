@@ -34,6 +34,14 @@
 
 <xs:element name="savePLDResponse" type="tns:savePLDResponse"/>
 
+<xs:element name="svAlgEnd" type="tns:svAlgEnd"/>
+
+<xs:element name="svAlgEndResponse" type="tns:svAlgEndResponse"/>
+
+<xs:element name="svAlgpam" type="tns:svAlgpam"/>
+
+<xs:element name="svAlgpamResponse" type="tns:svAlgpamResponse"/>
+
 <xs:element name="svLJD" type="tns:svLJD"/>
 
 <xs:element name="svLJDResponse" type="tns:svLJDResponse"/>
@@ -45,6 +53,19 @@
 <xs:complexType name="getConfLocResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svAlgEnd">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="isalgdetected" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svAlgEndResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -135,6 +156,23 @@
 <xs:complexType name="IOException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svAlgpam">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="cus" type="xs:string" minOccurs="0"/>
+<xs:element name="pip" type="xs:string" minOccurs="0"/>
+<xs:element name="trs" type="xs:string" minOccurs="0"/>
+<xs:element name="prs" type="xs:int"/>
+<xs:element name="prdes" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svAlgpamResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
