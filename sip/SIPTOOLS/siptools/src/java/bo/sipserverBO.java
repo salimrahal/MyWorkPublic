@@ -11,8 +11,7 @@ package bo;
  */
 public class sipserverBO {
 
-    public static String URL_ALG = "http://siptools.nexogy.com/alg";
-    public static String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen";
+   
 
     public void initializeSipServer() {
         /*

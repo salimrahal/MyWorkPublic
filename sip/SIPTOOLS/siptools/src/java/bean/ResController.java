@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bean;
 
 import bo.sipserverBO;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -27,39 +28,74 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class ResController  implements Serializable {
-     //managed bean injected
+public class ResController implements Serializable {
+
+    //managed bean injected
     @ManagedProperty("#{resService}")
     private ResService serviceRes;
     List<ResVo> results;
     List<ResVo> filteredresults;
     String customername;
     Date dateCurr;
-    
+    String ipPublic;
+    public String URL_ALG = "http://siptools.nexogy.com/alg/index.html";
+    public String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen";
+
     public ResController() {
-       dateCurr = new Date();
+        dateCurr = new Date();
     }
-     @PostConstruct
+
+    @PostConstruct
     public void init() {
         try {
             results = serviceRes.retrieveResults();
         } catch (Exception ex) {
             Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            ipPublic = bo.Networking.getmyPIP();
+        } catch (IOException ex) {
+            Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public String handleAlg(){
-         FacesMessage msg = new FacesMessage("handleAlg");
+    public void handleAlg() throws IOException {
+        System.out.println("handleAlg():..");
+        FacesMessage msg = new FacesMessage("handleAlg");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return sipserverBO.URL_ALG;
-        
+        if (customername != null && !customername.isEmpty()) {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(URL_ALG + "?cust=" + customername);
+        } else {
+            System.out.println("handleAlg:custname is empty!");
+        }
     }
-    
-    public String handleTrfSim(){
-          FacesMessage msg = new FacesMessage("handleTrfSim");
+
+//    public String handleAlg() {
+//        try {
+//            FacesMessage msg = new FacesMessage("handleAlg");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//            externalContext.redirect(URL_ALG);
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return "algforward.jsp";
+//    }
+    public String handleTrfSim() {
+        FacesMessage msg = new FacesMessage("handleTrfSim");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return sipserverBO.URL_TRF_GEN;
-        
+        return URL_TRF_GEN;
+
+    }
+
+    public String getIpPublic() {
+        return ipPublic;
+    }
+
+    public void setIpPublic(String ipPublic) {
+        this.ipPublic = ipPublic;
     }
 
     public String getCustomername() {
@@ -69,7 +105,7 @@ public class ResController  implements Serializable {
     public void setCustomername(String customername) {
         this.customername = customername;
     }
-    
+
     public ResService getServiceRes() {
         return serviceRes;
     }
@@ -84,8 +120,9 @@ public class ResController  implements Serializable {
 
     public void setResults(List<ResVo> results) {
         this.results = results;
-    }  
-     public String formatDate(Date date) {
+    }
+
+    public String formatDate(Date date) {
         String formattedDate = null;
         if (date != null) {
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");//yyyy-MM-dd HH:mm:ss
@@ -109,5 +146,5 @@ public class ResController  implements Serializable {
     public void setDateCurr(Date dateCurr) {
         this.dateCurr = dateCurr;
     }
-     
+
 }

@@ -273,3 +273,9 @@
 /C++/test/dist/
 /java-applications/Rotate/nbproject/private/
 /java-applications/Rotate/build/
+/JSF/jsftest/nbproject/private/
+/JSF/jsftest/build/
+/JSF/jsftest/dist/
+/webservice/restTest/nbproject/private/
+/webservice/restTest/build/
+/webservice/restTest/dist/

@@ -109,7 +109,7 @@ public class Alb {
     public String getCU(String hst) {
         //build the config url: http://localhost/siptoolsconfig/config.xml
         String configUri = new StringBuilder().append(hst).append("/").append(C_D).append("/").append(C_N).toString();
-        System.out.println(configUri);
+        //System.out.println(configUri);
         return configUri;
 
     }
