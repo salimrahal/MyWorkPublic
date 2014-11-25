@@ -83,7 +83,7 @@ public class ClientSignUdpConnection implements Runnable {
                 //send ACK to client, means: server is ready and listening on his udp points(traffic, latency)
                 byte[] bufAck = TrfBo.ACK_START.getBytes();
                 DatagramPacket outgoingpacket = new DatagramPacket(bufAck, bufAck.length, inetAddressInco, portInco);
-                //sedning 3 times the ACK to overcome the packet loss
+                //sedning n times the ACK to overcome the packet loss
                 for (int j = 1; j <= maxAck; j++) {
                     socket.send(outgoingpacket);
                 }
@@ -138,7 +138,7 @@ public class ClientSignUdpConnection implements Runnable {
                         System.out.println("[" + new Date() + "] ClientSignUdpConnection: phase-2:begin: trf In in test");
                         TrfProcessorIn processorIn = new TrfProcessorIn(socketDgIn, porttrfClientup, TrfBo.REQ_IN_KEY);
                         processorIn.processTest(param);
-                        System.out.println("[" + new Date() + "] ClientSignTcpConnection: phase-2:end:  trf In in test");
+                        System.out.println("[" + new Date() + "] ClientSignUdpConnection: phase-2:end:  trf In in test");
 //                            launchTrafficPktLossIn(param);
                         //launch send thread
                         System.out.println("[" + new Date() + "] ClientSignUdpConnection: phase-3:begin: trf out test");
