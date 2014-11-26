@@ -67,7 +67,7 @@ public class Cc {
 //                String porttrfU = portlat;
 //                String porttrfD = portlat;
                 String portSig = miscPortObj.getPrtSigNum();
-                //System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
+                System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
                 } else {

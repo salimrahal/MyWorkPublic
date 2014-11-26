@@ -153,6 +153,7 @@ public class TrfBo {
         } catch (IOException iOException) {
             System.out.println("uchkr: iOException: " + iOException.getMessage());
         }
+         System.out.println("uchkr:resCode="+responseCode);
         return isg;
     }
 

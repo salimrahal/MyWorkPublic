@@ -12,6 +12,8 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import static sipserver.trf.TrfBo.TST_ID_KEY;
+import sipserver.trf.bean.Param;
 
 /**
  *
@@ -22,12 +24,15 @@ public class SigProcessor implements Runnable {
     //ServerSocket serverSocket = null;
     DatagramSocket socket = null;
     InetAddress address;
+    TrfBo trbo;
+    String testIdPrevious = null;
     //Remote server 1 CPU::: Sip ServerTcp: listening on port 5060 / poolsize=20
     //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
 
     //insert the constructor
     public SigProcessor(String localIp, Integer port) {
         try {
+            trbo = new TrfBo();
             address = InetAddress.getByName(localIp);
             socket = new DatagramSocket(port, address);
             System.out.println("Traffic UDPServer: listening on port " + port + "/ Ip " + localIp + " / use a cached pool");
@@ -55,15 +60,30 @@ public class SigProcessor implements Runnable {
                 socket.receive(incomingPacket);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
+
                 System.out.println("Traffic UDPServer: [" + new Date() + "]\n received packet clientID:" + i + "\n" + recvMsg);
                 InetAddress addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
-                //create the thread(Runnable) that sends the message                  
-                ClientSignUdpConnection clientConn = new ClientSignUdpConnection(socket, recvMsg, addressInco, portInco, i);
-                //and this task to a pool, so clientConnection thread will be started
-                poolservice.execute(clientConn);
-                i++;
-            }//end of while
+                //if (recvMsg.contains(TST_ID_KEY)) {
+                 //    Param param = trbo.savingParamsTobean(recvMsg, addressInco.getHostAddress());
+                 //   if (param.getTstid() != null && !param.getTstid().isEmpty()) {
+                   //     if (testIdPrevious == null) {
+                    //        System.out.println("Traffic UDPServer: [" + new Date() + "]\n testIdPrevious is null store the new value= " + param.getTstid());
+              //        testIdPrevious = param.getTstid();
+                   //     }
+                   //     if (testIdPrevious.equalsIgnoreCase(param.getTstid()) && i > 0) {
+                    //        System.out.println("Traffic UDPServer: [" + new Date() + "]\n the received testId is equal to testId-Previous [received twice]  . value= " + param.getTstid() + "/don't create a new thread");
+                    //    } else {
+                       //     System.out.println("Traffic UDPServer: [" + new Date() + "]\n a new test id is received="+param.getTstid());
+                            //create the thread(Runnable) that sends the message                  
+                            ClientSignUdpConnection clientConn = new ClientSignUdpConnection(socket, recvMsg, addressInco, portInco, i);
+                            //and this task to a pool, so clientConnection thread will be started
+                            poolservice.execute(clientConn);
+                            i++;
+                       // }
+                    //}
+              // }
+                            }//end of while
         }//end try
         catch (IOException e) {
             System.out.println("Traffic UDPServer:Error:" + e.getLocalizedMessage());

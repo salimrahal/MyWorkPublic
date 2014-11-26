@@ -118,8 +118,8 @@ public class ClUdp {
     private boolean sendTrfReq(DatagramSocket dmsocket, InetAddress inetAddrDestparam, String port, String req_key) throws Exception {
         String outmsg;
         boolean ack = false;
-        System.out.println("[" + new Date() + "] send sendTrfReq param.. req type:" + req_key+""
-                + ":dmsocket:"+dmsocket.getLocalAddress()+":"+dmsocket.getLocalPort()+";inetAddrDest="+inetAddrDestparam.getHostAddress());
+        System.out.println("[" + new Date() + "] send sendTrfReq param.. req type:" + req_key + ""
+                + ":dmsocket:" + dmsocket.getLocalAddress() + ":" + dmsocket.getLocalPort() + ";inetAddrDest=" + inetAddrDestparam.getHostAddress());
         String msgToSend = req_key;
         byte[] buf = msgToSend.getBytes();
         byte[] incomingbuf = new byte[256];
@@ -130,34 +130,34 @@ public class ClUdp {
         int maxTry = 1;
         int packetShotsNum = 2;
         int i = 0;
-            try {
-                i++;
-                System.out.println("[" + new Date() + "] sendTrfReq:trying to send params..send " + packetShotsNum+" successive packets");
-                for (int j = 1; j <= packetShotsNum; j++) {
-                    dmsocket.send(outgoingPacket);
-                }
-                dmsocket.setSoTimeout(TrfBo.T_T);// 20 sec
-                dmsocket.receive(incomingPacket);
-                msgRecv = new String(incomingPacket.getData());
-                System.out.println("[" + new Date() + "] sendTrfReq:Received=[" + msgRecv+"]");
-                msgRecv = msgRecv.trim();
-                System.out.println("[" + new Date() + "] sendTrfReq:Received After trim=[" + msgRecv+"]");
-                if (msgRecv.contains(TrfBo.ACK_LAT) || msgRecv.contains(TrfBo.ACK_TRFIN) || msgRecv.contains(TrfBo.ACK_TRFOUT)) {
-                    ack = true;
-                    System.out.println("[" + new Date() + "] sendTrfReq: ACK recieved no more retry:" + msgRecv);
-                    tryToSend = false;
-                }
-            } catch (SocketTimeoutException se) {
-                outmsg = TrfBo.M_U;
-                System.out.println("[" + new Date() + "] sendLattoServer:Process Request:socketTimeout" + se.getMessage());
-                setresultmessageUdp(outmsg);
-            } finally {
-                System.out.println("[" + new Date() + "] sendTrfReq: finally..");
-                if (i >= maxTry) {
-                    System.out.println("[" + new Date() + "] sendTrfReq: no more retry..max reached");
-                    tryToSend = false;
-                }
+        try {
+            i++;
+            System.out.println("[" + new Date() + "] sendTrfReq:trying to send params..send " + packetShotsNum + " successive packets");
+            for (int j = 1; j <= packetShotsNum; j++) {
+                dmsocket.send(outgoingPacket);
             }
+            dmsocket.setSoTimeout(TrfBo.T_T);// 20 sec
+            dmsocket.receive(incomingPacket);
+            msgRecv = new String(incomingPacket.getData());
+            System.out.println("[" + new Date() + "] sendTrfReq:Received=[" + msgRecv + "]");
+            msgRecv = msgRecv.trim();
+            System.out.println("[" + new Date() + "] sendTrfReq:Received After trim=[" + msgRecv + "]");
+            if (msgRecv.contains(TrfBo.ACK_LAT) || msgRecv.contains(TrfBo.ACK_TRFIN) || msgRecv.contains(TrfBo.ACK_TRFOUT)) {
+                ack = true;
+                System.out.println("[" + new Date() + "] sendTrfReq: ACK recieved no more retry:" + msgRecv);
+                tryToSend = false;
+            }
+        } catch (SocketTimeoutException se) {
+            outmsg = TrfBo.M_U;
+            System.out.println("[" + new Date() + "] sendLattoServer:Process Request:socketTimeout" + se.getMessage());
+            setresultmessageUdp(outmsg);
+        } finally {
+            System.out.println("[" + new Date() + "] sendTrfReq: finally..");
+            if (i >= maxTry) {
+                System.out.println("[" + new Date() + "] sendTrfReq: no more retry..max reached");
+                tryToSend = false;
+            }
+        }
         return ack;
     }
     /*
@@ -176,19 +176,22 @@ public class ClUdp {
         String msgRecv;
         boolean tryToSend = true;
         int maxTry = 1;
+        int packetShotsNum = 1;
         int i = 0;
         while (tryToSend) {
             try {
                 i++;
-                System.out.println("[" + new Date() + "]sendParamToServer:trying to send params..send num=" + i);
-                dmsocketSig.send(outgoingPacket);
+                System.out.println("[" + new Date() + "] sendParamToServer:trying to send params..send " + packetShotsNum + " successive packets");
+                for (int j = 1; j <= packetShotsNum; j++) {
+                    dmsocketSig.send(outgoingPacket);
+                }
                 dmsocketSig.setSoTimeout(TrfBo.T_T);// 20 sec
                 dmsocketSig.receive(incomingPacket);
                 msgRecv = new String(incomingPacket.getData());
                 System.out.println("[" + new Date() + "] sendParamToServer: received:" + msgRecv);
                 if (msgRecv.contains(TrfBo.ACK_START)) {
                     ack = true;
-                    System.out.println("[" + new Date() + "] sendParamToServer: ACK received no more retry");
+                    System.out.println("[" + new Date() + "] sendParamToServer: ACK_START received no more retry");
                     tryToSend = false;
                 }
             } catch (SocketTimeoutException se) {

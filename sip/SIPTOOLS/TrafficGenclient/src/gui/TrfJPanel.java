@@ -354,6 +354,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public void fillComboBoxCdcFromWS(){
          //it fills the combobox with enabled codec
         List<CodecVo> cdcL = null;
+        //System.out.println("fillComboBoxCdcFromWS:"+TrfBo.genul());
         try {
             if (TrfBo.uchkr(TrfBo.genul())) {
                 try {

@@ -41,7 +41,7 @@ public class LatRunnable implements Runnable {
     Integer portDest;
     Param param;
     TrfDao trfdao;
-    static final int packetNumToSend = 30;
+    static final int packetNumToSend = 2000;
 
     public LatRunnable(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
         this.param = param;
@@ -178,7 +178,7 @@ public class LatRunnable implements Runnable {
         return latvoUp;
     }
 
-    private synchronized void echoLat() {
+    private synchronized void echoLat() throws InterruptedException {
         System.out.println("[" + new Date() + "] LatRunnable:echoLat::starts..");
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());;
@@ -199,7 +199,7 @@ public class LatRunnable implements Runnable {
             outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
             System.out.println("[" + new Date() + "] LatRunnable:echoLat:: Datagrams instantiated");
         } catch (Exception e) {
-            System.out.println(" LatRunnable:echoLat: exception: "+e.getLocalizedMessage());
+            System.out.println(" LatRunnable:echoLat: exception: " + e.getLocalizedMessage());
         }
         System.out.println("[" + new Date() + "] LatRunnable:echoLat:: waiting for Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
         int initial_delay = 2;//init delay debore start the process, this is the time receive the request from the client

@@ -15,6 +15,11 @@ import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vp.bo.VpMethds;
@@ -37,7 +42,9 @@ public class LatRunnable implements Runnable {
     Integer portDest;
     Param param;
     TrfBo trfBo;
-    static final int packetNumToSend = 30;
+    static final int packetNumToSend = 2000;
+    private final ScheduledExecutorService scheduler
+            = Executors.newScheduledThreadPool(1);
 
     public LatRunnable(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portdest, int clientID) throws SocketException {
         this.param = param;
@@ -46,7 +53,6 @@ public class LatRunnable implements Runnable {
         this.portsrc = portsrc;
         this.portDest = portdest;
         trfBo = new TrfBo();
-        //todo: receive the socket as parameter
         this.dgmsocket = dgmsocket;
         //old version commented
         //dgmsocket = new DatagramSocket(this.portsrc);
@@ -83,7 +89,7 @@ public class LatRunnable implements Runnable {
 //1
             //System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: start processLatDown:");
             latvoDown = processLatDown();
-           // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: end processLatDown:");
+            // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 1/2: end processLatDown:");
             //2
             // System.out.println("[" + new Date() + "] LatRunnable::handlelat: 2/2: start echolat:");
             echolatPkt();
@@ -119,6 +125,7 @@ public class LatRunnable implements Runnable {
         System.out.println("[" + new Date() + "] LatRunnable::processLatDown:phase-a:start sending " + packetNumToSend + " packet..to=" + addressDest.getHostAddress() + ":" + portDest);
         DatagramPacket outgoingPacket = new DatagramPacket(buf, buf.length, addressDest, portDest);
         //send packet to server
+        //todo send with a speed of 80 pps for 2 second
         for (int i = 1; i <= packetNumToSend; i++) {
             //System.out.println("LatRunnable::handlelat:phase: a-b(send-listen):sending pkt num=" + i);
             pktObj = new PktVo(i);
@@ -180,7 +187,7 @@ public class LatRunnable implements Runnable {
     /*
      it just echo back the packets
      */
-    public void echolatPkt() throws SocketException, IOException {
+    public void echolatPkt() throws SocketException, IOException, InterruptedException {
         System.out.println("[" + new Date() + "] LatRunnable:echolatPkt:listening..");
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
@@ -232,6 +239,72 @@ public class LatRunnable implements Runnable {
             dgmsocket.send(outgoingPacket);
         }
         System.out.println("[" + new Date() + "] LatRunnable::handlelat:phase: c(Send):finish");
+    }
+
+    /*
+     ++++++++++++++++++++++++++++++++Unused+++++++++++++++++++++++++++=
+     */
+    int count = 0;
+
+    class SndrRunnable implements Runnable {
+
+        byte[] buf = null;
+
+        DatagramPacket outgoingPacketLocal = null;
+
+        public SndrRunnable(String codec) {
+            buf = CdcVo.returnPayloadybyCodec(codec);
+        }
+
+        public void run() {
+            try {
+                outgoingPacketLocal = new DatagramPacket(buf, buf.length, addressDest, portDest);
+                //send the packet back to the client
+                dgmsocket.send(outgoingPacketLocal);
+                count++;
+            } catch (IOException ex) {
+                Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
+
+//codec + 2 sec
+    public boolean sndPktForAnGivenTime(String codec, int echantillonTimeLength) {
+
+        boolean res = false;
+        //System.out.println("PacketControl:sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
+        //    System.out.println("PacketControl:sndPktForAnGivenTime::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
+        // System.out.println("PacketControlsndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
+        int pps = CdcVo.returnPPSbyCodec(codec);
+        int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
+        final Runnable sndrRunnable = new SndrRunnable(codec);
+        /*
+         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+         command - the task to execute
+         initialDelay - the time to delay first execution
+         period - the period between successive executions
+         unit - the time unit of the initialDelay and period parameters
+         */
+        final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndrRunnable, 0, periodbetweenPkt, MILLISECONDS);
+        scheduler.schedule(new Runnable() {
+            public void run() {
+                boolean res = sndrHandle.cancel(true);
+                System.out.println("LatRunnable:sndPktForAnGivenTime: task is finished and cancled=" + res + "--- total packet sent =" + count);
+            }
+        }, echantillonTimeLength, SECONDS);
+        try {
+            //System.out.println("sndPktForAnGivenTime: waiting for termination..");
+            boolean succterm = scheduler.awaitTermination(echantillonTimeLength, SECONDS);
+            if (succterm) {
+                System.out.println("LatRunnable:sndPktForAnGivenTime: finished successfully");
+            } else {
+                System.out.println("LatRunnable:sndPktForAnGivenTime: task termination has triggered before finishing the task. (timeout)");
+            }
+            res = true;
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
 
 }
