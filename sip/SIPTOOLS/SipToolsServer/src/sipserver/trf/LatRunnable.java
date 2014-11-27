@@ -41,6 +41,10 @@ public class LatRunnable implements Runnable {
     Integer portDest;
     Param param;
     TrfDao trfdao;
+    /*this is the number of packet to send for latency test, and it's test on low and high speed internet connections:
+    - on high speed 51 mbps down/11 mbps: the other side receives 1000 - 1500 ~packets
+    - on low speed 0.x mbps up and|or down:  the other side may receive 20 - 300 ~ packets
+    */
     static final int packetNumToSend = 2000;
 
     public LatRunnable(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {

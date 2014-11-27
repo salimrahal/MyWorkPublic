@@ -5,6 +5,7 @@
  */
 package bo;
 
+import static bo.TrfBo.packetShotsNum;
 import static gui.TrfJPanel.resultmsgjlabel;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -128,7 +129,7 @@ public class ClUdp {
         String msgRecv;
         boolean tryToSend = true;
         int maxTry = 1;
-        int packetShotsNum = 2;
+
         int i = 0;
         try {
             i++;
@@ -149,7 +150,7 @@ public class ClUdp {
             }
         } catch (SocketTimeoutException se) {
             outmsg = TrfBo.M_U;
-            System.out.println("[" + new Date() + "] sendLattoServer:Process Request:socketTimeout" + se.getMessage());
+            System.out.println("[" + new Date() + "] sendTrfReq:Process Request:socketTimeout" + se.getMessage());
             setresultmessageUdp(outmsg);
         } finally {
             System.out.println("[" + new Date() + "] sendTrfReq: finally..");

@@ -53,6 +53,10 @@ public class TrfBo {
     public static final String LAT_KEY = "LAT";
     public static final String PRT_FREE = "f";
     public static final String PRT_BUSY = "b";
+//message to be sent as ACK for sub test
+    public static final int AcknumTrfIn = 5;
+    public static final int AcknumTrfOut = 5;
+    public static final int AcknumLat = 5;
 
     TrfDao trfdao;
 

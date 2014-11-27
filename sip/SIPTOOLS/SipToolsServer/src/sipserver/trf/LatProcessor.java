@@ -33,7 +33,7 @@ public class LatProcessor {
     String latkey;
     Integer portLat;
 
-        public LatProcessor(DatagramSocket socketDglat, Integer portLat, String latkey) {
+    public LatProcessor(DatagramSocket socketDglat, Integer portLat, String latkey) {
         //serverSocket = new ServerSocket(port);
         this.socketDglat = socketDglat;
         System.out.println("[" + new Date() + "] LatProcessor: listening on port " + portLat);
@@ -48,24 +48,23 @@ public class LatProcessor {
         byte[] bufOut = TrfBo.ACK_LAT.getBytes();
         DatagramPacket outgoingPacket = null;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        int latAcknum = 2;
 
-        System.out.println("[" + new Date() + "] LatProcessor: starts..\n waiting for packet:excpected trf key=" + latkey+"-timeout "+ sockTimeout + " sec");
+        System.out.println("[" + new Date() + "] LatProcessor: starts..\n waiting for packet:excpected trf key=" + latkey + "-timeout " + sockTimeout + " sec");
         try {
             socketDglat.setSoTimeout(sockTimeout);
             socketDglat.receive(incomingPacket);
             String keyreceived = new String(incomingPacket.getData());
             System.out.println("[" + new Date() + "]LatProcessor: keyreceived=" + keyreceived);
             if (keyreceived.contains(latkey)) {
-                System.out.println("[" + new Date() + "]LatProcessor:receiving: Accepted, sending back "+latAcknum +" "+ACK + ".Starting the LAtency test");
+                System.out.println("[" + new Date() + "]LatProcessor:receiving: Accepted, sending back " + TrfBo.AcknumLat + " " + ACK + ".Starting the LAtency test");
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
-                //send two ACK to ensure receiving the ACK
-                for (int j = 1; j <= latAcknum; j++) {
-                   socketDglat.send(outgoingPacket);
+                //send N ACK (to ensure receiving the ACK. ) immediately beforne lauching the Latency test and start listening on socket 
+                for (int j = 1; j <= TrfBo.AcknumLat; j++) {
+                    socketDglat.send(outgoingPacket);
                 }
-                System.out.println("[" + new Date() + "]LatProcessor:finish sending back the " + ACK + ".to"+addressInco.getHostAddress()+":"+portInco);
+                System.out.println("[" + new Date() + "]LatProcessor:finish sending back the " + ACK + ".to" + addressInco.getHostAddress() + ":" + portInco);
                 try {
                     // launch the traffIn thread
                     launchLatUp(socketDglat, param, addressInco);

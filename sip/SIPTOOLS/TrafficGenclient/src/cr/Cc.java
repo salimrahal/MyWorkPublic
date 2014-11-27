@@ -67,8 +67,9 @@ public class Cc {
 //                String porttrfU = portlat;
 //                String porttrfD = portlat;
                 String portSig = miscPortObj.getPrtSigNum();
-                System.out.println("ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
-                if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null")) {
+                System.out.println("launchtest: timeLength="+timeLengthParam);
+                System.out.println("launchtest: ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
+                if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null") || porttrfD.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
                 } else {
                     //post the port to be used for this test:
@@ -101,8 +102,8 @@ public class Cc {
                         String portlatStr = "[Port=" + portlat + "]";
                         trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test " + portlatStr + ": In Progress ....");
                         updateJprogressBar(jprobar, 25);
-                        //System.out.println("CC: phase-1:begin: latency Down test");
-                        boolean isLatLaunched = launchLatDownRunnable(param, inetAddrDest);
+                        System.out.println("CC: phase-1:begin: latency Down test");
+                        boolean isLatLaunched = launchLatDownRunnable(param, inetAddrDest);//
                         if (isLatLaunched) {
                              //System.out.println("CC: phase-1:Ends: latency Down test");
                             //4- launch up packet lost test: sending/receiving packets

@@ -48,7 +48,7 @@ public class TrfBo {
     //    public static final String NO_RES = "Connection timed out: Could not retreive the results [10]";
     //    public static final String MSG_CONN_SV_PB_V2 = "Server connection problem."
     //            + " You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider [11]";
-    
+
     public static final String MSG_CONN_SV_PB = "Test timed out:  It was not possible to contact the server. Please try again later [6]";
     public static final String MSG_CONN_TO = "Test timed out:  It was not possible to contact the server. Please try again later [7]";
     public static final String M_U = "Test timed out:  It was not possible to contact the server. Please try again later [8]";
@@ -87,6 +87,7 @@ public class TrfBo {
 //    public static final String ACK_REQ_IN_KEY = "ACK_REQIN";
 //    public static final String ACK_REQ_OUT_KEY = "ACK_REQOUT";
 //    public static final String ACK_LAT_KEY = "ACK_LAT";
+    public static final int packetShotsNum = 5;
 
     public List hashtoList(HashMap<Integer, PktVo> pktMap) {
         List<PktVo> list = null;
@@ -153,7 +154,7 @@ public class TrfBo {
         } catch (IOException iOException) {
             System.out.println("uchkr: iOException: " + iOException.getMessage());
         }
-         System.out.println("uchkr:resCode="+responseCode);
+        System.out.println("uchkr:resCode=" + responseCode);
         return isg;
     }
 

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static sipserver.trf.TrfBo.ACK;
+import static sipserver.trf.TrfBo.AcknumTrfIn;
 import sipserver.trf.bean.Param;
 
 /**
@@ -42,7 +43,7 @@ public class TrfProcessorIn {
         byte[] bufOut = TrfBo.ACK_TRFIN.getBytes();
         DatagramPacket outgoingPacket;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-        int inAcknum = 2;
+       
         System.out.println("[" + new Date() + "] TrfProcessorIn: starts..\n waiting for packet:excpected trf key=" + trfkey);
         try {
             System.out.println("[" + new Date() + "] TrfProcessorIn:waiting for packet..timeout:" + sockTimeout + " sec");
@@ -51,12 +52,12 @@ public class TrfProcessorIn {
             String keyreceived = new String(incomingPacket.getData());
             System.out.println("TrfProcessorIn: keyreceived=" + keyreceived);
             if (keyreceived.contains(trfkey)) {
-                System.out.println("TrfProcessorIn:receiving: Accepted, sending back "+inAcknum+":" + TrfBo.ACK_TRFIN + ".Starting the trafficIn test");
+                System.out.println("TrfProcessorIn:receiving: Accepted, sending back "+AcknumTrfIn+":" + TrfBo.ACK_TRFIN + ".Starting the trafficIn test");
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
 //send two ACK to ensure receiving the ACK
-                 for (int j = 1; j <= inAcknum; j++) {
+                 for (int j = 1; j <= AcknumTrfIn; j++) {
                    socketDgIn.send(outgoingPacket);
                 }
                 try {

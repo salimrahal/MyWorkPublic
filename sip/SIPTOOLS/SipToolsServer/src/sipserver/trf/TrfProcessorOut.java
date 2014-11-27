@@ -40,7 +40,6 @@ public class TrfProcessorOut {
         byte[] bufOut = TrfBo.ACK_TRFOUT.getBytes();
         DatagramPacket outgoingPacket;
         DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-         int outAcknum = 2;
         System.out.println("[" + new Date() + "] TrfProcessorOut: starts..\n waiting for packet:expected trf key=" + trfkey);
         try {
             System.out.println("[" + new Date() + "] TrfProcessorOut:waiting for packet..timeout:" + sockTimeout + " sec");
@@ -49,12 +48,12 @@ public class TrfProcessorOut {
             String keyreceived = new String(incomingPacket.getData());
             System.out.println("TrfProcessorOut: keyreceived=" + keyreceived);
             if (keyreceived.contains(trfkey)) {
-                System.out.println("TrfProcessorOut:receiving: Accepted, sending back  "+ outAcknum +": " + TrfBo.ACK_TRFOUT + ".Starting the trafficOut test");
+                System.out.println("TrfProcessorOut:receiving: Accepted, sending back  "+ TrfBo.AcknumTrfOut +": " + TrfBo.ACK_TRFOUT + ".Starting the trafficOut test");
                 //send two ACK to ensure receiving the ACK
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
-                 for (int j = 1; j <= outAcknum; j++) {
+                 for (int j = 1; j <= TrfBo.AcknumTrfOut; j++) {
                    dgmsocketOut.send(outgoingPacket);
                 }
                 try {
