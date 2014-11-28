@@ -51,6 +51,7 @@ import java.util.Collections;
  *
  * @author rmistry@google.com (Ravi Mistry)
  * https://code.google.com/p/google-api-java-client/source/browse/drive-cmdline-sample/src/main/java/com/google/api/services/samples/drive/cmdline/DriveSample.java?repo=samples&r=08555cd2a27be66dc97505e15c60853f47d84b5a
+ * App type: installed s.r.
  */
 public class DriveSample {
 
@@ -96,8 +97,12 @@ public class DriveSample {
                     + "into drive-cmdline-sample/src/main/resources/client_secrets.json");
             System.exit(1);
         }
+        //using offline access
         flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, Collections.singleton(DriveScopes.DRIVE_FILE))
                 .setAccessType("offline").setApprovalPrompt("force").build();
+
+        //flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, Collections.singleton(DriveScopes.DRIVE_FILE))
+        //      .setAccessType("online").setApprovalPrompt("auto").build();
         System.out.println("buildFlow...Ends");
         return flow;
     }
@@ -183,7 +188,8 @@ public class DriveSample {
     }
 
     /**
-     * Uploads a file using either resumable or direct media upload.
+     * Uploads a file using either resumable (use another protocol, send media
+     * in data chunks) or direct media upload.
      */
     private static File uploadFile(boolean useDirectUpload) throws IOException {
         File fileMetadata = new File();
@@ -206,7 +212,7 @@ public class DriveSample {
     private static File updateFileWithTestSuffix(String id) throws IOException {
         File fileMetadata = new File();
         fileMetadata.setTitle("drivetest-" + UPLOAD_FILE.getName());
-
+        System.out.println("file ID=" + id);
         Drive.Files.Update update = drive.files().update(id, fileMetadata);
         return update.execute();
     }
