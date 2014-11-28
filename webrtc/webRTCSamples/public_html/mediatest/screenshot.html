@@ -10,6 +10,7 @@ The <canvas> API's ctx.drawImage(video, 0, 0) method makes it trivial to draw <v
 Of course, now that we have video input via getUserMedia(),
 it's just as easy to create a photo booth application with realtime video:
 ================================WORKING================
+
 -->
 <html>
     <head>
@@ -61,6 +62,7 @@ it's just as easy to create a photo booth application with realtime video:
                 // Not showing vendor prefixes or code that works cross-browser.
                 //{video: true}
                 navigator.getUserMedia({video: true}, function(stream) {
+                    //show the video stream in the video element  / URL for binary ressource such as videos         
                     video.src = window.URL.createObjectURL(stream);
                     localMediaStream = stream;
                 }, errorCallback);

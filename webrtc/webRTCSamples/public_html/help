@@ -1,0 +1,3 @@
+void getUserMedia(MediaStreamConstraints constraints,
+ NavigatorUserMediaSuccessCallback successCallback,
+NavigatorUserMediaErrorCallback errorCallback)
