@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<configuration>
+    <!-- for local test: ipServer = "127.0.1.1". ip1 for ALG. ip2 for Udp traffic gen -->
+    <sipServerAlg ip="74.117.31.73"/>
+    <sipServerTrf ip="74.117.31.73"/>
+    <sipIdLocal sipid="ALGdetector"/>
+    <agentname agentname="CISCO spa504g"/>
+    <!-- test with id=1 is equivalent to test A in the plugin GUI -->   
+    <test id="1">      
+        <portsrc> 5060</portsrc>
+        <portdest>5092</portdest>
+        <transport>udp</transport>
+    </test>
+    <!-- test with id=2 is equivalent to test B in the plugin GUI -->   
+    <test id="2">      
+        <portsrc>5060</portsrc>
+        <portdest>5092</portdest>
+        <transport>tcp</transport>
+    </test>
+    <!-- test with id=3 is equivalent to test C in the plugin GUI -->   
+    <test id="3">      
+        <portsrc> 5062</portsrc>
+        <portdest>5092</portdest>
+        <transport>udp</transport>
+    </test>
+    <!-- test with id=4 is equivalent to test D in the plugin GUI -->   
+    <test id="4">      
+        <portsrc>5062</portsrc>
+        <portdest>5092</portdest>
+        <transport>tcp</transport>
+    </test>
+    
+    <!-- unused: conf loc it's hardoced-->
+    <confLoc loc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml"/>
+    
+    <!-- server log -->
+    <logfile loc="/home/srahal/sipworkspace/siptoolserver/log{date}"/>
+    <port-sig value="5094"></port-sig>
+    
+    <codec name="g729" enabled="true"> </codec>
+    <codec name="g722" enabled="false"> </codec>
+    <codec name="g711" enabled="true"> </codec>
+    <codec name="ilbc" enabled="false"> </codec>
+    <codec name="silk" enabled="false"> </codec>
+</configuration>

@@ -10,14 +10,11 @@ import cfg.vo.ConfVO;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import vo.PrtVo;
+import sipserver.trf.dao.TrfDao;
 
 /**
  *
@@ -25,23 +22,27 @@ import vo.PrtVo;
  */
 public class TrafficServer {
 
-    public static void launchingTrafficServer() throws SocketException, UnknownHostException, ParserConfigurationException, SAXException, IOException {
-       
-            /**
-             * *********** 
-             * 1- Traffic Server It listens only on Sig Port, 
-             * 2- it receives from client latency/and traffic port and then accepts
-             * traffic(upload) from multiple clients, and generates download
-             * traffic depending on the codec or pps ********************
-             */
-           
+    public static void launchingTrafficServer(String localIp) throws SocketException, UnknownHostException, ParserConfigurationException, SAXException, IOException {
 
-            Spf saxparserconf = new Spf();
-            saxparserconf.parseConfVOPrt(ConfVO.getInstance().getInitialLoc());
-            Integer portSig = ConfVO.getInstance().getPortSig();
-            SigProcessor trfthreadTcp = new SigProcessor(portSig);
-            Thread serverTrfThread = new Thread(trfthreadTcp);
-            serverTrfThread.start();
+        /**
+         * ***********
+         * pre-process: release all the ports in thge DB. 1- Traffic Server It
+         * listens only on Sig Port, 2- it receives from client latency/and
+         * traffic port and then accepts traffic(upload) from multiple clients,
+         * and generates download traffic depending on the codec or pps
+         * ********************
+         */
+        //pre-process: release all the ports in thge DB.
+        TrfDao trfdao = new TrfDao();
+        try {
+           // trfdao.updateALLPortStatus(TrfBo.PRT_FREE);
+        } catch (Exception ex) {
+            Logger.getLogger(TrafficServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Integer portSig = ConfVO.getInstance().getPortSig();
+        SigProcessor trfthreadTcp = new SigProcessor(localIp, portSig);
+        Thread serverTrfThread = new Thread(trfthreadTcp);
+        serverTrfThread.start();
     }
 
 //    @Deprecated
@@ -61,5 +62,4 @@ public class TrafficServer {
 //            serverTrfThread.start();
 //        }
 //    }
-
 }

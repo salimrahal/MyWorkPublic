@@ -41,6 +41,27 @@ int main(int argc, char**argv) {
             std::cout << i << ": " << argv[i] << std::endl;
         }
     }
+//    char[] str = {a, b, c, d, e, f, g};
+//    rotate(str* ,2);
+//     std::cout << str;
     
     return 0;
+}
+void reverse_string(char* str, int left, int right) {
+  char* p1 = str + left;
+  char* p2 = str + right;
+  while (p1 < p2) {
+    char temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+    p1++;
+    p2--;
+  }
+}
+ 
+void rotate(char* str, int k) {
+  int n = strlen(str);
+  reverse_string(str, 0, n-1);
+  reverse_string(str, 0, k-1);
+  reverse_string(str, k, n-1);
 }

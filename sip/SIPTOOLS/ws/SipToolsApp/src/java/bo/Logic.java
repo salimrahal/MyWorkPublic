@@ -28,7 +28,9 @@ PrtDao prtdao ;
         prtdao = new PrtDao();
     }
     
+    /*
     
+    */
     public PrtMiscVo renderPortMiscVo(String status) throws ParserConfigurationException, SAXException, IOException{
        PrtMiscVo prtMisc = null ;   
     try {

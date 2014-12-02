@@ -39,24 +39,48 @@
 <html lang="en-US">
     <head>
         <title>ALG detector</title>
-        
+        <meta name="description" content="alg detector, voip test, udp tcp test, test voip java, test voip" />
+        <meta name="keywords" content="java, voip, alg detector, applet" />
+        <script type="text/javascript">
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "----" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var custnm = getParameterByName('cust');
+//this solution is not good, once the user is redirected to home page then is click back the alg page displayed witout any alert to put his name
+            window.onload = function() {
+                alert("Customer name Empty! redirect to home page");
+                if (custnm === "----") {
+                    setTimeout(function() {
+                        window.location = "http://siptools.nexogy.com:8082/siptools";
+                    }, 1000);
+                } else {
+                    alert("dont redirect to home page");
+                }
+            };
+        </script>
     </head>
     <body>
         <noscript>A browser with JavaScript enabled is required for this page to operate properly.</noscript>
         <div>        
             <p align="center"> <img src="nexogy.gif" width="150" height="20" alt="nexogy"/></p> 
-
-            <p align="center">        
+            <div align="center">  
+                <label>Customer name:&nbsp;</label>   <label id="custNamelabel"></label>
                 <script src="http://www.java.com/js/deployJava.js"></script>
-                <script>
-                    var attributes = {code: 'algApplet.MainJapplet.class',
-                        archive: 'AlgPluginEcho.jar',
-                        width: 1063, height: 700};
-                    var parameters = {fontSize: 16};
-                    var version = '1.6';
-                    deployJava.runApplet(attributes, parameters, version);
+                <script type="text/javascript">
+            var attributes = {code: 'algApplet.MainJapplet.class',
+                archive: 'AlgPluginEcho.jar',
+                width: 1063, height: 500};
+            //var custnm = document.getElementById('idcust').value;
+            var custnm = getParameterByName('cust');
+            var parameters = {fontSize: 16, cust: custnm};
+            var version = '1.6';
+            deployJava.runApplet(attributes, parameters, version);
                 </script>
-            </p>
+                <div align="center"><font size=2><a href=http://www.safirasoft.com target="_blank">Developed by Safirasoft.com</a></font></div>  
+            </div>
         </div>
     </body>
 </html>

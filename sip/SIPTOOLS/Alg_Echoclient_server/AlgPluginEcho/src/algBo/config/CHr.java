@@ -74,7 +74,7 @@ public class CHr extends DefaultHandler {
             //Create a new presence object when the start tag is found         
             confVO = ConfVO.getInstance();
         }
-        if (qName.equalsIgnoreCase("sipServer")) {
+        if (qName.equalsIgnoreCase("sipServerAlg")) {
             //Add the employee to list once end tag is found
             confVO.setIpServer(attributes.getValue("ip"));
         } else if (qName.equalsIgnoreCase("sipIdLocal")) {

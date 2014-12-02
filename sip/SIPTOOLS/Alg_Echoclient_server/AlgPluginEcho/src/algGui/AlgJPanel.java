@@ -31,6 +31,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
      * Creates new form AlgJPanel
      */
     private static Cc cc;
+    public String custnm;
 
     public static Cc getCc() {
         return cc;
@@ -42,6 +43,16 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     public AlgJPanel() throws Exception {
         initComponents();
+    }
+
+    public String getCustnm() {
+        return custnm;
+    }
+
+    public void setCustnm(String custnm) {
+        this.custnm = custnm;
+        //todo set custname to the label customer name
+        jTextFieldCustomer.setText("hiiiii");
     }
 
     /**
@@ -112,6 +123,8 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jTextArea1 = new javax.swing.JTextArea();
         reset = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jTextFieldCustomer = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -204,7 +217,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1Reg))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test A", jPanel1);
@@ -265,7 +278,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test B", jPanel2);
@@ -324,7 +337,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test C", jPanel3);
@@ -384,7 +397,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                         .addComponent(jRadioButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test D", jPanel4);
@@ -429,7 +442,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6ALHHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Why ALG Detection?", jPanel5);
@@ -443,6 +456,8 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jProgressBar1.setStringPainted(true);
 
+        jLabel1.setText("Customer name:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -453,18 +468,20 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(runALGButton)
-                                .addGap(95, 95, 95)
-                                .addComponent(reset)
-                                .addGap(84, 84, 84))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addGap(140, 140, 140))))
+                        .addComponent(runALGButton)
+                        .addGap(95, 95, 95)
+                        .addComponent(reset)
+                        .addGap(84, 84, 84))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel26)
+                        .addGap(140, 140, 140)))
                 .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -480,19 +497,22 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                             .addComponent(reset)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1)
-                .addGap(39, 39, 39))
+                .addComponent(jTabbedPane1))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
     }// </editor-fold>//GEN-END:initComponents
 
     private void runALGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGButtonActionPerformed
-
 
         runALGButton.setEnabled(false);
         reset.setEnabled(false);
@@ -539,7 +559,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         // TODO add your handling code here:
 
         if (getCc() == null) {
-           
+
             try {
                 cc = new Cc();
 //                sipClientController.createSipStack();
@@ -596,6 +616,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public static javax.swing.JTextArea comb4RcvMsgREG;
     public static javax.swing.JTextArea comb4SentMsgINV;
     public static javax.swing.JTextArea comb4SentMsgREG;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -635,6 +656,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextFieldCustomer;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runALGButton;
@@ -665,7 +687,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
 
         try {
-            cc.prreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite);
+            cc.preprreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, custnm);
 
         } catch (IOException ex) {
             Logger.getLogger(AlgJPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -676,7 +698,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     public static void updateTestLabels() {
         //update the test parameters 
         String testA;
-        
+
         testA = "No Parameters have been found!";
         Alb algBo = getCc().getAlgBo();
         if (algBo.getPortsrc1() != null && algBo.getTransport1() != null && algBo.getPortdest1() != null) {
@@ -687,7 +709,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jRadioButton1.setText(testA);
 
         String testB;
-       
+
         testB = "No Parameters have been found!";
         if (algBo.getPortsrc2() != null && algBo.getTransport2() != null && algBo.getPortdest2() != null) {
             StringBuilder sb = new StringBuilder();
@@ -734,7 +756,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     class TL extends SwingWorker<Void, Void> {
         /*
          * Main task. Executed in background thread.
-        */
+         */
 
         @Override
         public Void doInBackground() {

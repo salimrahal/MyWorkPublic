@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>My video test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    </head>
+    <body>
+        <div>
+            <video id="video1" autoplay></video>
+            <video id="video2"  autoplay></video>
+            <audio id="audio1" autoplay></audio>
+            
+            <script type="text/javascript">
+                //todo access user media
+                navigator.getUserMedia = navigator.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia;
+
+                //get video element
+                //var video = document.querySelector("video");
+                var video1 = document.getElementById("video1");
+                var video2 = document.getElementById("video2");
+                var audio1 = document.getElementById("audio1");
+
+                function errocallback(e) {
+                    console.log("rejected..", e);
+                }
+
+                //echo back the video image to the user
+                function successcallback(stream) {
+                    console.log("successcallback.." + stream);
+                    video1.src = window.URL.createObjectURL(stream);
+                    video2.src = window.URL.createObjectURL(stream);
+                }
+//invoke get usermedia
+                navigator.getUserMedia({video: true, audio: true}, successcallback, errocallback);
+            </script>
+        </div>
+    </body>
+</html>

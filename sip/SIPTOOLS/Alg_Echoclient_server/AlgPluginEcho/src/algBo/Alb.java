@@ -13,10 +13,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.URL;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -72,6 +74,8 @@ public class Alb {
     //No Packet Received - SIP ALG / Firewall issue
     public static final String M_I = "The server is not responding";
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
+    //this message cannot be changed, check method CC.svAlgFw
+    public static final String M_U_K = "firewall";
     public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
     public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
     public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
@@ -79,7 +83,7 @@ public class Alb {
     public static final String MSG_SipALGNotFound_Reg = "Register: No ALG Detected, INVITE: In Progress..";
     public static final String MSG_SipALGNotFound_Inv = "Invite: No ALG Detected";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
-
+    public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider[1]";
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
     static Spf saxparserconf;
     /*CALLID_PREFIX: one callid in invite and register message
@@ -88,6 +92,11 @@ public class Alb {
     public static final Integer T_T = 20000;////millisecond
     public static final Integer U_T = 7000;//millisecond
     public static final long U_E = 500;//millisecond
+    public static final Integer U_C_T = 5000;//ms
+
+    private static byte[] bs = new byte[]{104, 116, 116, 112, 58, 47, 47, 115, 105, 112, 116, 111, 111, 108, 115, 46, 110, 101, 120, 111, 103, 121, 46, 99, 111, 109};
+    private static byte[] b0 = new byte[]{56, 48, 56, 48};
+    private static byte[] b1 = new byte[]{47, 83, 105, 112, 84, 111, 111, 108, 115, 65, 112, 112, 47, 80, 105, 118, 111, 116};
 
     Test test1;
     Test test2;
@@ -100,6 +109,7 @@ public class Alb {
     public String getCU(String hst) {
         //build the config url: http://localhost/siptoolsconfig/config.xml
         String configUri = new StringBuilder().append(hst).append("/").append(C_D).append("/").append(C_N).toString();
+        //System.out.println(configUri);
         return configUri;
 
     }
@@ -365,6 +375,16 @@ public class Alb {
         this.sipIdLocal = extlocal;
     }
 
+    public static String btS(byte[] bs) {
+        return new String(bs);
+    }
+
+    public static String genID() {
+        //generate random UUIDs
+        UUID uuid = UUID.randomUUID();
+        return String.valueOf(uuid);
+    }
+
     public String brm(String ipServer, String ipLocalparam, String transport, Integer portsrc, Integer portdest, String callIdSent, String agentName) {
         String registerMsg = "";
         registerMsg = (new StringBuilder()).append("REGISTER sip:").append(ipServer).append(":")
@@ -402,4 +422,36 @@ public class Alb {
         return sb.toString();
     }
 
+    public static boolean uchkr(String up) throws IOException {
+        boolean isg = false;
+        final URL url = new URL(up);
+        int responseCode = 0;
+        try {
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            huc.setConnectTimeout(U_C_T);
+            responseCode = 0;
+            System.out.println("uchkr: waiting for response..");
+            responseCode = huc.getResponseCode();
+            if (responseCode == 200) {
+                isg = true;
+            } else {
+                isg = false;
+            }
+        } catch (java.net.SocketTimeoutException e) {
+            System.out.println("uchkr: timeout");
+        } catch (IOException iOException) {
+            System.out.println("uchkr: iOException: " + iOException.getMessage());
+        }
+        return isg;
+    }
+
+    public static String genul() {
+        String res = null;
+        res = btS(bs) + ":" + btS(b0) + btS(b1);
+        return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(M_U.substring(0, 19).toLowerCase().contains(M_U_K));
+    }
 }

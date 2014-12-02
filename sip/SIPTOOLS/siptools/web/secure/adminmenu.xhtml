@@ -3,31 +3,87 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Nexogy</title>
     </h:head>
-
-    <h:body>
-
-
+    <h:form>
         <div id="top" class="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top">
+                <a href="../logout.jsp">logout</a>        
+                <p>Welcome Administrator</p>
+            </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">   
-                    <ui:include src="../menusrc.xhtml" />
+            <div id="top">
+                
+                <ui:insert name="left"> 
+                    <h:form target="_blank">
+                        <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
+                        <h:commandButton  action="trafficsimulator/trafficsimulation" value="Run Voip Traffic Simulation"></h:commandButton> 
+                    </h:form>
                 </ui:insert>
             </div>
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-        </div>
-    </h:body>
+            <!--        <div id="content">-->
+            <p:dataTable  id="table" value="#{resController.results}" var="res" filteredValue="#{resController.filteredresults}" >
+                <f:facet name="header">
+                    Test results
+                </f:facet>
+                <p:column headerText="Cunstomer Name" 
+                          filterBy="#{res.cnme}"
+                          >
+                    <h:outputText value="#{res.cnme}" />
+                </p:column>
+                <p:column headerText="Public IP"
+                          filterBy="#{res.puip}"
+                          >#{res.puip}</p:column>
+                <p:column headerText="Start time">   
+                    <h:outputText value=" #{resController.formatDate(res.getsDate())}" /><!--todo: format the datew using format function in bean -->
+                </p:column>
+                <p:column headerText="End time">  
+                    <h:outputText value=" #{resController.formatDate(res.geteDate())}" />
+                </p:column>
+                <p:column headerText="Codec" filterBy="#{res.cdc}">#{res.cdc}</p:column>
+                <p:column headerText="Test length">#{res.tlth}</p:column>
 
+                <p:column headerText="upload PacketLoss">
+                    <h:outputText value="#{res.uppkloss}" />
+                </p:column>
+                <p:column headerText="upload Latency Peak">
+                    <h:outputText value="#{res.uplatpeak}" />
+                </p:column>
+                <p:column headerText="upload Latency Avg">
+                    <h:outputText value="#{res.uplatav}" />
+                </p:column>
+                <p:column headerText="upload Jitter Peak">
+                    <h:outputText value="#{res.upjtpeak}" />
+                </p:column>
+                <p:column headerText="upload Jitter Avg">
+                    <h:outputText value="#{res.upjtav}" />
+                </p:column>
+                <p:column headerText="Download PacketLoss">
+                    <h:outputText value="#{res.dopkloss}" />
+                </p:column>
+                <p:column headerText="Download Latency Peak">
+                    <h:outputText value="#{res.dolatpeak}" />
+                </p:column>
+                <p:column headerText="Download Latency Avg">
+                    <h:outputText value="#{res.dolatav}" />
+                </p:column>
+                <p:column headerText="Download Jitter Peak">
+                    <h:outputText value="#{res.dojtpeak}" />
+                </p:column>
+                <p:column headerText="Download Jitter Avg">
+                    <h:outputText value="#{res.dojtav}" />
+                </p:column>
+            </p:dataTable>
+
+            <!--        </div>-->
+        </div>
+    </h:form>
 </html>

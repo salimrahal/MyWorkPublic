@@ -11,12 +11,29 @@ package sipserver.trf.vp.vo;
  * @author salim
  */
 public class LatVo {
-    int peak;
-    int avg;
+    long peak = -1;
+    long avg = -1;
     long[] latArr;
+    JtrVo jitterObj;
 
-    public LatVo(int peak, int avg) {
+    public LatVo(long peak, long avg) {
         this.peak = peak;
+        this.avg = avg;
+    }
+
+    public long getPeak() {
+        return peak;
+    }
+
+    public void setPeak(long peak) {
+        this.peak = peak;
+    }
+
+    public long getAvg() {
+        return avg;
+    }
+
+    public void setAvg(long avg) {
         this.avg = avg;
     }
 
@@ -28,28 +45,22 @@ public class LatVo {
         this.latArr = latArr;
     }
 
-
-    
-    
-    public int getPeak() {
-        return peak;
+    public JtrVo getJitterObj() {
+        return jitterObj;
     }
 
-    public void setPeak(int peak) {
-        this.peak = peak;
+    public void setJitterObj(JtrVo jitterObj) {
+        this.jitterObj = jitterObj;
     }
 
-    public int getAvg() {
-        return avg;
-    }
-
-    public void setAvg(int avg) {
-        this.avg = avg;
-    }
 
     @Override
     public String toString() {
-        return "LatVo{" + "peak=" + peak + ", avg=" + avg + '}';
+        return "LatVo{" + "peak=" + peak + ", avg=" + avg + ", latArr=" + latArr + ", jitterObj=" + jitterObj + '}';
     }
+
+  
     
+    
+   
 }

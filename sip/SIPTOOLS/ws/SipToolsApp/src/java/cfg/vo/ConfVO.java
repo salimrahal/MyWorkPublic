@@ -13,7 +13,7 @@ import vo.PrtStsVo;
  * @author salim Singleton config file
  */
 public class ConfVO {
-
+//ipserver used for Traffic Gen
     String ipServer;
     String agentname;
     String sipIdLocal;

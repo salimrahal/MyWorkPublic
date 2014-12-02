@@ -7,9 +7,7 @@ package cfg;
 import cfg.vo.ConfVO;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import javax.rmi.CORBA.Util;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -22,7 +20,7 @@ import vo.PrtVo;
  */
 public class Spf {
     SAXParserFactory parserFactor;
-    PortSigHandler codechandler;
+    ConfHandler codechandler;
 
     public Spf() {
         parserFactor = SAXParserFactory.newInstance();
@@ -33,7 +31,7 @@ public class Spf {
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
-        PortSigHandler handler = new PortSigHandler();
+        ConfHandler handler = new ConfHandler();
         File f = new File(confUri);
       
         parser.parse(confUri, handler);
@@ -42,7 +40,7 @@ public class Spf {
 //        for (PrtVo t : prtL) {
 //            System.out.println("t:" + t.toString());
 //        }
-        // System.out.println("parseConfVO:" + confvo.toString());
+       // System.out.println("parseConfVO:" + confvo.toString());
     }
     
 

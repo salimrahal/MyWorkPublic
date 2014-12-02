@@ -1,0 +1,32 @@
+Summary:
+--------
+This project Rotate a one-dimensional array of n elements to the right by rotateN steps.
+
+How to run the code:
+--------------------
+1- open project "Rotate" in Netbeans 
+2- Run the main Class: RotateMain
+3- follow the instruction on the console
+
+Sample output / input:
+---------------------
+output: Step 1 of 2: Enter an Integer Array to reverse seperated by a comma, e.g: 1,2,3 
+input: 1,2,3
+output: Step 2 of 2: Enter a N position to rotate:
+input: 2
+Output: Rotated Array=[2, 3, 1]
+----------------------Finish-------------
+
+
+
+How to run the test:
+------------------
+1- Run int TestPackage the RotateJUnitTestClass
+this Junit test run the two test cases:
+Array={1,2,3} ; rotation= 1 must be {3,1,2}
+Array={1,2,3,4,5,6,7} ; rotation= 3 must be {5, 6, 7, 1, 2, 3, 4}
+
+Requirement:
+------------
+netbeans 8.x
+java 6+

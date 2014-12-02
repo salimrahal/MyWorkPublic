@@ -12,15 +12,15 @@ import java.util.Date;
  * @author salim
  */
 public class PktVo {
-
-    int id;
-    Date timeSent;//useful latency and jitter test
-    Date timeArrival;//useful latency and jitter test
+ int id;
+    long timeSent;
+    long timeArrival;
+    long rtt;// rtt ~= timeArrival - timeSent
 
     public PktVo(int id) {
         this.id = id;
     }
-
+ 
     public int getId() {
         return id;
     }
@@ -29,25 +29,35 @@ public class PktVo {
         this.id = id;
     }
 
-    public Date getTimeArrival() {
-        return timeArrival;
-    }
-
-    public void setTimeArrival(Date timeArrival) {
-        this.timeArrival = timeArrival;
-    }
-
-    public Date getTimeSent() {
+    public long getTimeSent() {
         return timeSent;
     }
 
-    public void setTimeSent(Date timeSent) {
+    public void setTimeSent(long timeSent) {
         this.timeSent = timeSent;
     }
 
+    public long getTimeArrival() {
+        return timeArrival;
+    }
+
+    public void setTimeArrival(long timeArrival) {
+        this.timeArrival = timeArrival;
+    }
+
+    public long getRtt() {
+        return rtt;
+    }
+
+    public void setRtt(long rtt) {
+        this.rtt = rtt;
+    }
+   
     @Override
     public String toString() {
-        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + '}';
+        return "PktVo{" + "id=" + id + ", timeSent=" + timeSent + ", timeArrival=" + timeArrival + ", rtt=" + rtt + '}';
     }
+
+  
 
 }

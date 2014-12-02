@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+URL: https://developers.google.com/drive/web/auth/web-client#handling_authorization_requests
+
+https://apis.google.com/js/client.js?onload=handleClientLoad
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+        <script type="text/javascript">
+            var CLIENT_ID = '242113663098-93iso7rav7uujrhissauqrpcnpppf93f.apps.googleusercontent.com';
+            var SCOPES = [
+                'https://www.googleapis.com/auth/drive.file',
+                'email',
+                'profile',
+                        // Add other scopes needed by your application.
+            ];
+            var FILE_ID = '0B2DIhgi8pa1SU2JKVFZqbDJjM2c';
+            /**
+             * Called when the client library is loaded.
+             */
+            function handleClientLoad() {
+                alert('handleClientLoad begin..');
+                checkAuth();
+            }
+
+            /**
+             * Check if the current user has authorized the application.
+             */
+            function checkAuth() {
+                 alert('checkAuth begin..');
+                gapi.auth.authorize(
+                        {'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': true},
+                handleAuthResult);
+            }
+
+            /**
+             * Called when authorization server replies.
+             *
+             * @param {Object} authResult Authorization result.
+             */
+            function handleAuthResult(authResult) {
+                alert('handleAuthResult begins')
+                if (authResult) {
+                      alert('handleAuthResult: Access token has been successfully retrieved, requests can be sent to the API')
+                    // Access token has been successfully retrieved, requests can be sent to the API
+                    //TODO: call the printFile here by sending a fileID
+                    //printFile(FILE_ID);
+                } else {
+                      alert('handleAuthResult:  Access token has not been retrieved, force autho flow');
+                    // No access token could be retrieved, force the authorization flow.
+                    gapi.auth.authorize(
+                            {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
+                    handleAuthResult);
+                }
+            }
+
+            /**
+             * Load the Drive API client.
+             * @param {Function} callback Function to call when the client is loaded.
+             */
+            function loadClient(callback) {
+                alert('loadClient begins..');
+                gapi.client.load('drive', 'v2', callback);
+            }
+            /**
+             * Print a file's metadata.
+             *
+             * @param {String} fileId ID of the file to print metadata for.
+             */
+            function printFile(fileId) {
+                alert('printFile begins.. getting file='+fileId +' from the drive service')
+                var request = gapi.client.drive.files.get({
+                    'fileId': '0B2DIhgi8pa1SU2JKVFZqbDJjM2c'
+                });
+                request.execute(function (resp) {
+                    alert('resp code='+resp.error.code);// getting 403
+                    if (!resp.error) {
+                        console.log('Title: ' + resp.title);
+                        console.log('Description: ' + resp.description);
+                        console.log('MIME type: ' + resp.mimeType);
+                    } else if (resp.error.code == 401) {
+                        // Access token might have expired.
+                        checkAuth();
+                    } else {
+                        console.log('An error occured: ' + resp.error.message);
+                    }
+                });
+            }
+//            alert('begin..');
+//            //main
+//            handleClientLoad();
+            //loadClient(handleClientLoad);
+        </script>
+    </head>
+    <body>
+        <div>TODO write content</div>
+    </body>
+</html>
