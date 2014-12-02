@@ -6,6 +6,10 @@
 
 <xs:element name="SAXException" type="tns:SAXException"/>
 
+<xs:element name="dtid" type="tns:dtid"/>
+
+<xs:element name="dtidResponse" type="tns:dtidResponse"/>
+
 <xs:element name="getConfLoc" type="tns:getConfLoc"/>
 
 <xs:element name="getConfLocResponse" type="tns:getConfLocResponse"/>
@@ -34,17 +38,17 @@
 
 <xs:element name="savePLDResponse" type="tns:savePLDResponse"/>
 
-<xs:element name="svAlgEnd" type="tns:svAlgEnd"/>
-
-<xs:element name="svAlgEndResponse" type="tns:svAlgEndResponse"/>
-
-<xs:element name="svAlgpam" type="tns:svAlgpam"/>
-
-<xs:element name="svAlgpamResponse" type="tns:svAlgpamResponse"/>
-
 <xs:element name="svLJD" type="tns:svLJD"/>
 
 <xs:element name="svLJDResponse" type="tns:svLJDResponse"/>
+
+<xs:element name="vAlgEnd" type="tns:vAlgEnd"/>
+
+<xs:element name="vAlgEndResponse" type="tns:vAlgEndResponse"/>
+
+<xs:element name="vAlgpam" type="tns:vAlgpam"/>
+
+<xs:element name="vAlgpamResponse" type="tns:vAlgpamResponse"/>
 
 <xs:complexType name="getConfLoc">
 <xs:sequence/>
@@ -53,19 +57,6 @@
 <xs:complexType name="getConfLocResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="svAlgEnd">
-<xs:sequence>
-<xs:element name="tid" type="xs:string" minOccurs="0"/>
-<xs:element name="isalgdetected" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="svAlgEndResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -159,7 +150,7 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="svAlgpam">
+<xs:complexType name="vAlgpam">
 <xs:sequence>
 <xs:element name="tid" type="xs:string" minOccurs="0"/>
 <xs:element name="cus" type="xs:string" minOccurs="0"/>
@@ -170,7 +161,7 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="svAlgpamResponse">
+<xs:complexType name="vAlgpamResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
@@ -199,6 +190,20 @@
 <xs:complexType name="retreiveAllPortsResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vAlgEnd">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="isalgdetected" type="xs:boolean"/>
+<xs:element name="isFirewalldetected" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vAlgEndResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -245,6 +250,18 @@
 </xs:complexType>
 
 <xs:complexType name="savePLDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtid">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtidResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>

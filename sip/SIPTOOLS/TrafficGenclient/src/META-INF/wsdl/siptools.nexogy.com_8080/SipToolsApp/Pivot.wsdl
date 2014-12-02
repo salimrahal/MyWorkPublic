@@ -4,17 +4,23 @@
 <xsd:import namespace="http://safirasoft.com/" schemaLocation="http://siptools.nexogy.com:8080/SipToolsApp/Pivot?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="svAlgEnd">
-<part name="parameters" element="tns:svAlgEnd"/>
+<message name="vAlgpam">
+<part name="parameters" element="tns:vAlgpam"/>
 </message>
-<message name="svAlgEndResponse">
-<part name="parameters" element="tns:svAlgEndResponse"/>
+<message name="vAlgpamResponse">
+<part name="parameters" element="tns:vAlgpamResponse"/>
 </message>
-<message name="svAlgpam">
-<part name="parameters" element="tns:svAlgpam"/>
+<message name="dtid">
+<part name="parameters" element="tns:dtid"/>
 </message>
-<message name="svAlgpamResponse">
-<part name="parameters" element="tns:svAlgpamResponse"/>
+<message name="dtidResponse">
+<part name="parameters" element="tns:dtidResponse"/>
+</message>
+<message name="vAlgEnd">
+<part name="parameters" element="tns:vAlgEnd"/>
+</message>
+<message name="vAlgEndResponse">
+<part name="parameters" element="tns:vAlgEndResponse"/>
 </message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
@@ -74,13 +80,17 @@
 <part name="parameters" element="tns:retreiveAllPortsResponse"/>
 </message>
 <portType name="Pivot">
-<operation name="svAlgEnd">
-<input wsam:Action="http://safirasoft.com/Pivot/svAlgEndRequest" message="tns:svAlgEnd"/>
-<output wsam:Action="http://safirasoft.com/Pivot/svAlgEndResponse" message="tns:svAlgEndResponse"/>
+<operation name="vAlgpam">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgpamRequest" message="tns:vAlgpam"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgpamResponse" message="tns:vAlgpamResponse"/>
 </operation>
-<operation name="svAlgpam">
-<input wsam:Action="http://safirasoft.com/Pivot/svAlgpamRequest" message="tns:svAlgpam"/>
-<output wsam:Action="http://safirasoft.com/Pivot/svAlgpamResponse" message="tns:svAlgpamResponse"/>
+<operation name="dtid">
+<input wsam:Action="http://safirasoft.com/Pivot/dtidRequest" message="tns:dtid"/>
+<output wsam:Action="http://safirasoft.com/Pivot/dtidResponse" message="tns:dtidResponse"/>
+</operation>
+<operation name="vAlgEnd">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgEndRequest" message="tns:vAlgEnd"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgEndResponse" message="tns:vAlgEndResponse"/>
 </operation>
 <operation name="hello">
 <input wsam:Action="http://safirasoft.com/Pivot/helloRequest" message="tns:hello"/>
@@ -123,7 +133,7 @@
 </portType>
 <binding name="PivotPortBinding" type="tns:Pivot">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="svAlgEnd">
+<operation name="vAlgpam">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -132,7 +142,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="svAlgpam">
+<operation name="dtid">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="vAlgEnd">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
