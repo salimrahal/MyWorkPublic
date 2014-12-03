@@ -6,21 +6,49 @@
 
 <xs:element name="SAXException" type="tns:SAXException"/>
 
+<xs:element name="dtid" type="tns:dtid"/>
+
+<xs:element name="dtidResponse" type="tns:dtidResponse"/>
+
 <xs:element name="getConfLoc" type="tns:getConfLoc"/>
 
 <xs:element name="getConfLocResponse" type="tns:getConfLocResponse"/>
 
-<xs:element name="getPrtSts" type="tns:getPrtSts"/>
+<xs:element name="getMiscPorts" type="tns:getMiscPorts"/>
 
-<xs:element name="getPrtStsResponse" type="tns:getPrtStsResponse"/>
+<xs:element name="getMiscPortsResponse" type="tns:getMiscPortsResponse"/>
 
 <xs:element name="getcodecs" type="tns:getcodecs"/>
 
 <xs:element name="getcodecsResponse" type="tns:getcodecsResponse"/>
 
+<xs:element name="getrs" type="tns:getrs"/>
+
+<xs:element name="getrsResponse" type="tns:getrsResponse"/>
+
 <xs:element name="hello" type="tns:hello"/>
 
 <xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:element name="retreiveAllPorts" type="tns:retreiveAllPorts"/>
+
+<xs:element name="retreiveAllPortsResponse" type="tns:retreiveAllPortsResponse"/>
+
+<xs:element name="savePLD" type="tns:savePLD"/>
+
+<xs:element name="savePLDResponse" type="tns:savePLDResponse"/>
+
+<xs:element name="svLJD" type="tns:svLJD"/>
+
+<xs:element name="svLJDResponse" type="tns:svLJDResponse"/>
+
+<xs:element name="vAlgEnd" type="tns:vAlgEnd"/>
+
+<xs:element name="vAlgEndResponse" type="tns:vAlgEndResponse"/>
+
+<xs:element name="vAlgpam" type="tns:vAlgpam"/>
+
+<xs:element name="vAlgpamResponse" type="tns:vAlgpamResponse"/>
 
 <xs:complexType name="getConfLoc">
 <xs:sequence/>
@@ -32,27 +60,56 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getPrtSts">
+<xs:complexType name="getrs">
+<xs:sequence>
+<xs:element name="ti" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getrsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:resVo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="resVo">
+<xs:sequence>
+<xs:element name="cdc" type="xs:string" minOccurs="0"/>
+<xs:element name="cnme" type="xs:string" minOccurs="0"/>
+<xs:element name="dojtav" type="xs:int"/>
+<xs:element name="dojtpeak" type="xs:int"/>
+<xs:element name="dolatav" type="xs:int"/>
+<xs:element name="dolatpeak" type="xs:int"/>
+<xs:element name="dopkloss" type="xs:float"/>
+<xs:element name="puip" type="xs:string" minOccurs="0"/>
+<xs:element name="tlth" type="xs:int"/>
+<xs:element name="upjtav" type="xs:int"/>
+<xs:element name="upjtpeak" type="xs:int"/>
+<xs:element name="uplatav" type="xs:int"/>
+<xs:element name="uplatpeak" type="xs:int"/>
+<xs:element name="uppkloss" type="xs:float"/>
+<xs:element name="eDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="sDate" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getMiscPorts">
 <xs:sequence/>
 </xs:complexType>
 
-<xs:complexType name="getPrtStsResponse">
+<xs:complexType name="getMiscPortsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:prtStstVoList" minOccurs="0"/>
+<xs:element name="return" type="tns:prtMiscVo" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="prtStstVoList">
+<xs:complexType name="prtMiscVo">
 <xs:sequence>
-<xs:element name="prtstsL" type="tns:prtStsVo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="prtLatNum" type="xs:string" minOccurs="0"/>
+<xs:element name="prtSigNum" type="xs:string" minOccurs="0"/>
+<xs:element name="prtTrfNumDown" type="xs:string" minOccurs="0"/>
+<xs:element name="prtTrfNumUp" type="xs:string" minOccurs="0"/>
 <xs:element name="serverIp" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="prtStsVo">
-<xs:sequence>
-<xs:element name="prtNum" type="xs:string" minOccurs="0"/>
-<xs:element name="sts" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -93,6 +150,63 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="vAlgpam">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="cus" type="xs:string" minOccurs="0"/>
+<xs:element name="pip" type="xs:string" minOccurs="0"/>
+<xs:element name="trs" type="xs:string" minOccurs="0"/>
+<xs:element name="prs" type="xs:int"/>
+<xs:element name="prdes" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vAlgpamResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svLJD">
+<xs:sequence>
+<xs:element name="ti" type="xs:string" minOccurs="0"/>
+<xs:element name="latdwnpk" type="xs:int"/>
+<xs:element name="latdwnav" type="xs:int"/>
+<xs:element name="jitdwpk" type="xs:int"/>
+<xs:element name="jitdwav" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="svLJDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vAlgEnd">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="isalgdetected" type="xs:boolean"/>
+<xs:element name="isFirewalldetected" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vAlgEndResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="retreiveAllPorts">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="retreiveAllPortsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getcodecs">
 <xs:sequence/>
 </xs:complexType>
@@ -125,6 +239,31 @@
 <xs:complexType name="helloResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtid">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtidResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="savePLD">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+<xs:element name="pld" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="savePLDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

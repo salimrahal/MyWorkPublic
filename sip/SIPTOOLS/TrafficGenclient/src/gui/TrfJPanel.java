@@ -119,7 +119,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jLabel2.setText("Time for the test (secs):");
 
-        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60" }));
+        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "300", "600" }));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("VoIP test statistics");

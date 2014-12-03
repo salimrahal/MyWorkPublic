@@ -4,18 +4,6 @@
 <xsd:import namespace="http://safirasoft.com/" schemaLocation="http://siptools.nexogy.com:8080/SipToolsApp/Pivot?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="svAlgEnd">
-<part name="parameters" element="tns:svAlgEnd"/>
-</message>
-<message name="svAlgEndResponse">
-<part name="parameters" element="tns:svAlgEndResponse"/>
-</message>
-<message name="svAlgpam">
-<part name="parameters" element="tns:svAlgpam"/>
-</message>
-<message name="svAlgpamResponse">
-<part name="parameters" element="tns:svAlgpamResponse"/>
-</message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
 </message>
@@ -37,12 +25,6 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
-<message name="getConfLoc">
-<part name="parameters" element="tns:getConfLoc"/>
-</message>
-<message name="getConfLocResponse">
-<part name="parameters" element="tns:getConfLocResponse"/>
-</message>
 <message name="getMiscPorts">
 <part name="parameters" element="tns:getMiscPorts"/>
 </message>
@@ -61,27 +43,43 @@
 <message name="svLJDResponse">
 <part name="parameters" element="tns:svLJDResponse"/>
 </message>
-<message name="getrs">
-<part name="parameters" element="tns:getrs"/>
-</message>
-<message name="getrsResponse">
-<part name="parameters" element="tns:getrsResponse"/>
-</message>
 <message name="retreiveAllPorts">
 <part name="parameters" element="tns:retreiveAllPorts"/>
 </message>
 <message name="retreiveAllPortsResponse">
 <part name="parameters" element="tns:retreiveAllPortsResponse"/>
 </message>
+<message name="getConfLoc">
+<part name="parameters" element="tns:getConfLoc"/>
+</message>
+<message name="getConfLocResponse">
+<part name="parameters" element="tns:getConfLocResponse"/>
+</message>
+<message name="getrs">
+<part name="parameters" element="tns:getrs"/>
+</message>
+<message name="getrsResponse">
+<part name="parameters" element="tns:getrsResponse"/>
+</message>
+<message name="vAlgpam">
+<part name="parameters" element="tns:vAlgpam"/>
+</message>
+<message name="vAlgpamResponse">
+<part name="parameters" element="tns:vAlgpamResponse"/>
+</message>
+<message name="vAlgEnd">
+<part name="parameters" element="tns:vAlgEnd"/>
+</message>
+<message name="vAlgEndResponse">
+<part name="parameters" element="tns:vAlgEndResponse"/>
+</message>
+<message name="dtid">
+<part name="parameters" element="tns:dtid"/>
+</message>
+<message name="dtidResponse">
+<part name="parameters" element="tns:dtidResponse"/>
+</message>
 <portType name="Pivot">
-<operation name="svAlgEnd">
-<input wsam:Action="http://safirasoft.com/Pivot/svAlgEndRequest" message="tns:svAlgEnd"/>
-<output wsam:Action="http://safirasoft.com/Pivot/svAlgEndResponse" message="tns:svAlgEndResponse"/>
-</operation>
-<operation name="svAlgpam">
-<input wsam:Action="http://safirasoft.com/Pivot/svAlgpamRequest" message="tns:svAlgpam"/>
-<output wsam:Action="http://safirasoft.com/Pivot/svAlgpamResponse" message="tns:svAlgpamResponse"/>
-</operation>
 <operation name="hello">
 <input wsam:Action="http://safirasoft.com/Pivot/helloRequest" message="tns:hello"/>
 <output wsam:Action="http://safirasoft.com/Pivot/helloResponse" message="tns:helloResponse"/>
@@ -92,10 +90,6 @@
 <fault message="tns:ParserConfigurationException" name="ParserConfigurationException" wsam:Action="http://safirasoft.com/Pivot/getcodecs/Fault/ParserConfigurationException"/>
 <fault message="tns:SAXException" name="SAXException" wsam:Action="http://safirasoft.com/Pivot/getcodecs/Fault/SAXException"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://safirasoft.com/Pivot/getcodecs/Fault/IOException"/>
-</operation>
-<operation name="getConfLoc">
-<input wsam:Action="http://safirasoft.com/Pivot/getConfLocRequest" message="tns:getConfLoc"/>
-<output wsam:Action="http://safirasoft.com/Pivot/getConfLocResponse" message="tns:getConfLocResponse"/>
 </operation>
 <operation name="getMiscPorts">
 <input wsam:Action="http://safirasoft.com/Pivot/getMiscPortsRequest" message="tns:getMiscPorts"/>
@@ -112,35 +106,33 @@
 <input wsam:Action="http://safirasoft.com/Pivot/svLJDRequest" message="tns:svLJD"/>
 <output wsam:Action="http://safirasoft.com/Pivot/svLJDResponse" message="tns:svLJDResponse"/>
 </operation>
-<operation name="getrs">
-<input wsam:Action="http://safirasoft.com/Pivot/getrsRequest" message="tns:getrs"/>
-<output wsam:Action="http://safirasoft.com/Pivot/getrsResponse" message="tns:getrsResponse"/>
-</operation>
 <operation name="retreiveAllPorts">
 <input wsam:Action="http://safirasoft.com/Pivot/retreiveAllPortsRequest" message="tns:retreiveAllPorts"/>
 <output wsam:Action="http://safirasoft.com/Pivot/retreiveAllPortsResponse" message="tns:retreiveAllPortsResponse"/>
 </operation>
+<operation name="getConfLoc">
+<input wsam:Action="http://safirasoft.com/Pivot/getConfLocRequest" message="tns:getConfLoc"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getConfLocResponse" message="tns:getConfLocResponse"/>
+</operation>
+<operation name="getrs">
+<input wsam:Action="http://safirasoft.com/Pivot/getrsRequest" message="tns:getrs"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getrsResponse" message="tns:getrsResponse"/>
+</operation>
+<operation name="vAlgpam">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgpamRequest" message="tns:vAlgpam"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgpamResponse" message="tns:vAlgpamResponse"/>
+</operation>
+<operation name="vAlgEnd">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgEndRequest" message="tns:vAlgEnd"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgEndResponse" message="tns:vAlgEndResponse"/>
+</operation>
+<operation name="dtid">
+<input wsam:Action="http://safirasoft.com/Pivot/dtidRequest" message="tns:dtid"/>
+<output wsam:Action="http://safirasoft.com/Pivot/dtidResponse" message="tns:dtidResponse"/>
+</operation>
 </portType>
 <binding name="PivotPortBinding" type="tns:Pivot">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="svAlgEnd">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="svAlgpam">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="hello">
 <soap:operation soapAction=""/>
 <input>
@@ -167,15 +159,6 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
-</operation>
-<operation name="getConfLoc">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
 </operation>
 <operation name="getMiscPorts">
 <soap:operation soapAction=""/>
@@ -213,6 +196,24 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="retreiveAllPorts">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getConfLoc">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getrs">
 <soap:operation soapAction=""/>
 <input>
@@ -222,7 +223,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="retreiveAllPorts">
+<operation name="vAlgpam">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="vAlgEnd">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="dtid">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

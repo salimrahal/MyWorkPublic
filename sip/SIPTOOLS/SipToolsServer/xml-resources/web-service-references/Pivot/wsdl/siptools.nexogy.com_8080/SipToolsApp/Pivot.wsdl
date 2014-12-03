@@ -4,27 +4,6 @@
 <xsd:import namespace="http://safirasoft.com/" schemaLocation="http://siptools.nexogy.com:8080/SipToolsApp/Pivot?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getConfLoc">
-<part name="parameters" element="tns:getConfLoc"/>
-</message>
-<message name="getConfLocResponse">
-<part name="parameters" element="tns:getConfLocResponse"/>
-</message>
-<message name="getPrtSts">
-<part name="parameters" element="tns:getPrtSts"/>
-</message>
-<message name="getPrtStsResponse">
-<part name="parameters" element="tns:getPrtStsResponse"/>
-</message>
-<message name="ParserConfigurationException">
-<part name="fault" element="tns:ParserConfigurationException"/>
-</message>
-<message name="SAXException">
-<part name="fault" element="tns:SAXException"/>
-</message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
 </message>
@@ -37,18 +16,70 @@
 <message name="getcodecsResponse">
 <part name="parameters" element="tns:getcodecsResponse"/>
 </message>
+<message name="ParserConfigurationException">
+<part name="fault" element="tns:ParserConfigurationException"/>
+</message>
+<message name="SAXException">
+<part name="fault" element="tns:SAXException"/>
+</message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
+</message>
+<message name="getMiscPorts">
+<part name="parameters" element="tns:getMiscPorts"/>
+</message>
+<message name="getMiscPortsResponse">
+<part name="parameters" element="tns:getMiscPortsResponse"/>
+</message>
+<message name="savePLD">
+<part name="parameters" element="tns:savePLD"/>
+</message>
+<message name="savePLDResponse">
+<part name="parameters" element="tns:savePLDResponse"/>
+</message>
+<message name="svLJD">
+<part name="parameters" element="tns:svLJD"/>
+</message>
+<message name="svLJDResponse">
+<part name="parameters" element="tns:svLJDResponse"/>
+</message>
+<message name="retreiveAllPorts">
+<part name="parameters" element="tns:retreiveAllPorts"/>
+</message>
+<message name="retreiveAllPortsResponse">
+<part name="parameters" element="tns:retreiveAllPortsResponse"/>
+</message>
+<message name="getConfLoc">
+<part name="parameters" element="tns:getConfLoc"/>
+</message>
+<message name="getConfLocResponse">
+<part name="parameters" element="tns:getConfLocResponse"/>
+</message>
+<message name="getrs">
+<part name="parameters" element="tns:getrs"/>
+</message>
+<message name="getrsResponse">
+<part name="parameters" element="tns:getrsResponse"/>
+</message>
+<message name="vAlgpam">
+<part name="parameters" element="tns:vAlgpam"/>
+</message>
+<message name="vAlgpamResponse">
+<part name="parameters" element="tns:vAlgpamResponse"/>
+</message>
+<message name="vAlgEnd">
+<part name="parameters" element="tns:vAlgEnd"/>
+</message>
+<message name="vAlgEndResponse">
+<part name="parameters" element="tns:vAlgEndResponse"/>
+</message>
+<message name="dtid">
+<part name="parameters" element="tns:dtid"/>
+</message>
+<message name="dtidResponse">
+<part name="parameters" element="tns:dtidResponse"/>
+</message>
 <portType name="Pivot">
-<operation name="getConfLoc">
-<input wsam:Action="http://safirasoft.com/Pivot/getConfLocRequest" message="tns:getConfLoc"/>
-<output wsam:Action="http://safirasoft.com/Pivot/getConfLocResponse" message="tns:getConfLocResponse"/>
-</operation>
-<operation name="getPrtSts">
-<input wsam:Action="http://safirasoft.com/Pivot/getPrtStsRequest" message="tns:getPrtSts"/>
-<output wsam:Action="http://safirasoft.com/Pivot/getPrtStsResponse" message="tns:getPrtStsResponse"/>
-<fault message="tns:ParserConfigurationException" name="ParserConfigurationException" wsam:Action="http://safirasoft.com/Pivot/getPrtSts/Fault/ParserConfigurationException"/>
-<fault message="tns:SAXException" name="SAXException" wsam:Action="http://safirasoft.com/Pivot/getPrtSts/Fault/SAXException"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://safirasoft.com/Pivot/getPrtSts/Fault/IOException"/>
-</operation>
 <operation name="hello">
 <input wsam:Action="http://safirasoft.com/Pivot/helloRequest" message="tns:hello"/>
 <output wsam:Action="http://safirasoft.com/Pivot/helloResponse" message="tns:helloResponse"/>
@@ -60,36 +91,48 @@
 <fault message="tns:SAXException" name="SAXException" wsam:Action="http://safirasoft.com/Pivot/getcodecs/Fault/SAXException"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://safirasoft.com/Pivot/getcodecs/Fault/IOException"/>
 </operation>
+<operation name="getMiscPorts">
+<input wsam:Action="http://safirasoft.com/Pivot/getMiscPortsRequest" message="tns:getMiscPorts"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getMiscPortsResponse" message="tns:getMiscPortsResponse"/>
+<fault message="tns:ParserConfigurationException" name="ParserConfigurationException" wsam:Action="http://safirasoft.com/Pivot/getMiscPorts/Fault/ParserConfigurationException"/>
+<fault message="tns:SAXException" name="SAXException" wsam:Action="http://safirasoft.com/Pivot/getMiscPorts/Fault/SAXException"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://safirasoft.com/Pivot/getMiscPorts/Fault/IOException"/>
+</operation>
+<operation name="savePLD">
+<input wsam:Action="http://safirasoft.com/Pivot/savePLDRequest" message="tns:savePLD"/>
+<output wsam:Action="http://safirasoft.com/Pivot/savePLDResponse" message="tns:savePLDResponse"/>
+</operation>
+<operation name="svLJD">
+<input wsam:Action="http://safirasoft.com/Pivot/svLJDRequest" message="tns:svLJD"/>
+<output wsam:Action="http://safirasoft.com/Pivot/svLJDResponse" message="tns:svLJDResponse"/>
+</operation>
+<operation name="retreiveAllPorts">
+<input wsam:Action="http://safirasoft.com/Pivot/retreiveAllPortsRequest" message="tns:retreiveAllPorts"/>
+<output wsam:Action="http://safirasoft.com/Pivot/retreiveAllPortsResponse" message="tns:retreiveAllPortsResponse"/>
+</operation>
+<operation name="getConfLoc">
+<input wsam:Action="http://safirasoft.com/Pivot/getConfLocRequest" message="tns:getConfLoc"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getConfLocResponse" message="tns:getConfLocResponse"/>
+</operation>
+<operation name="getrs">
+<input wsam:Action="http://safirasoft.com/Pivot/getrsRequest" message="tns:getrs"/>
+<output wsam:Action="http://safirasoft.com/Pivot/getrsResponse" message="tns:getrsResponse"/>
+</operation>
+<operation name="vAlgpam">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgpamRequest" message="tns:vAlgpam"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgpamResponse" message="tns:vAlgpamResponse"/>
+</operation>
+<operation name="vAlgEnd">
+<input wsam:Action="http://safirasoft.com/Pivot/vAlgEndRequest" message="tns:vAlgEnd"/>
+<output wsam:Action="http://safirasoft.com/Pivot/vAlgEndResponse" message="tns:vAlgEndResponse"/>
+</operation>
+<operation name="dtid">
+<input wsam:Action="http://safirasoft.com/Pivot/dtidRequest" message="tns:dtid"/>
+<output wsam:Action="http://safirasoft.com/Pivot/dtidResponse" message="tns:dtidResponse"/>
+</operation>
 </portType>
 <binding name="PivotPortBinding" type="tns:Pivot">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getConfLoc">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getPrtSts">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="ParserConfigurationException">
-<soap:fault name="ParserConfigurationException" use="literal"/>
-</fault>
-<fault name="SAXException">
-<soap:fault name="SAXException" use="literal"/>
-</fault>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
-</fault>
-</operation>
 <operation name="hello">
 <soap:operation soapAction=""/>
 <input>
@@ -116,6 +159,96 @@
 <fault name="IOException">
 <soap:fault name="IOException" use="literal"/>
 </fault>
+</operation>
+<operation name="getMiscPorts">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="ParserConfigurationException">
+<soap:fault name="ParserConfigurationException" use="literal"/>
+</fault>
+<fault name="SAXException">
+<soap:fault name="SAXException" use="literal"/>
+</fault>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
+</fault>
+</operation>
+<operation name="savePLD">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="svLJD">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="retreiveAllPorts">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getConfLoc">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getrs">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="vAlgpam">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="vAlgEnd">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="dtid">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 </binding>
 <service name="Pivot">
