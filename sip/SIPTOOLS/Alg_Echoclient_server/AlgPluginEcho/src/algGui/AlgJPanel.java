@@ -520,7 +520,6 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         tk = new TL();
         tk.addPropertyChangeListener(this);
         tk.execute();
-        //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
         jProgressBar1.setValue(0);
 
     }//GEN-LAST:event_runALGButtonActionPerformed
@@ -528,8 +527,6 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
 //     removed to avoid aobject already in used exception while doing reset
         jProgressBar1.setValue(0);
-        resultmsgjlabel.setText(Alb.I_P);
-        System.out.println("resetActionPerformed...");
         resultmsgjlabel.setBackground(Color.white);
         //clean the text areas:
         comb1SentMsgREG.setText("Sent message:");

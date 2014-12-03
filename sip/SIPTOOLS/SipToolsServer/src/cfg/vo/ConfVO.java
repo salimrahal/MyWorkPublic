@@ -18,9 +18,7 @@ public class ConfVO {
     String agentname;
     String sipIdLocal;
     List<PrtVo> prtList;
-    Integer portSig;//for signaling 
-    //String initialLoc = "/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/SipToolsServer/src/config.xml";//"/home/salim/public_html/siptoolsconfig/config.xml";//local host test
-    //for remote test
+    Integer portSig;
     String initialLoc = "/var/www/html/siptools.nexogy.com/siptoolsconfig/config.xml";
     private static final ConfVO INSTANCE = new ConfVO();
 

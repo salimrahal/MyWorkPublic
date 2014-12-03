@@ -40,15 +40,14 @@ public class Alb {
     static public final Integer Comb3Id = 3;
     static public final Integer Comb4Id = 4;
 
-    public Integer portsrc1;//UDP 5060 for remote test
+    public Integer portsrc1;
 
-    public Integer portsrc2;//in tcp we create only one socket with the server port number, this port scr will be used in sip body message
+    public Integer portsrc2;
 
-    public Integer portsrc3;//UDP 5060 for remote test
+    public Integer portsrc3;
 
     public Integer portsrc4;
 
-    //currently the server is running on the same port
     public Integer portdest1;
     public Integer portdest2;
     public Integer portdest3;
@@ -107,9 +106,7 @@ public class Alb {
     }
 
     public String getCU(String hst) {
-        //build the config url: http://localhost/siptoolsconfig/config.xml
         String configUri = new StringBuilder().append(hst).append("/").append(C_D).append("/").append(C_N).toString();
-        //System.out.println(configUri);
         return configUri;
 
     }
@@ -152,7 +149,6 @@ public class Alb {
     public static void readFile(String fileToRead, URL codebase) {
         String line;
         URL url = null;
-        System.out.println("readFile::codebase:" + codebase);
         try {
             url = new URL(codebase, fileToRead);
         } catch (MalformedURLException e) {
@@ -166,7 +162,6 @@ public class Alb {
             while ((line = bf.readLine()) != null) {
                 strBuff.append(line + "\n");
             }
-            System.out.println("readFile=" + strBuff.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -430,7 +425,6 @@ public class Alb {
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             huc.setConnectTimeout(U_C_T);
             responseCode = 0;
-            System.out.println("uchkr: waiting for response..");
             responseCode = huc.getResponseCode();
             if (responseCode == 200) {
                 isg = true;
@@ -438,9 +432,7 @@ public class Alb {
                 isg = false;
             }
         } catch (java.net.SocketTimeoutException e) {
-            System.out.println("uchkr: timeout");
         } catch (IOException iOException) {
-            System.out.println("uchkr: iOException: " + iOException.getMessage());
         }
         return isg;
     }

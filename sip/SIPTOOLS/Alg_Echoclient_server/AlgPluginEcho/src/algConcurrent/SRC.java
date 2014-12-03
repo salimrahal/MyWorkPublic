@@ -14,8 +14,7 @@ import java.util.concurrent.Callable;
 
 /**
  *
- * @author salim this task handle the tcp send and received message, it should
- * be surrounded with timeout exception in case the ReadLine blocks
+ * @author salim
  */
 public class SRC implements Callable<String> {
 
@@ -39,10 +38,7 @@ public class SRC implements Callable<String> {
         StringBuilder strbuilder = new StringBuilder();
         boolean firstLine = true;
         while ((submsgToSend = msgbr.readLine()) != null) {
-            //write to the server
-            out.println(submsgToSend);
-            //recieve from the server,
-            //in some case it will freeze here nothing is received, so a timeout will be triggered
+            out.println(submsgToSend);    
             msgRecv = in.readLine();
             if (firstLine) {
                 System.out.println("echo: " + msgRecv);

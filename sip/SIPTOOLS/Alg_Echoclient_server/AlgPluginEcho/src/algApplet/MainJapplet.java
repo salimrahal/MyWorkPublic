@@ -24,20 +24,14 @@ public class MainJapplet extends JApplet {
                     try {
                         String fontsize = getParameter("fontSize");
                         String cstr = getParameter("cust");
-                        System.out.println("MainJapplet:cust nme:" + cstr+"/font="+fontsize);
                         crg(cstr);
-                        //parse the XML config to class VO by passing URI
                         Alb alb = new Alb();
 
-                        //get the host name
                         String hostname = getCodeBase().getHost();
                         if (hostname == null || hostname.isEmpty()) {
                             hostname = "localhost";
                         }
-                        //append http
                         hostname = "http://" + hostname;
-                        //String configUri = new StringBuilder().append(getCodeBase()).append(algBo.CONFIG_FILE_NAME).toString();
-                        //retrieve the config values and assign the proper values to ALGBo properties
                         alb.pc(alb.getCU(hostname));
                     } catch (Exception ex) {
                         Logger.getLogger(MainJapplet.class.getName()).log(Level.SEVERE, null, ex);

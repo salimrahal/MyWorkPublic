@@ -41,7 +41,6 @@ public class Spf {
         for (Test t : testL) {
             System.out.println("t:" + t.toString());
         }
-        // System.out.println("parseConfVO:" + confvo.toString());
     }
 
     public static void main(String[] args) throws Exception {

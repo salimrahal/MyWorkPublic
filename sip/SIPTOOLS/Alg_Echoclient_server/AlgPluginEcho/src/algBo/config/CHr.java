@@ -70,8 +70,7 @@ public class CHr extends DefaultHandler {
             String qName, Attributes attributes)
             throws SAXException {
 
-        if (qName.equalsIgnoreCase("configuration")) {
-            //Create a new presence object when the start tag is found         
+        if (qName.equalsIgnoreCase("configuration")) {     
             confVO = ConfVO.getInstance();
         }
         if (qName.equalsIgnoreCase("sipServerAlg")) {
