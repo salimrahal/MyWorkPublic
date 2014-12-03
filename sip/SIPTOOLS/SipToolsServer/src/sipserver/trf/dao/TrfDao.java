@@ -37,11 +37,6 @@ public class TrfDao {
         return connect;
     }
 
-    /* it updates only two ports 
-     portNumArr[0]: traffic
-     portNumArr[1]: lat
-     change the port status to busy after the server receives client request
-     */
     public synchronized boolean updatePortStatus(int[] portNumArr, String sts) throws Exception {
         boolean res = false;
         String x1 = "traffic";

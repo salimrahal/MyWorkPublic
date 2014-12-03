@@ -53,12 +53,7 @@ public class VpMethds {
         }
     }
 
-    /**
-     *
-     * @param receivedPkt
-     * @param testlength: in second
-     * @return
-     */
+
     public static synchronized float computePktLossByCodec(int receivedPkt, int pps, int testlength) {
         int pktLoss = -1;
         float pktLossPerc = -1;
@@ -66,16 +61,12 @@ public class VpMethds {
         int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
         int effectivePktNum = receivedPkt;
         System.out.println("computePktLoss1::expected-Rcv-Pkt-Num=" + expectedPktNum + "/received-pkt-num=" + effectivePktNum);
-        /*in case the packet received > expected ,
-         I should take the expected. this case occurred in G729/60 sec where I have received extrat two packet +2: expected:3000/received 3002
-         */
+        
         if (effectivePktNum > expectedPktNum) {
             effectivePktNum = expectedPktNum;
         }
         pktLoss = expectedPktNum - effectivePktNum;
-            //int res = 100 * 100 / 3;
-        //double res2 = 40/50f;
-        //System.out.println("pkloss1 = " + pktLoss + " pkt");
+         
         pktLossPerc = (float) 100 * pktLoss / expectedPktNum;
         if (pktLossPerc != 0) {
             pktLossPerc = formatNumberFl(pktLossPerc);
@@ -84,9 +75,6 @@ public class VpMethds {
         return pktLossPerc;
     }
 
-    /*
-     format a number from x.xxxxx --> x.xx
-     */
     public static float formatNumberFl(float r) {
         int decimalPlaces = 2;
         BigDecimal bd = new BigDecimal(r);
@@ -101,8 +89,8 @@ public class VpMethds {
         int pktLoss = -1;
         int pktLossPerc;
         int pps = cdcvo.getPps();
-        //total pkt received per time interval or test length
-        int expectedPktNum = pps * testlength;// 50 pps* 15 sec = 750 pkt should be received
+        
+        int expectedPktNum = pps * testlength;
         System.out.println("computePktLoss::expected-Rcv-Pkt-Num" + expectedPktNum);
         int effectivePktNum = pktCount;
         System.out.println("computePktLoss::effective-Rcv-Pkt-Num" + effectivePktNum);
@@ -115,15 +103,6 @@ public class VpMethds {
         return pktLossPerc;
     }
 
-    /**
-     * it computes peak and avg of a given pkt list it takes 3 packets and
-     * compute their latency, based on the RTT: latency = round trip time / 2
-     *
-     *
-     * @param pktL: received packets for latency test
-     * @param pktSize = 3
-     * @return
-     */
     public static synchronized LatVo computeLatJitV2(List<PktVo> pktL) {
         LatVo latObj = null;
         int pktLSize = pktL.size();
@@ -169,9 +148,7 @@ public class VpMethds {
         return latObj;
     }
 
-    /*
-     if lat > 1500 ms --> round it on 1500 ms
-     */
+   
     public static long roundLat(long latparam) {
         //System.out.println("roundLat:latparam"+latparam);
         long mx_nn = convertMTN(M_X_L);
@@ -238,70 +215,6 @@ public class VpMethds {
         return pkl;
     }
 
-    /**
-     * test begins...Wed Sep 03 16:28:21 EEST 2014 computeLat:pktsize=3
-     * computLat::latency[0]=10000 computLat::latency[1]=5000
-     * computLat::latency[2]=3000 LatVo{peak=10000, avg=6000}
-     * computeJtr::lat1-lat2=jitter10000-5000=5000
-     * computeJtr::lat1-lat2=jitter5000-3000=2000 JtrVo{peak=5000, avg=3500}
-     * test ends...Wed Sep 03 16:28:40 EEST 2014
-     *
-     * @param args
-     * @throws InterruptedException
-     */
     public static void main(String[] args) throws InterruptedException {
-        System.out.println(" safeLongToInt(405)=" + safeLongToInt(405));
-        System.out.println("test begins..." + new Date());
-        Date d1 = new Date();//sent
-        Thread.currentThread().sleep(10);
-        Date d2 = new Date();//received
-        PktVo pk1 = new PktVo(1);
-        pk1.setRtt(10);
-
-        Date d3 = new Date();
-        Thread.currentThread().sleep(5);
-        Date d4 = new Date();
-        PktVo pk2 = new PktVo(2);
-        pk2.setRtt(20);
-
-        Date d5 = new Date();
-        Thread.currentThread().sleep(3);
-        Date d6 = new Date();
-        PktVo pk3 = new PktVo(3);
-        pk3.setRtt(30);
-
-        Date d7 = new Date();
-        Thread.currentThread().sleep(1);
-        Date d8 = new Date();
-        PktVo pk4 = new PktVo(4);
-        pk4.setRtt(40);
-
-        List<PktVo> l = new ArrayList<>();
-        List<PktVo> lrecv = new ArrayList<>();
-        l.add(pk1);
-        l.add(pk2);
-        l.add(pk3);
-        l.add(pk4);
-
-        /**
-         * *************Latendy jitter test****************
-         */
-        LatVo lat = computeLatJitV2(l);
-
-        System.out.println(lat.toString());
-        JtrVo jt = lat.getJitterObj();
-        System.out.println(jt.toString());
-        System.out.println("test ends..." + new Date());
-
-        /**
-         ************Packet lost test************************
-         */
-        System.out.println("packet lost test...........");
-        int testlength = 15;
-        int pps = CdcVo.returnPPSbyCodec("g729");
-
-        System.out.println("Pkt loss %=" + computePktLossByCodec(3002, pps,
-                testlength) + "%");
-
     }
 }

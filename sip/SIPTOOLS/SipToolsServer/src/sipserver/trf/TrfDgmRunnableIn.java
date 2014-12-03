@@ -20,8 +20,7 @@ import sipserver.trf.vp.vo.CdcVo;
 
 /**
  *
- * @author salim This thread used to send down the traffic using the port down
- * of the client
+ * @author salim
  */
 public class TrfDgmRunnableIn implements Runnable {
 
@@ -48,7 +47,7 @@ public class TrfDgmRunnableIn implements Runnable {
     public void run() {
         System.out.println("TrfDgmRunnableIn:: Priority=" + Thread.currentThread().getPriority());
         try {
-            //if packetlostup is < 0 then didn't completed
+
             handleClienttrafficV2();
         } catch (InterruptedException ex) {
             Logger.getLogger(TrfDgmRunnableIn.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,25 +61,22 @@ public class TrfDgmRunnableIn implements Runnable {
         String testid = param.getTstid();
         float packetlostup = -1;
         int timelength = Integer.valueOf(param.getTimelength());
-        /*
-         received section
-         */
+       
         DatagramPacket incomingPacketLocal = null;
-        //still true while receiving packets
+        
         boolean morepacket = true;
         byte[] buf = null;
         buf = CdcVo.returnPayloadybyCodec(codec);
         int pps = CdcVo.returnPPSbyCodec(codec);
         incomingPacketLocal = new DatagramPacket(buf, buf.length);
         int count = 0;
-        double elapsedSeconds = 0;        //send a flag packet to the server before start receiving
-        //send a flag packet to the server before start receiving
+        double elapsedSeconds = 0;
         System.out.println("TrfDgmRunnableIn::handleClienttrafficV2::.listening on UDP:" + dgmsocket.getLocalPort());
 
         try {
-            //decrease the timeout  
+           
             dgmsocket.setSoTimeout(timelength * 1000);//sometime the timeout fires before finishing the test in case where the client close his app while he is sending packets
-            //: register the begin time
+            
             long tStart = System.currentTimeMillis();
             do {
                 dgmsocket.receive(incomingPacketLocal);
@@ -103,9 +99,7 @@ public class TrfDgmRunnableIn implements Runnable {
         } finally {
             if (count > 0) {
                 System.out.println("TrfDgmRunnableIn: received pkt: total received count=" + count);
-                /*
-                 computes the packet lost/down 
-                 */
+                
                 packetlostup = VpMethds.computePktLossByCodec(count, pps, timelength);
                 System.out.println("packetlossUp=" + packetlostup);
                 System.out.println("receivingPkts:finish receiving function.");
@@ -114,10 +108,6 @@ public class TrfDgmRunnableIn implements Runnable {
             }
             System.out.println("TrfDgmRunnableIn:receivingPkts:closing the socket..");
             dgmsocket.close();
-            //releasing the port is done in clientTCPconnection
-            //System.out.println("TrfDgmRunnableIn::releasing port:" + portsrc);
-            //trfdao.updateOnePortStatus(portsrc, "f");
-            //insert test record: testId,pktLossUp
             trfdao.updateTestPacketLostUp(testid, packetlostup);//todo insert the end time of test: testId, end time
             System.out.println("TrfDgmRunnableIn:receivingPkts:inserting the endtime of test: testId, end time]..");
             trfdao.updateTestEndTime(testid);

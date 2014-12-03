@@ -24,15 +24,8 @@ public class TrafficServer {
 
     public static void launchingTrafficServer(String localIp) throws SocketException, UnknownHostException, ParserConfigurationException, SAXException, IOException {
 
-        /**
-         * ***********
-         * pre-process: release all the ports in thge DB. 1- Traffic Server It
-         * listens only on Sig Port, 2- it receives from client latency/and
-         * traffic port and then accepts traffic(upload) from multiple clients,
-         * and generates download traffic depending on the codec or pps
-         * ********************
-         */
-        //pre-process: release all the ports in thge DB.
+       
+       
         TrfDao trfdao = new TrfDao();
         try {
            // trfdao.updateALLPortStatus(TrfBo.PRT_FREE);

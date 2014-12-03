@@ -20,12 +20,7 @@ import java.util.Date;
  * @author salim
  */
 public class ClUdp {
-    /*
-     - get the parameters from the UI: portSig, portlat, porttrf, codec, timelength, customer name
-     - connect to the TCP server thru portSig
-     - send the params to the server:  portlat, porttrf, codec, timelength, customer name, testUuid
-     - rcv a confirmation message ACK to start the test and sending packets
-     */
+
 
     String portSig, portlat, porttrf;
     DatagramSocket dmsocketSig = null;
@@ -161,11 +156,7 @@ public class ClUdp {
         }
         return ack;
     }
-    /*
-     send param to the server and receive an ACK
-     returns true is an ACK is received
-     todo: sendParam will return ServerReply Object: ACK, BUSY+:+testLength
-     */
+
 
     public boolean sendParam(DatagramSocket dmsocketSig, InetAddress inetAddrDestparam, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;

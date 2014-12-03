@@ -43,7 +43,6 @@ public class Cc {
     //ClTcp cltcp;
     ClUdp cludp;
     TrfBo trfBo;
-    //use to execute tcp send/rcv message callable method
     ExecutorService executor;
 
     public Cc() {
@@ -72,21 +71,20 @@ public class Cc {
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null") || porttrfD.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
                 } else {
-                    //post the port to be used for this test:
+             
                     trfBo.renderJTextAreaPortUsed(TrfJPanel.jTextAreaPortused, portSig, portlat, porttrfU, porttrfD);
-                    //sr ip
+                 
                     String srip = null;
-                    //retrieve the traffic server Ip
+                 
                     srip = miscPortObj.getServerIp();
                     InetAddress inetAddrDest = InetAddress.getByName(srip);
                     TrfBo.setSrIp(srip);
-                    //2- generate the x of the test
-                    String testUuid = trfBo.genID();//size 36
-                    //3- send parameters
-                    //cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
+                    
+                    String testUuid = trfBo.genID();
+                   
                     cludp = new ClUdp(inetAddrDest, portSig);
                     boolean success = cludp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
-                    //todo: retrieve the ServerReply, it the result is busy for 60 sec the retry after 60 sec
+                    
                     if (success) {
                         Param param = new Param();
                         param.setTimelength(timeLengthParam);
@@ -98,22 +96,19 @@ public class Cc {
                         param.setCustname(custnmparam);
 
                         WsRes wsres = new WsRes();
-                        //launch lat&jitter test up/down
+                       
                         String portlatStr = "[Port=" + portlat + "]";
                         trfBo.setresultmessage(resultmsgjlabel, "Step 1 of 4 - Latency & Jitter Test " + portlatStr + ": In Progress ....");
                         updateJprogressBar(jprobar, 25);
                         System.out.println("CC: phase-1:begin: latency Down test");
                         boolean isLatLaunched = launchLatDownRunnable(param, inetAddrDest);//
                         if (isLatLaunched) {
-                             //System.out.println("CC: phase-1:Ends: latency Down test");
-                            //4- launch up packet lost test: sending/receiving packets
-                            //System.out.println("CC: phase-2:begin: traffic Up");
+                       
                             String portUpStr = "[Port=" + porttrfU + "]";
                             trfBo.setresultmessage(resultmsgjlabel, "Step 2 of 4 - Upstream Packet Loss Test " + portUpStr + ": In Progress....");
                             updateJprogressBar(jprobar, 50);
                             launchTrafficUp(param, inetAddrDest);
-                        //System.out.println("CC: phase-2:Ends: traffic Up");
-                            //System.out.println("CC: phase-3:begin: traffic Down");
+                       
                             String portDoStr = "[Port=" + porttrfD + "]";
                             trfBo.setresultmessage(resultmsgjlabel, "Step 3 of 4 - Downstream Packet Loss Test " + portDoStr + ": In Progress....");
                             updateJprogressBar(jprobar, 75);
@@ -129,7 +124,7 @@ public class Cc {
                             updateJprogressBar(jprobar, 100);
                         } else {    
                             resvo = new ResVo();
-                            //just set a -1 value a indicator in order to post the firewall message in text area
+                            
                             resvo.setDolatpeak(-1);
                             System.out.println("Error:launchtest::success: Failed!");
                             trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB_V2);
@@ -137,7 +132,7 @@ public class Cc {
 
                     } else {
                         resvo = new ResVo();
-                        //just set a -1 value a indicator in order to post the firewall message in text area
+                        
                         resvo.setDolatpeak(-1);
                         System.out.println("Error:launchtest::success: Failed!");
                         trfBo.setresultmessage(resultmsgjlabel, TrfBo.MSG_CONN_SV_PB);
@@ -146,7 +141,7 @@ public class Cc {
             }//end of if ws ok
             else {
                 resvo = new ResVo();
-                //just set a -1 value a indicator in order to post the firewall message in text area
+               
                 resvo.setDolatpeak(-1);
                 resmsg = TrfBo.M_NC;
                 trfBo.setresultmessage(resultmsgjlabel, resmsg);
@@ -225,8 +220,7 @@ public class Cc {
                 res = true;
                 LatRunnable latDrun = new LatRunnable(dmsocketL, param, addressDest, portsrc, portdest, 0);
                 latrunThread = new Thread(latDrun);
-                //imp to pass the lat first
-                //latrunThread.setPriority(8);
+                
                 latrunThread.start();
                 //Swing worker thread will wait until the trafficThread finished, i.e.: traffic Thread join the current thread once he finished
                 //imp

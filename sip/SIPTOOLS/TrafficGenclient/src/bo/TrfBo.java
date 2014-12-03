@@ -164,19 +164,6 @@ public class TrfBo {
         return res;
     }
 
-    /*
-     Jitter: you --> server: peak: 109.9 ms; average: 80 ms
-     Jitter: server --> you: peak: 19 ms; average: 17 ms
-
-     Latency: you --> server: peak: 10 ms; average: 8 ms
-     Latency: server --> you:  peak: 15 ms; average: 9 ms
-
-     Packet loss: you --> server: 56.6 %
-     Packet loss: server --> you: 19.6 %
-    
-     todo: instead of result -1 show "time out" on UI
- 
-     */
     public void renderJTextAreaStatistics(javax.swing.JTextArea testStatTextArea, ResVo resvo) {
         StringBuilder sb = new StringBuilder();
         sb.append("Your Public IP address: ");

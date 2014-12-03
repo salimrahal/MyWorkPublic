@@ -25,7 +25,7 @@ import sipserver.trf.bean.Param;
 
 /**
  *
- * @author salim LatProcessor : processing the In traffic
+ * @author salim
  */
 public class LatProcessor {
 
@@ -60,13 +60,13 @@ public class LatProcessor {
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
-                //send N ACK (to ensure receiving the ACK. ) immediately beforne lauching the Latency test and start listening on socket 
+               
                 for (int j = 1; j <= TrfBo.AcknumLat; j++) {
                     socketDglat.send(outgoingPacket);
                 }
                 System.out.println("[" + new Date() + "]LatProcessor:finish sending back the " + ACK + ".to" + addressInco.getHostAddress() + ":" + portInco);
                 try {
-                    // launch the traffIn thread
+                   
                     launchLatUp(socketDglat, param, addressInco);
                 } catch (UnknownHostException ex) {
                     Logger.getLogger(LatProcessor.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,11 +80,9 @@ public class LatProcessor {
         } catch (IOException e) {
             System.out.println("LatProcessor: Accept failed.");
         }
-    }//end of process request of IN
+    }
 
-    /*
-     launch latency test thread
-     */
+    
     public void launchLatUp(DatagramSocket socketDglat, Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
         int portsrc = Integer.valueOf(param.getPortlat());
         int portdest = Integer.valueOf(param.getPortlat());

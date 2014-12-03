@@ -47,13 +47,7 @@ class PacketControl {
                 System.out.println("beep");
             }
         };
-        /*
-         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-         command - the task to execute
-         initialDelay - the time to delay first execution
-         period - the period between successive executions
-         unit - the time unit of the initialDelay and period parameters
-         */
+      
         final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
@@ -64,19 +58,10 @@ class PacketControl {
 
     public boolean sndPktForAnGivenTime(String codec, int timeLength) {
         boolean res = false;
-        //System.out.println("PacketControl:sndPktForAnGivenTime: Sending packet:: start time= " + new Date());
-         //    System.out.println("PacketControl:sndPktForAnGivenTime::Thread name"+Thread.currentThread().getName()+" Priority=" + Thread.currentThread().getPriority());
-        // System.out.println("PacketControlsndPktForAnGivenTime: sending to host="+addressDest.getHostAddress()+"/portdest="+portDest);
-        int pps = CdcVo.returnPPSbyCodec(codec);
+               int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndrRunnable = new SndrRunnable(codec);
-        /*
-         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-         command - the task to execute
-         initialDelay - the time to delay first execution
-         period - the period between successive executions
-         unit - the time unit of the initialDelay and period parameters
-         */
+
         final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndrRunnable, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {

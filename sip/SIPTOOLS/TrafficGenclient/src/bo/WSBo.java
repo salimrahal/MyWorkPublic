@@ -23,9 +23,6 @@ public class WSBo {
     private static final String PRT_STS_FR = "f";
     private static final String PRT_STS_BU = "b";
 
-    /*
-     getting list of {codec:g711; enable: true|false}
-     */
     public static List<CodecVo> getCodecRemoteList() throws IOException_Exception, ParserConfigurationException_Exception, SAXException_Exception {
         CodecVoList codecVoList = getcodecs();
         return codecVoList.getCodecList();

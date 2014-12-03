@@ -199,10 +199,12 @@
     <Component class="javax.swing.JComboBox" name="timelengthjComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
+          <StringArray count="5">
             <StringItem index="0" value="15"/>
             <StringItem index="1" value="30"/>
             <StringItem index="2" value="60"/>
+            <StringItem index="3" value="300"/>
+            <StringItem index="4" value="600"/>
           </StringArray>
         </Property>
       </Properties>

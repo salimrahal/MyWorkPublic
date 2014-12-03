@@ -23,12 +23,7 @@ import java.net.UnknownHostException;
  * @author salim
  */
 public class ClTcp {
-    /*
-     - get the parameters from the UI: portSig, portlat, porttrf, codec, timelength, customer name
-     - connect to the TCP server thru portSig
-     - send the params to the server:  portlat, porttrf, codec, timelength, customer name, testUuid
-     - rcv a confirmation message ACK to start the test and sending packets
-     */
+   
 
     String portSig, portlat, porttrf;
     Socket socketSig = null;
@@ -56,7 +51,7 @@ public class ClTcp {
             out = new PrintWriter(socketL.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                     socketL.getInputStream()));
-            //System.out.println("sendLattoServer:Req Type:" + lat_key + " Process Request: connected.");
+           
             success = sendTrfReq(in, out, portL, lat_key);
         } catch (UnknownHostException e) {
             outmsg = "sendLattoServer: sendStream: Don't know about host: " + svip;
@@ -68,7 +63,7 @@ public class ClTcp {
 
             setresultmessageTcp(outmsg);
         } catch (IOException iOException) {
-            //handling network unreachable
+      
             outmsg = iOException.getLocalizedMessage();
             //"processRequests: Couldn't get I/O for "
             //+ "the connection to: " + serverHostname + "/" + iOException.getLocalizedMessage();
@@ -244,11 +239,7 @@ public class ClTcp {
         }
         return ack;
     }
-    /*
-     send param to the server and receive an ACK
-     returns true is an ACK is received
-    todo: sendParam will return ServerReply Object: ACK, BUSY+:+testLength
-     */
+
 
     public boolean sendParam(BufferedReader in, PrintWriter out, String codec, String timelength, String custname, String tstid, String portlat, String porttrfU, String porttrfD) throws Exception {
         boolean ack = false;
@@ -261,11 +252,7 @@ public class ClTcp {
         StringBuilder strbuilder = new StringBuilder();
         boolean firstLine = true;
         while ((submsgToSend = msgbr.readLine()) != null) {
-            //write to the server
             out.println(submsgToSend);
-            //recieve from the server,
-            //in some case it will freeze here nothing is received, so a timeout will be triggered
-            //System.out.println("sendParamToServer:sendparam(): waiting for inputs..");
             msgRecv = in.readLine();
             //System.out.println("sendParamToServer readLine: " + msgRecv);
             if (firstLine) {

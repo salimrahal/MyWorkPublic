@@ -8,7 +8,6 @@ package sipserver.trf;
 /**
  *
  * @author salim
- * http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html
  */
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -49,13 +48,7 @@ class PacketControl {
                 System.out.println("beep");
             }
         };
-        /*
-         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-         command - the task to execute
-         initialDelay - the time to delay first execution
-         period - the period between successive executions
-         unit - the time unit of the initialDelay and period parameters
-         */
+       
         final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
@@ -69,20 +62,13 @@ class PacketControl {
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndr = new Sndr(codec);
-        /*
-         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-         command - the task to execute
-         initialDelay - the time to delay first execution
-         period - the period between successive executions
-         unit - the time unit of the initialDelay and period parameters
-         */
+       
         final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndr, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {
                 boolean res = sndrHandle.cancel(true);
                 System.out.println("sending is finished / cancled= " + res + "--- total packet sent =" + count);
                 try {
-                    //realese Ports
                     System.out.println("PacketControl:sndPktForAnGivenTime: releasing porttrf Out " + portTrf + " result:" + trfdao.updateOnePortStatus(portTrf, "f"));
                 } catch (Exception ex) {
                     Logger.getLogger(PacketControl.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,17 +114,5 @@ class PacketControl {
     };
 
     public static void main(String[] args) {
-        /*
-         total sent = pps * timelength
-         example: 50pps * 1 sec = 50 pkt
-         50pps * 15 = 750 pkt : tested
-         50pps * 120 = 6000 pkt: tested
-         500pps
-         */
-        //PacketControl bc = new PacketControl();
-        //bc.beepForAnHour();
-//        int timelength = 15;//sec
-//        int periodbtwPkt = 12;//ms
-//        bc.sndPktForAnGivenTime(12, timelength);
     }
 }

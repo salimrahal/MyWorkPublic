@@ -17,7 +17,7 @@ import sipserver.trf.bean.Param;
 
 /**
  *
- * @author salim ServerTcp : Sig TCP Server
+ * @author salim
  */
 public class SigProcessor implements Runnable {
 
@@ -26,10 +26,8 @@ public class SigProcessor implements Runnable {
     InetAddress address;
     TrfBo trbo;
     String testIdPrevious = null;
-    //Remote server 1 CPU::: Sip ServerTcp: listening on port 5060 / poolsize=20
-    //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
+  
 
-    //insert the constructor
     public SigProcessor(String localIp, Integer port) {
         try {
             trbo = new TrfBo();
@@ -54,9 +52,7 @@ public class SigProcessor implements Runnable {
             System.out.println("Traffic UDPServer: waiting to receive packets");
             //communication loop
             while (true) {
-                //create udp packet
                 DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
-                // receive request
                 socket.receive(incomingPacket);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
@@ -77,7 +73,7 @@ public class SigProcessor implements Runnable {
                        //     System.out.println("Traffic UDPServer: [" + new Date() + "]\n a new test id is received="+param.getTstid());
                             //create the thread(Runnable) that sends the message                  
                             ClientSignUdpConnection clientConn = new ClientSignUdpConnection(socket, recvMsg, addressInco, portInco, i);
-                            //and this task to a pool, so clientConnection thread will be started
+                           
                             poolservice.execute(clientConn);
                             i++;
                        // }

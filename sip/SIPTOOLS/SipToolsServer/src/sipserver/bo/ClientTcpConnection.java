@@ -54,7 +54,7 @@ public class ClientTcpConnection implements Runnable {
             boolean firstLine = true;
             while ((inputLine = in.readLine()) != null) {
                   System.out.println("Sip ServerTcp::firstLine" + inputLine);
-                // if the first line contains OPTIONS then break and dont re-send the message
+                
                 if (firstLine) {
                     if (inputLine.contains(optionKey)) {
                         recognizedClient = false;
@@ -63,16 +63,7 @@ public class ClientTcpConnection implements Runnable {
                     }
                     firstLine = false;
                 }
-                //CLIENT_CALLID_HEADER Disregarded :check for the call ID whether recognized or not: disregard all unknown invite and register
-//                if (inputLine.contains(AlgEchoServer.CLIENT_CALLID_HEADER)) {
-//                    if (!inputLine.contains(AlgEchoServer.CLIENT_RECOGNIZED_CALLID_PREFIX)) {
-//                        recognizedClient = false;
-//                        System.out.println("Sip ServerTcp: Unrecognized Client, break:" + inputLine);
-//                        break;
-//                    }
-//                }
-                //if recognized client send back the message
-                    //System.out.println("Sip ServerTcp: send back:" + inputLine);
+              
                     out.println(inputLine);
                 i++;
             }//end of while     

@@ -27,11 +27,7 @@ import vp.vo.CdcVo;
 import vp.vo.LatVo;
 import vp.vo.PktVo;
 
-/**
- *
- * @author salim 1- Compute latency Down: send n packets, receives n packet,
- * computes lat and jitter down 2- echo back n packet to server
- */
+
 public class LatRunnable implements Runnable {
 
     private int clientID;
@@ -102,13 +98,7 @@ public class LatRunnable implements Runnable {
         }
         return latvoDown;
     }
-    /* it excuted the below task sequetially
-     a- Send 
-     b- Listen
-     c- Send
-     d- compute latency/jitter
-     */
-
+   
     private synchronized LatVo processLatDown() throws IOException, InterruptedException {
         String codec = param.getCodec();
         LatVo latvoDown = null;
@@ -146,7 +136,7 @@ public class LatRunnable implements Runnable {
                 pktObj.setTimeArrival(timeArr);
                 long rtt = timeArr - pktObj.getTimeSent();
                 pktObj.setRtt(rtt);
-                //update the map
+               
                 pktMap.put(count, pktObj);
                 //System.out.println("LatRunnable:handleLat: a-b(send-listen):received pktnum" + count);
                 count++;
@@ -268,7 +258,7 @@ public class LatRunnable implements Runnable {
         }
     };
 
-//codec + 2 sec
+
     public boolean sndPktForAnGivenTime(String codec, int echantillonTimeLength) {
 
         boolean res = false;
@@ -278,13 +268,6 @@ public class LatRunnable implements Runnable {
         int pps = CdcVo.returnPPSbyCodec(codec);
         int periodbetweenPkt = CdcVo.computePeriodBetweenPkt(pps);
         final Runnable sndrRunnable = new SndrRunnable(codec);
-        /*
-         public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-         command - the task to execute
-         initialDelay - the time to delay first execution
-         period - the period between successive executions
-         unit - the time unit of the initialDelay and period parameters
-         */
         final ScheduledFuture<?> sndrHandle = scheduler.scheduleAtFixedRate(sndrRunnable, 0, periodbetweenPkt, MILLISECONDS);
         scheduler.schedule(new Runnable() {
             public void run() {

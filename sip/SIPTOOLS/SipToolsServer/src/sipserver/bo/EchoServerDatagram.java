@@ -25,7 +25,6 @@ public class EchoServerDatagram implements Runnable{
     InetAddress address;
     String registerKey = "REGISTER";
     String inviteKey = "INVITE";
-    //// poolsize=30; unsused
     Integer poolsize = 30 * Runtime.getRuntime().availableProcessors();
 
 
@@ -49,39 +48,33 @@ public class EchoServerDatagram implements Runnable{
         String subStr;
         ExecutorService poolservice = Executors.newCachedThreadPool();
         System.out.println("Sip DatagramServer(UDP Server) starts..");
-        //buffer to receive incoming data
         byte[] buf = new byte[1024];//65536
         try {
 
             System.out.println("Sip DatagramServer: waiting to receive packets");
-            //communication loop
             while (true) {
-                //create udp packet
+
                 DatagramPacket incomingPacket = new DatagramPacket(buf, buf.length);
                 // receive request
                 socket.receive(incomingPacket);
                 //DatagramPacket incomingPacketTmp = incomingPacket;
                 String recvMsg = new String(incomingPacket.getData(), 0, incomingPacket.getLength());
                 System.out.println("["+new Date()+"]\n received packet clientID:" + i + "\n" + recvMsg);
-                //check the message type to ensure it's: register or invite, drop the sip spam
-                subStr = recvMsg.substring(0, 8);//check the first line or method type
-                    
-                //only echo the register and invite message
+                subStr = recvMsg.substring(0, 8);
                 if (subStr.contains(registerKey)||subStr.contains(inviteKey)) {
-                    // send the response to the client at "address" and "port"
                     InetAddress addressInco = incomingPacket.getAddress();
                     int portInco = incomingPacket.getPort();
                     
-                    //create the thread(Runnable) that sends the message                  
+              
                     ClientDatagramConnection clientConn = new ClientDatagramConnection(socket, recvMsg, addressInco, portInco, i);
-                    //and this task to a pool, so clientConnection thread will be started
+
                     poolservice.execute(clientConn);
                     i++;
                 } else {
                     System.out.println("Sip DatagramServer:unknown client, disregard the packet");
                 }
 
-            }//end of while
+            }
         }//end try
         catch (IOException e) {
             System.out.println("Error:" + e.getLocalizedMessage());

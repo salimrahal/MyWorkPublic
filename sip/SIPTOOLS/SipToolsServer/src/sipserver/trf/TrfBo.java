@@ -136,11 +136,7 @@ public class TrfBo {
         }
         return list;
     }
-
-    /*
-     a- it splits the params
-     b- save them to param singleton bean
-     */
+   
     public Param savingParamsTobean(String paramquery, String clientIp) {
         Param param = new Param();
         //traffic TCPServer:receiving:tstid=8c0514f3-621e-493d-9a71-c1b836c95dab;codec=SILK;

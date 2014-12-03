@@ -18,7 +18,7 @@ import sipserver.trf.bean.Param;
 
 /**
  *
- * @author salim TrfProcessorIn : processing the In traffic
+ * @author salim 
  */
 public class TrfProcessorOut {
 
@@ -27,7 +27,7 @@ public class TrfProcessorOut {
     Integer port;
 
     public TrfProcessorOut(DatagramSocket dgmsocketOut, Integer portOut, String trfkey) {
-        //serverSocket = new ServerSocket(port);
+      
         this.dgmsocketOut = dgmsocketOut;
         this.port = portOut;
         this.trfkey = trfkey;
@@ -49,7 +49,7 @@ public class TrfProcessorOut {
             System.out.println("TrfProcessorOut: keyreceived=" + keyreceived);
             if (keyreceived.contains(trfkey)) {
                 System.out.println("TrfProcessorOut:receiving: Accepted, sending back  "+ TrfBo.AcknumTrfOut +": " + TrfBo.ACK_TRFOUT + ".Starting the trafficOut test");
-                //send two ACK to ensure receiving the ACK
+                
                 addressInco = incomingPacket.getAddress();
                 int portInco = incomingPacket.getPort();
                 outgoingPacket = new DatagramPacket(bufOut, bufOut.length, addressInco, portInco);
@@ -57,7 +57,7 @@ public class TrfProcessorOut {
                    dgmsocketOut.send(outgoingPacket);
                 }
                 try {
-                    // launch the traffIn thread
+                   
                     launchTrafficOut(dgmsocketOut, param, addressInco);
                 } catch (UnknownHostException | InterruptedException ex) {
                     Logger.getLogger(LatProcessor.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,14 +73,8 @@ public class TrfProcessorOut {
         }
     }//end of process request of IN
 
-    /*
-     launchTrafficPktLoss():
-     launch the listening Dgms socket which listen on portTrf
-     start receiving paquets and computes paquet loss
-     sending paquets
-     */
+    
     public void launchTrafficOut(DatagramSocket dgmsocketOut, Param param, InetAddress inetaddressDest) throws UnknownHostException, IOException, InterruptedException {
-//run the thread that sends the traffic
         int portsrcOutChannel = Integer.valueOf(param.getPortrfClientD());
         int portdestOutChannel = Integer.valueOf(param.getPortrfClientD());
         TrfDgmRunnableOut trfDgmRunnableOut = new TrfDgmRunnableOut(dgmsocketOut, param, inetaddressDest, portsrcOutChannel, portdestOutChannel);

@@ -17,13 +17,7 @@ import java.util.logging.Logger;
 import vp.bo.VpMethds;
 import vp.vo.CdcVo;
 
-/**
- *
- * @author salim handling traffic a- responsible for receiving and counting the
- * packet lost b- save the result into the DB: client name, clientpublicIP,
- * uppacketLost, starttime c- release the used for: update Ports table and set
- * the used port to free
- */
+
 public class TrfDgmRunnableU implements Runnable {
 
     private int clientID;
@@ -63,10 +57,7 @@ public class TrfDgmRunnableU implements Runnable {
     private synchronized void handleClienttrafficV2() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-        /* 1- receive the flag packet from the client
-         2- extract the addressInco and portInco
-         3- pass them to the sendpacket function
-         */
+
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
         //System.out.println("TrfDgmRunnableU:handleClienttraffic:: sources address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
@@ -101,10 +92,7 @@ public class TrfDgmRunnableU implements Runnable {
     private synchronized void handleClienttraffic() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());
-        /* 1- receive the flag packet from the client
-         2- extract the addressInco and portInco
-         3- pass them to the sendpacket function
-         */
+        
         byte[] buf = new byte[8];
         DatagramPacket incomingPacketLocal = new DatagramPacket(buf, buf.length);
         //System.out.println("TrfDgmRunnableU:handleClienttraffic:: waiting for flag Pkt...listening on address=" + dgmsocket.getLocalAddress().getHostAddress() + ";port=" + dgmsocket.getLocalPort());
@@ -113,7 +101,6 @@ public class TrfDgmRunnableU implements Runnable {
         long tEnd;
         long tDelta;
         try {
-            //todo decrease the time out
             dgmsocket.setSoTimeout(TrfBo.P_MX_D);
             tStart = System.currentTimeMillis();
             dgmsocket.receive(incomingPacketLocal);
@@ -143,15 +130,7 @@ public class TrfDgmRunnableU implements Runnable {
         }
     }
 
-    /**
-     * It just send the packets through a thread
-     *
-     * @param codec
-     * @param timelength
-     * @return
-     * @throws IOException
-     * @throws InterruptedException
-     */
+
     public boolean sendingPkts(String codec, int timelength) throws IOException, InterruptedException {
         boolean res = false;
         PacketControl bc = new PacketControl(dgmsocket, addressDest, portDest);

@@ -28,8 +28,7 @@ import sipserver.trf.vp.vo.PktVo;
 
 /**
  *
- * @author salim 1- echo back n packet to client 2- Compute latency Up: send n
- * packets, receives n packet, computes lat and jitter Up
+ * @author salim
  *
  */
 public class LatRunnable implements Runnable {
@@ -41,10 +40,7 @@ public class LatRunnable implements Runnable {
     Integer portDest;
     Param param;
     TrfDao trfdao;
-    /*this is the number of packet to send for latency test, and it's test on low and high speed internet connections:
-    - on high speed 51 mbps down/11 mbps: the other side receives 1000 - 1500 ~packets
-    - on low speed 0.x mbps up and|or down:  the other side may receive 20 - 300 ~ packets
-    */
+    
     static final int packetNumToSend = 2000;
 
     public LatRunnable(DatagramSocket dgmsocket, Param param, InetAddress addressDest, int portsrc, int portDest, int clientID) throws IOException {
@@ -62,14 +58,13 @@ public class LatRunnable implements Runnable {
     public void run() {
         try {
             LatVo latvoUp = handlelat();
-            //releasing the port is done in clientTCPconnection
-            //trfdao.updateOnePortStatus(portsrc, "f");
+            
             if (latvoUp == null) {
                 latvoUp = new LatVo(-1, -1);
                 JtrVo jitterO = new JtrVo(-1, -1);
                 latvoUp.setJitterObj(jitterO);
             }
-            //update the DB with Lat and jitter results
+           
             trfdao.updateLatJitUp(param.getTstid(), latvoUp, latvoUp.getJitterObj());
         } catch (InterruptedException ex) {
             Logger.getLogger(LatRunnable.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,12 +92,7 @@ public class LatRunnable implements Runnable {
         }
         return latvoDown;
     }
-    /* it excuted the below task sequetially 
-     a- Listen
-     b- Echo
-     c- Listen   
-     d- compute latency/jitter - Upload
-     */
+   
 
     private synchronized LatVo processLatUp() throws IOException, InterruptedException, Exception {
         String codec = param.getCodec();
@@ -140,18 +130,16 @@ public class LatRunnable implements Runnable {
                     pktObj.setRtt(rtt);
                     //add Pkt to the map
                     pktMap.put(countpktRcv, pktObj);
-                    //System.out.println("phase c(listen) received pktnum" + countLoop);
-                    //System.out.println("LatRunnable:handleLat:phase c(listen): Pkt:" + pktObj.toString());
                     countpktRcv++;
                 } else {
                     System.out.println("[" + new Date() + "] processLatUp :phase b(listen) WARNING! the pkt with id=" + countpktRcv + " doesnt exists in the Pkt Map, some pkt are lost. breaking the listeing loop.");
                     morepacketToRecv = false;
                 }
-                //check the elapsed time whether is greate than test time length then break the test
+              
                 long tEndLoopS = System.nanoTime();
                 long tDeltaLoopS = tEndLoopS - tStartLoopS;
                 elapsedSecondsLoopS = tDeltaLoopS / 1000000000.0;
-                //if the elapsed time exceed test time length plus the delay sum of packets 2sec then finish the test
+                
                 if (elapsedSecondsLoopS >= listeningWindows) {
                     System.out.println("[" + new Date() + "] LatRunnable::processLatUp: phase b(listen): finish send/receive, elapsed time:" + elapsedSecondsLoopS + " exceeded test time::" + listeningWindows + ". finish the listening.");
                     morepacketToRecv = false;
@@ -166,12 +154,12 @@ public class LatRunnable implements Runnable {
         } catch (IOException ex) {
             Logger.getLogger(TrfDgmRunnableOut.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            //compute the lat up
+           
             List<PktVo> pktL = TrfBo.hashtoList(pktMap);
-            //clean the list where the rtt = 0, packet not received
+            
             pktL = VpMethds.cll(pktL);
             latvoUp = VpMethds.computeLatJitV2(pktL);
-            //concer to ms the results
+           
             VpMethds.cvLat(latvoUp);
             if (latvoUp == null) {
                 System.out.println("[" + new Date() + "] LatRunnable:processLatUp:Result:latency is null!");
@@ -187,8 +175,7 @@ public class LatRunnable implements Runnable {
         String codec = param.getCodec();
         int timelength = Integer.valueOf(param.getTimelength());;
         int listeningWindows = TrfBo.LAT_T;//sec
-        //listeningWindows = 2+1; // time frame for receiving packets + app time
-//still true while receiving packets
+      
         boolean morepacketToProcess = true;
         byte[] buf;
         int countEchoed = 1;
@@ -209,11 +196,11 @@ public class LatRunnable implements Runnable {
         int initial_delay = 2;//init delay debore start the process, this is the time receive the request from the client
         try {
             dgmsocket.setSoTimeout((listeningWindows + initial_delay) * 1000);
-            // dgmsocket.setSoTimeout(TrfBo.U_T); time out very soon
+           
             tStart = System.nanoTime();
             do {
                 dgmsocket.receive(incomingPacket);
-                //Echo it back to the server
+                
                 dgmsocket.send(outgoingPacket);
                 //System.out.println("LatRunnable:handleLat:phase a-b(listen-echo) received and resent pktnum" + countLoop1);
                 countEchoed++;

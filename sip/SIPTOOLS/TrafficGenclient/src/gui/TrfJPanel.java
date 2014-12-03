@@ -119,7 +119,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jLabel2.setText("Time for the test (secs):");
 
-        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60" }));
+        timelengthjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15", "30", "60", "300", "600" }));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("VoIP test statistics");
@@ -313,18 +313,14 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
 
 
-        /*
-         * Executed in event dispatching thread
-         When the background task is complete, the task's done method resets the progress bar:
-         */
+       
         @Override
         public void done() {
-            //System.out.println("Swing worker :: task is Done............");
+           
             Toolkit.getDefaultToolkit().beep();
             runTestButton.setEnabled(true);
             reset.setEnabled(true);
-            setCursor(null); //turn off the wait cursor
-            //taskOutput.append("Done!\n");
+            setCursor(null);
         }
     }//end of swing worker task Class
 

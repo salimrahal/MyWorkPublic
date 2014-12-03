@@ -14,16 +14,13 @@ import java.util.concurrent.Executors;
 
 /**
  *
- * @author salim ServerTcp : Echo TCP Server
+ * @author salim 
  */
 public class EchoServerTcp implements Runnable {
 
     ServerSocket serverSocket = null;
     InetAddress address;
-    //Remote server 1 CPU::: Sip ServerTcp: listening on port 5060 / poolsize=20
-    //Integer poolsize = 20 * Runtime.getRuntime().availableProcessors();// 
-
-    //insert the constructor
+  
     public EchoServerTcp(Integer port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -37,19 +34,15 @@ public class EchoServerTcp implements Runnable {
     public void processrequests() throws IOException {
         int i = 0;// when it attemps 90 the client cannot sende / receive data to the server: DEAD Lock
         boolean processrequets = true;
-        //ExecutorService poolservice = Executors.newFixedThreadPool(poolsize);
+      
         ExecutorService poolservice = Executors.newCachedThreadPool();
         System.out.println("Sip ServerTcp starts..\n waiting for connections");
         while (processrequets) {
             try {
-                // a "blocking" call which waits until a connection is requested
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Sip ServerTcp: Connection successful\n creating new thread for the clientId=" + i);
-                //create the thread(Runnable) that echo the receievd message, it should disregard the "OPTIONS" spam
+                System.out.println("Sip ServerTcp: Connection successful\n creating new thread for the clientId=" + i);          
                 ClientTcpConnection clientcpConn = new ClientTcpConnection(clientSocket, i);
-                //and this task to a pool, so clientConnection thread will be started
-                poolservice.execute(clientcpConn);
-                //sendbackStream(clientSocket, i);    
+                poolservice.execute(clientcpConn);  
                 i++;
             } catch (IOException e) {
                 System.err.println("Sip ServerTcp: Accept failed.");

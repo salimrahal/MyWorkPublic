@@ -9,11 +9,10 @@ package sipserver.trf.bean;
 /**
  *
  * @author salim
- * handles parameters from the client
+ * 
  */
 public class Param {
-    //traffic TCPServer:receiving:tstid=8c0514f3-621e-493d-9a71-c1b836c95dab;codec=SILK;
-    //timelength=120;custname=custnamefromAppletclass;portlat=5095;porttrf=5108
+   
 
     private String timelength;// in sec
     private String tstid;
