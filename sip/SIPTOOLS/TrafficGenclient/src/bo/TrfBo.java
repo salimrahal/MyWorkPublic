@@ -245,4 +245,21 @@ public class TrfBo {
         hrefjlabel.setText(labelText);
         hrefjlabel.setBackground(Color.BLUE);
     }
+    
+    public String dvdby2(String n){
+         int timelength = Integer.valueOf(n);
+         double resDbl = Math.ceil(timelength/2);
+         int res = (int) resDbl;
+         return String.valueOf(res);
+    }
+    
+    public static void main(String args[]){
+        TrfBo bo = new TrfBo();
+        System.out.println(bo.dvdby2("15"));
+         System.out.println(bo.dvdby2("30"));
+          System.out.println(bo.dvdby2("60"));
+           System.out.println(bo.dvdby2("300"));
+            System.out.println(bo.dvdby2("600"));
+        
+    }
 }

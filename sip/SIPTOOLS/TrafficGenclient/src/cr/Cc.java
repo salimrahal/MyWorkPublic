@@ -52,7 +52,7 @@ public class Cc {
         executor = Executors.newCachedThreadPool();
     }
 
-    public ResVo launchtest(String codecparam, String timeLengthParam, String custnmparam, JProgressBar jprobar) throws IOException, Exception {
+    public ResVo launchtest(String codecparam, String timeLengthParamtotal, String custnmparam, JProgressBar jprobar) throws IOException, Exception {
         String resmsg = TrfBo.M_CN;
         ResVo resvo = null;//= new ResVo();
         try {
@@ -67,7 +67,7 @@ public class Cc {
 //                String porttrfU = portlat;
 //                String porttrfD = portlat;
                 String portSig = miscPortObj.getPrtSigNum();
-                System.out.println("launchtest: timeLength="+timeLengthParam);
+                System.out.println("launchtest: timeLength="+timeLengthParamtotal);
                 System.out.println("launchtest: ws miscPortObj= prtSig=" + portSig + ";porttrfU/d=" + porttrfU + "/" + porttrfD + "/prtlat=" + portlat);
                 if (portlat.equalsIgnoreCase("null") || porttrfU.equalsIgnoreCase("null") || porttrfD.equalsIgnoreCase("null")) {
                     trfBo.setresultmessage(resultmsgjlabel, bo.TrfBo.M_PRT_B);
@@ -85,6 +85,7 @@ public class Cc {
                     //3- send parameters
                     //cltcp = new ClTcp(portSig, porttrfU, porttrfD, portlat);
                     cludp = new ClUdp(inetAddrDest, portSig);
+                    String timeLengthParam = trfBo.dvdby2(timeLengthParamtotal);
                     boolean success = cludp.sendParamToServer(portlat, porttrfU, porttrfD, codecparam, timeLengthParam, custnmparam, srip, testUuid);
                     //todo: retrieve the ServerReply, it the result is busy for 60 sec the retry after 60 sec
                     if (success) {
