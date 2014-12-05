@@ -232,4 +232,11 @@ public class TrfBo {
         hrefjlabel.setText(labelText);
         hrefjlabel.setBackground(Color.BLUE);
     }
+        
+    public String dvdby2(String n){
+         int timelength = Integer.valueOf(n);
+         double resDbl = Math.ceil(timelength/2);
+         int res = (int) resDbl;
+         return String.valueOf(res);
+    }
 }
