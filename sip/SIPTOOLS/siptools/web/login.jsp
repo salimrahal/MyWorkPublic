@@ -21,11 +21,11 @@
            <form action="j_security_check" method=post>
                 <table align="center">
                     <tr>
-                        <td>Nom utilisateur:</td>
+                        <td>User Name:</td>
                         <td><input type="text" name="j_username"></td>
                     </tr>
                     <tr>
-                        <td>Mot de passe:</td>
+                        <td>Password:</td>
                         <td><input type="password" name="j_password"></td>
                     </tr>
                 </table>

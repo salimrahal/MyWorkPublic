@@ -31,7 +31,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
      * Creates new form AlgJPanel
      */
     private static Cc cc;
-    public String custnm;
+    public String custnmParam;
 
     public static Cc getCc() {
         return cc;
@@ -46,13 +46,15 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     }
 
     public String getCustnm() {
-        return custnm;
+        return custnmParam;
     }
 
     public void setCustnm(String custnm) {
-        this.custnm = custnm;
+        this.custnmParam = custnm;
         //todo set custname to the label customer name
-        jTextFieldCustomer.setText("hiiiii");
+        if (custnm != null && !custnm.isEmpty()) {
+            jTextFieldCustomer.setText(custnm);
+        }
     }
 
     /**
@@ -201,7 +203,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTabbedPane1Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
@@ -217,7 +219,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane2Reg, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1Reg))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test A", jPanel1);
@@ -262,7 +264,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,7 +280,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test B", jPanel2);
@@ -337,7 +339,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test C", jPanel3);
@@ -380,7 +382,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jRadioButton4)
@@ -397,7 +399,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                         .addComponent(jRadioButton4)
                         .addGap(18, 18, 18)
                         .addComponent(jTabbedPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Test D", jPanel4);
@@ -418,7 +420,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jPanel6ALHHelpLayout.setHorizontalGroup(
             jPanel6ALHHelpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6ALHHelpLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1035, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6ALHHelpLayout.setVerticalGroup(
@@ -456,32 +458,33 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jProgressBar1.setStringPainted(true);
 
-        jLabel1.setText("Customer name:");
+        jLabel1.setText("Customer or company name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(runALGButton)
-                        .addGap(95, 95, 95)
-                        .addComponent(reset)
-                        .addGap(84, 84, 84))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldCustomer))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel26)
-                        .addGap(140, 140, 140)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(140, 140, 140))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(runALGButton)
+                                .addGap(95, 95, 95)
+                                .addComponent(reset)
+                                .addGap(84, 84, 84)))))
                 .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -500,10 +503,10 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
                                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1))
@@ -514,15 +517,20 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private void runALGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runALGButtonActionPerformed
 
-        runALGButton.setEnabled(false);
-        reset.setEnabled(false);
+        String custNameFromForm = jTextFieldCustomer.getText();
+        if (!custNameFromForm.isEmpty()) {
+            custnmParam = custNameFromForm;
+            runALGButton.setEnabled(false);
+            reset.setEnabled(false);
 
-        tk = new TL();
-        tk.addPropertyChangeListener(this);
-        tk.execute();
-        //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
-        jProgressBar1.setValue(0);
-
+            tk = new TL();
+            tk.addPropertyChangeListener(this);
+            tk.execute();
+            //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
+            jProgressBar1.setValue(0);
+        } else {
+            JOptionPane.showMessageDialog(this, "Enter Customer or Company name");
+        }
     }//GEN-LAST:event_runALGButtonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
@@ -687,7 +695,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
 
         try {
-            cc.preprreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, custnm);
+            cc.preprreq(comb, sentmsgReg, recvjtextregister, sentmsgInv, recvjtextinvite, custnmParam);
 
         } catch (IOException ex) {
             Logger.getLogger(AlgJPanel.class.getName()).log(Level.SEVERE, null, ex);

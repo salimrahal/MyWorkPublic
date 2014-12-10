@@ -15,11 +15,11 @@
     <body>
         <div id="index-content">
             <%
-                out.println("Merci " + request.getRemoteUser() + " à bientôt");
+                out.println("Thank you " + request.getRemoteUser() + ".");
                 session.invalidate();
             %>
             <center>
-                Vous êtes déconnecté avec succès.
+                Successfully disconnected.
                 <!--<a href="login.jsp">login</a>-->
                 <a href="<%=request.getContextPath()%>">Home page</a>
             </center>

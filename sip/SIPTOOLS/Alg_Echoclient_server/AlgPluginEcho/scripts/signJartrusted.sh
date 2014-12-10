@@ -1,0 +1,1 @@
+jarsigner -verbose -keystore /home/salim/codesignstore -storepass mystorepass -keypass mykeypass /home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/dist/AlgPluginEcho.jar codesigncert

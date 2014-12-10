@@ -46,20 +46,23 @@
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                         results = regex.exec(location.search);
-                return results === null ? "----" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             }
             var custnm = getParameterByName('cust');
-//this solution is not good, once the user is redirected to home page then is click back the alg page displayed witout any alert to put his name
-            window.onload = function() {
-                alert("Customer name Empty! redirect to home page");
-                if (custnm === "----") {
-                    setTimeout(function() {
-                        window.location = "http://siptools.nexogy.com:8082/siptools";
-                    }, 1000);
-                } else {
-                    alert("dont redirect to home page");
-                }
-            };
+            /**
+             * 
+             * this solution is not good, once the user is redirected to home page then is click back the alg page displayed witout any alert to put his name
+             window.onload = function() {
+             alert("Customer name Empty! redirect to home page");
+             if (custnm === "----") {
+             setTimeout(function() {
+             window.location = "http://siptools.nexogy.com:8082/siptools";
+             }, 1000);
+             } else {
+             alert("dont redirect to home page");
+             }
+             };
+             */
         </script>
     </head>
     <body>
@@ -67,7 +70,6 @@
         <div>        
             <p align="center"> <img src="nexogy.gif" width="150" height="20" alt="nexogy"/></p> 
             <div align="center">  
-                <label>Customer name:&nbsp;</label>   <label id="custNamelabel"></label>
                 <script src="http://www.java.com/js/deployJava.js"></script>
                 <script type="text/javascript">
             var attributes = {code: 'algApplet.MainJapplet.class',
