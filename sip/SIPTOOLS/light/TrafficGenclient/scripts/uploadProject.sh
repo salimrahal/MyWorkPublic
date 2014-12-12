@@ -1,0 +1,1 @@
+scp /home/salim/Development/MyWorkPublic/sip/SIPTOOLS/AlgPluginV2/dist/dist.zip  root@server.safirasoft.com:/home/salim/public_html/siptools/
