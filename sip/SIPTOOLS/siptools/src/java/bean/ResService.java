@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bean;
 
 import dao.ResDao;
@@ -21,23 +20,26 @@ import javax.faces.bean.ManagedBean;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author salim
  */
 @ManagedBean(name = "resService")
 @ApplicationScoped
-public class ResService implements Serializable{
+public class ResService implements Serializable {
+
     ResDao resdao;
+
     public ResService() {
-       resdao = new ResDao();
+        resdao = new ResDao();
     }
 
-   public List<ResVo> retrieveResults() throws Exception{
-       return resdao.retrieveResList();
-   }
-   
-}
+    public List<ResAlgVo> retrieveAlgResults() throws Exception {
+        return resdao.retrieveAlgResList();
+    }
 
+    public List<ResTrfVo> retrieveTrfResults() throws Exception {
+        return resdao.retrieveTrfResList();
+    }
+
+}

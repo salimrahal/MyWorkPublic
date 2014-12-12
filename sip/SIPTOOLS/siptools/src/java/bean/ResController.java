@@ -5,10 +5,9 @@
  */
 package bean;
 
-import bo.sipserverBO;
+import bo.SipToolsBO;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +17,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -30,11 +28,6 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ResController implements Serializable {
 
-    //managed bean injected
-    @ManagedProperty("#{resService}")
-    private ResService serviceRes;
-    List<ResVo> results;
-    List<ResVo> filteredresults;
     String customername;
     Date dateCurr;
     String ipPublic;
@@ -47,11 +40,6 @@ public class ResController implements Serializable {
 
     @PostConstruct
     public void init() {
-        try {
-            results = serviceRes.retrieveResults();
-        } catch (Exception ex) {
-            Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         try {
             ipPublic = bo.Networking.getmyPIP();
         } catch (IOException ex) {
@@ -105,40 +93,6 @@ public class ResController implements Serializable {
     public void setCustomername(String customername) {
         this.customername = customername;
     }
-
-    public ResService getServiceRes() {
-        return serviceRes;
-    }
-
-    public void setServiceRes(ResService serviceRes) {
-        this.serviceRes = serviceRes;
-    }
-
-    public List<ResVo> getResults() {
-        return results;
-    }
-
-    public void setResults(List<ResVo> results) {
-        this.results = results;
-    }
-
-    public String formatDate(Date date) {
-        String formattedDate = null;
-        if (date != null) {
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");//yyyy-MM-dd HH:mm:ss
-            formattedDate = sf.format(date);
-        }
-        return formattedDate;
-    }
-
-    public List<ResVo> getFilteredresults() {
-        return filteredresults;
-    }
-
-    public void setFilteredresults(List<ResVo> filteredresults) {
-        this.filteredresults = filteredresults;
-    }
-
     public Date getDateCurr() {
         return dateCurr;
     }

@@ -252,14 +252,23 @@ public class TrfBo {
          int res = (int) resDbl;
          return String.valueOf(res);
     }
+     public String multby2(String n) {
+        int timelength = Integer.valueOf(n);
+        double resDbl = Math.ceil(timelength * 2);
+        if (resDbl == 14) {
+            resDbl = resDbl + 1;
+        }
+        int res = (int) resDbl;
+        return String.valueOf(res);
+    }
     
     public static void main(String args[]){
         TrfBo bo = new TrfBo();
-        System.out.println(bo.dvdby2("15"));
-         System.out.println(bo.dvdby2("30"));
-          System.out.println(bo.dvdby2("60"));
-           System.out.println(bo.dvdby2("300"));
-            System.out.println(bo.dvdby2("600"));
+        System.out.println(bo.multby2("7"));
+         System.out.println(bo.multby2("15"));
+          System.out.println(bo.multby2("30"));
+           System.out.println(bo.multby2("150"));
+            System.out.println(bo.multby2("300"));
         
     }
 }

@@ -8,7 +8,6 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Nexogy</title>
     </h:head>
@@ -31,63 +30,89 @@
             </div>
             <!--      TODO:
             - real time bean
-            - tabview 
+            - Paginator 
             -->
             <p:tabView>
-                <p:tab title="ALG Detector Logs">
-                    
-                </p:tab>
-                <p:tab title="Traffic Generator Logs">
-                    <p:dataTable  id="table" value="#{resController.results}" var="res" filteredValue="#{resController.filteredresults}" >
+                <p:tab title="ALG Detector test results">
+                    <p:dataTable  id="tableAlg" value="#{algBean.resultsAlg}" var="resAlg" filteredValue="#{algBean.filteredresults}"
+                                  rows="10"
+                                  paginator="true"
+                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  rowsPerPageTemplate="5,10,15">
                         <f:facet name="header">
-                            Test results
+                            Alg test results
                         </f:facet>
                         <p:column headerText="Cunstomer Name" 
-                                  filterBy="#{res.cnme}"
+                                  filterBy="#{resAlg.cnme}"
                                   >
-                            <h:outputText value="#{res.cnme}" />
+                            <h:outputText value="#{resAlg.cnme}" />
                         </p:column>
                         <p:column headerText="Public IP"
-                                  filterBy="#{res.puip}"
-                                  >#{res.puip}</p:column>
-                        <p:column headerText="Start time">   
-                            <h:outputText value=" #{resController.formatDate(res.getsDate())}" /><!--todo: format the datew using format function in bean -->
+                                  filterBy="#{resAlg.puip}"
+                                  >#{resAlg.puip}</p:column>
+                        <p:column headerText="Start time"  filterBy="#{resAlg.getsDateview()}">   
+                            <h:outputText value=" #{resAlg.getsDateview()}" />
                         </p:column>
-                        <p:column headerText="End time">  
-                            <h:outputText value=" #{resController.formatDate(res.geteDate())}" />
+                        <p:column headerText="End time" filterBy="#{resAlg.geteDateView()}">  
+                            <h:outputText value=" #{resAlg.geteDateView()}" />
                         </p:column>
-                        <p:column headerText="Codec" filterBy="#{res.cdc}">#{res.cdc}</p:column>
-                        <p:column headerText="Test length">#{res.tlth}</p:column>
+                        <p:column headerText="Transport" filterBy="#{resAlg.transport}">#{resAlg.transport}</p:column>
+                        <p:column headerText="Port Src" filterBy="#{resAlg.prtsrc}">#{resAlg.prtsrc}</p:column>
+                        <p:column headerText="Port Dest" filterBy="#{resAlg.prtdest}">#{resAlg.prtdest}</p:column>
+                        <p:column headerText="Result" filterBy="#{resAlg.finalresult}">#{resAlg.finalresult}</p:column>
+                        <p:column headerText="Reason" filterBy="#{resAlg.reason}">#{resAlg.reason}</p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Traffic Generator test results">
+                    <p:dataTable  id="tabletrf" value="#{algBean.resultsTrf}" var="resTrf" filteredValue="#{algBean.filteredresultsTrf}" >
+                        <f:facet name="header">
+                            Traffic Generator test results
+                        </f:facet>
+                        <p:column headerText="Cunstomer Name" 
+                                  filterBy="#{resTrf.cnme}"
+                                  >
+                            <h:outputText value="#{resTrf.cnme}" />
+                        </p:column>
+                        <p:column headerText="Public IP"
+                                  filterBy="#{resTrf.puip}"
+                                  >#{resTrf.puip}</p:column>
+                        <p:column headerText="Start time" filterBy="#{resTrf.getsDateview()}">  
+                            <h:outputText value=" #{resTrf.getsDateview()}" /><!--todo: format the datew using format function in bean -->
+                        </p:column>
+                        <p:column headerText="End time" filterBy="#{resTrf.geteDateView()}">  
+                            <h:outputText value=" #{resTrf.geteDateView()}" />
+                        </p:column>
+                        <p:column headerText="Codec" filterBy="#{resTrf.cdc}">#{resTrf.cdc}</p:column>
+                        <p:column headerText="Test length">#{resTrf.tlth}</p:column>
 
-                        <p:column headerText="upload PacketLoss">
-                            <h:outputText value="#{res.uppkloss}" />
+                        <p:column headerText="Upload PacketLoss (%)">
+                            <h:outputText value="#{resTrf.uppkloss}" />&nbsp;%
                         </p:column>
-                        <p:column headerText="upload Latency Peak">
-                            <h:outputText value="#{res.uplatpeak}" />
+                        <p:column headerText="Upload Latency Peak/Avg (ms)">
+                            <h:outputText value="#{resTrf.uplatpeak}" />&nbsp;/&nbsp;
+                              <h:outputText value="#{resTrf.uplatav}" />(ms)
                         </p:column>
-                        <p:column headerText="upload Latency Avg">
-                            <h:outputText value="#{res.uplatav}" />
+                        <p:column headerText="Upload Jitter Peak/Avg (ms)">
+                            <h:outputText value="#{resTrf.upjtpeak}" />&nbsp;/&nbsp;
+                                <h:outputText value="#{resTrf.upjtav}" />(ms)
                         </p:column>
-                        <p:column headerText="upload Jitter Peak">
-                            <h:outputText value="#{res.upjtpeak}" />
+                        <p:column headerText="Download PacketLoss (%)">
+                            <h:outputText value="#{resTrf.dopkloss}" />&nbsp;%
                         </p:column>
-                        <p:column headerText="upload Jitter Avg">
-                            <h:outputText value="#{res.upjtav}" />
+                        <p:column headerText="Download Latency Peak/Avg (ms)">
+                            <h:outputText value="#{resTrf.dolatpeak}" />&nbsp;/&nbsp;
+                              <h:outputText value="#{resTrf.dolatav}" />(ms)
                         </p:column>
-                        <p:column headerText="Download PacketLoss">
-                            <h:outputText value="#{res.dopkloss}" />
+                       
+                        <p:column headerText="Download Jitter Peak/Avg (ms)">
+                            <h:outputText value="#{resTrf.dojtpeak}" />&nbsp;/&nbsp;
+                              <h:outputText value="#{resTrf.dojtav}" />(ms)
                         </p:column>
-                        <p:column headerText="Download Latency Peak">
-                            <h:outputText value="#{res.dolatpeak}" />
+                        <p:column headerText="Result">
+                            <h:outputText value="#{resTrf.finalresult}"/>
                         </p:column>
-                        <p:column headerText="Download Latency Avg">
-                            <h:outputText value="#{res.dolatav}" />
-                        </p:column>
-                        <p:column headerText="Download Jitter Peak">
-                            <h:outputText value="#{res.dojtpeak}" />
-                        </p:column>
-                        <p:column headerText="Download Jitter Avg">
-                            <h:outputText value="#{res.dojtav}" />
+                           <p:column headerText="Reason">
+                               <h:outputText value="#{resTrf.reason}" />
                         </p:column>
                     </p:dataTable>
                 </p:tab>

@@ -189,4 +189,28 @@ public class TrfBo {
         return port.getConfLoc();
     }
 
+    public String getTotalTlength(String n) {
+        return multby2(n);
+    }
+
+    /*
+     time length: 15, 30, 60, 300, 600
+     the time sent as param to the server is time length/2, all are multiple of 2 except 15 sec
+     15 sec is sent as 7 sec
+     7*2=14+1 = 15 sec
+     15*2 = 30
+     30*2 = 60
+     150*2 =300
+     300*2=600
+     */
+    public String multby2(String n) {
+        int timelength = Integer.valueOf(n);
+        double resDbl = Math.ceil(timelength * 2);
+        if (resDbl == 14) {
+            resDbl = resDbl + 1;
+        }
+        int res = (int) resDbl;
+        return String.valueOf(res);
+    }
+
 }

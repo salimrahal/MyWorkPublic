@@ -9,12 +9,11 @@
     -->
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <link href="#{request.contextPath}/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
         <title>Nexogy</title>
 
         <script type="text/javascript">
-            window.onload = function() {
+            window.onload = function () {
                 var script = document.createElement("script");
                 script.type = "text/javascript";
                 script.src = "http://jsonip.appspot.com/?callback=DisplayIP";

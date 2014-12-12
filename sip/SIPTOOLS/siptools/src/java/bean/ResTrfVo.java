@@ -5,26 +5,15 @@
  */
 package bean;
 
+import bo.SipToolsBO;
 import java.io.Serializable;
 import java.util.Date;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  *
- * @author salim `uid` varchar(36) DEFAULT NULL, `customerName` varchar(40)
- * DEFAULT NULL, `publicIp` varchar(16) DEFAULT NULL, `codec` varchar(8) DEFAULT
- * NULL, `testLength` smallint(5) DEFAULT NULL, `startTime` datetime DEFAULT
- * NULL, `endTime` datetime DEFAULT NULL, `uploadPacketLost` smallint(4) DEFAULT
- * NULL, `uploadLatencyPeak` smallint(4) DEFAULT NULL, `uploadLatencyAvg`
- * smallint(4) DEFAULT NULL, `uploadJitterPeak` smallint(4) DEFAULT NULL,
- * `uploadJitterAvg` smallint(4) DEFAULT NULL, `downloadPacketLost` smallint(4)
- * DEFAULT NULL, `downloadLatencyPeak` smallint(4) DEFAULT NULL,
- * `downloadLatencyAvg` smallint(4) DEFAULT NULL, `downloadJitterPeak`
- * smallint(4) DEFAULT NULL, `downloadJitterAvg` smallint(4) DEFAULT NULL,
- *
+ * @author salim
  */
-public class ResVo implements Serializable{
+public class ResTrfVo implements Serializable {
 
     String cnme;
     String puip;
@@ -32,6 +21,8 @@ public class ResVo implements Serializable{
     int tlth;
     Date sDate;
     Date eDate;
+    String sDateview;
+    String eDateView;
     float uppkloss;
     int uplatpeak;
     int uplatav;
@@ -42,12 +33,30 @@ public class ResVo implements Serializable{
     int dolatav;
     int dojtpeak;
     int dojtav;
+    String finalresult;
+    String reason;
 
-    public ResVo(String cnme, String puip, String cdc, int tlth) {
+    public ResTrfVo(String cnme, String puip, String cdc, int tlth) {
         this.cnme = cnme;
         this.puip = puip;
         this.cdc = cdc;
         this.tlth = tlth;
+    }
+
+    public String getsDateview() {
+        return sDateview;
+    }
+
+    public void setsDateview(String sDateview) {
+        this.sDateview = sDateview;
+    }
+
+    public String geteDateView() {
+        return eDateView;
+    }
+
+    public void seteDateView(String eDateView) {
+        this.eDateView = eDateView;
     }
 
     public String getCnme() {
@@ -178,11 +187,35 @@ public class ResVo implements Serializable{
         this.eDate = eDate;
     }
 
+    public String getFinalresult() {
+        if (SipToolsBO.isES(this)) {
+            finalresult = SipToolsBO.FINAL_RESULT_FAILED;
+        } else {
+            finalresult = SipToolsBO.FINAL_RESULT_PASSED;
+        }
+        return finalresult;
+    }
+
+    public void setFinalresult(String finalresult) {
+        this.finalresult = finalresult;
+    }
+
+    public String getReason() {
+        if (SipToolsBO.isES(this)) {
+            reason = SipToolsBO.REASON_FAILED_TRF_TIMEOUT;
+        } else {
+            reason = SipToolsBO.REASON_PASSED_TRF;
+        }
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     @Override
     public String toString() {
         return "ResVo{" + "cnme=" + cnme + ", puip=" + puip + ", cdc=" + cdc + ", tlth=" + tlth + ", sDate=" + sDate + ", eDate=" + eDate + ", uppkloss=" + uppkloss + ", uplatpeak=" + uplatpeak + ", uplatav=" + uplatav + ", upjtpeak=" + upjtpeak + ", upjtav=" + upjtav + ", dopkloss=" + dopkloss + ", dolatpeak=" + dolatpeak + ", dolatav=" + dolatav + ", dojtpeak=" + dojtpeak + ", dojtav=" + dojtav + '}';
     }
-
-  
 
 }

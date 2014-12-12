@@ -106,7 +106,7 @@ public class ClientSignUdpConnection implements Runnable {
                         + " Out [" + socketDgOut.getLocalAddress() + ":" + socketDgOut.getLocalPort() + "]");
                 try {
                     //record the test
-                    trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), param.getTimelength());
+                    trfdao.createNewTest(param.getTstid(), param.getCustname(), param.getClientIp(), param.getCodec(), trbo.getTotalTlength(param.getTimelength()));
 //sedning n times the ACK to overcome the packet loss
                     for (int j = 1; j <= maxAck; j++) {
                         socket.send(outgoingpacket);

@@ -8,7 +8,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="REFRESH" content="15;url=/trackingChef">
         <title>Logout</title>
-          <link href="<%=request.getContextPath()%>/resources/css/default.css" rel="stylesheet" type="text/css" />
         <link href="<%=request.getContextPath()%>/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
    
     </head>

@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : login
     Created on : 9 déc. 2012, 12:07:18
@@ -9,8 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>SIP</title>
-           <link href="<%=request.getContextPath()%>/resources/css/default.css" rel="stylesheet" type="text/css" />
+        <title>Nexogy</title>
         <link href="<%=request.getContextPath()%>/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
    
     </head>
