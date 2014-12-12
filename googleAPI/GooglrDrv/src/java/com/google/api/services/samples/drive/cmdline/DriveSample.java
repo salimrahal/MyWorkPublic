@@ -5,10 +5,6 @@
  */
 package com.google.api.services.samples.drive.cmdline;
 
-/**
- *
- * @author salim
- */
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.java6.auth.oauth2.FileCredentialStore;
@@ -50,6 +46,7 @@ import java.util.Collections;
  * </ul>
  *
  * @author rmistry@google.com (Ravi Mistry)
+ * Edited by Salim
  * https://code.google.com/p/google-api-java-client/source/browse/drive-cmdline-sample/src/main/java/com/google/api/services/samples/drive/cmdline/DriveSample.java?repo=samples&r=08555cd2a27be66dc97505e15c60853f47d84b5a
  * App type: installed s.r.
  */
