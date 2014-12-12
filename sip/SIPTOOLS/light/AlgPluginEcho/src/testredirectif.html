@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "----" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+            var custnm = getParameterByName('cust');
+            //var custLabel = document.getElementById('custNamelabel');
+
+//this solution is not good, the user can
+            window.onload = function() {
+                alert("Customer name Empty! redirect to home page");
+                if (custnm === "----") {
+                    setTimeout(function() {
+                        window.location = "http:";
+                    }, 1000);
+                } else {
+                    alert("dont redirect to home page");
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <div> 
+            <label>Customer name:&nbsp;</label>   <label id="custNamelabel"></label>
+        </div>
+    </body>
+</html>
