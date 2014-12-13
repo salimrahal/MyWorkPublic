@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import vp.vo.CdcVo;
 
@@ -37,9 +38,20 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     public TrfJPanel(String custnm) throws Exception {
         initComponents();
-        this.custnm = custnm;
+        setCustnm(custnm);
         trfBo = new TrfBo();
         cc = new Cc();
+    }
+
+    public String getCustnm() {
+        return custnm;
+    }
+
+    public void setCustnm(String custnm) {
+        this.custnm = custnm;
+        if (custnm != null && !custnm.isEmpty()) {
+            jTextFieldCustomer.setText(custnm);
+        }
     }
 
     public static Cc getCc() {
@@ -60,6 +72,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jSplitPane1 = new javax.swing.JSplitPane();
         resultmsgjlabel = new javax.swing.JLabel();
         runTestButton = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
@@ -78,6 +91,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaPortused = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldCustomer = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(800, 735));
         addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -150,6 +165,8 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
         jTabbedPane1.addTab("Port Used", jScrollPane2);
 
+        jLabel5.setText("Customer or company name:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,29 +174,6 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(25, 25, 25)
-                                        .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(152, 152, 152)
-                                        .addComponent(jLabel2)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(reset)))
-                            .addComponent(jTabbedPane1))
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,32 +182,58 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                 .addGap(302, 302, 302))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addContainerGap())))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel26)
-                .addGap(264, 264, 264))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(264, 264, 264))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldCustomer)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(runTestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
+                                .addComponent(reset)
+                                .addGap(101, 101, 101)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTabbedPane1))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(resultmsgjlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(timelengthjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(runTestButton)
-                    .addComponent(reset))
+                    .addComponent(reset)
+                    .addComponent(jLabel1)
+                    .addComponent(comboBox1Codec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,17 +247,22 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     }// </editor-fold>//GEN-END:initComponents
 
     private void runTestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runTestButtonActionPerformed
-      
-        jTextAreaPortused.setText("");
-        runTestButton.setEnabled(false);
-        reset.setEnabled(false);
+        String custNameFromForm = jTextFieldCustomer.getText();
+        if (!custNameFromForm.isEmpty()) {
+            custnm = custNameFromForm;
+            jTextAreaPortused.setText("");
+            runTestButton.setEnabled(false);
+            reset.setEnabled(false);
+            tk = new TL();
+            tk.addPropertyChangeListener(this);
+            tk.execute();
+            //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
+            jProgressBar1.setValue(0);
+            testStatTextArea.setText(TrfBo.M_PR);
+        } else {
+            JOptionPane.showMessageDialog(this, "Enter Customer or Company name");
+        }
 
-        tk = new TL();
-        tk.addPropertyChangeListener(this);
-        tk.execute();
-        //System.out.println("runALGButtonActionPerformed initializing progress bar .. ");
-        jProgressBar1.setValue(0);
-        testStatTextArea.setText(TrfBo.M_PR);
     }//GEN-LAST:event_runTestButtonActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
@@ -249,7 +274,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
 
-       fillComboBoxCdcFromWS();
+        fillComboBoxCdcFromWS();
     }//GEN-LAST:event_formAncestorAdded
 
 
@@ -261,13 +286,16 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     public static javax.swing.JTextArea jTextAreaPortused;
+    private javax.swing.JTextField jTextFieldCustomer;
     private javax.swing.JButton reset;
     public static javax.swing.JLabel resultmsgjlabel;
     public static javax.swing.JButton runTestButton;
@@ -350,9 +378,9 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
         }
         return null;
     }
-    
-    public void fillComboBoxCdcFromWS(){
-         //it fills the combobox with enabled codec
+
+    public void fillComboBoxCdcFromWS() {
+        //it fills the combobox with enabled codec
         List<CodecVo> cdcL = null;
         //System.out.println("fillComboBoxCdcFromWS:"+TrfBo.genul());
         try {
@@ -364,7 +392,7 @@ public class TrfJPanel extends javax.swing.JPanel implements PropertyChangeListe
                     comboBox1Codec.setModel(new javax.swing.DefaultComboBoxModel(strCodecL));
                     System.out.println(comboBox1Codec.getModel().getSize());
                 } catch (IOException_Exception | ParserConfigurationException_Exception | SAXException_Exception ex) {
-                     trfBo.setresultmessage(resultmsgjlabel, ex.getMessage());
+                    trfBo.setresultmessage(resultmsgjlabel, ex.getMessage());
                 }
 
             } else {

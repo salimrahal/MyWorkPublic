@@ -9,6 +9,9 @@
                 <library dirs="200">
                     <file>${libs.PrimeFaces_5.0.classpath}</file>
                 </library>
+                <library dirs="200">
+                    <file>${libs.jsf20.classpath}</file>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
@@ -19,5 +22,8 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>dsafd</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

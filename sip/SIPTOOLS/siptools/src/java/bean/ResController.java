@@ -32,7 +32,8 @@ public class ResController implements Serializable {
     Date dateCurr;
     String ipPublic;
     public String URL_ALG = "http://siptools.nexogy.com/alg/index.html";
-    public String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen";
+    public String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen/index.html";
+    public String admin = "Admin";
 
     public ResController() {
         dateCurr = new Date();
@@ -40,17 +41,12 @@ public class ResController implements Serializable {
 
     @PostConstruct
     public void init() {
-        try {
-            ipPublic = bo.Networking.getmyPIP();
-        } catch (IOException ex) {
-            Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void handleAlg() throws IOException {
         System.out.println("handleAlg():..");
-        FacesMessage msg = new FacesMessage("handleAlg");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        //FacesMessage msg = new FacesMessage("handleAlg");
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
         if (customername != null && !customername.isEmpty()) {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             externalContext.redirect(URL_ALG + "?cust=" + customername);
@@ -59,23 +55,50 @@ public class ResController implements Serializable {
         }
     }
 
-//    public String handleAlg() {
-//        try {
-//            FacesMessage msg = new FacesMessage("handleAlg");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//            externalContext.redirect(URL_ALG);
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return "algforward.jsp";
-//    }
-    public String handleTrfSim() {
-        FacesMessage msg = new FacesMessage("handleTrfSim");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        return URL_TRF_GEN;
+    public void handleTrf() throws IOException {
+        System.out.println("handleTrf():..");
+        //FacesMessage msg = new FacesMessage("handleTrf");
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (customername != null && !customername.isEmpty()) {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(URL_TRF_GEN + "?cust=" + customername);
+        } else {
+            System.out.println("handleTrf:custname is empty!");
+        }
+    }
 
+    public void handleAlg(String cust) throws IOException {
+        customername = cust;
+        System.out.println("handleAlg():..");
+        //FacesMessage msg = new FacesMessage("handleAlg");
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (customername != null && !customername.isEmpty()) {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(URL_ALG + "?cust=" + customername);
+        } else {
+            System.out.println("handleAlg:custname is empty!");
+        }
+    }
+
+    public void handleTrf(String cust) throws IOException {
+        customername = cust;
+        System.out.println("handleTrf():..");
+        //FacesMessage msg = new FacesMessage("handleTrf");
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (customername != null && !customername.isEmpty()) {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(URL_TRF_GEN + "?cust=" + customername);
+        } else {
+            System.out.println("handleTrf:custname is empty!");
+        }
+    }
+
+    public String getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(String admin) {
+        this.admin = admin;
     }
 
     public String getIpPublic() {
@@ -93,6 +116,7 @@ public class ResController implements Serializable {
     public void setCustomername(String customername) {
         this.customername = customername;
     }
+
     public Date getDateCurr() {
         return dateCurr;
     }

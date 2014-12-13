@@ -15,8 +15,8 @@
    
     </head>
     <body onload="document.forms[0].j_username.focus()">
-        <div id="index-content">
-            <H2 ALIGN="center">Welcome Admin access</H2>
+        <div class="center_content">
+            <H2 ALIGN="center">Administrator access</H2>
            
            <form action="j_security_check" method=post>
                 <table align="center">
@@ -29,7 +29,7 @@
                         <td><input type="password" name="j_password"></td>
                     </tr>
                 </table>
-                <br><p align="center"> <input type="submit" value="Valider"></p>
+                <br><p align="center"> <input type="submit" value="Submit"></p>
             </form>
         </div>
     </body>

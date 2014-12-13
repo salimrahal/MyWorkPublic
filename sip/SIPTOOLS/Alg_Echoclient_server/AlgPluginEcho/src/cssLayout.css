@@ -6,7 +6,7 @@ body {
     margin: 10px;
 }
 
-/*h1 {
+h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     border-bottom: 1px solid #AFAFAF; 
     font-size:  16px;
@@ -14,7 +14,7 @@ body {
     margin: 0px;
     padding: 0px;
     color: #D20005;
-}*/
+}
 
 a:link, a:visited {
   color: #045491;
@@ -59,7 +59,7 @@ a:link:hover, a:visited:hover  {
 
 .styleContent {
      /**font-family: sans-serif;*/
-    font-size: 10px;
+    font-size: 9px;
     /*font-weight:bold;*/
     /**margin: 14px 0; */
     padding: 0;

@@ -1,1 +1,1 @@
- scp Development/MyWorkPublic/sip/SIPTOOLS/SipToolsServer/dist/dist.zip  srahal@siptools.nexogy.com:/home/srahal/sipworkspace/
+ scp /home/salim/Development/MyWorkPublic/sip/SIPTOOLS/SipToolsServer/dist/dist.zip  srahal@siptools.nexogy.com:/home/srahal/sipworkspace/siptoolserver/

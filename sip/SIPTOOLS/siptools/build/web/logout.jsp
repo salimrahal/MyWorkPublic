@@ -6,15 +6,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="REFRESH" content="15;url=/trackingChef">
+        <meta http-equiv="REFRESH" content="15;url=/siptools">
         <title>Logout</title>
         <link href="<%=request.getContextPath()%>/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
    
     </head>
     <body>
-        <div id="index-content">
+        <div class="center_content">
             <%
-                out.println("Thank you " + request.getRemoteUser() + ".");
+                out.println("Thank you ");//" + request.getRemoteUser() + "."
                 session.invalidate();
             %>
             <center>

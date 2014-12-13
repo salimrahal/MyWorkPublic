@@ -183,6 +183,16 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="retreiveAllPorts">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="retreiveAllPortsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="vAlgEnd">
 <xs:sequence>
 <xs:element name="tid" type="xs:string" minOccurs="0"/>
@@ -194,16 +204,6 @@
 <xs:complexType name="vAlgEndResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="retreiveAllPorts">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="retreiveAllPortsResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -242,18 +242,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="dtid">
-<xs:sequence>
-<xs:element name="tid" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="dtidResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="savePLD">
 <xs:sequence>
 <xs:element name="tid" type="xs:string" minOccurs="0"/>
@@ -262,6 +250,18 @@
 </xs:complexType>
 
 <xs:complexType name="savePLDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtid">
+<xs:sequence>
+<xs:element name="tid" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dtidResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int" minOccurs="0"/>
 </xs:sequence>

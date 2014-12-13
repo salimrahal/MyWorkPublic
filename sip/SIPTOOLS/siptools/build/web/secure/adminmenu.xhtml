@@ -13,25 +13,17 @@
     </h:head>
     <h:form>
         <div id="top" class="top">
-            <ui:insert name="top">
-                <a href="../logout.jsp">logout</a>        
-                <p>Welcome Administrator</p>
-            </ui:insert>
+              <a href="../mainmenu.xhtml">index</a>  <br></br>
+            <a href="../logout.jsp">logout</a>        
+            <center><h2>Test Results</h2></center>
         </div>
-        <div>
+        <div  class="styleContent">
             <div id="top">
-
-                <ui:insert name="left"> 
-                    <h:form target="_blank">
-                        <h:commandButton  action="algdetect/algdetector" value="Run ALG Test Detector"></h:commandButton>
-                        <h:commandButton  action="trafficsimulator/trafficsimulation" value="Run Voip Traffic Generator"></h:commandButton> 
-                    </h:form>
-                </ui:insert>
+                <h:form target="_blank">
+                    <h:commandButton  action="#{resController.handleAlg(resController.admin)}" value="Run ALG Test Detector"></h:commandButton>
+                    <h:commandButton  action="#{resController.handleTrf(resController.admin)}" value="Run Voip Traffic Generator"></h:commandButton> 
+                </h:form>
             </div>
-            <!--      TODO:
-            - real time bean
-            - Paginator 
-            -->
             <p:tabView>
                 <p:tab title="ALG Detector test results">
                     <p:dataTable  id="tableAlg" value="#{algBean.resultsAlg}" var="resAlg" filteredValue="#{algBean.filteredresults}"
@@ -42,12 +34,12 @@
                         <f:facet name="header">
                             Alg test results
                         </f:facet>
-                        <p:column headerText="Cunstomer Name" 
+                        <p:column headerText="Cunstomer" width="100" 
                                   filterBy="#{resAlg.cnme}"
                                   >
                             <h:outputText value="#{resAlg.cnme}" />
                         </p:column>
-                        <p:column headerText="Public IP"
+                        <p:column headerText="Public IP" width="100"
                                   filterBy="#{resAlg.puip}"
                                   >#{resAlg.puip}</p:column>
                         <p:column headerText="Start time"  filterBy="#{resAlg.getsDateview()}">   
@@ -64,62 +56,78 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Traffic Generator test results">
-                    <p:dataTable  id="tabletrf" value="#{algBean.resultsTrf}" var="resTrf" filteredValue="#{algBean.filteredresultsTrf}" >
+                    <p:dataTable  id="tabletrf" value="#{algBean.resultsTrf}" var="resTrf" filteredValue="#{algBean.filteredresultsTrf}" 
+                                  rows="10"
+                                  paginator="true"
+                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                  rowsPerPageTemplate="5,10,15">
                         <f:facet name="header">
                             Traffic Generator test results
                         </f:facet>
-                        <p:column headerText="Cunstomer Name" 
+                        <p:column headerText="Cunstomer" width="100" 
                                   filterBy="#{resTrf.cnme}"
                                   >
                             <h:outputText value="#{resTrf.cnme}" />
                         </p:column>
-                        <p:column headerText="Public IP"
+                        <p:column headerText="Public IP" width="100" 
                                   filterBy="#{resTrf.puip}"
                                   >#{resTrf.puip}</p:column>
-                        <p:column headerText="Start time" filterBy="#{resTrf.getsDateview()}">  
+                        <p:column headerText="Start time"  width="100"  filterBy="#{resTrf.getsDateview()}">  
                             <h:outputText value=" #{resTrf.getsDateview()}" /><!--todo: format the datew using format function in bean -->
                         </p:column>
-                        <p:column headerText="End time" filterBy="#{resTrf.geteDateView()}">  
+                        <p:column headerText="End time"  width="100"  filterBy="#{resTrf.geteDateView()}">  
                             <h:outputText value=" #{resTrf.geteDateView()}" />
                         </p:column>
                         <p:column headerText="Codec" filterBy="#{resTrf.cdc}">#{resTrf.cdc}</p:column>
-                        <p:column headerText="Test length">#{resTrf.tlth}</p:column>
+                        <p:column headerText="Test length" filterBy="#{resTrf.tlth}">#{resTrf.tlth}(s)</p:column>
 
-                        <p:column headerText="Upload PacketLoss (%)">
+                        <p:column headerText="Up PktLoss"  filterBy="#{resTrf.uppkloss}">
                             <h:outputText value="#{resTrf.uppkloss}" />&nbsp;%
                         </p:column>
-                        <p:column headerText="Upload Latency Peak/Avg (ms)">
+                        <p:column headerText="Up Latency Pk/Avg">
                             <h:outputText value="#{resTrf.uplatpeak}" />&nbsp;/&nbsp;
-                              <h:outputText value="#{resTrf.uplatav}" />(ms)
+                            <h:outputText value="#{resTrf.uplatav}" />(ms)
                         </p:column>
-                        <p:column headerText="Upload Jitter Peak/Avg (ms)">
+                        <p:column headerText="Up Jitter Pk/Avg">
                             <h:outputText value="#{resTrf.upjtpeak}" />&nbsp;/&nbsp;
-                                <h:outputText value="#{resTrf.upjtav}" />(ms)
+                            <h:outputText value="#{resTrf.upjtav}" />(ms)
                         </p:column>
-                        <p:column headerText="Download PacketLoss (%)">
+                        <p:column headerText="Down PktLoss" filterBy="#{resTrf.dopkloss}">
                             <h:outputText value="#{resTrf.dopkloss}" />&nbsp;%
                         </p:column>
-                        <p:column headerText="Download Latency Peak/Avg (ms)">
+                        <p:column headerText="Down Latency Pk/Avg">
                             <h:outputText value="#{resTrf.dolatpeak}" />&nbsp;/&nbsp;
-                              <h:outputText value="#{resTrf.dolatav}" />(ms)
+                            <h:outputText value="#{resTrf.dolatav}" />(ms)
                         </p:column>
-                       
-                        <p:column headerText="Download Jitter Peak/Avg (ms)">
+
+                        <p:column headerText="Down Jitter Pk/Avg">
                             <h:outputText value="#{resTrf.dojtpeak}" />&nbsp;/&nbsp;
-                              <h:outputText value="#{resTrf.dojtav}" />(ms)
+                            <h:outputText value="#{resTrf.dojtav}" />(ms)
                         </p:column>
-                        <p:column headerText="Result">
+                        <p:column headerText="Result" filterBy="#{resTrf.finalresult}">
                             <h:outputText value="#{resTrf.finalresult}"/>
                         </p:column>
-                           <p:column headerText="Reason">
-                               <h:outputText value="#{resTrf.reason}" />
+                        <p:column headerText="Reason" filterBy="#{resTrf.reason}">
+                            <h:outputText value="#{resTrf.reason}" />
                         </p:column>
                     </p:dataTable>
                 </p:tab>
+                <p:tab title="Help">
+                    <p:panelGrid columns="1">
+                        <h:outputText value="Traffic Generator test results " style="font-size: medium"/>
+                        <h:outputText value="Up packet Loss: Upload packet loss ( client --> server )"/> 
+                        <h:outputText value="Up Latency Pk/Avg: Upload Latency Peak/Avg ( client --> server )"/>
+                        <h:outputText value="Up Jitter Pk/Avg: Upload Jitter Peak/Avg ( client --> server )"/>
+                        <h:outputText value="Down packet Loss: Download packet loss ( server --> client )"/>  
+                        <h:outputText value="Down Latency Pk/Avg: Down Latency Peak/Avg ( server --> client )"/>
+                        <h:outputText value="Down Jitter Pk/Avg: Down Jitter Peak/Avg ( server --> client )"/>  
+                        <h:outputText value="(s): second"/>  
+                        <h:outputText value="(ms): millisecond"/>  
+                        <h:outputText value="%: percentage"/>  
+
+                    </p:panelGrid>
+                </p:tab>
             </p:tabView>
-
-
-            <!--        </div>-->
         </div>
     </h:form>
 </html>

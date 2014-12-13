@@ -6,24 +6,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="REFRESH" content="15;url=/trakingEtud">
-        <title>Informations Erreur</title>
+        <meta http-equiv="REFRESH" content="15;url=/siptools">
+        <title>Incorrect credentials</title>
        
-           <link href="/trackingChef/resources/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="/trackingChef/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath()%>/resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
    
 
     </head>
     <body>
-        <div id="index-content">
+        <div class="center_content">
             <%
                 //out.println("Merci " + request.getRemoteUser() + " à bientôt");
                 session.invalidate();
             %>
-              <b>Utilisateur [<%=request.getRemoteUser()%>] ou mot de passe erroné / Ou permission non accordée</b>
+              <b>Incorrect User [<%=request.getRemoteUser()%>] or incorrect password</b>
 
-                <p>Revenir à la page 
-                   <strong><a href="<%=request.getContextPath()%>"> d’authentification </a></strong>.
+                <p>Back to
+                   <strong><a href="<%=request.getContextPath()%>"> Login </a></strong>.
                </p>
         </div>
     </body>
