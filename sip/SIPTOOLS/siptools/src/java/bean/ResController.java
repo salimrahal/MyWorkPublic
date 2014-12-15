@@ -33,7 +33,7 @@ public class ResController implements Serializable {
     String ipPublic;
     public String URL_ALG = "http://siptools.nexogy.com/alg/index.html";
     public String URL_TRF_GEN = "http://siptools.nexogy.com/trfgen/index.html";
-    public String admin = "Admin";
+    public String admin = "admin";
 
     public ResController() {
         dateCurr = new Date();
