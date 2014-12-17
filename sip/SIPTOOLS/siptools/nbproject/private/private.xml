@@ -2,21 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="MyWorkPublic">
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/web/mainmenu.xhtml</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/src/java/bean/ResController.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/web/secure/adminmenu.xhtml</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/src/java/bean/ResTrfVo.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/src/java/bean/ResAlgVo.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/web/login.jsp</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/web/logout.jsp</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/siptools/web/algforward.jsp</file>
-        </group>
         <group name="My Work">
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/siptools/web/secure/adminmenu.xhtml</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/siptools/web/resources/css/cssLayout.css</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/siptools/web/login.jsp</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/siptools/web/error.jsp</file>
         </group>
+        <group name="MyWorkPublic"/>
     </open-files>
 </project-private>

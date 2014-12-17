@@ -8,5 +8,10 @@
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/src/algGui/AlgJPanel.java</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/Alg_Echoclient_server/AlgPluginEcho/src/algApplet/MainJapplet.java</file>
         </group>
+        <group name="MyWorkPublic">
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algGui/AlgJPanel.java</file>
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/index.html</file>
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algcr/Cc.java</file>
+        </group>
     </open-files>
 </project-private>
