@@ -92,9 +92,9 @@ public interface Pivot {
      * 
      * @return
      *     returns com.safirasoft.CodecVoList
-     * @throws ParserConfigurationException_Exception
-     * @throws IOException_Exception
      * @throws SAXException_Exception
+     * @throws IOException_Exception
+     * @throws ParserConfigurationException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -113,9 +113,9 @@ public interface Pivot {
      * 
      * @return
      *     returns com.safirasoft.PrtMiscVo
-     * @throws ParserConfigurationException_Exception
-     * @throws IOException_Exception
      * @throws SAXException_Exception
+     * @throws IOException_Exception
+     * @throws ParserConfigurationException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")

@@ -39,6 +39,7 @@
 <html lang="en-US">
     <head>
         <title>ALG detector</title>
+        <link href="cssLayout.css" rel="stylesheet" type="text/css" />
         <meta name="description" content="alg detector, voip test, udp tcp test, test voip java, test voip" />
         <meta name="keywords" content="java, voip, alg detector, applet" />
         <script type="text/javascript">
@@ -73,15 +74,15 @@
                 <script src="http://www.java.com/js/deployJava.js"></script>
                 <script type="text/javascript">
             var attributes = {code: 'algApplet.MainJapplet.class',
-                archive: 'AlgPluginEcho.jar',
-                width: 1063, height: 500};
+                archive: 'AlgPluginEchoLight.jar',
+                width: 1063, height: 150};
             //var custnm = document.getElementById('idcust').value;
             var custnm = getParameterByName('cust');
             var parameters = {fontSize: 16, cust: custnm};
             var version = '1.6';
             deployJava.runApplet(attributes, parameters, version);
                 </script>
-                <div align="center"><font size=2><a href=http://www.safirasoft.com target="_blank">Developed by Safirasoft.com</a></font></div>  
+                <div class="button"><a href="http://www.safirasoft.com" target="_blank">Developed by Safirasoft.com</a></div>
             </div>
         </div>
     </body>

@@ -76,14 +76,14 @@ public class Alb {
     public static final String MSG_NETWORK_OR_FW_ISSUE = "You have a Network Problem. Check your Network admin.";
     //this message cannot be changed, check method CC.svAlgFw
     public static final String M_U_K = "firewall";
-    public static final String M_U = "You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
-    public static final String MSG_SipALGWarning = "Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
-    public static final String MSG_SipALGError = "Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
-    public static final String MSG_SipALGNotFound = "No ALG Detected";
+    public static final String M_U = "Oops, there seems to be something blocking your VoIP service[1]";//old message=You have a firewall that might be blocking your Voice over IP Service. Please check your router or Internet Service Provider";
+    public static final String MSG_SipALGWarning = "Oops, there seems to be something blocking your VoIP service[2]";//old message="Warning: SIP ALG detected, Is highly recommended to disable SIP ALG in the router";
+    public static final String MSG_SipALGError = "Oops, there seems to be something blocking your VoIP service[3]";//old message="Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router";
+    public static final String MSG_SipALGNotFound = "You are fine, no problem detected";//old message: No ALg Detected
     public static final String MSG_SipALGNotFound_Reg = "Register: No ALG Detected, INVITE: In Progress..";
     public static final String MSG_SipALGNotFound_Inv = "Invite: No ALG Detected";
     public static final String PLUGIN_REINSTALL = "Error: You can open only one ALG detector Web page, close other instance, then re-install the plugin!";
-    public static final String M_NC = "Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider[1]";
+    public static final String M_NC = "Oops, there seems to be something blocking your VoIP service[4]";//old message="Connection timed out: you may have a network or internet problem. Please check your router or Internet Service Provider[1]";
     public static final String UDPPAcketNotreceived = "Critical Error : Packet is not received";
     static Spf saxparserconf;
     /*CALLID_PREFIX: one callid in invite and register message
