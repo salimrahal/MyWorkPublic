@@ -70,7 +70,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         resultmsgjlabel = new javax.swing.JLabel();
         runALGButton = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPaneTest = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jTabbedPane1Reg = new javax.swing.JTabbedPane();
@@ -155,10 +155,10 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         jLabel26.setFont(new java.awt.Font("Ubuntu", 1, 16)); // NOI18N
         jLabel26.setText("ALG Detector");
 
-        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabbedPaneTest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTabbedPaneTest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
+                jTabbedPaneTestMouseClicked(evt);
             }
         });
 
@@ -222,7 +222,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addContainerGap(244, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Test A", jPanel1);
+        jTabbedPaneTest.addTab("Test A", jPanel1);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Transport: TCP Source Port: 5060 Destination Port: 5060");
@@ -283,7 +283,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addContainerGap(241, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Test B", jPanel2);
+        jTabbedPaneTest.addTab("Test B", jPanel2);
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Transport: UDP Source Port: 5062 Destination Port: 5060");
@@ -342,7 +342,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addContainerGap(238, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Test C", jPanel3);
+        jTabbedPaneTest.addTab("Test C", jPanel3);
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Transport: TCP Source Port: 5062 Destination Port: 5060");
@@ -402,7 +402,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addContainerGap(237, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Test D", jPanel4);
+        jTabbedPaneTest.addTab("Test D", jPanel4);
 
         jPanel6ALHHelp.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -447,7 +447,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Why ALG Detection?", jPanel5);
+        jTabbedPaneTest.addTab("Why ALG Detection?", jPanel5);
 
         reset.setText("Reset");
         reset.addActionListener(new java.awt.event.ActionListener() {
@@ -464,7 +464,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,7 +509,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                                 .addGap(20, 20, 20)
                                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPaneTest))
         );
 
         resultmsgjlabel.getAccessibleContext().setAccessibleName("<html>Critical Error : SIP ALG is corrupting SIP Messages, Please disable SIP ALG in the router<html>");
@@ -581,10 +581,10 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
         updateTestLabels();
     }//GEN-LAST:event_formAncestorAdded
 
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+    private void jTabbedPaneTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneTestMouseClicked
 
         // get the currently selected index for this tabbedpan 0, 1, 2 ,3 and then select the correspondent radio button
-        int selectedIndex = jTabbedPane1.getSelectedIndex();
+        int selectedIndex = jTabbedPaneTest.getSelectedIndex();
         //System.out.println(selectedIndex);
         switch (selectedIndex) {
             case 0:
@@ -603,7 +603,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
                 jRadioButton4.setSelected(true);
                 break;
         }
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
+    }//GEN-LAST:event_jTabbedPaneTestMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -654,7 +654,6 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane1Reg;
     private javax.swing.JTabbedPane jTabbedPane2Reg;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -663,6 +662,7 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
     private javax.swing.JTabbedPane jTabbedPane6;
     private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTabbedPane jTabbedPane8;
+    private javax.swing.JTabbedPane jTabbedPaneTest;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldCustomer;
     private javax.swing.JButton reset;
@@ -772,20 +772,21 @@ public class AlgJPanel extends javax.swing.JPanel implements PropertyChangeListe
             //Initialize progress property. 
             setProgress(0);
             resultmsgjlabel.setText(Alb.I_P);
+     
             //udp
-            if (jRadioButton1.isSelected()) {
+            if (jTabbedPaneTest.getSelectedIndex() == 0) {
                 setProgress(50);
                 sr(1, comb1SentMsgREG, comb1SentMsgINV, cc);
             } //tcp
-            else if (jRadioButton2.isSelected()) {
+            else if (jTabbedPaneTest.getSelectedIndex() == 1) {
                 setProgress(50);
                 sr(2, comb2SentMsgREG, comb2SentMsgINV, cc);
             } //udp
-            else if (jRadioButton3.isSelected()) {
+            else if (jTabbedPaneTest.getSelectedIndex() == 2) {
                 setProgress(50);
                 sr(3, comb3SentMsgREG, comb3SentMsgINV, cc);
             } //tcp
-            else if (jRadioButton4.isSelected()) {
+            else if (jTabbedPaneTest.getSelectedIndex() == 3) {
                 setProgress(50);
                 sr(4, comb4SentMsgREG, comb4SentMsgINV, cc);
             }
