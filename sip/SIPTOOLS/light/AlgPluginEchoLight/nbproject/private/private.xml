@@ -2,15 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="MyWorkPublic">
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algGui/AlgJPanel.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/index.html</file>
-            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algcr/Cc.java</file>
-        </group>
         <group name="My Work">
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algBo/Alb.java</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algGui/AlgJPanel.java</file>
             <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algApplet/MainJapplet.java</file>
+        </group>
+        <group name="MyWorkPublic">
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algApplet/MainJapplet.java</file>
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algBo/Alb.java</file>
+            <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/scripts/signJartrusted.sh</file>
         </group>
     </open-files>
 </project-private>
