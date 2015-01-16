@@ -293,3 +293,5 @@
 /webservice/testws/build/
 /webservice/testws/dist/
 /sip/SIPTOOLS/siptools/dist/
+/sip/SIPTOOLS/light/AlgPluginEchoLight/build/
+/sip/SIPTOOLS/light/AlgPluginEchoLight/dist/
