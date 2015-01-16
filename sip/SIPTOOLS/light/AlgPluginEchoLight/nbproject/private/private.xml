@@ -7,10 +7,6 @@
             <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/index.html</file>
             <file>file:/home/salim/Development/MyWorkPublic/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algcr/Cc.java</file>
         </group>
-        <group name="My Work">
-            <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algBo/Alb.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algGui/AlgJPanel.java</file>
-            <file>file:/home/salim/Development/MyWorkPublic/sip/SIPTOOLS/light/AlgPluginEchoLight/src/algApplet/MainJapplet.java</file>
-        </group>
+        <group name="My Work"/>
     </open-files>
 </project-private>
