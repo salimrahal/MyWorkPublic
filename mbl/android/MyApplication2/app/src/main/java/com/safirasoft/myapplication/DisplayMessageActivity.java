@@ -15,7 +15,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_display_message);
 
-        //Receive the Intent and get the param message
+        //Receive the Intent and get the param message from the client
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
@@ -27,6 +27,11 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
         //add the TextView as the root view of the activity’s layout by passing it to setContentView().
         setContentView(textview);
+
+        //enable the up action bar: no effect:
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // If your minSdkVersion is 11 or higher, instead use:
+        // getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
