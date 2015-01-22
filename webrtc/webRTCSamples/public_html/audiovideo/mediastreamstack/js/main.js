@@ -41,6 +41,7 @@ function errorCallback(error) {
 }
 
 function start() {
+    //using !! to ensure that the we returned a boolean instead of an operand number, NAN, etc
     if (!!window.stream) {
         videoElement.src = null;
         window.stream.stop();

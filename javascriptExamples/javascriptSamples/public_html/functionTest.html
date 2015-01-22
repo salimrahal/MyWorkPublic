@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--Function Declarations vs. Function Expressions:
+
+https://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div><script type="text/javascript">
+//++++++++++++++
+//            function foo() {
+//                function bar() {
+//                    return 3;
+//                }
+//                return bar();
+//                function bar() {
+//                    return 8;
+//                }
+//            }
+//            alert(foo());//8
+//++++++++++++++
+//            function foo() {
+//                var bar = function () {
+//                    return 3;
+//                };
+//                return bar();
+//                var bar = function () {
+//                    return 8;
+//                };
+//            }
+//            alert(foo());//3
+//++++++++++++++
+//            alert(foo());//3
+//            function foo() {
+//                var bar = function () {
+//                    return 3;
+//                };
+//                return bar();
+//                var bar = function () {
+//                    return 8;
+//                };
+//            }
+
+//++++++++++++++
+
+//            function foo() {
+//                return bar(); //<----------- error here
+//                var bar = function () {
+//                    return 3;
+//                };
+//                var bar = function () {
+//                    return 8;
+//                };
+//            }
+//            alert(foo());//Uncaught TypeError: undefined is not a function: or : Type Error: bar is not a function
+
+//++++++++++++++++++++++++
+//            //Function Declaration
+//            function add(a, b) {
+//                return a + b
+//            }
+//            ;
+////Function Expression
+//            var add = function (a, b) {
+//                return a + b
+//            };
+
+//+++++++++++++++++++++++++
+//Function Expression
+            var today = function today() {
+                return new Date()
+            };
+            alert(today());
+            </script></div>
+    </body>
+</html>
