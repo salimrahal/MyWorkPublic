@@ -18,8 +18,9 @@ ps: use webkitRTCPeerConnection for Chrome and opera
     <body>
         <div id='container'>
 
-            <video id="video1" autoplay></video>
-            <video id="video2"  autoplay></video>
+            video1:<video id="video1" autoplay></video>
+            <br></br>
+            video2:<video id="video2"  autoplay></video>
 
             <button id="start" onclick="start()">Start</button>
 
@@ -34,57 +35,78 @@ ps: use webkitRTCPeerConnection for Chrome and opera
                 //var video = document.querySelector("video");
                 var video1 = document.getElementById("video1");
                 var video2 = document.getElementById("video2");
-
-
+                //peer connection            
+                var pc1;
+                var pc2;
+                var servers;
                 function errocallback(e) {
                     console.log("rejected..", e);
                 }
 
                 //echo back the video image to the user
                 function successcallback(stream) {
-                    console.log("successcallback.." + stream);
+                    console.log("successcallback.." + stream);//[object MediaStream]
                     //video1.src = window.URL.createObjectURL(stream);
                     //video2.src = window.URL.createObjectURL(stream);            
                     //todo: make the call between the peers
 
+                    // servers is an optional config file (see TURN and STUN discussion below)
+                    pc1 = new webkitRTCPeerConnection(servers);
+                    pc2 = new webkitRTCPeerConnection(servers);
+
+                    pc1.addStream(stream);
+                    //SHOW The stream of pc1 in video1
+                   video1.src = URL.createObjectURL(stream);
+                    pc1.createOffer(gotDescription1);
+
+
+
+                    pc2.onaddstream = gotRemoteStream;
                 }
-                
+
 //+++++++++++++++++++Caller         
                 function makeConnectionCaller(localstream) {
                     // servers is an optional config file (see TURN and STUN discussion below)
                     pc1 = new webkitRTCPeerConnection();
                     pc1.addStream(localstream);
                     pc1.createOffer(gotDescription1);
-                    
-                    
+
+
                 }
                 //...
                 function gotDescription1(desc) {
                     pc1.setLocalDescription(desc);
-                    trace("Offer from pc1 \n" + desc.sdp);
+                    console.log("Offer from pc1 \n" + desc.sdp);
                     pc2.setRemoteDescription(desc);
                     pc2.createAnswer(gotDescription2);
                 }
 
 
 //++++++++++++++++++++++++++++++++Callee
-                function makeConnectionCaller(localstream) {
+                function makeConnectionCallee(localstream) {
                     pc2 = new webkitRTCPeerConnection();
                     pc2.onaddstream = gotRemoteStream;
                 }
 
 //...
                 function gotRemoteStream(e) {
-                    video2.src = URL.createObjectURL(e.stream);
+                    console.log("gotRemoteStream: " + e);//object MediaStreamEvent
+                    console.log("gotRemoteStream: stream: " + e.stream);//
+                    video2.src = URL.createObjectURL(e.stream); //<-------------in case this line is commented navigator media user Error: permission denied error
                 }
 
-
+                //...
+                function gotDescription2(desc) {
+                    pc2.setLocalDescription(desc);
+                    pc1.setRemoteDescription(desc);
+                }
 
 
                 function start() {
                     //invoke get usermedia
                     navigator.getUserMedia({video: true, audio: true}, successcallback, errocallback);
                 }
+                start();
 
             </script>
         </div>
