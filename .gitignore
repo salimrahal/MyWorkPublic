@@ -297,4 +297,9 @@
 /sip/SIPTOOLS/light/AlgPluginEchoLight/dist/
 /javascriptExamples/JavascriptExamples/build/
 /javascriptExamples/javascriptSamples/nbproject/private/
+<<<<<<< HEAD
 /webrtc/webrtc-codelab/nbproject/private/
+=======
+/webrtc/webrtc-codelab/nbproject/private/
+/webrtc/webrtc-My-codelab/nbproject/private/
+>>>>>>> abd4cba015a6191337b080bd40e372494f2e7360
