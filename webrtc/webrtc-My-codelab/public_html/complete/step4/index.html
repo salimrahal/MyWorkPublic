@@ -6,9 +6,17 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WebRTC codelab: step 4</title>
+
+        <meta name="keywords" content="JavaScript, WebRTC" />
+        <meta name="description" content="WebRTC codelab" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+        <style>
+        </style>
+
+        <script src='js/lib/adapter.js'></script>
+
     </head>
     <body>
         <textarea id="dataChannelSend" disabled></textarea>
@@ -31,6 +39,7 @@ and open the template in the editor.
             startButton.onclick = createConnection;
             sendButton.onclick = sendData;
             closeButton.onclick = closeDataChannels;
+            dataChannelReceive.placeholder = "here the text will be received.";
 
             function trace(text) {
                 console.log((performance.now() / 1000).toFixed(3) + ": " + text);
@@ -92,6 +101,7 @@ and open the template in the editor.
                 dataChannelReceive.value = "";
                 dataChannelSend.disabled = true;
                 dataChannelSend.placeholder = "Press Start, enter some text, then press Send.";
+                
             }
 
             function gotLocalDescription(desc) {
@@ -161,6 +171,5 @@ and open the template in the editor.
             }
 
         </script>
-
     </body>
 </html>

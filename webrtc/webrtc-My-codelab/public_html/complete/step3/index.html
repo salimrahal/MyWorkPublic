@@ -1,25 +1,62 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+<!--Explanation;
+Get and share local and remote descriptions: metadata about local media in SDP1 format.
+Get and share ICE2 candidates: network information.
+Pass the local stream to the remote RTCPeerConnection.
 -->
 <html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src='js/lib/adapter.js'></script>
+
+        <!-- CSS will go here -->
+        <style>
+            //http://jsfiddle.net/8weSA/1/: side by side div
+            body {
+                margin: 0;
+            }
+            #wrapper {
+                width: 1005px;
+                margin: 0 auto;
+            }
+            #leftcolumn, #rightcolumn {
+                border: 1px solid white;
+                float: left;
+                min-height: 450px;
+                color: white;
+            }
+            #leftcolumn {
+                width: 500px;
+                background-color: #111;
+            }
+
+            #rightcolumn {
+                width: 500px;
+                background-color: #777;
+            }
+            .mediumContent{
+                font-size: medium;
+            }
+        </style>
     </head>
     <body>
-        <video id="localVideo" autoplay></video>
-        <video id="remoteVideo" autoplay></video>
-
+        <div id="wrapper">
+            <div id="leftcolumn">
+                <video id="localVideo" autoplay></video>
+            </div>
+            <div id="rightcolumn">
+                <video id="remoteVideo" autoplay></video>
+            </div>
+        </div>
         <div>
-            <button id="startButton">Start</button>
-            <button id="callButton">Call</button>
-            <button id="hangupButton">Hang Up</button>
+            <button id="startButton" class="mediumContent">Start</button>
+            <button id="callButton"  class="mediumContent">Call</button>
+            <button id="hangupButton" class="mediumContent">Hang Up</button>
         </div>
         <script>
+
             var localStream, localPeerConnection, remotePeerConnection;
 
             var localVideo = document.getElementById("localVideo");
@@ -50,7 +87,7 @@ and open the template in the editor.
                 trace("Requesting local stream");
                 startButton.disabled = true;
                 getUserMedia({audio: true, video: true}, gotStream,
-                        function (error) {
+                        function(error) {
                             trace("getUserMedia error: ", error);
                         });
             }

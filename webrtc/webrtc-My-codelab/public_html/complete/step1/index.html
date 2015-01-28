@@ -13,6 +13,12 @@
 
         <!-- CSS will go here -->
         <style>
+            video{
+                //width: 100%;//filling all the page: bonus point
+                filter: hue-rotate(180deg) saturate(200%);
+                -moz-filter: hue-rotate(180deg) saturate(200%);
+                -webkit-filter: hue-rotate(180deg) saturate(200%);
+            }
         </style>
 
         <script src='js/lib/adapter.js'></script>
@@ -32,6 +38,11 @@
 
             function successCallback(localMediaStream) {
                 window.stream = localMediaStream; // stream available to console
+                console.log("successCallback: localMediaStream ", localMediaStream);
+                //bonus point        
+                //localMediaStream.stop();
+                //gettting the video track: returns: mediastreamtrack
+                console.log("successCallback: localMediaStream.getVideoTracks(): ", localMediaStream.getVideoTracks());
                 var video = document.querySelector("video");
                 video.src = window.URL.createObjectURL(localMediaStream);
                 video.play();
