@@ -6,7 +6,7 @@ Pass the local stream to the remote RTCPeerConnection.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Webrtc: step3</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src='js/lib/adapter.js'></script>
@@ -42,6 +42,11 @@ Pass the local stream to the remote RTCPeerConnection.
         </style>
     </head>
     <body>
+        <div>
+            <button id="startButton" class="mediumContent">Start</button>
+            <button id="callButton"  class="mediumContent">Call</button>
+            <button id="hangupButton" class="mediumContent">Hang Up</button>
+        </div>
         <div id="wrapper">
             <div id="leftcolumn">
                 <video id="localVideo" autoplay></video>
@@ -50,11 +55,8 @@ Pass the local stream to the remote RTCPeerConnection.
                 <video id="remoteVideo" autoplay></video>
             </div>
         </div>
-        <div>
-            <button id="startButton" class="mediumContent">Start</button>
-            <button id="callButton"  class="mediumContent">Call</button>
-            <button id="hangupButton" class="mediumContent">Hang Up</button>
-        </div>
+       
+        
         <script>
 
             var localStream, localPeerConnection, remotePeerConnection;
