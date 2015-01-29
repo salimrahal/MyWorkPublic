@@ -13,9 +13,17 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
     </head>
     <body>
-        <!--remote test no need for host name--><!--	<script src='http://safirasoft.com:2014/socket.io/socket.io.js'></script>  -->
+        <div id='container'>
+
+            <div id='videos'>
+                <video id='localVideo' autoplay muted></video>
+                <video id='remoteVideo' autoplay></video>
+            </div>
+
+        </div>
+
         <script src='/socket.io/socket.io.js'></script>
         <script src='js/lib/adapter.js'></script>
-        <script src="js/main.js"></script>
+        <script src='js/main.js'></script>
     </body>
 </html>
