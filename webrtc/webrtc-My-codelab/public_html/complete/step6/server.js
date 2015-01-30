@@ -35,19 +35,22 @@ io.sockets.on('connection', function(socket) {
          */
         //var clients = io.sockets.adapter.rooms[room];
         //var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
-       // console.log("server.js:numClients=" + numClients);
+        // console.log("server.js:numClients=" + numClients);
 
         console.log("server.js:room=" + room);
-        
-         var clients = io.sockets.adapter.rooms[room];
-         var numClients = 0;
-         if (typeof clients === 'undefined') {
-         console.log("server.js:clients is type=" + clients + "/numClients="+numClients);
-         } else {
-         numClients = Object.keys(clients).length;
-         console.log("server.js:clients is defined , numClients=" + numClients);
-         }
-         
+        log("server.js:room=" + room);
+
+        var clients = io.sockets.adapter.rooms[room];
+        var numClients = 0;
+        if (typeof clients === 'undefined') {
+            console.log("server.js:clients is type=" + clients + "/numClients=" + numClients);
+            log("server.js:clients is type=" + clients + "/numClients=" + numClients);
+        } else {
+            numClients = Object.keys(clients).length;
+            console.log("server.js:clients is defined , numClients=" + numClients);
+            log("server.js:clients is defined , numClients=" + numClients);
+        }
+
         /*
          * end of my edition
          */
