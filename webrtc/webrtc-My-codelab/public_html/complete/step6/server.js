@@ -37,10 +37,9 @@ io.sockets.on('connection', function (socket) {
         //var clients = io.sockets.adapter.rooms[room];
         //var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
         // console.log("server.js:numClients=" + numClients);
-
+/******GEt numclient: begin********/
         console.log("server.js:room=" + room);
         log("server.js:room=" + room);
-
         var clients = io.sockets.adapter.rooms[room];
         var numClients = 0;
         if (typeof clients === 'undefined') {
@@ -57,6 +56,7 @@ io.sockets.on('connection', function (socket) {
          */
         log('Room ' + room + ' has ' + numClients + ' client(s)');
         log('Request to create or join room ' + room);
+/******GEt numclient: End********/
 
         if (numClients === 0) {
             socket.join(room);
