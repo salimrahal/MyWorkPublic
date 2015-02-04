@@ -10,6 +10,7 @@ var io = require('socket.io').listen(app);
 io.sockets.on('connection', function(socket) {
 
     // convenience function to log server messages on the client
+    //example shown on client output: ">>> Message from server: " "Room room1 has 0 client(s)"
     function log() {
         var array = [">>> Message from server: "];
         for (var i = 0; i < arguments.length; i++) {
@@ -35,19 +36,19 @@ io.sockets.on('connection', function(socket) {
          */
         //var clients = io.sockets.adapter.rooms[room];
         //var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
-       // console.log("server.js:numClients=" + numClients);
+        // console.log("server.js:numClients=" + numClients);
 
         console.log("server.js:room=" + room);
-        
-         var clients = io.sockets.adapter.rooms[room];
-         var numClients = 0;
-         if (typeof clients === 'undefined') {
-         console.log("server.js:clients is type=" + clients + "/numClients="+numClients);
-         } else {
-         numClients = Object.keys(clients).length;
-         console.log("server.js:clients is defined , numClients=" + numClients);
-         }
-         
+
+        var clients = io.sockets.adapter.rooms[room];
+        var numClients = 0;
+        if (typeof clients === 'undefined') {
+            console.log("server.js:clients is type=" + clients + "/numClients=" + numClients);
+        } else {
+            numClients = Object.keys(clients).length;
+            console.log("server.js:clients is defined , numClients=" + numClients);
+        }
+
         /*
          * end of my edition
          */
@@ -57,10 +58,12 @@ io.sockets.on('connection', function(socket) {
         if (numClients === 0) {
             socket.join(room);
             socket.emit('created', room);
+            console.log('server.js:Room ' + room + ' created');
         } else if (numClients === 1) {
             io.sockets.in(room).emit('join', room);
             socket.join(room);
             socket.emit('joined', room);
+            console.log('server.js:Room ' + room + ' joined');
         } else { // max two clients
             socket.emit('full', room);
         }

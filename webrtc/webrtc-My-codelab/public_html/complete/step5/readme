@@ -1,0 +1,46 @@
+https://bitbucket.org/webrtc/codelab
+
+Step 5: Set up a signaling server and exchange messages
+
+Complete example: complete/step5.
+RTCPeerConnection instances need to exchange metadata in order to set up and maintain a WebRTC 'call':
+Candidate (network) information.
+Offer and answer messages providing information about media such as resolution and codecs.
+In other words, an exchange of metadata is required before peer-to-peer audio, video or data streaming can take place. This process is called signaling.
+In the examples already completed, the 'sender' and 'receiver' RTCPeerConnection objects are on the same page, so signaling is simply a matter of passing objects between methods.
+In a real world application, the sender and receiver RTCPeerConnections are not on the same page, and we need a way for them to communicate metadata.
+For this, we use a signaling server: a server that can exchange messages between a WebRTC app (client) running in one browser and a client in another browser. The actual messages are stringified JavaScript objects.
+To reiterate: metadata exchange between WebRTC clients (via a signaling server) is required for RTCPeerConnection to do audio, video and data streaming (peer to peer).
+In this step we'll build a simple Node.js signaling server, using the socket.io Node module and JavaScript library for messaging. Experience of Node.js and socket.io will be useful, but not crucial -- the messaging components are very simple. In this example, the server (the Node app) is server.js and the client (the web app) is index.html.
+The Node server application in this step has two tasks.
+To act as a messaging intermediary:
+socket.on('message', function (message) {
+  log('Got message: ', message);
+  socket.broadcast.emit('message', message);
+});
+To manage WebRTC video chat 'rooms':
+if (numClients == 0){
+  socket.join(room);
+  socket.emit('created', room);
+} else if (numClients == 1) {
+  io.sockets.in(room).emit('join', room);
+  socket.join(room);
+  socket.emit('joined', room);
+} else { // max two clients
+  socket.emit('full', room);
+}
+Our simple WebRTC application will only permit a maximum of two peers to share a room.
+Ensure you have Node, socket.io and node-static installed. Node can be downloaded from nodejs.org; installation is straightforward and quick. To install socket.io and node-static, run Node Package Manager from a terminal in your application directory:
+npm install socket.io
+npm install node-static
+(You don't need to learn about node-static for this exercise: it just makes the server simpler.)
+Using the code from the step 5 directory, run the server (server.js). To start the server, run the following command from a terminal in your application directory:
+node server.js
+From your browser, open localhost:2013. Open a new tab page or window in any browser and open localhost:2013 again, then repeat.
+To see what's happening, check the Chrome DevTools console (Command-Option-J, or Ctrl-Shift-J).
+Bonus points
+Try deploying your messaging server so you can access it via a public URL. (Free trials and easy deployment options for Node are available on several hosting sites including nodejitsu, heroku and nodester.)
+What alternative messaging mechanisms are available? (Take a look at apprtc.appspot.com.) What problems might we encounter using 'pure' WebSocket? (Take a look at Arnout Kazemier's presentation, WebSuckets.)
+What issues might be involved with scaling this application? Can you develop a method for testing thousands or millions of simultaneous room requests.
+Try out Remy Sharp's tool nodemon. This monitors any changes in your Node.js application and automatically restarts the server when changes are saved.
+This app uses a JavaScript prompt to get a room name. Work out a way to get the room name from the URL, for example localhost:2013/foo would give the room name foo.
