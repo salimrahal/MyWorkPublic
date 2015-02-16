@@ -11,16 +11,50 @@ and open the template in the editor.
         <meta name="keywords" content="WebRTC, HTML5, JavaScript" />
         <meta name="description" content="WebRTC Reference App" />
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+        <style>
+            //http://jsfiddle.net/8weSA/1/: side by side div
+            body {
+                margin: 0;
+            }
+            #videos {
+                width: 1005px;
+                margin: 0 auto;
+            }
+            #leftcolumn, #rightcolumn {
+                border: 1px solid white;
+                float: left;
+                min-height: 450px;
+                color: white;
+            }
+            #leftcolumn {
+                width: 500px;
+                background-color: #111;
+            }
+
+            #rightcolumn {
+                width: 500px;
+                background-color: #777;
+            }
+            .mediumContent{
+                font-size: medium;
+            }
+        </style>
     </head>
     <body>
-        <div id='container'>
-
-            <div id='videos'>
-                <video id='localVideo' autoplay muted></video>
-                <video id='remoteVideo' autoplay></video>
+      
+            <div id='container'>
+                <div id='videos'>
+                    <div id="leftcolumn">
+                        <video id="localVideo" autoplay></video>
+                    </div>
+                    <div id="rightcolumn">
+                        <video id="remoteVideo" autoplay></video>
+                    </div>
+                    <!-- <video id='localVideo' autoplay muted></video>
+                     <video id='remoteVideo' autoplay></video>
+                    -->
+                </div>
             </div>
-
-        </div>
 
         <script src='/socket.io/socket.io.js'></script>
         <script src='js/lib/adapter.js'></script>

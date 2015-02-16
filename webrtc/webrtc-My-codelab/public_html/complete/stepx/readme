@@ -1,0 +1,4 @@
+Step 7: File sharing using RTCDataChannel
+Step 5 showed how to exchange text messages using RTCDataChannel.
+This step makes it possible to share entire files: 
+in this example, photos captured via getUserMedia().

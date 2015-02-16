@@ -19,8 +19,11 @@ var sdpConstraints = {'mandatory': {
 
 /////////////////////////////////////////////
 
-var room = location.pathname.substring(1);
-console.log('room from subsrting=', room);
+//added by Salim: getting room froim URl: /domain/?room_name
+// grab the room from the URL
+var room = location.search && location.search.split('?')[1];//
+//var room = location.pathname.substring(1);
+console.log('room from subsrting=', room);//room is : salim
 if (room === '') {
 //  room = prompt('Enter room name:');
     room = 'foo';
@@ -258,7 +261,8 @@ function stop() {
 // Set Opus as the default audio codec if it's present.
 function preferOpus(sdp) {
     var sdpLines = sdp.split('\r\n');
-    var mLineIndex;
+    //var mLineIndex;
+    var mLineIndex = null;//fixed: https://bitbucket.org/webrtc/codelab/issue/17/step-6-issue
     // Search for m line.
     for (var i = 0; i < sdpLines.length; i++) {
         if (sdpLines[i].search('m=audio') !== -1) {

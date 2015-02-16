@@ -23,7 +23,7 @@ public class NtpMain {
         /*
         //ntp.cais.rnp.br"; no reply
         */
-        String ntpServer = "nist1-ny.ustiming.org";//"rps.yealink.com";//fm.grandstream.com//
+        String ntpServer = "rps.yealink.com";//"rps.yealink.com";//fm.grandstream.com//
 
         ntptest(ntpServer);
     }
