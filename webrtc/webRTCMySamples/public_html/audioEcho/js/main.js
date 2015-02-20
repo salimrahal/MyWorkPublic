@@ -41,6 +41,7 @@ function gotStream(stream) {
     // microphone -> filter -> destination.
     var filter = audioContext.createBiquadFilter();
     audioInput.connect(filter);
+    console.log('gotStream: before connecting to the destination');
     // Connect it to the destination to hear yourself (or any other node for processing!)
     filter.connect(audioContext.destination);
     /**/
