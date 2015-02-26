@@ -23,7 +23,7 @@ var sdpConstraints = {'mandatory': {
 // grab the room from the URL
 var room = location.search && location.search.split('?')[1];//
 //var room = location.pathname.substring(1);
-console.log('room from subsrting=', room);//room is : salim
+console.log(new Date() + 'room from subsrting=', room);//room is : salim
 if (room === '') {
 //  room = prompt('Enter room name:');
     room = 'foo';
@@ -100,7 +100,36 @@ socket.on('message', function (message) {
 var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
 
+/*
+ * 
+ * @param {type} stream: contains audio and video etc
+ * @returns {undefined}
+ */
 function handleUserMedia(stream) {
+    /******Audio section********/
+    var audioContext = new AudioContext();
+    // Create an AudioNode from the stream.
+    var realAudioInput = audioContext.createMediaStreamSource(stream);
+    var audioInput = realAudioInput;
+    /* Using a filter*/
+
+    // microphone -> filter -> destination.
+    var filter = audioContext.createBiquadFilter();
+    //audioInput.connect(filter);
+    console.log('handleUserMedia: before connecting to the destination');
+    // Connect it to the destination to hear yourself (or any other node for processing!)
+    //filter.connect(audioContext.destination);
+
+    // create a destination for the remote browser
+    var remote = audioContext.createMediaStreamDestination();
+
+    // connect the remote destination to the source
+    audioInput.connect(remote);
+// add the stream to the peer connection
+    //pc.addStream(remote.stream);//commented because peer connection is not created here and it will throw an exception as undefined
+    /*****End of audio section*******/
+
+    /**Video section***/
     console.log('Adding local stream.');
     localVideo.src = window.URL.createObjectURL(stream);
     localStream = stream;
@@ -114,7 +143,7 @@ function handleUserMediaError(error) {
     console.log('getUserMedia error: ', error);
 }
 
-var constraints = {video: true};
+var constraints = {video: true, audio: true};
 getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 
 console.log('Getting user media with constraints', constraints);
@@ -140,7 +169,7 @@ window.onbeforeunload = function (e) {
     sendMessage('bye');
 }
 
-/////////////////////////////////////////////////////////
+/////////////////////////////////////e////////////////////
 
 function createPeerConnection() {
     try {
@@ -170,10 +199,33 @@ function handleIceCandidate(event) {
 }
 
 function handleRemoteStreamAdded(event) {
-    console.log('Remote stream added.');
+    console.log('Remote stream added...audio need to be played!');
     remoteVideo.src = window.URL.createObjectURL(event.stream);
     remoteStream = event.stream;
+
+    //todo: s.r: receive the remote audio heattachre?!
+// create a player, we could also get a reference from a existing player in the DOM
+    var player = new Audio();
+    // attach the media stream
+    attachMediaStream(player, event.stream);
+    // start playing
+    player.play();
 }
+/*******Audio section: this methode was copied from Adapter**********/
+// Attach a media stream to an element.
+attachMediaStream = function (element, stream) {
+    if (typeof element.srcObject !== 'undefined') {
+        element.srcObject = stream;
+    } else if (typeof element.mozSrcObject !== 'undefined') {
+        element.mozSrcObject = stream;
+    } else if (typeof element.src !== 'undefined') {
+        element.src = URL.createObjectURL(stream);
+    } else {
+        console.log('Error attaching stream to element.');
+    }
+};
+/*******End audi section************/
+
 
 function handleCreateOfferError(event) {
     console.log('createOffer() error: ', e);

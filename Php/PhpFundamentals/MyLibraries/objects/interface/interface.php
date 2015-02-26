@@ -10,6 +10,7 @@ interface Loggable {
     function aMethod();
 }
 
+
 class Person implements Loggable {
 
     private $name, $address, $idNumber, $age;
@@ -20,6 +21,9 @@ class Person implements Loggable {
 
     function aMethod() {
         
+    }
+    public function __construct($name) {
+        $this->name = $name;
     }
 
 }
@@ -49,7 +53,7 @@ function MyLog($obj) {
     }
 }
 
-$person = new Person();
+$person = new Person('salim');
 // ...
 $product = new Product();
 MyLog($person);

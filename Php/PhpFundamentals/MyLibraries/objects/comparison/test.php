@@ -45,17 +45,17 @@ class Person {
 
 }
 
-$judi = new Person();
-$judi->setName("judi");
-$kookie = new Person();
-$kookie->setName("kookie");
+$sa = new Person();
+$sa->setName("sa");
+$ni = new Person();
+$ni->setName("ni");
 
 #not exact equal
-if($judi === $kookie){print 'exact equal: Yes';}
+if($sa === $ni){print 'exact equal: Yes';}
 else{print 'exact equal: No';}
 
 #Exact Equal: YES
-if($judi === $judi){print 'exact equal: Yes';}
+if($sa === $sa){print 'exact equal: Yes';}
 else{print 'exact equal: No';}
 ?>
 

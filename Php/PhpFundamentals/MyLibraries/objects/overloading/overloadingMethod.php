@@ -46,7 +46,7 @@ All overloading methods must be defined as public.
 
         $obj = new MethodTest;
         $obj->runTest('in object context');
-        $obj->newTest("param</br>");
+        $obj->newTest("param</br>", 'a1','a2');
 
         MethodTest::runTest('in static context');  // As of PHP 5.3.0
         ?>

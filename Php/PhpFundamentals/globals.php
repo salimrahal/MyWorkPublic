@@ -11,6 +11,8 @@ and open the template in the editor.
     <body>
         <?php
          define("HTML_SEPARATOR", "</br>-----------------------------------</br>");
+         define("NAME1", "hahahah");
+         echo NAME1;
         ?>
     </body>
 </html>

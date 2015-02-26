@@ -38,7 +38,7 @@ io.sockets.on('connection', function (socket) {
         //var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
         // console.log("server.js:numClients=" + numClients);
 /******GEt numclient: begin********/
-        console.log("server.js:room=" + room);
+        console.log(new Date()+"- server.js:room=" + room);
         log("server.js:room=" + room);
         var clients = io.sockets.adapter.rooms[room];
         var numClients = 0;

@@ -18,6 +18,7 @@ Some examples of integers include
     <body>
         <?php
         
+        
         $a = 0;
         echo ~$a;//-1
         $b = 0x02;
