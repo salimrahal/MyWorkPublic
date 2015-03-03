@@ -47,4 +47,9 @@ public class Cat extends Animal{
 //		if(str instanceof Number){			
 //		}
 	}
+
+    @Override
+    public int moveAnimalV2() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

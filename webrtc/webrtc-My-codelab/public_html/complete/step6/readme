@@ -1,3 +1,5 @@
 Step6:
 In this step, we build a video chat client, using the signaling server we created in Step 5
  and the RTCPeerConnection code from Step 3.
+
+Feb 2015: adding audio, but the voice is returning back.

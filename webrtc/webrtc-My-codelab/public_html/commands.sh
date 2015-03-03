@@ -14,3 +14,6 @@ forever start server.js
 
 //stop a process or a node js server
 forever stop {PID}
+
+/**************install node static*************/
+sudo npm install node-static 

@@ -8,6 +8,7 @@ package subclassing;
 public abstract class Animal implements AnimalIntf{
 	String s[][] = new String[0][0];
 	
+        @Override
 	public int getAnimalId(){
 		int id = 1000; 
 		return id;
