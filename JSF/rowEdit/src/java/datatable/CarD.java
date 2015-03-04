@@ -5,12 +5,14 @@
  */
 package datatable;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author salim
  */
-public class CarD {
+public class CarD implements Serializable{
 
     private String id;
 
