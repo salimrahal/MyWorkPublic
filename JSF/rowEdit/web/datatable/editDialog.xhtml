@@ -40,41 +40,49 @@ http://www.primefaces.org/showcase/ui/data/datatable/edit.xhtml
                 </p:column>
 
                 <p:column style="width:32px" headerText="Options">
-                    <p:commandButton oncomplete="carDialog.show()"  
-                                     image="ui-icon ui-icon-search">  
+                    <p:commandButton id="cmdButt_exp" 
+                                     value="Ajouter Expérience" 
+                                     icon="ui-icon-extlink" 
+                                     update="@form:cars_dt"
+                                     oncomplete="PF('carDialog').show()"
+                                     process="@form:cars_dt"
+                                     actionListener="#{dtEditView.prepareEdit()}"
+                                     >
                         <f:setPropertyActionListener value="#{car}"  
                                                      target="#{dtEditView.selectedCar}" />  
-                    </p:commandButton>  
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
+            <p:panelGrid id="pg_bt">
+                <p:row>
+                    <p:column>
+                        <p:commandButton id="cmdButt_exp" 
+                                         value="Ajouter Expérience" 
+                                         icon="ui-icon-extlink" 
+                                         update="@form:cars_dt @form:pg_bt"
+                                         oncomplete="PF('carDialog').show()"
+                                         process="@form:cars_dt"
+                                         actionListener="#{dtEditView.prepareEdit()}"
+                                         
+                                         >
+                        </p:commandButton>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" style="border-color: white">
+                        <p:dialog id="carDialog_id" header="Car Detail" widgetVar="carDialog" resizable="false"  
+                                  width="200" showEffect="explode" hideEffect="explode">  
+                            <h:panelGrid id="display" columns="2" cellpadding="4">  
+                                <f:facet name="header">  
+                                </f:facet>  
+                                <p:column headerText="Id"> <p:inputText id="modelInput" value="#{dtEditView.selectedCar.id}"/>
+                                </p:column>
+                            </h:panelGrid>
+                        </p:dialog>   
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
 
-            <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"  
-                      width="200" showEffect="explode" hideEffect="explode">  
-                <h:form id="dlgForm">
-
-
-                    <h:panelGrid id="display" columns="2" cellpadding="4">  
-
-                        <f:facet name="header">  
-                          
-                        </f:facet>  
-
-                        <h:outputText value="ID:" />  
-                        <h:inputText value="#{dtEditView.selectedCar.id}" />  
-
-                        <h:outputText value="Year:" />  
-                        <h:inputText value="#{dtEditView.selectedCar.year}" />  
-
-                        <h:outputText value="Brand:" />  
-                        <h:inputText value="#{dtEditView.selectedCar.brand}" />  
-
-                        <h:outputText value="Color:" />  
-                        <h:inputText value="#{dtEditView.selectedCar.color}" />  
-                    </h:panelGrid>  
-                    <p:commandButton value="save" action="#{dtEditView.save}" update="@form:cars_dt" oncomplete="carDialog.hide()">
-                    </p:commandButton>
-                                     </h:form>
-                        </p:dialog>  
-                </h:form>
-                </h:body>
-                </html>
+        </h:form>
+    </h:body>
+</html>

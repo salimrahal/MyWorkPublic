@@ -9,7 +9,6 @@ package datatable;
  *
  * @author salim
  */
-
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -23,6 +22,7 @@ import org.primefaces.event.RowEditEvent;
 
 @ManagedBean(name = "dtEditView")
 @ViewScoped /* also it works if Sessionscoped */
+
 public class EditView implements Serializable {
 
     private List<CarD> cars1;
@@ -42,9 +42,14 @@ public class EditView implements Serializable {
         tankL = serviceTank.createTanks(10);
     }
 
-    public void save(){
+    public void prepareEdit() {
+        System.out.println("prepareEdit..");
+    }
+
+    public void save() {
         System.out.println("save..");
     }
+
     public List<CarD> getCars1() {
         return cars1;
     }
@@ -117,12 +122,22 @@ public class EditView implements Serializable {
     }
 
     public CarD getSelectedCar() {
+        if(selectedCar != null){
+             System.out.println("get selected car:" + selectedCar.getId());
+        }else{
+             System.out.println(" selected car:null");
+        }
+       
         return selectedCar;
     }
 
     public void setSelectedCar(CarD selectedCar) {
         this.selectedCar = selectedCar;
+         if(selectedCar != null){
+             System.out.println("setSelectedCar:" + selectedCar.getId());
+        }else{
+             System.out.println(" setSelectedCar car:null");
+        }
     }
 
-    
 }
