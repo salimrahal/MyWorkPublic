@@ -33,7 +33,7 @@ public class VectorsJUnit4Test {
 public void equalsCheck() {
     System.out.println("* VectorsJUnit4Test: equalsCheck()");
     assertTrue(Vectors.equal(new int[] {}, new int[] {}));
-    assertTrue(Vectors.equal(new int[] {0}, new int[] {0}));
+    assertTrue(Vectors.equal(new int[] {0}, new int[] {}));
     assertTrue(Vectors.equal(new int[] {0, 0}, new int[] {0, 0}));
     assertTrue(Vectors.equal(new int[] {0, 0, 0}, new int[] {0, 0, 0}));
     assertTrue(Vectors.equal(new int[] {5, 6, 7}, new int[] {5, 6, 7}));
