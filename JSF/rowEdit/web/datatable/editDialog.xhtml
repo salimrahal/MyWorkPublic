@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+http://www.primefaces.org/showcase/ui/data/datatable/edit.xhtml
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="cars_dt" var="car" value="#{dtEditView.cars1}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    Row Editing
+                </f:facet>
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{car.id}" />
+                </p:column>
+
+                <p:column headerText="Year">
+                    <h:outputText value="#{car.year}" />
+                </p:column>
+
+                <p:column headerText="Brand">
+                    <h:outputText value="#{car.brand}" />
+                </p:column>
+
+                <p:column headerText="Color">
+                    <h:outputText value="#{car.color}" /><!--  update="dlgForm:display" -->
+                </p:column>
+
+                <p:column style="width:32px" headerText="Options">
+                    <p:commandButton id="cmdButt_exp" 
+                                     value="Ajouter Expérience" 
+                                     icon="ui-icon-extlink" 
+                                     update="@form:cars_dt"
+                                     oncomplete="PF('carDialog').show()"
+                                     process="@form:cars_dt"
+                                     actionListener="#{dtEditView.prepareEdit()}"
+                                     >
+                        <f:setPropertyActionListener value="#{car}"  
+                                                     target="#{dtEditView.selectedCar}" />  
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            <p:panelGrid id="pg_bt">
+                <p:row>
+                    <p:column>
+                        <p:commandButton id="cmdButt_exp" 
+                                         value="Ajouter Expérience" 
+                                         icon="ui-icon-extlink" 
+                                         update="@form:cars_dt @form:pg_bt"
+                                         oncomplete="PF('carDialog').show()"
+                                         process="@form:cars_dt"
+                                         actionListener="#{dtEditView.prepareEdit()}"
+                                         
+                                         >
+                        </p:commandButton>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" style="border-color: white">
+                        <p:dialog id="carDialog_id" header="Car Detail" widgetVar="carDialog" resizable="false"  
+                                  width="200" showEffect="explode" hideEffect="explode">  
+                            <h:panelGrid id="display" columns="2" cellpadding="4">  
+                                <f:facet name="header">  
+                                </f:facet>  
+                                <p:column headerText="Id"> <p:inputText id="modelInput" value="#{dtEditView.selectedCar.id}"/>
+                                </p:column>
+                            </h:panelGrid>
+                        </p:dialog>   
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>
