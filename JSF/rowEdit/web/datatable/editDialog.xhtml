@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+http://www.primefaces.org/showcase/ui/data/datatable/edit.xhtml
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="cars_dt" var="car" value="#{dtEditView.cars1}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    Row Editing
+                </f:facet>
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{car.id}" />
+                </p:column>
+
+                <p:column headerText="Year">
+                    <h:outputText value="#{car.year}" />
+                </p:column>
+
+                <p:column headerText="Brand">
+                    <h:outputText value="#{car.brand}" />
+                </p:column>
+
+                <p:column headerText="Color">
+                    <h:outputText value="#{car.color}" /><!--  update="dlgForm:display" -->
+                </p:column>
+
+                <p:column style="width:32px" headerText="Options">
+                    <p:commandButton oncomplete="carDialog.show()"  
+                                     image="ui-icon ui-icon-search">  
+                        <f:setPropertyActionListener value="#{car}"  
+                                                     target="#{dtEditView.selectedCar}" />  
+                    </p:commandButton>  
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false"  
+                      width="200" showEffect="explode" hideEffect="explode">  
+                <h:form id="dlgForm">
+
+
+                    <h:panelGrid id="display" columns="2" cellpadding="4">  
+
+                        <f:facet name="header">  
+                          
+                        </f:facet>  
+
+                        <h:outputText value="ID:" />  
+                        <h:inputText value="#{dtEditView.selectedCar.id}" />  
+
+                        <h:outputText value="Year:" />  
+                        <h:inputText value="#{dtEditView.selectedCar.year}" />  
+
+                        <h:outputText value="Brand:" />  
+                        <h:inputText value="#{dtEditView.selectedCar.brand}" />  
+
+                        <h:outputText value="Color:" />  
+                        <h:inputText value="#{dtEditView.selectedCar.color}" />  
+                    </h:panelGrid>  
+                    <p:commandButton value="save" action="#{dtEditView.save}" update="@form:cars_dt" oncomplete="carDialog.hide()">
+                    </p:commandButton>
+                                     </h:form>
+                        </p:dialog>  
+                </h:form>
+                </h:body>
+                </html>
