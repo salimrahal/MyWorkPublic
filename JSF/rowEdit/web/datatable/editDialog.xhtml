@@ -16,8 +16,6 @@ and open the template in the editor.
 
     <body>
         <h:form id="form">
-            <p:growl id="msgs" showDetail="true" />
-
             <p:dataTable id="basicDT" var="car" value="#{dtEditView.cars1}">
                 <f:facet name="header">
                     Edit
@@ -64,19 +62,16 @@ and open the template in the editor.
 
                         <f:facet name="footer">
                             <p:commandButton id="buttonValider"
-                                             value="valider" 
+                                             value="Submit" 
                                              actionListener="#{dtEditView.editerAction}"
                                              oncomplete=":@carDialog.hide()"
                                              process="@form:basicDT"
-                                             update=""
                                              >
                             </p:commandButton>
                         </f:facet>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
-
-
         </h:form>
     </body>
 </html>
