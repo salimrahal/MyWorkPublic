@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Row Edit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
 
@@ -53,10 +53,13 @@ and open the template in the editor.
                             value="#{dtEditView.selectedCar.id}"
                             />
                         <h:outputText value="Year" />
-                        <h:outputText value="#{dtEditView.selectedCar.year}" />
+                        <p:inputText value="#{dtEditView.selectedCar.year}" />
 
+                         <h:outputText value="Brand" />
+                         <p:inputText value="#{dtEditView.selectedCar.brand}" />
+                        
                         <h:outputText value="Color:" />
-                        <h:outputText value="#{dtEditView.selectedCar.color}" style="color:#{dtEditView.selectedCar.color}"/>
+                        <p:inputText value="#{dtEditView.selectedCar.color}"/>
 
 
                         <f:facet name="footer">

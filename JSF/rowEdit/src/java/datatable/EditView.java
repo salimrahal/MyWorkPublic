@@ -39,11 +39,11 @@ public class EditView implements Serializable {
     }
 
     public void editerAction() {
-        System.out.println("editerAction:edited:" + selectedCar.getId());
+        //System.out.println("editerAction:edited:" + selectedCar.getId());
     }
 
     public void prepareEdit() {
-        System.out.println("prepareEdit..");
+       // System.out.println("prepareEdit..");
     }
 
     public List<CarD> getCars1() {
@@ -87,9 +87,9 @@ public class EditView implements Serializable {
 
     public CarD getSelectedCar() {
         if (selectedCar != null) {
-            System.out.println("get selected car:" + selectedCar.getId());
+           // System.out.println("get selected car:" + selectedCar.getId());
         } else {
-            System.out.println(" selected car:null");
+           // System.out.println(" selected car:null");
         }
 
         return selectedCar;
@@ -98,9 +98,9 @@ public class EditView implements Serializable {
     public void setSelectedCar(CarD selectedCar) {
         this.selectedCar = selectedCar;
         if (selectedCar != null) {
-            System.out.println("setSelectedCar:" + selectedCar.getId());
+           // System.out.println("setSelectedCar:" + selectedCar.getId());
         } else {
-            System.out.println(" setSelectedCar car:null");
+           // System.out.println(" setSelectedCar car:null");
         }
     }
 
