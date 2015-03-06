@@ -41,7 +41,7 @@ public class NtpMain {
         DatagramPacket incomingPacket = new DatagramPacket(incomingbuf, incomingbuf.length);
         socket.receive(incomingPacket);
         String msgRecv = new String(incomingPacket.getData());
-        System.out.println(msgRecv);
+        System.out.println("Received:"+msgRecv);
         //System.out.println(msg.toString());
     }
 
