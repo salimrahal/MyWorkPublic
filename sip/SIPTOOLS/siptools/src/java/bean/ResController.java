@@ -125,4 +125,21 @@ public class ResController implements Serializable {
         this.dateCurr = dateCurr;
     }
 
+    public String getURL_ALG() {
+        return URL_ALG;
+    }
+
+    public void setURL_ALG(String URL_ALG) {
+        this.URL_ALG = URL_ALG;
+    }
+
+    public String getURL_TRF_GEN() {
+        return URL_TRF_GEN;
+    }
+
+    public void setURL_TRF_GEN(String URL_TRF_GEN) {
+        this.URL_TRF_GEN = URL_TRF_GEN;
+    }
+    
+
 }

@@ -11,7 +11,8 @@
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Nexogy</title>
     </h:head>
-    <h:form>
+    <f:view>
+        <h:form id="form1">
         <div id="top" class="top">
               <a href="../mainmenu.xhtml">index</a>  <br></br>
             <a href="../logout.jsp">logout</a>        
@@ -19,22 +20,23 @@
         </div>
         <div  class="styleContent">
             <div id="top">
-                <h:form target="_blank">
-                    <h:commandButton  action="#{resController.handleAlg(resController.admin)}" value="Run ALG Test Detector"></h:commandButton>
-                    <h:commandButton  action="#{resController.handleTrf(resController.admin)}" value="Run Voip Traffic Generator"></h:commandButton> 
-                </h:form>
+                
+                <a href="#{resController.URL_ALG}#{'?cust=admin'}" target="#">Run ALG Test Detector</a><br></br>
+                <a href="#{resController.URL_TRF_GEN}#{'?cust=admin'}" target="#">Run Voip Traffic Generator</a>
+                
             </div>
             <p:tabView>
                 <p:tab title="ALG Detector test results">
                     <p:dataTable  id="tableAlg" value="#{algBean.resultsAlg}" var="resAlg" filteredValue="#{algBean.filteredresults}"
-                                  rows="10"
+                                  rows="40"
                                   paginator="true"
                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                  rowsPerPageTemplate="5,10,15">
+                                  rowsPerPageTemplate="5,10,15" widgetVar="dt_alg_widgetVar">
                         <f:facet name="header">
                             Alg test results
+                            <p:commandButton onclick="PF('dt_alg_widgetVar').clearFilters()"  value="clear filters"/>
                         </f:facet>
-                        <p:column headerText="Cunstomer" width="100" 
+                        <p:column id="cust_id_alg" headerText="Customer" width="100" 
                                   filterBy="#{resAlg.cnme}"
                                   >
                             <h:outputText value="#{resAlg.cnme}" />
@@ -57,14 +59,15 @@
                 </p:tab>
                 <p:tab title="Traffic Generator test results">
                     <p:dataTable  id="tabletrf" value="#{algBean.resultsTrf}" var="resTrf" filteredValue="#{algBean.filteredresultsTrf}" 
-                                  rows="10"
+                                  rows="40"
                                   paginator="true"
                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                  rowsPerPageTemplate="5,10,15">
+                                  rowsPerPageTemplate="5,10,15" widgetVar="dt_trf_widgetVar">
                         <f:facet name="header">
                             Traffic Generator test results
+                             <p:commandButton onclick="PF('dt_trf_widgetVar').clearFilters()"  value="clear filters"/>
                         </f:facet>
-                        <p:column headerText="Cunstomer" width="100" 
+                        <p:column headerText="Customer" width="100" 
                                   filterBy="#{resTrf.cnme}"
                                   >
                             <h:outputText value="#{resTrf.cnme}" />
@@ -129,5 +132,6 @@
                 </p:tab>
             </p:tabView>
         </div>
-    </h:form>
+            </h:form>
+</f:view>
 </html>

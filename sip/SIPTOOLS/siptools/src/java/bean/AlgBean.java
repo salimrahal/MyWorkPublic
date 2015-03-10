@@ -31,18 +31,22 @@ public class AlgBean implements Serializable {
     private ResService serviceRes;
     List<ResAlgVo> resultsAlg;
     List<ResAlgVo> filteredresults;
-    
-     List<ResTrfVo> resultsTrf;
+
+    List<ResTrfVo> resultsTrf;
     List<ResTrfVo> filteredresultsTrf;
 
     @PostConstruct
     public void init() {
         try {
             resultsAlg = serviceRes.retrieveAlgResults();
-              resultsTrf = serviceRes.retrieveTrfResults();
+            resultsTrf = serviceRes.retrieveTrfResults();
         } catch (Exception ex) {
             Logger.getLogger(ResController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void reloadDataAlg() throws Exception {
+        resultsAlg = serviceRes.retrieveAlgResults();
     }
 
     public ResService getServiceRes() {
@@ -68,8 +72,8 @@ public class AlgBean implements Serializable {
     public void setFilteredresults(List<ResAlgVo> filteredresults) {
         this.filteredresults = filteredresults;
     }
-    
-     public List<ResTrfVo> getResultsTrf() {
+
+    public List<ResTrfVo> getResultsTrf() {
         return resultsTrf;
     }
 
