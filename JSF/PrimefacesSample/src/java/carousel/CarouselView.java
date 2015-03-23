@@ -24,7 +24,7 @@ public class CarouselView implements Serializable {
      
     private CarC selectedCar;
      
-    @ManagedProperty("org.primefaces.showcase.service.CarService@a55b89")
+    @ManagedProperty("#{carServiceC}")
     private CarServiceC service;
      
     @PostConstruct
