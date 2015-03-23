@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <div>
+            <h:form id="form">
+                <p:carousel value="#{carouselView.cars}" headerText="Basic" var="car" itemStyleClass="carItem">
+                    <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{car.id}" />
+
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{car.year}" />
+
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{car.color}" style="color:#{car.color}"/>
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{car.price}" />
+                    </h:panelGrid>
+
+                    <f:facet name="footer">
+                        In total there are <!--{fn:length(carouselView.cars)} commented by Salim since it not working to be fixed--> cars.
+                    </f:facet>
+                </p:carousel>
+
+                <p:carousel value="#{carouselView.cars}" headerText="Advanced" var="car" itemStyleClass="carItem" numVisible="1" easing="easeOutBounce" styleClass="carouselAdvanced">
+                    <p:panelGrid columns="2" style="width:100%" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{car.id}" />
+
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{car.year}" />
+
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{car.color}" style="color:#{car.color}"/>
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{car.price}" />
+
+                        <f:facet name="footer">
+                            <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
+                                <f:setPropertyActionListener value="#{car}" target="#{carouselView.selectedCar}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:carousel> 
+
+                <p:carousel numVisible="1" itemStyle="height:200px;width:600px;" effect="easeInStrong" headerText="Tabs" style="margin-bottom:0">
+                    <p:tab title="Godfather Part I">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+                            <h:outputText
+                                value="The story begins as Don Vito Corleone..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part II">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                            <h:outputText value="Francis Ford Coppola's..." />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Godfather Part III">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather3.jpg" />
+                            <h:outputText value="After a break of more than 15 years..." />
+                        </h:panelGrid>
+                    </p:tab>
+                </p:carousel>
+
+                <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty carouselView.selectedCar}" columnClasses="label,value">
+                            <f:facet name="header">
+                                <p:graphicImage name="demo/images/car/#{carouselView.selectedCar.brand}-big.gif"/> 
+                            </f:facet>
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{carouselView.selectedCar.id}" />
+
+                            <h:outputText value="Year" />
+                            <h:outputText value="#{carouselView.selectedCar.year}" />
+
+                            <h:outputText value="Color:" />
+                            <h:outputText value="#{carouselView.selectedCar.color}" style="color:#{carouselView.selectedCar.color}"/>
+
+                            <h:outputText value="Price" />
+                            <h:outputText value="$#{carouselView.selectedCar.price}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </div>
+    </body>
+</html>

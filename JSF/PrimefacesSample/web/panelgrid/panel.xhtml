@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>
+        <div>
+            <p:panelGrid columnClasses="column1,column2,column3" columns="4" style="width: 100%" >  
+                <p:column>col1</p:column>                        
+                <p:column>col2</p:column>
+                <p:column>col3</p:column> 
+                <p:column>col4</p:column> 
+            </p:panelGrid> 
+
+            <h:form id="form1" enctype="multipart/form-data">  
+                <p:panelGrid columns="4" style="margin-bottom:10px">
+                    <p:column><p:outputLabel styleClass="styleContentBold">Carte d'identité:</p:outputLabel></p:column>
+                    <p:column><p:fileUpload value="sdfasd" mode="simple"
+                                            allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                            update="form1" 
+                                            required="true"
+                                            > 
+                            .jpeg, .png, .gif
+                        </p:fileUpload></p:column>
+                    <p:column>
+                        <p:outputLabel styleClass="styleContentBold" value="val2"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Submit" ajax="false"
+                                               actionListener="ss"/>
+                    </p:column>
+
+                </p:panelGrid> 
+            </h:form>
+            
+             <h:form id="form2" enctype="multipart/form-data">  
+                <h:panelGrid columns="4" style="margin-bottom:10px">
+                    <p:column><p:outputLabel styleClass="styleContentBold">Carte d'identité:</p:outputLabel></p:column>
+                    <p:column><p:fileUpload value="sdfasd" mode="simple"
+                                            allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+                                            update="form1" 
+                                            required="true"
+                                            > 
+                            .jpeg, .png, .gif
+                        </p:fileUpload></p:column>
+                    <p:column>
+                        <p:outputLabel styleClass="styleContentBold" value="val2"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Submit" ajax="false"
+                                               actionListener="ss"/>
+                    </p:column>
+
+                </h:panelGrid> 
+            </h:form>
+
+        </div>
+
+
+    </h:body>
+</html>
