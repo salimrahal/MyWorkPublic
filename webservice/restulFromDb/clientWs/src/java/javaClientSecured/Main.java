@@ -30,7 +30,7 @@ public class Main {
 
     public static void testRest3() {
         JerseyClientSecured client = new JerseyClientSecured();
-        Object response = client.findAll_JSON(String.class);
+        Object response = client.findAll_JSON_Auth(String.class);
         System.out.println("response:" + response);
         // do whatever with response
         client.close();

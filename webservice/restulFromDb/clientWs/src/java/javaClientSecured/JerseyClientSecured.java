@@ -7,7 +7,9 @@ package javaClientSecured;
 
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 
 /**
  * Jersey REST client generated for REST resource:ChefFacadeREST
@@ -23,6 +25,7 @@ import javax.ws.rs.client.WebTarget;
  * @author salim
  */
 public class JerseyClientSecured {
+
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/webServiceFromDbSecured/webresources";
@@ -50,6 +53,17 @@ public class JerseyClientSecured {
     public <T> T findAll_JSON(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    /*
+    Not working Auth
+    */
+    public <T> T findAll_JSON_Auth(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        Form form = new Form();
+        form.param("user", "salim");
+        form.param("password", "salim1");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(Entity.entity(form,javax.ws.rs.core.MediaType.APPLICATION_JSON),responseType);
     }
 
     public void edit_XML(Object requestEntity, String id) throws ClientErrorException {
@@ -95,5 +109,5 @@ public class JerseyClientSecured {
     public void close() {
         client.close();
     }
-    
+
 }

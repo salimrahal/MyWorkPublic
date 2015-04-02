@@ -24,13 +24,14 @@ public class Main {
     public static void main(String[] args) {
 
 //testRest();//ok
-        testRest3();
+        //testRest3();
+        testRes2();
     }
 
     public static void testRes2() {
         try {
 
-            URL url = new URL("http://localhost:8080/RESTfulExample/json/product/get");
+            URL url = new URL("http://localhost:8080/webServiceFromDb/webresources/entities.chef");//("http://localhost:8080/RESTfulExample/json/product/get");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
