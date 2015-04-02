@@ -1,0 +1,3 @@
+user pssd: salim/salim1
+
+salim@salim-desktop:~$ curl -u salim http://localhost:8080/webServiceFromDbSecured/webresources/entities.chef

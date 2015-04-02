@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaclient;
+package javaClientSecured;
 
+import javaclient.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,14 @@ public class Main {
 
 //testRest();//ok
         testRest3();
+    }
+
+    public static void testRest3() {
+        JerseyClientSecured client = new JerseyClientSecured();
+        Object response = client.findAll_JSON(String.class);
+        System.out.println("response:" + response);
+        // do whatever with response
+        client.close();
     }
 
     public static void testRes2() {
@@ -60,14 +69,6 @@ public class Main {
             e.printStackTrace();
 
         }
-    }
-
-    public static void testRest3() {
-        JerseyClient client = new JerseyClient();
-        Object response = client.findAll_JSON(String.class);
-        System.out.println("response:" + response);
-        // do whatever with response
-        client.close();
     }
 
     public static void testRest() {
