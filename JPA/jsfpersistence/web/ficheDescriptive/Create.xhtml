@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFicheDescriptiveTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_idFicheDescriptive}" for="idFicheDescriptive" />
+                    <h:inputText id="idFicheDescriptive" value="#{ficheDescriptiveController.selected.idFicheDescriptive}" title="#{bundle.CreateFicheDescriptiveTitle_idFicheDescriptive}" required="true" requiredMessage="#{bundle.CreateFicheDescriptiveRequiredMessage_idFicheDescriptive}"/>
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_nomCandidat}" for="nomCandidat" />
+                    <h:inputText id="nomCandidat" value="#{ficheDescriptiveController.selected.nomCandidat}" title="#{bundle.CreateFicheDescriptiveTitle_nomCandidat}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_noDossier}" for="noDossier" />
+                    <h:inputText id="noDossier" value="#{ficheDescriptiveController.selected.noDossier}" title="#{bundle.CreateFicheDescriptiveTitle_noDossier}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_idSpec}" for="idSpec" />
+                    <h:inputText id="idSpec" value="#{ficheDescriptiveController.selected.idSpec}" title="#{bundle.CreateFicheDescriptiveTitle_idSpec}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_dateValidationFiche}" for="dateValidationFiche" />
+                    <h:inputText id="dateValidationFiche" value="#{ficheDescriptiveController.selected.dateValidationFiche}" title="#{bundle.CreateFicheDescriptiveTitle_dateValidationFiche}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_thematique}" for="thematique" />
+                    <h:inputText id="thematique" value="#{ficheDescriptiveController.selected.thematique}" title="#{bundle.CreateFicheDescriptiveTitle_thematique}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_titre}" for="titre" />
+                    <h:inputText id="titre" value="#{ficheDescriptiveController.selected.titre}" title="#{bundle.CreateFicheDescriptiveTitle_titre}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_motsCles}" for="motsCles" />
+                    <h:inputText id="motsCles" value="#{ficheDescriptiveController.selected.motsCles}" title="#{bundle.CreateFicheDescriptiveTitle_motsCles}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_cahierDesCharges}" for="cahierDesCharges" />
+                    <h:inputTextarea rows="4" cols="30" id="cahierDesCharges" value="#{ficheDescriptiveController.selected.cahierDesCharges}" title="#{bundle.CreateFicheDescriptiveTitle_cahierDesCharges}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireNomEntreprise}" for="partenaireNomEntreprise" />
+                    <h:inputText id="partenaireNomEntreprise" value="#{ficheDescriptiveController.selected.partenaireNomEntreprise}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireNomEntreprise}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireRepresentant}" for="partenaireRepresentant" />
+                    <h:inputText id="partenaireRepresentant" value="#{ficheDescriptiveController.selected.partenaireRepresentant}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireRepresentant}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireResponsabletechnique}" for="partenaireResponsabletechnique" />
+                    <h:inputText id="partenaireResponsabletechnique" value="#{ficheDescriptiveController.selected.partenaireResponsabletechnique}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireResponsabletechnique}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenairePosteCandidat}" for="partenairePosteCandidat" />
+                    <h:inputText id="partenairePosteCandidat" value="#{ficheDescriptiveController.selected.partenairePosteCandidat}" title="#{bundle.CreateFicheDescriptiveTitle_partenairePosteCandidat}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireAddresse}" for="partenaireAddresse" />
+                    <h:inputText id="partenaireAddresse" value="#{ficheDescriptiveController.selected.partenaireAddresse}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireAddresse}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireTelephone}" for="partenaireTelephone" />
+                    <h:inputText id="partenaireTelephone" value="#{ficheDescriptiveController.selected.partenaireTelephone}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireTelephone}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_partenaireEmail}" for="partenaireEmail" />
+                    <h:inputText id="partenaireEmail" value="#{ficheDescriptiveController.selected.partenaireEmail}" title="#{bundle.CreateFicheDescriptiveTitle_partenaireEmail}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_clientNom}" for="clientNom" />
+                    <h:inputText id="clientNom" value="#{ficheDescriptiveController.selected.clientNom}" title="#{bundle.CreateFicheDescriptiveTitle_clientNom}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_clientRepresentant}" for="clientRepresentant" />
+                    <h:inputText id="clientRepresentant" value="#{ficheDescriptiveController.selected.clientRepresentant}" title="#{bundle.CreateFicheDescriptiveTitle_clientRepresentant}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_lieuRealisation}" for="lieuRealisation" />
+                    <h:inputText id="lieuRealisation" value="#{ficheDescriptiveController.selected.lieuRealisation}" title="#{bundle.CreateFicheDescriptiveTitle_lieuRealisation}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_visaChefDepInsc}" for="visaChefDepInsc" />
+                    <h:inputText id="visaChefDepInsc" value="#{ficheDescriptiveController.selected.visaChefDepInsc}" title="#{bundle.CreateFicheDescriptiveTitle_visaChefDepInsc}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_dateVisaCheDepInsc}" for="dateVisaCheDepInsc" />
+                    <h:inputText id="dateVisaCheDepInsc" value="#{ficheDescriptiveController.selected.dateVisaCheDepInsc}" title="#{bundle.CreateFicheDescriptiveTitle_dateVisaCheDepInsc}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_tuteurResponsablePart}" for="tuteurResponsablePart" />
+                    <h:inputText id="tuteurResponsablePart" value="#{ficheDescriptiveController.selected.tuteurResponsablePart}" title="#{bundle.CreateFicheDescriptiveTitle_tuteurResponsablePart}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_tuteurAssociePart}" for="tuteurAssociePart" />
+                    <h:inputText id="tuteurAssociePart" value="#{ficheDescriptiveController.selected.tuteurAssociePart}" title="#{bundle.CreateFicheDescriptiveTitle_tuteurAssociePart}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_noEtud}" for="noEtud" />
+                    <h:inputText id="noEtud" value="#{ficheDescriptiveController.selected.noEtud}" title="#{bundle.CreateFicheDescriptiveTitle_noEtud}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_numProfResponsable}" for="numProfResponsable" />
+                    <h:inputText id="numProfResponsable" value="#{ficheDescriptiveController.selected.numProfResponsable}" title="#{bundle.CreateFicheDescriptiveTitle_numProfResponsable}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_numProfAssocie}" for="numProfAssocie" />
+                    <h:inputText id="numProfAssocie" value="#{ficheDescriptiveController.selected.numProfAssocie}" title="#{bundle.CreateFicheDescriptiveTitle_numProfAssocie}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_supprime}" for="supprime" />
+                    <h:inputText id="supprime" value="#{ficheDescriptiveController.selected.supprime}" title="#{bundle.CreateFicheDescriptiveTitle_supprime}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                    <h:inputText id="anneeUniversitaire" value="#{ficheDescriptiveController.selected.anneeUniversitaire}" title="#{bundle.CreateFicheDescriptiveTitle_anneeUniversitaire}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveLabel_typeProjet}" for="typeProjet" />
+                    <h:inputText id="typeProjet" value="#{ficheDescriptiveController.selected.typeProjet}" title="#{bundle.CreateFicheDescriptiveTitle_typeProjet}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ficheDescriptiveController.create}" value="#{bundle.CreateFicheDescriptiveSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{ficheDescriptiveController.prepareList}" value="#{bundle.CreateFicheDescriptiveShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFicheDescriptiveIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

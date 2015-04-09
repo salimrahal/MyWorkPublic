@@ -297,12 +297,8 @@
 /sip/SIPTOOLS/light/AlgPluginEchoLight/dist/
 /javascriptExamples/JavascriptExamples/build/
 /javascriptExamples/javascriptSamples/nbproject/private/
-<<<<<<< HEAD
-/webrtc/webrtc-codelab/nbproject/private/
-=======
 /webrtc/webrtc-codelab/nbproject/private/
 /webrtc/webrtc-My-codelab/nbproject/private/
->>>>>>> abd4cba015a6191337b080bd40e372494f2e7360
 /webrtc/nodejsExpress/nbproject/private/
 /webrtc/webRTCMySamples/nbproject/private/
 /Php/isaeNetAddr/nbproject/private/
@@ -310,3 +306,13 @@
 /JSF/rowEdit/build/
 /JSF/rowEdit/dist/
 /java-applications/ntp/ntpTest/nbproject/private/
+/JPA/jpajsf/nbproject/private/
+/JPA/jsfPersistance/nbproject/private/
+/JPA/jsfPersistance/build/
+/JPA/jsfPersistance/dist/
+/JPA/jsfpersistence/nbproject/private/
+/JPA/jsfpersistence/build/
+/GitHubAPI/test/nbproject/private/
+/GitHubAPI/test/build/
+/GitHubAPI/test/dist/
+/GitHubAPI/gitHubScraper/nbproject/private/

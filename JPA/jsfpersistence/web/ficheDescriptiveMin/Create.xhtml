@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFicheDescriptiveMinTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveMinLabel_idFicheDescriptive}" for="idFicheDescriptive" />
+                    <h:inputText id="idFicheDescriptive" value="#{ficheDescriptiveMinController.selected.idFicheDescriptive}" title="#{bundle.CreateFicheDescriptiveMinTitle_idFicheDescriptive}" required="true" requiredMessage="#{bundle.CreateFicheDescriptiveMinRequiredMessage_idFicheDescriptive}"/>
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveMinLabel_idSpec}" for="idSpec" />
+                    <h:inputText id="idSpec" value="#{ficheDescriptiveMinController.selected.idSpec}" title="#{bundle.CreateFicheDescriptiveMinTitle_idSpec}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveMinLabel_noEtud}" for="noEtud" />
+                    <h:inputText id="noEtud" value="#{ficheDescriptiveMinController.selected.noEtud}" title="#{bundle.CreateFicheDescriptiveMinTitle_noEtud}" />
+                    <h:outputLabel value="#{bundle.CreateFicheDescriptiveMinLabel_typeProjet}" for="typeProjet" />
+                    <h:inputText id="typeProjet" value="#{ficheDescriptiveMinController.selected.typeProjet}" title="#{bundle.CreateFicheDescriptiveMinTitle_typeProjet}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ficheDescriptiveMinController.create}" value="#{bundle.CreateFicheDescriptiveMinSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{ficheDescriptiveMinController.prepareList}" value="#{bundle.CreateFicheDescriptiveMinShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFicheDescriptiveMinIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

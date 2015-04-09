@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListFicheDescriptiveTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListFicheDescriptiveEmpty}" rendered="#{ficheDescriptiveController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{ficheDescriptiveController.items.rowCount > 0}">
+                    <h:outputText value="#{ficheDescriptiveController.pagination.pageFirstItem + 1}..#{ficheDescriptiveController.pagination.pageLastItem + 1}/#{ficheDescriptiveController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{ficheDescriptiveController.previous}" value="#{bundle.Previous} #{ficheDescriptiveController.pagination.pageSize}" rendered="#{ficheDescriptiveController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{ficheDescriptiveController.next}" value="#{bundle.Next} #{ficheDescriptiveController.pagination.pageSize}" rendered="#{ficheDescriptiveController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{ficheDescriptiveController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_idFicheDescriptive}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFicheDescriptive}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_nomCandidat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomCandidat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_noDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_idSpec}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSpec}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_dateValidationFiche}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateValidationFiche}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_thematique}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.thematique}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_titre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.titre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_motsCles}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motsCles}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_cahierDesCharges}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cahierDesCharges}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireNomEntreprise}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireNomEntreprise}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireRepresentant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireRepresentant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireResponsabletechnique}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireResponsabletechnique}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenairePosteCandidat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenairePosteCandidat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireAddresse}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireAddresse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireTelephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireTelephone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_partenaireEmail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.partenaireEmail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_clientNom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clientNom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_clientRepresentant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clientRepresentant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_lieuRealisation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lieuRealisation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_visaChefDepInsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.visaChefDepInsc}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_dateVisaCheDepInsc}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateVisaCheDepInsc}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_tuteurResponsablePart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tuteurResponsablePart}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_tuteurAssociePart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tuteurAssociePart}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_noEtud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.noEtud}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_numProfResponsable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numProfResponsable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_numProfAssocie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numProfAssocie}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_supprime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.supprime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_anneeUniversitaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anneeUniversitaire}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListFicheDescriptiveTitle_typeProjet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.typeProjet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{ficheDescriptiveController.prepareView}" value="#{bundle.ListFicheDescriptiveViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{ficheDescriptiveController.prepareEdit}" value="#{bundle.ListFicheDescriptiveEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{ficheDescriptiveController.destroy}" value="#{bundle.ListFicheDescriptiveDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{ficheDescriptiveController.prepareCreate}" value="#{bundle.ListFicheDescriptiveCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListFicheDescriptiveIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
