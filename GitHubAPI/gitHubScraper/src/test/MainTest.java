@@ -14,7 +14,7 @@ import org.eclipse.egit.github.core.service.RepositoryService;
  * @author salim
  * https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core
  */
-public class Test {
+public class MainTest {
 
     /**
      * @param args the command line arguments

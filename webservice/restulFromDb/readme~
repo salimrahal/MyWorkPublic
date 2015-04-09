@@ -1,0 +1,9 @@
+Restful example:
+contains two project the secured service and the client:
+
+webServiceFromDb
+clientWs
+
+user/pssd: salim/salim1
+http://localhost:8080/webServiceFromDb/webresources/entities.chef/1/10
+
