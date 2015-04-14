@@ -5,14 +5,17 @@
  */
 package test;
 
+import bo.Methods;
 import java.io.IOException;
 import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.RepositoryService;
 
 /**
  *
  * @author salim
  * https://github.com/eclipse/egit-github/tree/master/org.eclipse.egit.github.core
+ * a57b64a26b489d81eeb288de2713ced84aeb89cc
  */
 public class MainTest {
 
@@ -20,14 +23,16 @@ public class MainTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        RepositoryService service = new RepositoryService();
-//        for (Repository repo : service.getRepositories("defunkt")) {
-//            System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
-//        }
-        
-        for (Repository repo : service.getRepositories("salimrahal")) {
-            System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
-        }
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token("a57b64a26b489d81eeb288de2713ced84aeb89cc");
+//getting the repos of a given username        
+//Methods.getRepoandWatchersFromUser(client, "salimrahal");
+
+        //getting tht user Object by calling github api
+        Methods.getUserObjectbyUserName(client, "salimrahal");
+        System.out.println("client.getRemainingRequests=" + client.getRemainingRequests());
+        // Methods.getHeadersbyUserName(client, "salimrahal");
+        //Methods.getUsers(client);
     }
 
 }

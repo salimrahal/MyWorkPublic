@@ -101,48 +101,6 @@ public class UtilMethods
       }
       return dateStr;
    }
-
-   // public static String getDateTimeAs12H(String dateStr)
-   // {
-   // String formattedDate = null;
-   // String inputDateFormat = null;
-   // String outputDateFormat = null;
-   //
-   // if(dateStr != null && !dateStr.equals(""))
-   // {
-   // try
-   // {
-   // inputDateFormat = "MM/dd/yyyy HH:mm:ss z";
-   // outputDateFormat = "MM/dd/yyyy hh:mm:ss a z";
-   // formattedDate = dateParser(dateStr, inputDateFormat, outputDateFormat);
-   // }
-   // catch(ParseException e)
-   // { log.error("Input date [" + dateStr +
-   // "] does not match expected format [" + inputDateFormat + "]");
-   // // in case of error return the input date as it is
-   // try
-   // {
-   // inputDateFormat = "MM/dd/yyyy HH:mm:ss";
-   // outputDateFormat = "MM/dd/yyyy hh:mm:ss a";
-   // formattedDate = dateParser(dateStr, inputDateFormat, outputDateFormat);
-   // }
-   // catch(ParseException exc)
-   // {
-   // log.error("Input date [" + dateStr + "] does not match expected format ["
-   // + inputDateFormat + "]");
-   // // in case of error return the input date as it is
-   // formattedDate = dateStr;
-   // }
-   // }
-   // }
-   // else
-   // {
-   // if(log.isWarnEnabled())
-   // log.warn("found a null-date while converting from a date 24H format to 12H format");
-   // }
-   // return formattedDate;
-   // }
-   //
    /**
     * 
     * @param dateStr
