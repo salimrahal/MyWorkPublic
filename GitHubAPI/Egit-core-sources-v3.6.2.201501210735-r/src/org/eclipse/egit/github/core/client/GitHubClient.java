@@ -553,6 +553,7 @@ public class GitHubClient {
     protected Object getBody(GitHubRequest request, InputStream stream)
             throws IOException {
         Type type = request.getType();
+        System.out.println("GitHubClient.type param:"+type);//sr
         if (type != null) {
             return parseJson(stream, type, request.getArrayType());
         } else {

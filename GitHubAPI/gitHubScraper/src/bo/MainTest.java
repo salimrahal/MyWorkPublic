@@ -25,16 +25,16 @@ public class MainTest {
      */
     public static void main(String[] args) throws IOException {
         GitHubClient client = new GitHubClient();
-        client.setOAuth2Token("");
+        client.setOAuth2Token("a5010811be8c4e12aa46a0ef12a7e5c095053fad");
 //getting the repos of a given username        
 //Methods.getRepoandWatchersFromUser(client, "salimrahal");
 
         //getting tht user Object by calling github api
-        //UserBo.getUserObjectbyUserName(client, "salimrahal");
+        //UserBo.getUserbyUserName(client, "elia");
         System.out.println("client.getRemainingRequests=" + client.getRemainingRequests());
-        //UserBo.getUsefulUsers(client);//parse exception
-
-        UserBo.getFollowersbyUserName(client, "defunkt");
+        UserBo.getUsefulUsers(client);//
+        //UserBo.getAllUsers(client, 1);
+        //UserBo.getFollowersbyUserName(client, "defunkt");
         System.out.println("client.getRemainingRequests=" + client.getRemainingRequests());
         // Methods.getHeadersbyUserName(client, "salimrahal");
         //Methods.getUsers(client);

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors: Kevin Sawicki (GitHub Inc.) - initial API and implementation
- ****************************************************************************
+ * ***************************************************************************
  */
 package org.eclipse.egit.github.core.service;
 
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.egit.github.core.Key;
+import org.eclipse.egit.github.core.SearchUser;
 import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.client.GitHubRequest;
@@ -144,31 +145,38 @@ public class UserService extends GitHubService {
     }
 
     /**
-     * *******Useful users section: begin******************SR***********
+     * *******Useful users section, Search API: begin******************SR***********
      */
     
+     public SearchUser getSearchUser() throws IOException {
+        GitHubRequest request = createRequest();
+        request.setUri("/search/users?q=repos:%3E2+followers:%3E10000");
+        request.setType(SearchUser.class);
+        return (SearchUser) client.get(request).getBody();
+    }
     /*
-    THE FUNCTION that should be invoked from main
-    */
-     public List<User> getUsefulUsers() throws IOException {
+     THE FUNCTION that should be invoked from main
+     */
+    public List<SearchUser> getUsefulUsers() throws IOException {
         return getAll(pageUsefulUsers());
     }
-     
-       /**
+
+    /**
      * Page UsefulUser
      *
      * @return page iterator
      */
-    public PageIterator<User> pageUsefulUsers() {
+    public PageIterator<SearchUser> pageUsefulUsers() {
         return pageUsefulUsers(PAGE_SIZE);
     }
-     /**
+
+    /**
      * Page followers of the currently authenticated user
      *
      * @param size
      * @return page iterator
      */
-    public PageIterator<User> pageUsefulUsers(final int size) {
+    public PageIterator<SearchUser> pageUsefulUsers(final int size) {
         return pageUsefulUsers(PAGE_FIRST, size);
     }
 
@@ -179,24 +187,23 @@ public class UserService extends GitHubService {
      * @param size
      * @return page iterator
      */
-    public PageIterator<User> pageUsefulUsers(final int start, final int size) {
-        PagedRequest<User> request = createUsefulUsersRequest(start, size);
+    public PageIterator<SearchUser> pageUsefulUsers(final int start, final int size) {
+        PagedRequest<SearchUser> request = createUsefulUsersRequest(start, size);
         return createPageIterator(request);
     }
-    
+
     /* SR: 
      */
-    protected PagedRequest<User> createUsefulUsersRequest(int start, int size) {
-        PagedRequest<User> request = createPagedRequest(start, size);
-
-        request.setUri("/search/users?q=repos:%3E2+followers:%3E20");
+    protected PagedRequest<SearchUser> createUsefulUsersRequest(int start, int size) {
+        PagedRequest<SearchUser> request = createPagedRequest(start, size);   
+        request.setUri("/search/users?q=repos:%3E2+followers:%3E10000");//Parse exception converting JSON to object
         /*
          StringBuilder uri = new StringBuilder(SEGMENT_USERS);
          uri.append('/').append(user);
          uri.append(SEGMENT_FOLLOWERS);
          request.setUri(uri);
          */
-        request.setType(new TypeToken<List<User>>() {
+        request.setType(new TypeToken<SearchUser>() {
         }.getType());
         return request;
     }
@@ -204,6 +211,62 @@ public class UserService extends GitHubService {
     /**
      * *******Useful users section: End******************SR***********
      */
+    
+    /**
+     * ******* All users section: begin******************SR***********
+     */
+    /*
+     THE FUNCTION that should be invoked from main
+     */
+    public List<User> getAllUsers(int pageLimit) throws IOException {
+        return getAll(pageAllUsers(), pageLimit);
+    }
+
+    /**
+     * Page UsefulUser
+     *
+     * @return page iterator
+     */
+    public PageIterator<User> pageAllUsers() {
+        return pageAllUsers(PAGE_SIZE);
+    }
+
+    /**
+     * Page followers of the currently authenticated user
+     *
+     * @param size
+     * @return page iterator
+     */
+    public PageIterator<User> pageAllUsers(final int size) {
+        return pageAllUsers(PAGE_FIRST, size);
+    }
+
+    /**
+     * Page followers of the currently authenticated user
+     *
+     * @param start
+     * @param size
+     * @return page iterator
+     */
+    public PageIterator<User> pageAllUsers(final int start, final int size) {
+        PagedRequest<User> request = createAllUsersRequest(start, size);
+        return createPageIterator(request);
+    }
+
+    /* SR: 
+     */
+    protected PagedRequest<User> createAllUsersRequest(int start, int size) {
+        PagedRequest<User> request = createPagedRequest(start, size);
+        request.setUri(SEGMENT_USERS);
+        request.setType(new TypeToken<List<User>>() {
+        }.getType());
+        return request;
+    }
+
+    /**
+     * *******All users section: End******************SR***********
+     */
+   
     /**
      * Create following request
      *
