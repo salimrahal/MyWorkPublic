@@ -309,6 +309,7 @@ public class RepositoryService extends GitHubService {
 		uri.append('/').append(user);
 		uri.append(SEGMENT_REPOS);
 		PagedRequest<Repository> request = createPagedRequest(start, size);
+                System.out.println("RepositoryService.pageRepositories():uri:"+uri);//out: uri:/users/salimrahal/repos
 		request.setUri(uri);
 		request.setType(new TypeToken<List<Repository>>() {
 		}.getType());
