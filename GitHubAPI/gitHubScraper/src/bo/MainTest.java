@@ -31,7 +31,7 @@ public class MainTest {
 
         //getting tht user Object by calling github api
         //UserBo.getUserbyUserName(client, "elia");
-        UserBo.getUsefulUsers(client,2,1000);//
+        UserBo.getUsefulUsers(client,2,1000);//returns only 255 users, decrease the follower numbers
         //UserBo.getAllUsers(client, 1);
         //UserBo.getFollowersbyUserName(client, "defunkt");
         System.out.println("client.getRemainingRequests=" + client.getRemainingRequests());
