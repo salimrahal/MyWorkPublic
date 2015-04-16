@@ -145,20 +145,18 @@ public class UserService extends GitHubService {
     }
 
     /**
-     * *******Useful users section, Search API: begin******************SR***********
+     * *******Useful users section, Search API:
+     * begin******************SR***********
      */
-    
-     public SearchUser getSearchUser() throws IOException {
+    public SearchUser getSearchUser() throws IOException {
         GitHubRequest request = createRequest();
         request.setUri("/search/users?q=repos:%3E2+followers:%3E10000");
         request.setType(SearchUser.class);
         return (SearchUser) client.get(request).getBody();
     }
-    /*
-     THE FUNCTION that should be invoked from main
-     */
-    public List<SearchUser> getUsefulUsers() throws IOException {
-        return getAll(pageUsefulUsers());
+
+    public List<SearchUser> getUsefulUsers(int minRepos, int minFollowers) throws IOException {
+        return getAll(pageUsefulUsers(minRepos, minFollowers));
     }
 
     /**
@@ -166,8 +164,8 @@ public class UserService extends GitHubService {
      *
      * @return page iterator
      */
-    public PageIterator<SearchUser> pageUsefulUsers() {
-        return pageUsefulUsers(PAGE_SIZE);
+    public PageIterator<SearchUser> pageUsefulUsers(int minRepos, int minFollowers) {
+        return pageUsefulUsers(PAGE_SIZE, minRepos, minFollowers);
     }
 
     /**
@@ -176,8 +174,8 @@ public class UserService extends GitHubService {
      * @param size
      * @return page iterator
      */
-    public PageIterator<SearchUser> pageUsefulUsers(final int size) {
-        return pageUsefulUsers(PAGE_FIRST, size);
+    public PageIterator<SearchUser> pageUsefulUsers(final int size, int minRepos, int minFollowers) {
+        return pageUsefulUsers(PAGE_FIRST, size, minRepos, minFollowers);
     }
 
     /**
@@ -187,16 +185,20 @@ public class UserService extends GitHubService {
      * @param size
      * @return page iterator
      */
-    public PageIterator<SearchUser> pageUsefulUsers(final int start, final int size) {
-        PagedRequest<SearchUser> request = createUsefulUsersRequest(start, size);
+    public PageIterator<SearchUser> pageUsefulUsers(final int start, final int size, int minRepos, int minFollowers) {
+        PagedRequest<SearchUser> request = createUsefulUsersRequest(start, size, minRepos, minFollowers);
         return createPageIterator(request);
     }
 
     /* SR: 
+     %3E means: equal or greater then
      */
-    protected PagedRequest<SearchUser> createUsefulUsersRequest(int start, int size) {
-        PagedRequest<SearchUser> request = createPagedRequest(start, size);   
-        request.setUri("/search/users?q=repos:%3E2+followers:%3E10000");//Parse exception converting JSON to object
+    protected PagedRequest<SearchUser> createUsefulUsersRequest(int start, int size, int minRepos, int minFollowers) {
+        PagedRequest<SearchUser> request = createPagedRequest(start, size);
+        StringBuilder uri = new StringBuilder("/search/users");
+        uri.append("?q=repos:%3E").append(minRepos).append("+followers:%3E").append(minFollowers);
+        //request.setUri("/search/users?q=repos:%3E2+followers:%3E1000");//Parse exception converting JSON to object
+        request.setUri(uri.toString());
         /*
          StringBuilder uri = new StringBuilder(SEGMENT_USERS);
          uri.append('/').append(user);
@@ -211,7 +213,6 @@ public class UserService extends GitHubService {
     /**
      * *******Useful users section: End******************SR***********
      */
-    
     /**
      * ******* All users section: begin******************SR***********
      */
@@ -266,7 +267,6 @@ public class UserService extends GitHubService {
     /**
      * *******All users section: End******************SR***********
      */
-   
     /**
      * Create following request
      *

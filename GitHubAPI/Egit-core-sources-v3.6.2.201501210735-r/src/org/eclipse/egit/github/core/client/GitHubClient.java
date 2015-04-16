@@ -553,8 +553,9 @@ public class GitHubClient {
     protected Object getBody(GitHubRequest request, InputStream stream)
             throws IOException {
         Type type = request.getType();
-        System.out.println("GitHubClient.type param:"+type);//sr
+        System.out.println("GitHubClient.getBody:request type:"+type);//sr
         if (type != null) {
+              System.out.println("GitHubClient.getBody:request ArrayType:"+request.getArrayType());//sr
             return parseJson(stream, type, request.getArrayType());
         } else {
             return null;
