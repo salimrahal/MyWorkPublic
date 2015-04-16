@@ -24,14 +24,15 @@ public class MainTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        String tk1 = "a6bc42abc2af6d329587f485b3dbb55ec7a87832";
         GitHubClient client = new GitHubClient();
-        client.setOAuth2Token("2b1066522c320d190c6fd9912b43ee2debca825d");
+        client.setOAuth2Token(tk1);
 //getting the repos of a given username        
 //Methods.getRepoandWatchersFromUser(client, "salimrahal");
 
         //getting tht user Object by calling github api
         //UserBo.getUserbyUserName(client, "elia");
-        UserBo.getUsefulUsers(client,2,1000);//returns only 255 users, decrease the follower numbers and exit the loop before the remaing is acceeded
+        UserBo.getUsefulUsers(client, 2, 100);//returns only 255 users, decrease the follower numbers and exit the loop before the remaing is acceeded
         //UserBo.getAllUsers(client, 1);
         //UserBo.getFollowersbyUserName(client, "defunkt");
         System.out.println("client.getRemainingRequests=" + client.getRemainingRequests());

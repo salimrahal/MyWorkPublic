@@ -1,5 +1,6 @@
-package pack1;
+package date;
 
+import pack1.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -16,8 +17,8 @@ import java.util.*;
 public class DateUtil {
 
     public static void main(String[] args) {
-        unixTimeToDate(1427587200);//2015-03-29 03:00:00 EEST: Salim including some contributions
-        unixTimeToDate(1428192000);//2015-04-05 03:00:00 EEST latest week of salim NO contributions: zero
+        unixTimeToDate(1397952000);//2015-03-29 03:00:00 EEST: Salim including some contributions
+        unixTimeToDate(1428796800);//2015-04-05 03:00:00 EEST latest week of salim NO contributions: zero
     }
     
     
