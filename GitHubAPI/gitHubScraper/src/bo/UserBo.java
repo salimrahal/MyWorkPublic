@@ -32,7 +32,7 @@ public class UserBo {
     }
 
     /*
-     not working need to implement the search api
+   get useful user by calling the search API
      */
     public static void getUsefulUsers(GitHubClient client, int minRepos, int minFollowers) throws IOException {
         UserService serviceUser = new UserService(client);

@@ -24,7 +24,7 @@ public class MainTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        String tk1 = "a6bc42abc2af6d329587f485b3dbb55ec7a87832";
+        String tk1 = "";
         GitHubClient client = new GitHubClient();
         client.setOAuth2Token(tk1);
 //getting the repos of a given username        
