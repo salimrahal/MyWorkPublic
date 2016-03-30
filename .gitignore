@@ -335,3 +335,6 @@
 /shellscript/runScriptFromJava/nbproject/private/
 /shellscript/runScriptFromJava/build/
 /static-code-analysis/library/library/nbproject/private/
+/shellscript/deploy/nbproject/private/
+/shellscript/deploy/build/
+/shellscript/deploy/dist/
