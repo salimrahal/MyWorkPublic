@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Hello World Project" default="all" basedir=".">
+    <target name="info">
+        <echo>Hello World - Welcome to Apache Ant!</echo>
+    </target>
+   
+    <target name="deploy" depends="package">
+        <echo>run deploy..</echo>
+    </target>
+
+    <target name="package" depends="clean,compile">
+        <echo>run packaging</echo>
+    </target>
+
+    <target name="clean" >
+        <echo>run clean</echo>
+    </target>
+
+    <target name="compile" >
+        <echo>run compile</echo>
+    </target>
+</project>
